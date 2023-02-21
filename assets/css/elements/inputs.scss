@@ -1,0 +1,103 @@
+form {
+    /* SIZE */
+    @apply w-96;
+    /* MARGINS AND PADDING */
+    @apply mx-auto;
+    /* LAYOUT */
+    @apply flex flex-col;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.input-group {
+    /* SIZE */
+    @apply w-full;
+    /* MARGINS AND PADDING */
+    @apply mb-2;
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.checkbox-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex items-center;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .checkbox-input {
+        /* SIZE */
+        @apply w-4 h-4;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex items-center;
+        /* BORDERS */
+        @apply rounded focus:ring-2;
+        /* COLORS */
+        @apply focus:ring-blue-500;
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+    .checkbox-label {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        @apply ml-2;
+        /* LAYOUT */
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        @apply text-sm font-medium;
+        /* ANIMATION AND EFFECTS */
+    }
+}
+
+.toggle-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply inline-flex relative items-center;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply cursor-pointer;
+
+    .toggle {
+        /* SIZE */
+        @apply w-11 h-6;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        @apply peer-focus:outline-none peer-focus:ring-4 rounded-full;
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+        @apply peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all;
+    }
+}
+
+input,
+select,
+textarea {
+    /* SIZE */
+    @apply w-full;
+    /* MARGINS AND PADDING */
+    @apply p-2 mb-3;
+    /* LAYOUT */
+    @apply block;
+    /* BORDERS */
+    @apply border rounded;
+    /* COLORS */
+    @apply bg-white border-theme-text text-theme-text focus:border-theme-text focus:ring-theme-text;
+    /* TEXT */
+    @apply text-sm;
+    /* ANIMATION AND EFFECTS */
+}

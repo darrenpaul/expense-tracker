@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;300;400;500;700;900&display=swap");
+h1,
+h2,
+h3,
+p,
+label {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    @apply text-theme-text;
+    /* ANIMATION AND EFFECTS */
+}
+
+h1 {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    @apply mb-4;
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    @apply text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl;
+    /* ANIMATION AND EFFECTS */
+}
+h2 {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    @apply mb-4;
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    @apply text-3xl font-semibold;
+    /* ANIMATION AND EFFECTS */
+}
+h3 {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    @apply mb-4;
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    @apply font-semibold;
+    /* ANIMATION AND EFFECTS */
+}
+
+label {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    @apply mb-2;
+    /* LAYOUT */
+    @apply block;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    @apply text-sm font-medium;
+    /* ANIMATION AND EFFECTS */
+}

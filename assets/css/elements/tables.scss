@@ -1,0 +1,95 @@
+.table-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply overflow-x-auto relative;
+    /* BORDERS */
+    @apply sm:rounded border;
+    /* COLORS */
+    @apply border-theme-text;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply shadow-md;
+}
+
+table {
+    /* SIZE */
+    @apply w-full;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    @apply text-theme-text;
+    /* TEXT */
+    @apply text-sm text-left;
+    /* ANIMATION AND EFFECTS */
+}
+
+thead {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    @apply border-b;
+    /* COLORS */
+    @apply text-theme-text bg-theme-background border-theme-text;
+    /* TEXT */
+    @apply text-xs uppercase;
+    /* ANIMATION AND EFFECTS */
+}
+
+tbody {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    @apply text-theme-text bg-theme-background;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+th {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    @apply py-3 px-6;
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+tr {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    @apply border-b;
+    /* COLORS */
+    @apply border-theme-text;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    &:last-child {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        @apply border-none;
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}
+
+td {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    @apply py-4 px-6;
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}

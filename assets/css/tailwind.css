@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.theme-light {
+  --background: #F1F2EE;
+  --button-primary: #058ED9;
+  --text: #313131;
+  --text-information: #313131;
+  --navigation: #F1F2EE;
+  --table-head: #b497d5;
+  --table-body: #c6ade2;
+}
+
+.theme-dark {
+  --background: #2D2D34;
+  --button-primary: #058ED9;
+  --text: #f8f8f8;
+  --text-information: #f8f8f8;
+  --navigation: #2D2D34;
+  --table-head: #4a2179;
+  --table-body: #2b9160;
+}

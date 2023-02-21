@@ -1,0 +1,97 @@
+.radio-buttons-container,
+.radio-buttons-container-column {
+    /* SIZE */
+    @apply w-full;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    @apply rounded border;
+    /* COLORS */
+    @apply border-theme-text;
+    /* TEXT */
+    @apply text-sm font-medium;
+    /* ANIMATION AND EFFECTS */
+
+    &:last-child {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        @apply sm:border-r-0;
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}
+
+.radio-buttons-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply grid grid-cols-3 items-center;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.radio-buttons-container-column {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply grid grid-cols-2 items-center;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.radio-button-container {
+    /* SIZE */
+    @apply w-full;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    @apply border-b sm:border-b-0 sm:border-r;
+    /* COLORS */
+    @apply border-theme-text;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .radio-button {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        @apply pl-3;
+        /* LAYOUT */
+        @apply flex items-center;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        input {
+            /* SIZE */
+            @apply w-4 h-4;
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            @apply focus:ring-2;
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+
+        label {
+            /* SIZE */
+            @apply w-full;
+            /* MARGINS AND PADDING */
+            @apply py-3 ml-2;
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            @apply text-sm font-medium;
+            /* ANIMATION AND EFFECTS */
+        }
+    }
+}

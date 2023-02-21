@@ -1,0 +1,169 @@
+.date-picker-container {
+    /* SIZE */
+    @apply w-fit;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.date-picker-button {
+    /* SIZE */
+    @apply min-w-[8rem] w-fit;
+    /* MARGINS AND PADDING */
+    @apply px-4 py-2 my-2;
+    /* LAYOUT */
+    @apply flex items-center gap-2;
+    /* BORDERS */
+    @apply border rounded;
+    /* COLORS */
+    @apply border-theme-text;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply cursor-pointer;
+}
+
+.date-picker-month-button {
+    /* SIZE */
+    @apply w-fit h-full;
+    /* MARGINS AND PADDING */
+    @apply px-4 m-0;
+    /* LAYOUT */
+    /* BORDERS */
+    @apply border-none;
+    /* COLORS */
+    @apply bg-transparent;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply cursor-pointer;
+}
+
+.date-picker-header {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    @apply p-2;
+    /* LAYOUT */
+    @apply flex items-center justify-between;
+    /* BORDERS */
+    @apply border rounded;
+    /* COLORS */
+    @apply border-theme-text;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    h3 {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        @apply m-0 p-0;
+        /* LAYOUT */
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}
+
+.date-picker-calendar-container {
+    /* SIZE */
+    @apply w-fit;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply grid grid-cols-7 grid-rows-6 items-center justify-center gap-0;
+    /* BORDERS */
+    @apply border rounded;
+    /* COLORS */
+    @apply border-theme-text;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .date-picker-calendar-week-days {
+        /* SIZE */
+        @apply w-12 h-12;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex items-center justify-center;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        h3 {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            @apply p-0 m-0;
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+            // text-center border w-12 h-10
+        }
+    }
+
+    .date-picker-calendar-day {
+        /* SIZE */
+        @apply w-12 h-12;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex items-center justify-center;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+        @apply cursor-pointer;
+    }
+
+    .date-picker-calendar-day-blocked {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+        @apply pointer-events-none;
+        p {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            @apply text-gray-200;
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+    }
+
+    .date-picker-calendar-day-next-month {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+        p {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            @apply invisible;
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+    }
+
+    .date-picker-calendar-day-selected {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex items-center justify-center;
+        /* BORDERS */
+        /* COLORS */
+        @apply bg-blue-300;
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}

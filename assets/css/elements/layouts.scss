@@ -1,0 +1,42 @@
+/* SIZE */
+/* MARGINS AND PADDING */
+/* LAYOUT */
+/* BORDERS */
+/* COLORS */
+/* TEXT */
+/* ANIMATION AND EFFECTS */
+section {
+  /* SIZE */
+  @apply min-h-screen max-w-screen-2xl;
+  /* MARGINS AND PADDING */
+  @apply mx-auto px-4;
+  /* LAYOUT */
+  @apply flex flex-col;
+  /* BORDERS */
+  /* COLORS */
+  /* TEXT */
+  /* ANIMATION AND EFFECTS */
+}
+
+.column {
+  /* SIZE */
+  @apply w-full;
+  /* MARGINS AND PADDING */
+  /* LAYOUT */
+  @apply flex gap-4;
+  /* BORDERS */
+  /* COLORS */
+  /* TEXT */
+  /* ANIMATION AND EFFECTS */
+}
+
+.flex-col-container {
+  /* SIZE */
+  /* MARGINS AND PADDING */
+  /* LAYOUT */
+  @apply flex flex-col;
+  /* BORDERS */
+  /* COLORS */
+  /* TEXT */
+  /* ANIMATION AND EFFECTS */
+}

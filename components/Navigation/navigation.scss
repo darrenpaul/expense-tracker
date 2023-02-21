@@ -1,0 +1,109 @@
+header {
+    /* SIZE */
+    @apply w-full;
+    /* MARGINS AND PADDING */
+    @apply p-4;
+    /* LAYOUT */
+    @apply fixed;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .navigation-content {
+        /* SIZE */
+        @apply w-full h-fit;
+        /* MARGINS AND PADDING */
+        @apply p-2;
+        /* LAYOUT */
+        @apply relative grid grid-cols-3 items-center justify-between;
+        /* BORDERS */
+        @apply rounded border border-theme-text;
+        /* COLORS */
+        @apply bg-theme-background;
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+        @apply shadow-md;
+    }
+
+    .navigation-brand-container {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex items-center;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .navigation-brand-text {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        @apply m-0 p-0 pl-2;
+        /* LAYOUT */
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        @apply text-2xl;
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .navigation-links {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex justify-center gap-4;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        .navigation-link {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+
+            /* COLORS */
+            @apply text-theme-text;
+            /* TEXT */
+            @apply text-base;
+            /* ANIMATION AND EFFECTS */
+        }
+        .active {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            @apply border-b border-theme-text;
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+    }
+
+    .navigation-account-container {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex items-center justify-end;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .navigation-account-dropdown-button {
+        /* SIZE */
+        @apply w-fit h-fit;
+        /* MARGINS AND PADDING */
+        @apply m-0 p-2;
+        /* LAYOUT */
+        /* BORDERS */
+        /* COLORS */
+        @apply bg-transparent ring-transparent;
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}

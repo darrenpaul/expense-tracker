@@ -1,0 +1,25 @@
+.dropdown-button-container {
+    /* SIZE */
+    @apply w-fit;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.dropdown-button-content {
+    /* SIZE */
+    @apply w-48;
+    /* MARGINS AND PADDING */
+    @apply px-2 pb-2 m-0;
+    /* LAYOUT */
+    @apply absolute flex flex-col top-0 right-0 translate-y-16 z-50;
+    /* BORDERS */
+    @apply rounded border border-theme-text bg-theme-navigation;
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply shadow-md;
+}

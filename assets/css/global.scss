@@ -1,0 +1,40 @@
+@import "./elements/layouts.scss";
+@import "./elements/inputs.scss";
+@import "./elements/buttons.scss";
+@import "./elements/tables.scss";
+@import "./elements/typography.scss";
+@import "./elements/radio.scss";
+
+* {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    @apply font-barlow;
+    /* ANIMATION AND EFFECTS */
+}
+
+body {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    @apply bg-theme-background;
+    /* TEXT */
+    @apply font-barlow;
+    /* ANIMATION AND EFFECTS */
+}
+
+.layout-section {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex flex-row;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
