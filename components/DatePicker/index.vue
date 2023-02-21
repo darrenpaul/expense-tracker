@@ -121,14 +121,13 @@ const onNextMonthClick = (event: Event) => {
 }
 
 const dayStyle = (day: Date) => {
-  // HI-LIGHT SELECTED DATE
-  if (isSameDay(day, parseDateFormat(selectedDates.value))) {
-    return 'date-picker-calendar-day-selected'
-  }
-
   // HI-LIGHT THE TODAY DATE
   if (isToday(day)) {
     return 'font-bold'
+  }
+  // HI-LIGHT SELECTED DATE
+  if (isSameDay(day, parseDateFormat(selectedDates.value))) {
+    return 'date-picker-calendar-day-selected'
   }
 }
 

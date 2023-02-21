@@ -28,6 +28,12 @@ export const EXPENSE_COPY = {
   amountPlaceholder: '100',
 }
 
+export const CATEGORY_COPY = {
+  addCategory: 'Add Category',
+  category: 'Category',
+  categoryPlaceholder: 'Gift',
+}
+
 export const COMMON_COPY = {
   brand: 'Expense Tracker',
   add: 'Add',
