@@ -15,15 +15,15 @@ export const ACCOUNT_COPY = {
   login: 'Login',
 }
 
-export const EXPENSE_COPY = {
+export const TRANSACTION_COPY = {
   // COMMON
   note: 'Note',
   amount: 'Amount',
   date: 'Date',
-  // EXPENSE LIST
-  expenses: 'Expenses',
-  // EXPENSE FORM
-  addExpense: 'Add Expense',
+  // TRANSACTION LIST
+  transactions: 'Transactions',
+  // TRANSACTION FORM
+  addTransaction: 'Add Transaction',
   notePlaceholder: 'Ice cream',
   amountPlaceholder: '100',
 }

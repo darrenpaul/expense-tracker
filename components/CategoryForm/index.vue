@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { COMMON_COPY, CATEGORY_COPY } from '~~/constants/copy'
 import { useAccount } from '~~/stores/account'
-import { createExpense } from '~~/endpoints/category'
+import { createTransaction } from '~~/endpoints/category'
 import { INewCategory } from '~~/types/category'
 
 const emit = defineEmits(['createdCategory'])
@@ -40,7 +40,7 @@ const onAddCategory = async (event: Event) => {
     displayName: name.value,
   }
 
-  await createExpense(data)
+  await createTransaction(data)
   alert('Added category')
   emit('createdCategory')
 }

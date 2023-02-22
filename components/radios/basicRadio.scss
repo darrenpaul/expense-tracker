@@ -17,7 +17,7 @@
         /* MARGINS AND PADDING */
         /* LAYOUT */
         /* BORDERS */
-        @apply sm:border-r-0;
+        @apply sm:border-r-0 bg-red-400;
         /* COLORS */
         /* TEXT */
         /* ANIMATION AND EFFECTS */
@@ -57,6 +57,17 @@
     @apply border-theme-text;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
+
+    &:last-child {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        @apply sm:border-r-0;
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
 
     .radio-button {
         /* SIZE */

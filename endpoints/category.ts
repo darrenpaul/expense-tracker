@@ -3,14 +3,14 @@ import { INewCategory, ICategory } from '~~/types/category'
 const CATEGORIES_TABLE = 'categories'
 
 // ---------- CREATE
-export const createExpense = async (data: INewCategory) => {
+export const createTransaction = async (data: INewCategory) => {
   const pocketBaseClient = await usePocketBase()
 
   return await pocketBaseClient.collection(CATEGORIES_TABLE).create(data)
 }
 
 // ---------- VIEW
-export const viewExpenses = async () => {
+export const viewTransactions = async () => {
   const pocketBaseClient = usePocketBase()
 
   const records = await pocketBaseClient
