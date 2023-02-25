@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { ACCOUNT_COPY } from '~~/constants/copy'
+import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
 import { HOME_ROUTE } from '~~/constants/routes/home'
 
 import { useAccount } from '~~/stores/account'
@@ -41,7 +42,7 @@ const password = ref('')
 
 onMounted(() => {
   if (account.authenticated === true) {
-    router.replace(HOME_ROUTE.path)
+    router.replace(DASHBOARD_ROUTE.path)
   }
 })
 
@@ -50,7 +51,7 @@ const onLogin = async (event: Event) => {
 
   await account.login(email.value, password.value)
   if (account.authenticated) {
-    router.replace(HOME_ROUTE.path)
+    router.replace(DASHBOARD_ROUTE.path)
   }
 }
 </script>

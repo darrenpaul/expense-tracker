@@ -5,9 +5,9 @@ button,
     @apply px-5 py-2 mb-2;
     /* LAYOUT */
     /* BORDERS */
-    @apply rounded focus:ring-4 focus:ring-blue-300 hover:border border-theme-text;
+    @apply rounded focus:ring-4 focus:ring-blue-300 border;
     /* COLORS */
-    @apply text-white bg-theme-button-primary hover:bg-transparent hover:text-theme-text transition-all;
+    @apply text-white border-theme-button-primary bg-theme-button-primary hover:bg-transparent hover:text-theme-text transition-all hover:border-theme-text;
     /* TEXT */
     @apply text-sm font-medium;
     /* ANIMATION AND EFFECTS */

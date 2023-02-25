@@ -7,7 +7,7 @@ export const useAccount = defineStore({
   id: 'account',
 
   state: () => ({
-    user: {} as IUser | null,
+    user: {} as IUser,
     token: useCookie(ACCESS_TOKEN_COOKIE).value,
   }),
 

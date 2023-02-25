@@ -1,22 +1,34 @@
 <template>
-  <div>
-    <h1>{{ TRANSACTION_COPY.transactions }}</h1>
-    <table>
-      <tr>
-        <th>{{ TRANSACTION_COPY.note }}</th>
-        <th>{{ TRANSACTION_COPY.amount }}</th>
-        <th>{{ TRANSACTION_COPY.date }}</th>
-        <th>{{ COMMON_COPY.actions }}</th>
-      </tr>
+  <table>
+    <tr>
+      <th>{{ TRANSACTION_COPY.transactionType }}</th>
+      <th>{{ TRANSACTION_COPY.name }}</th>
+      <th>{{ TRANSACTION_COPY.category }}</th>
+      <th>{{ TRANSACTION_COPY.amount }}</th>
+      <th>{{ TRANSACTION_COPY.date }}</th>
+      <th>{{ COMMON_COPY.actions }}</th>
+    </tr>
 
-      <tr v-for="{ id, note, amount, date } in transactions" :key="id">
-        <td>{{ note }}</td>
-        <td>{{ amount }}</td>
-        <td>{{ formatDate(new Date(date)) }}</td>
-        <td><button :value="id" @click="onDelete">Delete</button></td>
-      </tr>
-    </table>
-  </div>
+    <tr
+      v-for="{
+        id,
+        type,
+        name,
+        category,
+        amount,
+        currency,
+        date,
+      } in transactions"
+      :key="id"
+    >
+      <td>{{ type }}</td>
+      <td>{{ name }}</td>
+      <td>{{ category.displayName }}</td>
+      <td>{{ amount }}{{ currency }}</td>
+      <td>{{ formatDate(new Date(date)) }}</td>
+      <td><button :value="id" @click="onDelete">Delete</button></td>
+    </tr>
+  </table>
 </template>
 
 <script setup lang="ts">

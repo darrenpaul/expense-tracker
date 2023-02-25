@@ -13,10 +13,12 @@
 
 <script setup lang="ts">
 import { useTheme } from '~~/stores/theme'
+import { useCategories } from '~~/stores/categories'
 import { Theme } from '~~/types/theme'
 import { LOCAL_STORAGE_THEME_KEY } from '~~/constants/settings'
 
 const theme = useTheme()
+const categories = useCategories()
 
 onMounted(() => {
   const isDarkModePreferred = window.matchMedia(
@@ -32,5 +34,7 @@ onMounted(() => {
   } else {
     theme.setTheme(isDarkModePreferred ? 'dark' : 'light')
   }
+
+  categories.fetchCategories()
 })
 </script>

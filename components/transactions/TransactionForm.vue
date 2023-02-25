@@ -1,19 +1,50 @@
 <template>
   <div>
-    <h1>{{ TRANSACTION_COPY.addTransaction }}</h1>
+    <h2>{{ TRANSACTION_COPY.addTransaction }}</h2>
     <form>
-      <ul id="transactionTypeRadio" class="radio-buttons-container-column">
-        <BasicRadio
-          v-for="{ id, displayName } in TRANSACTION_TYPES"
-          :key="id"
-          :element-id="`transactionType-${id}`"
-          :element-name="'transactionType'"
-          :value="displayName"
-          :selected="transactionType"
-          :label-text="displayName"
-          @change="(value:string) => transactionType = value"
-        />
-      </ul>
+      <div class="input-group">
+        <label for="displayName">{{ TRANSACTION_COPY.transactionType }}</label>
+        <ul id="transactionTypeRadio" class="radio-buttons-container-column">
+          <BasicRadio
+            v-for="{ id, displayName } in TRANSACTION_TYPES"
+            :key="id"
+            :element-id="`transactionFormTransactionType-${id}`"
+            :element-name="'transactionFormTransactionType'"
+            :value="displayName"
+            :selected="transactionType"
+            :label-text="displayName"
+            @change="(value:string) => transactionType = value"
+          />
+        </ul>
+      </div>
+
+      <div class="column">
+        <!-- NAME -->
+        <div class="input-group">
+          <label for="displayName">{{ TRANSACTION_COPY.name }}</label>
+          <input
+            v-model="name"
+            :placeholder="TRANSACTION_COPY.namePlaceholder"
+            name="name"
+            type="text"
+          />
+        </div>
+
+        <!-- CATEGORY -->
+        <div class="input-group">
+          <label for="displayName">{{ TRANSACTION_COPY.category }}</label>
+          <select v-model="category">
+            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+            <option
+              v-for="{ id, displayName } in transactionCategories"
+              :key="id"
+              :value="id"
+            >
+              {{ displayName }}
+            </option>
+          </select>
+        </div>
+      </div>
 
       <!-- NOTE -->
       <div class="input-group">
@@ -26,19 +57,34 @@
         />
       </div>
 
-      <!-- AMOUNT -->
-      <div class="input-group">
-        <label for="displayName">{{ TRANSACTION_COPY.amount }}</label>
-        <input
-          v-model="amount"
-          :placeholder="TRANSACTION_COPY.amountPlaceholder"
-          name="amount"
-          type="number"
-        />
+      <!-- AMOUNT & CURRENCY -->
+      <div class="column">
+        <!-- AMOUNT -->
+        <div class="input-group">
+          <label for="displayName">{{ TRANSACTION_COPY.amount }}</label>
+          <input
+            v-model="amount"
+            :placeholder="TRANSACTION_COPY.amountPlaceholder"
+            name="amount"
+            type="number"
+          />
+        </div>
+
+        <!-- CURRENCY -->
+        <div class="input-group">
+          <label for="displayName">{{ TRANSACTION_COPY.currency }}</label>
+          <input
+            v-model="currency"
+            :placeholder="TRANSACTION_COPY.currencyPlaceholder"
+            name="currency"
+            type="text"
+          />
+        </div>
       </div>
 
       <!-- DATE PICKER -->
       <div class="input-group">
+        <label for="displayName">{{ TRANSACTION_COPY.date }}</label>
         <DatePicker id="datePicker" @on-change="onDateSelect" />
       </div>
 
@@ -57,26 +103,31 @@ import { createTransaction } from '~~/endpoints/transaction'
 import { useAccount } from '~~/stores/account'
 import { INewTransaction } from '~~/types/transaction'
 import { TRANSACTION_TYPES } from '~~/constants/transactions'
+import { useCategories } from '~~/stores/categories'
 
 const emit = defineEmits(['change'])
 
 const router = useRouter()
 const account = useAccount()
+const categoryStore = useCategories()
 
 const transactionType = ref(TRANSACTION_TYPES[0].displayName)
+const name = ref('')
 const note = ref('')
-const amount = ref('')
+const category = ref('')
+const amount = ref(0.0)
+const currency = ref('')
 const date = ref(format(new Date(), DATE_FORMAT))
-
-onMounted(() => {
-  if (account.authenticated === true) {
-    router.replace(HOME_ROUTE.path)
-  }
-})
 
 const onDateSelect = (newDate: string) => {
   date.value = newDate
 }
+
+const transactionCategories = computed(() => {
+  return categoryStore.categoryList.filter(
+    (item) => item.transactionType === transactionType.value
+  )
+})
 
 const onAdd = async (event: Event) => {
   event.preventDefault()
@@ -85,9 +136,12 @@ const onAdd = async (event: Event) => {
 
   const data: INewTransaction = {
     userId: account.userId,
-    type: 'Expense',
+    type: transactionType.value,
+    name: name.value,
     note: note.value,
+    categoryId: category.value,
     amount: amount.value,
+    currency: currency.value,
     date: date.value,
   }
 

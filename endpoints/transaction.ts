@@ -1,3 +1,4 @@
+import { ICategory } from '~~/types/category'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
 
 const TABLE = 'transactions'
@@ -5,7 +6,6 @@ const TABLE = 'transactions'
 // ---------- CREATE
 export const createTransaction = async (data: INewTransaction) => {
   const pocketBaseClient = await usePocketBase()
-
   return await pocketBaseClient.collection(TABLE).create(data)
 }
 
@@ -13,17 +13,28 @@ export const createTransaction = async (data: INewTransaction) => {
 export const viewTransactions = async () => {
   const pocketBaseClient = usePocketBase()
 
-  const records = await pocketBaseClient
-    .collection(TABLE)
-    .getFullList(200, { sort: '+date' })
+  const records = await pocketBaseClient.collection(TABLE).getFullList(200, {
+    expand: 'categoryId',
+    sort: '+date',
+  })
 
   return records.map((record) => {
+    const category: ICategory = {
+      id: record.expand.categoryId.id,
+      transactionType: record.expand.categoryId.transactionType,
+      displayName: record.expand.categoryId.displayName,
+      icon: record.expand.categoryId.icon,
+    }
+
     return {
       id: record.id,
       userId: record.userId,
       type: record.type,
+      name: record.name,
       note: record.note,
+      category,
       amount: record.amount,
+      currency: record.currency,
       date: record.date,
     } as ITransaction
   })

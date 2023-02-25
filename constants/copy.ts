@@ -17,15 +17,25 @@ export const ACCOUNT_COPY = {
 
 export const TRANSACTION_COPY = {
   // COMMON
+  name: 'Name',
   note: 'Note',
+  category: 'Category',
   amount: 'Amount',
+  currency: 'Currency',
   date: 'Date',
+  expense: 'Expense',
   // TRANSACTION LIST
+  transactionType: 'Transaction Type',
   transactions: 'Transactions',
   // TRANSACTION FORM
   addTransaction: 'Add Transaction',
-  notePlaceholder: 'Ice cream',
+  namePlaceholder: 'Ice cream',
+  notePlaceholder: 'Ice cream with John at Ice-Co',
   amountPlaceholder: '100',
+  currencyPlaceholder: '$',
+  // TRANSACTION CHARTS
+  expensesVsIncomes: 'Expenses Vs Incomes',
+  expensesForPeriod: 'Expenses for period',
 }
 
 export const CATEGORY_COPY = {
@@ -39,6 +49,7 @@ export const COMMON_COPY = {
   add: 'Add',
   setDate: 'Set Date',
   actions: 'Actions',
+  selectOne: 'Please select one',
 }
 
 export const NAVIGATION_COPY = {

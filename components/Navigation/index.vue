@@ -89,6 +89,7 @@ import SunIcon from '~~/components/icons/SunIcon.vue'
 import MoonIcon from '~~/components/icons/MoonIcon.vue'
 import BrandIcon from '~~/components/icons/BrandIcon.vue'
 import UserIcon from '~~/components/icons/UserIcon.vue'
+import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
 
 const router = useRouter()
 const route = useRoute()
@@ -96,7 +97,7 @@ const account = useAccount()
 const theme = useTheme()
 
 const guestRoutes = computed(() => {
-  return [HOME_ROUTE]
+  return [HOME_ROUTE, DASHBOARD_ROUTE]
 })
 
 const guestDropdownOptions = computed(() => {

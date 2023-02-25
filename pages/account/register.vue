@@ -58,6 +58,7 @@ import { createUserAccount } from '~~/endpoints/users'
 import { ACCOUNT_COPY } from '~~/constants/copy'
 // import { ACCOUNT_ROUTE } from '~~/constants/routes'
 import { useAccount } from '~~/stores/account'
+import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
 
 const router = useRouter()
 const account = useAccount()
@@ -70,7 +71,7 @@ const registerHost = ref(false)
 
 onMounted(() => {
   if (account.authenticated === true) {
-    // router.replace(ACCOUNT_ROUTE.path)
+    router.replace(DASHBOARD_ROUTE.path)
   }
 })
 

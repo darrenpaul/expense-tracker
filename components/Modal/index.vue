@@ -3,15 +3,19 @@
     <div class="modal-content">
       <slot></slot>
     </div>
-    <div class="modal-background" @click="props.onClose"></div>
+    <div class="modal-background" @click="onClose"></div>
   </div>
 </template>
 
 <script setup lang="ts">
+const emit = defineEmits(['close'])
 const props = defineProps({
-  onClose: { type: Function, required: true },
   isOpen: { type: Boolean, default: false },
 })
+
+const onClose = () => {
+  emit('close')
+}
 </script>
 
 <style lang="scss" scoped>
