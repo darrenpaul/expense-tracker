@@ -1,12 +1,12 @@
 import { INewCategory, ICategory } from '~~/types/category'
 
-const CATEGORIES_TABLE = 'categories'
+const TABLE = 'categories'
 
 // ---------- CREATE
 export const createCategory = async (data: INewCategory) => {
   const pocketBaseClient = await usePocketBase()
 
-  return await pocketBaseClient.collection(CATEGORIES_TABLE).create(data)
+  return await pocketBaseClient.collection(TABLE).create(data)
 }
 
 // ---------- VIEW
@@ -14,7 +14,7 @@ export const viewCategories = async () => {
   const pocketBaseClient = usePocketBase()
 
   const records = await pocketBaseClient
-    .collection(CATEGORIES_TABLE)
+    .collection(TABLE)
     .getFullList(200, { sort: '+displayName' })
 
   return records.map((record) => {

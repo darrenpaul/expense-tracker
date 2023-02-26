@@ -39,9 +39,12 @@ export const TRANSACTION_COPY = {
 }
 
 export const CATEGORY_COPY = {
+  categories: 'Categories',
   addCategory: 'Add Category',
   category: 'Category',
   categoryPlaceholder: 'Gift',
+  delete: 'Delete',
+  edit: 'Edit',
 }
 
 export const COMMON_COPY = {
@@ -57,4 +60,12 @@ export const NAVIGATION_COPY = {
   login: 'Login',
   register: 'Register',
   logout: 'Logout',
+}
+
+export const SETTINGS_COPY = {
+  settings: 'Settings',
+  userSettings: 'User Settings',
+  defaultCurrency: 'Default currency',
+  defaultCurrencyPlaceholder: '$',
+  save: 'Save',
 }

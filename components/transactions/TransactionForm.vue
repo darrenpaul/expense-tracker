@@ -21,7 +21,7 @@
       <div class="column">
         <!-- NAME -->
         <div class="input-group">
-          <label for="displayName">{{ TRANSACTION_COPY.name }}</label>
+          <label for="name">{{ TRANSACTION_COPY.name }}</label>
           <input
             v-model="name"
             :placeholder="TRANSACTION_COPY.namePlaceholder"
@@ -97,18 +97,18 @@
 import { format } from 'date-fns'
 import BasicRadio from '../radios/BasicRadio.vue'
 import { COMMON_COPY, TRANSACTION_COPY } from '~~/constants/copy'
-import { HOME_ROUTE } from '~~/constants/routes/home'
 import { DATE_FORMAT } from '~~/helpers/dateTimeHelper'
 import { createTransaction } from '~~/endpoints/transaction'
 import { useAccount } from '~~/stores/account'
 import { INewTransaction } from '~~/types/transaction'
 import { TRANSACTION_TYPES } from '~~/constants/transactions'
 import { useCategories } from '~~/stores/categories'
+import { useUserSettings } from '~~/stores/userSettings'
 
 const emit = defineEmits(['change'])
 
-const router = useRouter()
 const account = useAccount()
+const userSettings = useUserSettings()
 const categoryStore = useCategories()
 
 const transactionType = ref(TRANSACTION_TYPES[0].displayName)
@@ -116,7 +116,7 @@ const name = ref('')
 const note = ref('')
 const category = ref('')
 const amount = ref(0.0)
-const currency = ref('')
+const currency = ref(userSettings.currency)
 const date = ref(format(new Date(), DATE_FORMAT))
 
 const onDateSelect = (newDate: string) => {

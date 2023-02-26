@@ -11,3 +11,10 @@ export const ACCOUNT_REGISTER_ROUTE = {
   path: '/account/register',
   auth: false,
 }
+
+export const ACCOUNT_SETTINGS_ROUTE = {
+  name: 'accountSettings',
+  displayName: 'Settings',
+  path: '/account/settings',
+  auth: true,
+}

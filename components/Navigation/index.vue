@@ -81,6 +81,7 @@ import { HOME_ROUTE } from '~~/constants/routes/home'
 import {
   ACCOUNT_LOGIN_ROUTE,
   ACCOUNT_REGISTER_ROUTE,
+  ACCOUNT_SETTINGS_ROUTE,
 } from '~~/constants/routes/account'
 import { COMMON_COPY, NAVIGATION_COPY } from '~~/constants/copy'
 import { useAccount } from '~~/stores/account'
@@ -97,7 +98,7 @@ const account = useAccount()
 const theme = useTheme()
 
 const guestRoutes = computed(() => {
-  return [HOME_ROUTE, DASHBOARD_ROUTE]
+  return [HOME_ROUTE, DASHBOARD_ROUTE, ACCOUNT_SETTINGS_ROUTE]
 })
 
 const guestDropdownOptions = computed(() => {

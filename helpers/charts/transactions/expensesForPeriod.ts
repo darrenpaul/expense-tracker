@@ -57,7 +57,6 @@ const dayPeriodChart = ({ transactions, date, period }: IParams) => {
   const seriesData = mergeExpensesByCategory(transactions).map(
     ({ amount: value, category }) => ({ name: category?.displayName, value })
   )
-  console.log('dayPeriodChart ~ seriesData:', seriesData)
 
   return {
     chartType: 'pie',

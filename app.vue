@@ -16,9 +16,11 @@ import { useTheme } from '~~/stores/theme'
 import { useCategories } from '~~/stores/categories'
 import { Theme } from '~~/types/theme'
 import { LOCAL_STORAGE_THEME_KEY } from '~~/constants/settings'
+import { useUserSettings } from '~~/stores/userSettings'
 
 const theme = useTheme()
 const categories = useCategories()
+const userSettings = useUserSettings()
 
 onMounted(() => {
   const isDarkModePreferred = window.matchMedia(
@@ -36,5 +38,6 @@ onMounted(() => {
   }
 
   categories.fetchCategories()
+  userSettings.fetchUserSettings()
 })
 </script>
