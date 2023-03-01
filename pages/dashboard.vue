@@ -32,18 +32,20 @@
         {{ TRANSACTION_COPY.addTransaction }}
       </button>
     </div>
+
     <TransactionList
       v-if="transactions"
       :transactions="transactions"
+      @on-edit="onEditTransaction"
       @change="refreshData"
     />
-    <CategoryForm />
 
-    <Modal
-      :is-open="showTransactionModal"
-      @close="showTransactionModal = false"
-    >
-      <TransactionForm @change="onTransactionCreatedUpdated" />
+    <Modal :is-open="showTransactionModal" @close="onCloseTransactionModal">
+      <TransactionForm
+        :transaction="transaction"
+        @close-modal="onCloseTransactionModal"
+        @refresh="onTransactionCreatedUpdated"
+      />
     </Modal>
   </div>
 </template>
@@ -51,7 +53,6 @@
 <script setup lang="ts">
 import TransactionForm from '~~/components/transactions/TransactionForm.vue'
 import TransactionList from '~~/components/transactions/TransactionList.vue'
-import CategoryForm from '~~/components/CategoryForm/index.vue'
 import { viewTransactions } from '~~/endpoints/transaction'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
@@ -66,20 +67,21 @@ definePageMeta({
 
 const showTransactionModal = ref(false)
 const period = ref(PERIODS.day.displayName)
+const transaction = ref({})
 
 const { data: transactions, refresh } = await useAsyncData('transactions', () =>
   viewTransactions()
 )
 
 const expensesVsIncomesOptions = computed(() => {
-  if (transactions.value && transactions.value?.length === 0) {
+  if (transactions.value === null) {
     return {}
   }
   return expensesVsIncomes(transactions.value as Array<ITransaction>)
 })
 
 const expensesForPeriodOptions = computed(() => {
-  if (transactions.value && transactions.value?.length === 0) {
+  if (transactions.value === null) {
     return {}
   }
   return expensesForPeriod({
@@ -88,6 +90,20 @@ const expensesForPeriodOptions = computed(() => {
     period: period.value,
   })
 })
+
+const onCloseTransactionModal = () => {
+  showTransactionModal.value = false
+  transaction.value = {}
+}
+const onEditTransaction = (transactionId: string) => {
+  const matchedTransaction = transactions.value?.find(
+    ({ id }) => id === transactionId
+  )
+  if (matchedTransaction) {
+    transaction.value = matchedTransaction
+    showTransactionModal.value = true
+  }
+}
 
 const onTransactionCreatedUpdated = () => {
   refreshData()

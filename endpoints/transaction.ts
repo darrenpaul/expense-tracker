@@ -15,14 +15,14 @@ export const viewTransactions = async () => {
 
   const records = await pocketBaseClient.collection(TABLE).getFullList(200, {
     expand: 'categoryId',
-    sort: '+date',
+    sort: '-date',
   })
 
   return records.map((record) => {
     const category: ICategory = {
       id: record.expand.categoryId.id,
       transactionType: record.expand.categoryId.transactionType,
-      displayName: record.expand.categoryId.displayName,
+      name: record.expand.categoryId.name,
       icon: record.expand.categoryId.icon,
     }
 
@@ -41,7 +41,12 @@ export const viewTransactions = async () => {
 }
 
 // ---------- UPDATE
+export const updateTransaction = async (transaction: ITransaction) => {
+  const pocketBaseClient = usePocketBase()
+  const { id } = transaction
 
+  return await pocketBaseClient.collection(TABLE).update(id, transaction)
+}
 // ---------- DELETE
 export const deleteTransaction = async (id: string) => {
   const pocketBaseClient = usePocketBase()

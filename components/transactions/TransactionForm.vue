@@ -32,15 +32,16 @@
 
         <!-- CATEGORY -->
         <div class="input-group">
-          <label for="displayName">{{ TRANSACTION_COPY.category }}</label>
+          <label for="category">{{ TRANSACTION_COPY.category }}</label>
           <select v-model="category">
             <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
             <option
-              v-for="{ id, displayName } in transactionCategories"
+              v-for="{ id, name: categoryName } in transactionCategories"
               :key="id"
               :value="id"
+              :selected="categoryName === category"
             >
-              {{ displayName }}
+              {{ categoryName }}
             </option>
           </select>
         </div>
@@ -85,10 +86,15 @@
       <!-- DATE PICKER -->
       <div class="input-group">
         <label for="displayName">{{ TRANSACTION_COPY.date }}</label>
-        <DatePicker id="datePicker" @on-change="onDateSelect" />
+        <DatePicker id="datePicker" :date="date" @on-change="onDateSelect" />
       </div>
 
-      <button @click="onAdd">{{ COMMON_COPY.add }}</button>
+      <div class="column">
+        <button class="button-secondary" @click="onCancel">
+          {{ COMMON_COPY.cancel }}
+        </button>
+        <button @click="onSave">{{ COMMON_COPY.save }}</button>
+      </div>
     </form>
   </div>
 </template>
@@ -98,26 +104,32 @@ import { format } from 'date-fns'
 import BasicRadio from '../radios/BasicRadio.vue'
 import { COMMON_COPY, TRANSACTION_COPY } from '~~/constants/copy'
 import { DATE_FORMAT } from '~~/helpers/dateTimeHelper'
-import { createTransaction } from '~~/endpoints/transaction'
+import { createTransaction, updateTransaction } from '~~/endpoints/transaction'
 import { useAccount } from '~~/stores/account'
-import { INewTransaction } from '~~/types/transaction'
+import { INewTransaction, ITransaction } from '~~/types/transaction'
 import { TRANSACTION_TYPES } from '~~/constants/transactions'
 import { useCategories } from '~~/stores/categories'
 import { useUserSettings } from '~~/stores/userSettings'
 
-const emit = defineEmits(['change'])
+const emit = defineEmits(['refresh', 'closeModal'])
+
+const props = defineProps({
+  transaction: { type: Object, default: () => {} },
+})
 
 const account = useAccount()
 const userSettings = useUserSettings()
 const categoryStore = useCategories()
 
-const transactionType = ref(TRANSACTION_TYPES[0].displayName)
-const name = ref('')
-const note = ref('')
-const category = ref('')
-const amount = ref(0.0)
-const currency = ref(userSettings.currency)
-const date = ref(format(new Date(), DATE_FORMAT))
+const transactionType = ref(
+  props.transaction?.type || TRANSACTION_TYPES[0].displayName
+)
+const name = ref(props.transaction?.name || '')
+const note = ref(props.transaction?.note || '')
+const category = ref((props.transaction?.category?.id as string) || '')
+const amount = ref(props.transaction?.amount || 0.0)
+const currency = ref(props.transaction?.currency || userSettings.currency)
+const date = ref(props.transaction?.date || format(new Date(), DATE_FORMAT))
 
 const onDateSelect = (newDate: string) => {
   date.value = newDate
@@ -129,24 +141,45 @@ const transactionCategories = computed(() => {
   )
 })
 
-const onAdd = async (event: Event) => {
+const onCancel = (event: Event) => {
+  event.preventDefault()
+  emit('closeModal')
+}
+
+const onSave = async (event: Event) => {
   event.preventDefault()
 
   if (!account.userId) return
 
-  const data: INewTransaction = {
-    userId: account.userId,
-    type: transactionType.value,
-    name: name.value,
-    note: note.value,
-    categoryId: category.value,
-    amount: amount.value,
-    currency: currency.value,
-    date: date.value,
+  if (props?.transaction?.id) {
+    const data: ITransaction = {
+      id: props.transaction.id,
+      type: transactionType.value,
+      name: name.value,
+      note: note.value,
+      categoryId: category.value,
+      amount: amount.value,
+      currency: currency.value,
+      date: date.value,
+    }
+    await updateTransaction(data)
+    alert('Updated transaction')
+  } else {
+    const data: INewTransaction = {
+      userId: account.userId,
+      type: transactionType.value,
+      name: name.value,
+      note: note.value,
+      categoryId: category.value,
+      amount: amount.value,
+      currency: currency.value,
+      date: date.value,
+    }
+
+    await createTransaction(data)
+    alert('Added transaction')
   }
 
-  await createTransaction(data)
-  alert('Added transaction')
-  emit('change')
+  emit('refresh')
 }
 </script>

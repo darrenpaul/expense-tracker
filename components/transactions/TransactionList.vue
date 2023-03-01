@@ -23,10 +23,18 @@
     >
       <td>{{ type }}</td>
       <td>{{ name }}</td>
-      <td>{{ category.displayName }}</td>
-      <td>{{ amount }}{{ currency }}</td>
+      <td>{{ category.name }}</td>
+      <td>
+        <b>{{ amount }}</b
+        >{{ currency }}
+      </td>
       <td>{{ formatDate(new Date(date)) }}</td>
-      <td><button :value="id" @click="onDelete">Delete</button></td>
+      <td>
+        <button :value="id" @click="onEdit">{{ COMMON_COPY.edit }}</button>
+      </td>
+      <td>
+        <button :value="id" @click="onDelete">{{ COMMON_COPY.delete }}</button>
+      </td>
     </tr>
   </table>
 </template>
@@ -37,12 +45,17 @@ import { formatDate } from '~~/helpers/dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'
 import { deleteTransaction } from '~~/endpoints/transaction'
 
-const emit = defineEmits(['change'])
+const emit = defineEmits(['change', 'onEdit'])
 
 const props = defineProps({
   transactions: { type: Array<ITransaction>, default: [] },
 })
+const onEdit = (event: Event) => {
+  event.preventDefault()
+  const transactionId = event?.target?.value as string
 
+  emit('onEdit', transactionId)
+}
 const onDelete = async (event: Event) => {
   event.preventDefault()
   const transactionId = event?.target?.value as string

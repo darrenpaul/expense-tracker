@@ -55,7 +55,7 @@ const dayIntervals = ({ date, period }: { date: Date; period: string }) => {
 
 const dayPeriodChart = ({ transactions, date, period }: IParams) => {
   const seriesData = mergeExpensesByCategory(transactions).map(
-    ({ amount: value, category }) => ({ name: category?.displayName, value })
+    ({ amount: value, category }) => ({ name: category?.name, value })
   )
 
   return {
@@ -133,7 +133,7 @@ const weekMonthPeriodChart = ({ transactions, date, period }: IParams) => {
     ],
     series: [
       {
-        name: 'Direct',
+        name: TRANSACTION_TYPE_EXPENSE.displayName,
         type: 'bar',
         barWidth: '60%',
         data: seriesData,

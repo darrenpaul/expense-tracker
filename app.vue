@@ -8,19 +8,25 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+
+    <NotificationToaster :notification="notification.notification" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { useAccount } from './stores/account'
 import { useTheme } from '~~/stores/theme'
+import { useNotification } from '~~/stores/notification'
 import { useCategories } from '~~/stores/categories'
 import { Theme } from '~~/types/theme'
 import { LOCAL_STORAGE_THEME_KEY } from '~~/constants/settings'
 import { useUserSettings } from '~~/stores/userSettings'
 
 const theme = useTheme()
+const account = useAccount()
 const categories = useCategories()
 const userSettings = useUserSettings()
+const notification = useNotification()
 
 onMounted(() => {
   const isDarkModePreferred = window.matchMedia(
@@ -37,7 +43,9 @@ onMounted(() => {
     theme.setTheme(isDarkModePreferred ? 'dark' : 'light')
   }
 
-  categories.fetchCategories()
-  userSettings.fetchUserSettings()
+  if (account.authenticated) {
+    categories.fetchCategories()
+    userSettings.fetchUserSettings()
+  }
 })
 </script>

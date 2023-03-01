@@ -28,13 +28,12 @@ export const useAccount = defineStore({
       this.user = {
         id: record.id,
         username: record.username,
-        name: record.name,
+        firstName: record.firstName,
+        lastName: record.lastName,
         email: record.email,
       }
 
       this.token = token
-
-      alert('logged in')
     },
     async logout() {
       useCookie(ACCESS_TOKEN_COOKIE).value = null
@@ -47,7 +46,8 @@ export const useAccount = defineStore({
       this.user = {
         id: record.id,
         username: record.username,
-        name: record.name,
+        firstName: record.firstName,
+        lastName: record.lastName,
         email: record.email,
       }
       this.token = token

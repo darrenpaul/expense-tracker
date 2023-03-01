@@ -11,7 +11,11 @@
     </div>
 
     <!-- CALENDAR MODAL -->
-    <Modal :on-close="() => (showModal = false)" :is-open="showModal">
+    <Modal
+      :is-open="showModal"
+      :background="false"
+      @close="() => (showModal = false)"
+    >
       <div class="date-picker-header">
         <button class="date-picker-month-button" @click="onPreviousMonthClick">
           <ArrowLeftIcon />
@@ -45,7 +49,13 @@
           </p>
         </div>
       </div>
-      <button @click="onSetDate">{{ COMMON_COPY.setDate }}</button>
+
+      <div class="column">
+        <button class="button-secondary" @click="onCancel">
+          {{ COMMON_COPY.cancel }}
+        </button>
+        <button @click="onSetDate">{{ COMMON_COPY.setDate }}</button>
+      </div>
     </Modal>
   </div>
 </template>
@@ -89,7 +99,7 @@ const props = defineProps({
 
 const today = format(new Date(), DATE_FORMAT)
 
-const selectedDates = ref(props.date)
+const selectedDay = ref(props.date)
 const activeDate = ref(today)
 const showModal = ref(false)
 
@@ -98,8 +108,14 @@ const onModalOpen = (event: Event) => {
   showModal.value = true
 }
 
+const onCancel = (event: Event) => {
+  event.preventDefault()
+  showModal.value = false
+  selectedDay.value = props.date
+}
+
 const onDayClick = (day: Date) => {
-  selectedDates.value = format(day, DATE_FORMAT)
+  selectedDay.value = format(day, DATE_FORMAT)
 }
 
 const onPreviousMonthClick = (event: Event) => {
@@ -121,12 +137,17 @@ const onNextMonthClick = (event: Event) => {
 }
 
 const dayStyle = (day: Date) => {
+  // HI-LIGHT SELECTED DATE
+  if (isToday(day) && isSameDay(day, parseDateFormat(selectedDay.value))) {
+    return 'font-bold date-picker-calendar-day-selected'
+  }
+
   // HI-LIGHT THE TODAY DATE
   if (isToday(day)) {
     return 'font-bold'
   }
   // HI-LIGHT SELECTED DATE
-  if (isSameDay(day, parseDateFormat(selectedDates.value))) {
+  if (isSameDay(day, parseDateFormat(selectedDay.value))) {
     return 'date-picker-calendar-day-selected'
   }
 }
@@ -134,7 +155,7 @@ const dayStyle = (day: Date) => {
 const onSetDate = (event: Event) => {
   event.preventDefault()
   showModal.value = false
-  emit('onChange', selectedDates.value)
+  emit('onChange', selectedDay.value)
 }
 
 const calendarDays = computed(() => {
@@ -155,10 +176,10 @@ const calendarDays = computed(() => {
 })
 
 const displayDate = () => {
-  return formatDate(new Date(selectedDates.value), DATE_FORMAT_SHORT)
+  return formatDate(new Date(selectedDay.value), DATE_FORMAT_SHORT)
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import './datePicker.scss';
 </style>

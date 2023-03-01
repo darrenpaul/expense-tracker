@@ -4,4 +4,8 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  middleware: process.client ? 'auth' : undefined,
+})
+</script>

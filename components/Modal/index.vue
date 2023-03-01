@@ -3,7 +3,7 @@
     <div class="modal-content">
       <slot></slot>
     </div>
-    <div class="modal-background" @click="onClose"></div>
+    <div v-if="background === true" class="modal-background" @click="onClose" />
   </div>
 </template>
 
@@ -11,6 +11,7 @@
 const emit = defineEmits(['close'])
 const props = defineProps({
   isOpen: { type: Boolean, default: false },
+  background: { type: Boolean, default: true },
 })
 
 const onClose = () => {

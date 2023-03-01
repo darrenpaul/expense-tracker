@@ -1,6 +1,6 @@
 import { IUserRegister } from '~~/types/user'
 
-const USERS_TABLE = 'users'
+const TABLE = 'users'
 
 // ---------- CREATE
 export const createUserAccount = async (userData: IUserRegister) => {
@@ -10,7 +10,7 @@ export const createUserAccount = async (userData: IUserRegister) => {
     emailVisibility: true,
   }
 
-  return await pocketBaseClient.collection(USERS_TABLE).create(data)
+  return await pocketBaseClient.collection(TABLE).create(data)
 }
 
 // ---------- VIEW

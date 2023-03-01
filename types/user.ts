@@ -1,6 +1,7 @@
 export interface IUserRegister {
   username: string
-  name: string
+  firstName: string
+  lastName: string
   email: string
   password: string
   passwordConfirm: string
@@ -9,6 +10,7 @@ export interface IUserRegister {
 export interface IUser {
   id: string
   username: string
-  name: string
+  firstName: string
+  lastName: string
   email: string
 }

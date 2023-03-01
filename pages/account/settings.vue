@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1>{{ SETTINGS_COPY.settings }}</h1>
+
     <Categories />
+
     <UserSettings />
   </div>
 </template>

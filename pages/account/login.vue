@@ -29,14 +29,20 @@
 </template>
 
 <script setup lang="ts">
+import isEmail from 'validator/es/lib/isEmail'
 import { ACCOUNT_COPY } from '~~/constants/copy'
 import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
-import { HOME_ROUTE } from '~~/constants/routes/home'
-
 import { useAccount } from '~~/stores/account'
+import { useCategories } from '~~/stores/categories'
+import { useNotification } from '~~/stores/notification'
+import { useUserSettings } from '~~/stores/userSettings'
 
 const router = useRouter()
 const account = useAccount()
+const categories = useCategories()
+const userSettings = useUserSettings()
+const notification = useNotification()
+
 const email = ref('')
 const password = ref('')
 
@@ -49,9 +55,37 @@ onMounted(() => {
 const onLogin = async (event: Event) => {
   event.preventDefault()
 
-  await account.login(email.value, password.value)
-  if (account.authenticated) {
-    router.replace(DASHBOARD_ROUTE.path)
+  if (email.value === '' || !isEmail(email.value)) {
+    notification.addNotification({
+      title: 'Notification Title',
+      message: ACCOUNT_COPY.emailRequired,
+      type: 'error',
+    })
+    return
+  }
+
+  if (password.value === '') {
+    notification.addNotification({
+      title: 'Notification Title',
+      message: ACCOUNT_COPY.passwordRequired,
+      type: 'error',
+    })
+    return
+  }
+
+  try {
+    await account.login(email.value, password.value)
+    if (account.authenticated) {
+      categories.fetchCategories()
+      userSettings.fetchUserSettings()
+      router.replace(DASHBOARD_ROUTE.path)
+    }
+  } catch (error) {
+    notification.addNotification({
+      title: 'Notification Title',
+      message: error.message,
+      type: 'error',
+    })
   }
 }
 </script>
