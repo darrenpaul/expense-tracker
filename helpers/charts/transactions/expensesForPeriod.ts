@@ -2,14 +2,21 @@ import { format, isSameDay, isSameMonth, isSameWeek } from 'date-fns'
 import { ITransaction } from '~~/types/transaction'
 import {
   mergeTransactionsByDate,
-  mergeTransactionsByProperty,
   mergeExpensesByCategory,
   fillPeriodDays,
+  balanceIncomeExpense,
+  spendPerDay,
 } from '~~/helpers/transactions'
-import { PERIODS, daysOfWeek, daysOfMonth } from '~~/helpers/dateFnsWrapper'
-import { DATE_FORMAT } from '~~/helpers/dateTimeHelper'
+import {
+  PERIODS,
+  daysOfWeek,
+  daysOfMonth,
+  inSameWeek,
+} from '~~/helpers/dateFnsWrapper'
+import { DATE_FORMAT, DATE_TIME_FORMAT } from '~~/helpers/dateTimeHelper'
 import { TRANSACTION_COPY } from '~~/constants/copy'
 import { TRANSACTION_TYPE_EXPENSE } from '~~/constants/transactions'
+import { currencyFormat } from '~~/helpers/formatting'
 
 interface IParams {
   transactions: Array<ITransaction>
@@ -28,9 +35,13 @@ const filterTransactionByPeriod = ({
     )
   }
   if (period === PERIODS.week.displayName) {
-    return transactions.filter(({ date: itemDate }) =>
-      isSameWeek(new Date(date), new Date(itemDate))
-    )
+    return transactions.filter(({ date: itemDate }) => {
+      console.log(itemDate, format(date, DATE_TIME_FORMAT))
+      console.log(date)
+      console.log(new Date(itemDate))
+      console.log(inSameWeek(date, new Date(itemDate)))
+      return inSameWeek(date, new Date(itemDate))
+    })
   }
   if (period === PERIODS.month.displayName) {
     return transactions.filter(({ date: itemDate }) =>
@@ -53,7 +64,15 @@ const dayIntervals = ({ date, period }: { date: Date; period: string }) => {
   return []
 }
 
-const dayPeriodChart = ({ transactions, date, period }: IParams) => {
+interface IDayPeriodChart extends IParams {
+  currency: string
+}
+const dayPeriodChart = ({
+  transactions,
+  date,
+  period,
+  currency,
+}: IDayPeriodChart) => {
   const seriesData = mergeExpensesByCategory(transactions).map(
     ({ amount: value, category }) => ({ name: category?.name, value })
   )
@@ -66,6 +85,7 @@ const dayPeriodChart = ({ transactions, date, period }: IParams) => {
     },
     tooltip: {
       trigger: 'item',
+      valueFormatter: (value: number) => currencyFormat({ value, currency }),
     },
     legend: {
       left: 'center',
@@ -94,22 +114,45 @@ const dayPeriodChart = ({ transactions, date, period }: IParams) => {
   }
 }
 
-const weekMonthPeriodChart = ({ transactions, date, period }: IParams) => {
+interface IWeekMonthPeriodChart extends IParams {
+  balance: number
+  currency: string
+}
+const weekMonthPeriodChart = ({
+  transactions,
+  date,
+  period,
+  balance,
+  currency,
+}: IWeekMonthPeriodChart) => {
   const days = dayIntervals({ date, period })
 
   const expenses = mergeTransactionsByDate(transactions)
   const seriesData = fillPeriodDays({ transactions: expenses, days }).map(
-    (expense) => expense?.amount || NaN
+    (expense) => expense?.amount
   )
   const stringDays = days.map((day) => format(day, DATE_FORMAT))
 
+  const recommendSpends: Array<number> = []
+
+  const spendPerDayValue = spendPerDay({ balance, date })
+
+  days.forEach((day) => {
+    recommendSpends.push(spendPerDayValue)
+  })
+
   return {
-    chartType: 'bar',
+    chartType: 'line',
+    title: {
+      text: TRANSACTION_COPY.expensesForPeriod,
+      left: 'center',
+    },
     tooltip: {
       trigger: 'axis',
       axisPointer: {
         type: 'shadow',
       },
+      valueFormatter: (value: number) => currencyFormat({ value, currency }),
     },
     grid: {
       left: '3%',
@@ -134,15 +177,32 @@ const weekMonthPeriodChart = ({ transactions, date, period }: IParams) => {
     series: [
       {
         name: TRANSACTION_TYPE_EXPENSE.displayName,
-        type: 'bar',
-        barWidth: '60%',
+        type: 'line',
         data: seriesData,
+      },
+      {
+        name: TRANSACTION_COPY.recommendedSpend,
+        type: 'line',
+        data: recommendSpends,
+        symbol: 'none',
+        lineStyle: { type: 'dotted' },
       },
     ],
   }
 }
 
-export default ({ transactions, date, period }: IParams) => {
+interface IExpensesForPeriod {
+  transactions: Array<ITransaction>
+  date: Date
+  period: string
+  currency: string
+}
+export default ({
+  transactions,
+  date,
+  period,
+  currency,
+}: IExpensesForPeriod) => {
   const periodTransactions = filterTransactionByPeriod({
     transactions,
     date,
@@ -154,12 +214,16 @@ export default ({ transactions, date, period }: IParams) => {
   )
 
   if (period === PERIODS.day.displayName) {
-    return dayPeriodChart({ transactions: expenses, date, period })
+    return dayPeriodChart({ transactions: expenses, date, period, currency })
   }
+
+  const { balance } = balanceIncomeExpense(transactions)
 
   return weekMonthPeriodChart({
     transactions: expenses,
     date,
     period,
+    balance,
+    currency,
   })
 }

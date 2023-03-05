@@ -83,6 +83,18 @@ tr {
     }
 }
 
+.tr-highlight {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    @apply hover:bg-green-100;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply cursor-pointer;
+}
+
 td {
     /* SIZE */
     /* MARGINS AND PADDING */
@@ -92,4 +104,12 @@ td {
     /* COLORS */
     /* TEXT */
     /* ANIMATION AND EFFECTS */
+}
+
+.table-text-center {
+    @apply text-center;
+}
+
+.table-text-right {
+    @apply text-right;
 }

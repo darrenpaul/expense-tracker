@@ -20,7 +20,7 @@ module.exports = {
         'theme-navigation': 'var(--navigation)',
       },
       fontFamily: {
-        barlow: ['Barlow', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
       },
     },
   },

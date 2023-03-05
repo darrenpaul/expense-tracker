@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class="row">
         <button class="button-secondary" @click="onCancel">
           {{ COMMON_COPY.cancel }}
         </button>
@@ -76,6 +76,7 @@ import {
   addDays,
   setDate,
   lastDayOfWeek,
+  getTime,
 } from 'date-fns'
 import {
   DAYS_OF_WEEK,
@@ -84,6 +85,8 @@ import {
   parseDateFormat,
   formatDate,
   DATE_FORMAT_SHORT,
+  DATE_TIME_FORMAT,
+  TIME_FORMAT,
 } from '~~/helpers/dateTimeHelper'
 import { COMMON_COPY } from '~~/constants/copy'
 import ArrowLeftIcon from '~~/components/icons/ArrowLeftIcon.vue'
@@ -155,7 +158,9 @@ const dayStyle = (day: Date) => {
 const onSetDate = (event: Event) => {
   event.preventDefault()
   showModal.value = false
-  emit('onChange', selectedDay.value)
+  const currentTime = format(getTime(new Date()), TIME_FORMAT)
+  const dateTime = `${selectedDay.value} ${currentTime}`
+  emit('onChange', dateTime)
 }
 
 const calendarDays = computed(() => {

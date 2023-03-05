@@ -1,0 +1,108 @@
+.side-navigation-header {
+    /* SIZE */
+    @apply w-fit h-screen;
+    /* MARGINS AND PADDING */
+    @apply p-0 m-0;
+    /* LAYOUT */
+    @apply relative;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .side-navigation-container {
+        /* SIZE */
+        @apply w-20 h-full;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply relative;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .side-navigation-content {
+        /* SIZE */
+        @apply w-20 h-screen;
+        /* MARGINS AND PADDING */
+        @apply p-4;
+        /* LAYOUT */
+        @apply fixed flex flex-col;
+        /* BORDERS */
+        /* COLORS */
+        @apply bg-green-400;
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .side-navigation-expanded {
+        /* SIZE */
+        @apply w-64;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .side-navigation-brand-container {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        @apply mb-6;
+        /* LAYOUT */
+        @apply flex items-center;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        .side-navigation-brand-text {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            @apply m-0 p-0 pl-2;
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            @apply text-2xl;
+            /* ANIMATION AND EFFECTS */
+        }
+    }
+
+    .side-navigation-links {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex flex-col gap-4 flex-grow;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        .side-navigation-link {
+            /* SIZE */
+            @apply w-fit;
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+
+            /* COLORS */
+            @apply text-theme-text;
+            /* TEXT */
+            @apply text-base;
+            /* ANIMATION AND EFFECTS */
+        }
+        .active {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            @apply border-b border-theme-text;
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+    }
+}

@@ -4,17 +4,24 @@
     <button @click="() => (showCategoryModal = true)">
       {{ CATEGORY_COPY.addCategory }}
     </button>
-    <div>
-      <div v-for="{ name, id } in categories.categoryList" :key="id">
-        <p>
+
+    <div class="grid-3-col">
+      <div
+        v-for="{ name, id } in categories.categoryList"
+        :key="id"
+        class="card card-stretch cursor-pointer"
+        @click="() => onCategoryEdit(id)"
+      >
+        <p class="text-center">
           {{ name }}
         </p>
-        <button :value="id" @click="onCategoryEdit">
+
+        <!-- <button :value="id" @click="onCategoryEdit">
           {{ CATEGORY_COPY.edit }}
         </button>
         <button :value="id" @click="onCategoryDelete">
           {{ CATEGORY_COPY.delete }}
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -40,9 +47,7 @@ const onCloseCategoryModal = () => {
   category.value = {}
 }
 
-const onCategoryEdit = async (event: Event) => {
-  event.preventDefault()
-  const categoryId = event.target.value as string
+const onCategoryEdit = async (categoryId: string) => {
   const matchedCategory = categories.categoryList.find(
     ({ id }) => id === categoryId
   )

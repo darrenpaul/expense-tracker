@@ -34,7 +34,6 @@ export const viewTransactions = async () => {
       note: record.note,
       category,
       amount: record.amount,
-      currency: record.currency,
       date: record.date,
     } as ITransaction
   })

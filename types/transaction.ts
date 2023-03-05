@@ -7,7 +7,6 @@ export interface INewTransaction {
   note: string
   categoryId: string
   amount: number
-  currency: string
   date: string
 }
 
@@ -19,6 +18,5 @@ export interface ITransaction {
   note: string
   category: ICategory
   amount: number
-  currency: string
   date: string
 }

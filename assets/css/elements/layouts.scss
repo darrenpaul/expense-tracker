@@ -18,23 +18,66 @@ section {
   /* ANIMATION AND EFFECTS */
 }
 
-.column {
+.row {
   /* SIZE */
-  @apply w-full;
   /* MARGINS AND PADDING */
   /* LAYOUT */
-  @apply flex justify-end gap-4;
+  @apply flex flex-row gap-4;
   /* BORDERS */
   /* COLORS */
   /* TEXT */
   /* ANIMATION AND EFFECTS */
 }
 
-.flex-col-container {
+.column {
   /* SIZE */
   /* MARGINS AND PADDING */
   /* LAYOUT */
-  @apply flex flex-col;
+  @apply flex flex-col gap-4;
+  /* BORDERS */
+  /* COLORS */
+  /* TEXT */
+  /* ANIMATION AND EFFECTS */
+}
+
+.between {
+  /* SIZE */
+  /* MARGINS AND PADDING */
+  /* LAYOUT */
+  @apply justify-between;
+  /* BORDERS */
+  /* COLORS */
+  /* TEXT */
+  /* ANIMATION AND EFFECTS */
+}
+
+.centered {
+  /* SIZE */
+  /* MARGINS AND PADDING */
+  /* LAYOUT */
+  @apply items-center;
+  /* BORDERS */
+  /* COLORS */
+  /* TEXT */
+  /* ANIMATION AND EFFECTS */
+}
+
+.stretch {
+  /* SIZE */
+  @apply w-full;
+  /* MARGINS AND PADDING */
+  /* LAYOUT */
+  /* BORDERS */
+  /* COLORS */
+  /* TEXT */
+  /* ANIMATION AND EFFECTS */
+}
+
+.grid-3-col {
+  /* SIZE */
+  /* MARGINS AND PADDING */
+  /* LAYOUT */
+  @apply grid grid-cols-3 gap-4;
   /* BORDERS */
   /* COLORS */
   /* TEXT */

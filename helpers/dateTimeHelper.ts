@@ -6,10 +6,10 @@ import {
   getMinutes,
 } from 'date-fns'
 
-export const DATE_TIME_FORMAT = 'yyyy-MM-dd HH:mm'
+export const DATE_TIME_FORMAT = 'yyyy-MM-dd HH:mm:ss'
 export const DATE_FORMAT = 'yyyy-MM-dd'
 export const DATE_FORMAT_SHORT = 'dd MMM'
-const TIME_FORMAT = 'hh:mm a'
+export const TIME_FORMAT = 'HH:mm:ss'
 
 export const INTERVAL_15_MINUTES = [0, 15, 30, 45]
 

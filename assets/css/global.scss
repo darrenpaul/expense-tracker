@@ -3,6 +3,9 @@
 @import "./elements/buttons.scss";
 @import "./elements/tables.scss";
 @import "./elements/typography.scss";
+@import "./elements/card.scss";
+// LAYOUTS
+@import "./layouts/main.scss";
 
 * {
     /* SIZE */
@@ -11,7 +14,7 @@
     /* BORDERS */
     /* COLORS */
     /* TEXT */
-    @apply font-barlow;
+    @apply font-poppins;
     /* ANIMATION AND EFFECTS */
 }
 
@@ -23,7 +26,6 @@ body {
     /* COLORS */
     @apply bg-theme-background;
     /* TEXT */
-    @apply font-barlow;
     /* ANIMATION AND EFFECTS */
 }
 

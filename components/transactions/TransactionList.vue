@@ -1,67 +1,52 @@
 <template>
-  <table>
-    <tr>
-      <th>{{ TRANSACTION_COPY.transactionType }}</th>
-      <th>{{ TRANSACTION_COPY.name }}</th>
-      <th>{{ TRANSACTION_COPY.category }}</th>
-      <th>{{ TRANSACTION_COPY.amount }}</th>
-      <th>{{ TRANSACTION_COPY.date }}</th>
-      <th>{{ COMMON_COPY.actions }}</th>
-    </tr>
+  <div class="card card-stretch">
+    <table>
+      <tr>
+        <th>{{ TRANSACTION_COPY.date }}</th>
+        <th>{{ TRANSACTION_COPY.name }}</th>
+        <th class="table-text-center">
+          {{ TRANSACTION_COPY.transactionType }}
+        </th>
+        <th class="table-text-right">{{ TRANSACTION_COPY.amount }}</th>
+      </tr>
 
-    <tr
-      v-for="{
-        id,
-        type,
-        name,
-        category,
-        amount,
-        currency,
-        date,
-      } in transactions"
-      :key="id"
-    >
-      <td>{{ type }}</td>
-      <td>{{ name }}</td>
-      <td>{{ category.name }}</td>
-      <td>
-        <b>{{ amount }}</b
-        >{{ currency }}
-      </td>
-      <td>{{ formatDate(new Date(date)) }}</td>
-      <td>
-        <button :value="id" @click="onEdit">{{ COMMON_COPY.edit }}</button>
-      </td>
-      <td>
-        <button :value="id" @click="onDelete">{{ COMMON_COPY.delete }}</button>
-      </td>
-    </tr>
-  </table>
+      <tr
+        v-for="{ id, type, name, amount, date } in transactions"
+        :key="id"
+        class="tr-highlight"
+        @click="() => onEdit(id)"
+      >
+        <td>{{ formatDate(new Date(date)) }}</td>
+        <td>{{ name }}</td>
+        <td class="table-text-center">{{ type }}</td>
+        <td class="table-text-right">
+          {{
+            currencyFormat({ value: amount, currency: userSettings.currency })
+          }}
+        </td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { TRANSACTION_COPY, COMMON_COPY } from '~~/constants/copy'
 import { formatDate } from '~~/helpers/dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'
-import { deleteTransaction } from '~~/endpoints/transaction'
+import { useNotification } from '~~/stores/notification'
+import { currencyFormat } from '~~/helpers/formatting'
+import { useUserSettings } from '~~/stores/userSettings'
 
-const emit = defineEmits(['change', 'onEdit'])
+const emit = defineEmits(['onEdit'])
 
 const props = defineProps({
   transactions: { type: Array<ITransaction>, default: [] },
 })
-const onEdit = (event: Event) => {
-  event.preventDefault()
-  const transactionId = event?.target?.value as string
 
+const notification = useNotification()
+const userSettings = useUserSettings()
+
+const onEdit = (transactionId: string) => {
   emit('onEdit', transactionId)
-}
-const onDelete = async (event: Event) => {
-  event.preventDefault()
-  const transactionId = event?.target?.value as string
-
-  await deleteTransaction(transactionId)
-  alert('deleted transaction')
-  emit('change')
 }
 </script>

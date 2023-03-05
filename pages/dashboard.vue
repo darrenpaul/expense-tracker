@@ -1,121 +1,66 @@
 <template>
   <div>
-    <!-- TODO: Move to .scss file -->
-    <div class="grid grid-cols-2 items-start justify-center w-screen">
-      <div>
-        <Chart :options="expensesForPeriodOptions" />
-        <div class="flex justify-center gap-4 items-center">
-          <button :value="PERIODS.day.displayName" @click="onPeriodButtonClick">
-            {{ PERIODS.day.displayName }}
-          </button>
-          <button
-            :value="PERIODS.week.displayName"
-            @click="onPeriodButtonClick"
-          >
-            {{ PERIODS.week.displayName }}
-          </button>
-          <button
-            :value="PERIODS.month.displayName"
-            @click="onPeriodButtonClick"
-          >
-            {{ PERIODS.month.displayName }}
-          </button>
-        </div>
+    <div class="row">
+      <div class="card card-stretch">
+        <Chart :options="expensesVsIncomesOptions" />
       </div>
 
-      <Chart :options="expensesVsIncomesOptions" />
+      <div class="column w-1/3">
+        <GlanceCard
+          v-if="transactions"
+          :title="TRANSACTION_COPY.balance"
+          :amount="
+            currencyFormat({
+              value: transactions.balance,
+              currency: userSettings.currency,
+            })
+          "
+        />
+        <GlanceCard
+          :title="TRANSACTION_COPY.moneyIn"
+          :amount="
+            currencyFormat({
+              value: transactions.incomes,
+              currency: userSettings.currency,
+            })
+          "
+        />
+        <GlanceCard
+          :title="TRANSACTION_COPY.moneyOut"
+          :amount="
+            currencyFormat({
+              value: transactions.expenses,
+              currency: userSettings.currency,
+            })
+          "
+        />
+      </div>
     </div>
-
-    <div class="flex justify-between items-center">
-      <h1>{{ TRANSACTION_COPY.transactions }}</h1>
-      <button @click="() => (showTransactionModal = true)">
-        {{ TRANSACTION_COPY.addTransaction }}
-      </button>
-    </div>
-
-    <TransactionList
-      v-if="transactions"
-      :transactions="transactions"
-      @on-edit="onEditTransaction"
-      @change="refreshData"
-    />
-
-    <Modal :is-open="showTransactionModal" @close="onCloseTransactionModal">
-      <TransactionForm
-        :transaction="transaction"
-        @close-modal="onCloseTransactionModal"
-        @refresh="onTransactionCreatedUpdated"
-      />
-    </Modal>
   </div>
 </template>
 
 <script setup lang="ts">
-import TransactionForm from '~~/components/transactions/TransactionForm.vue'
-import TransactionList from '~~/components/transactions/TransactionList.vue'
-import { viewTransactions } from '~~/endpoints/transaction'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
 import expensesVsIncomes from '~~/helpers/charts/transactions/expensesVsIncomes'
-import expensesForPeriod from '~~/helpers/charts/transactions/expensesForPeriod'
-import { PERIODS } from '~~/helpers/dateFnsWrapper'
+import GlanceCard from '~~/components/GlanceCard/index.vue'
+import { currencyFormat } from '~~/helpers/formatting'
 import { TRANSACTION_COPY } from '~~/constants/copy'
+import { useTransactions } from '~~/stores/transactions'
+import { useUserSettings } from '~~/stores/userSettings'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
+  layout: 'main',
 })
 
-const showTransactionModal = ref(false)
-const period = ref(PERIODS.day.displayName)
-const transaction = ref({})
-
-const { data: transactions, refresh } = await useAsyncData('transactions', () =>
-  viewTransactions()
-)
+const userSettings = useUserSettings()
+const transactions = useTransactions()
 
 const expensesVsIncomesOptions = computed(() => {
-  if (transactions.value === null) {
+  if (transactions.list === null) {
     return {}
   }
-  return expensesVsIncomes(transactions.value as Array<ITransaction>)
+  return expensesVsIncomes(transactions.list as Array<ITransaction>)
 })
-
-const expensesForPeriodOptions = computed(() => {
-  if (transactions.value === null) {
-    return {}
-  }
-  return expensesForPeriod({
-    transactions: transactions.value as Array<ITransaction>,
-    date: new Date(),
-    period: period.value,
-  })
-})
-
-const onCloseTransactionModal = () => {
-  showTransactionModal.value = false
-  transaction.value = {}
-}
-const onEditTransaction = (transactionId: string) => {
-  const matchedTransaction = transactions.value?.find(
-    ({ id }) => id === transactionId
-  )
-  if (matchedTransaction) {
-    transaction.value = matchedTransaction
-    showTransactionModal.value = true
-  }
-}
-
-const onTransactionCreatedUpdated = () => {
-  refreshData()
-}
-
-const refreshData = () => {
-  refresh()
-}
-
-const onPeriodButtonClick = (event: Event) => {
-  event.preventDefault()
-  const eventValue = event.target.value
-  period.value = eventValue
-}
 </script>

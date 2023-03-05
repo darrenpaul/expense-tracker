@@ -1,6 +1,16 @@
 <template>
   <div>
-    <h1>{{ CATEGORY_COPY.addCategory }}</h1>
+    <div class="row between">
+      <h2>{{ headingCopy }}</h2>
+      <button
+        v-if="!isEmpty(props.category)"
+        class="button-icon"
+        @click="onShowConfirmDialog"
+      >
+        <TrashIcon :size="'20'" />
+      </button>
+    </div>
+
     <form>
       <div class="input-group">
         <label for="displayName">{{ TRANSACTION_COPY.transactionType }}</label>
@@ -30,25 +40,38 @@
         <small>{{ nameError }}</small>
       </div>
 
-      <div class="column">
+      <div class="row">
         <button class="button-secondary" @click="onCancel">
           {{ COMMON_COPY.cancel }}
         </button>
         <button @click="onAddCategory">{{ COMMON_COPY.save }}</button>
       </div>
     </form>
+
+    <ConfirmDialog
+      :show="showConfirmDialog"
+      @close-modal="onCloseConfirmDialog"
+      @confirm="onConfirmConfirmDialog"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import { isEmpty } from 'lodash-es'
 import BasicRadio from '../radios/BasicRadio.vue'
 import { COMMON_COPY, CATEGORY_COPY, TRANSACTION_COPY } from '~~/constants/copy'
 import { useAccount } from '~~/stores/account'
-import { createCategory, updateCategory } from '~~/endpoints/category'
+import {
+  createCategory,
+  deleteCategory,
+  updateCategory,
+} from '~~/endpoints/category'
 import { INewCategory, ICategory } from '~~/types/category'
 import { useCategories } from '~~/stores/categories'
 import { TRANSACTION_TYPES } from '~~/constants/transactions'
 import { useNotification } from '~~/stores/notification'
+import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
+import TrashIcon from '~~/components/icons/TrashIcon.vue'
 
 const emit = defineEmits(['closeModal'])
 
@@ -65,29 +88,23 @@ const nameError = ref('')
 const transactionType = ref(
   props.category.transactionType || TRANSACTION_TYPES[0].displayName
 )
+const showConfirmDialog = ref(false)
 
-const validateCategory = () => {
-  if (name.value === '' || name.value === null || name.value === undefined) {
-    return false
+const headingCopy = computed(() => {
+  if (isEmpty(props.category)) {
+    return CATEGORY_COPY.addCategory
   }
-  return true
-}
+  return CATEGORY_COPY.editCategory
+})
 
-const onCancel = (event: Event) => {
-  event.preventDefault()
-  emit('closeModal')
-}
-
-const onAddCategory = async (event: Event) => {
-  event.preventDefault()
-
+const fieldsValid = () => {
   if (name.value === '' || name.value === null || name.value === undefined) {
     notification.addNotification({
       title: 'Notification Title',
       message: CATEGORY_COPY.categoryNameError,
       type: 'error',
     })
-    return
+    return false
   }
 
   if (
@@ -99,18 +116,45 @@ const onAddCategory = async (event: Event) => {
       message: COMMON_COPY.noChanges,
       type: 'error',
     })
-    return
+    return false
   }
+  return true
+}
 
+const onShowConfirmDialog = () => {
+  showConfirmDialog.value = true
+}
+
+const onCloseConfirmDialog = () => {
+  showConfirmDialog.value = false
+}
+
+const onConfirmConfirmDialog = () => {
+  showConfirmDialog.value = false
+  onCategoryDelete()
+}
+
+const onCancel = () => {
+  event.preventDefault()
+  emit('closeModal')
+}
+
+const onAddCategory = async (event: Event) => {
+  event.preventDefault()
+
+  if (fieldsValid() === false) {
+    return false
+  }
   if (!account.userId) return
 
-  if (props.category) {
+  if (props.category.name) {
     const data: ICategory = {
       id: props.category.id,
       transactionType: transactionType.value,
       name: name.value,
       icon: '',
     }
+
     await updateCategory(data)
     notification.addNotification({
       title: 'Notification Title',
@@ -124,6 +168,7 @@ const onAddCategory = async (event: Event) => {
       name: name.value,
       icon: '',
     }
+
     await createCategory(data)
     notification.addNotification({
       title: 'Notification Title',
@@ -131,6 +176,14 @@ const onAddCategory = async (event: Event) => {
       type: 'success',
     })
   }
+  categories.fetchCategories()
+
+  emit('closeModal')
+}
+
+const onCategoryDelete = async () => {
+  const categoryId = props.category.id
+  await deleteCategory(categoryId)
   categories.fetchCategories()
 
   emit('closeModal')

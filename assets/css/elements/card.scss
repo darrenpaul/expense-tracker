@@ -1,0 +1,25 @@
+.card {
+    /* SIZE */
+    @apply w-fit h-fit;
+    /* MARGINS AND PADDING */
+    @apply py-4 px-6;
+    /* LAYOUT */
+    /* BORDERS */
+    @apply rounded-3xl;
+    /* COLORS */
+    @apply bg-white;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply drop-shadow-sm shadow-sm;
+}
+
+.card-stretch {
+    /* SIZE */
+    @apply w-full;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}

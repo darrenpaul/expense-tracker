@@ -52,25 +52,31 @@ onMounted(() => {
   }
 })
 
-const onLogin = async (event: Event) => {
-  event.preventDefault()
-
+const fieldsValid = () => {
   if (email.value === '' || !isEmail(email.value)) {
     notification.addNotification({
-      title: 'Notification Title',
       message: ACCOUNT_COPY.emailRequired,
       type: 'error',
     })
-    return
+    return false
   }
 
   if (password.value === '') {
     notification.addNotification({
-      title: 'Notification Title',
       message: ACCOUNT_COPY.passwordRequired,
       type: 'error',
     })
-    return
+    return false
+  }
+
+  return true
+}
+
+const onLogin = async (event: Event) => {
+  event.preventDefault()
+
+  if (fieldsValid() === false) {
+    return false
   }
 
   try {
@@ -82,8 +88,7 @@ const onLogin = async (event: Event) => {
     }
   } catch (error) {
     notification.addNotification({
-      title: 'Notification Title',
-      message: error.message,
+      message: error?.message,
       type: 'error',
     })
   }

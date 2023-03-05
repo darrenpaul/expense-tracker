@@ -4,7 +4,7 @@
 
     <form>
       <!-- FIRST NAME & LAST NAME -->
-      <div class="column">
+      <div class="row">
         <!-- FIRST NAME -->
         <div class="input-group">
           <label for="displayName">{{ ACCOUNT_COPY.firstName }}</label>
@@ -40,7 +40,7 @@
       </div>
 
       <!-- PASSWORD & PASSWORD CONFIRM -->
-      <div class="column">
+      <div class="row">
         <!-- PASSWORD -->
         <div class="input-group">
           <label for="displayName">{{ ACCOUNT_COPY.password }}</label>
@@ -100,32 +100,32 @@ onMounted(() => {
   }
 })
 
-const onRegisterUser = async (event: Event) => {
-  event.preventDefault()
-
+const fieldsValid = () => {
   if (firstName.value === '') {
     notification.addNotification({
       title: 'Notification Title',
       message: ACCOUNT_COPY.firstNameRequired,
       type: 'error',
     })
-    return
+    return false
   }
+
   if (lastName.value === '') {
     notification.addNotification({
       title: 'Notification Title',
       message: ACCOUNT_COPY.lastNameRequired,
       type: 'error',
     })
-    return
+    return false
   }
+
   if (email.value === '' || !isEmail(email.value)) {
     notification.addNotification({
       title: 'Notification Title',
       message: ACCOUNT_COPY.emailRequired,
       type: 'error',
     })
-    return
+    return false
   }
 
   if (password.value === '') {
@@ -134,15 +134,16 @@ const onRegisterUser = async (event: Event) => {
       message: ACCOUNT_COPY.passwordRequired,
       type: 'error',
     })
-    return
+    return false
   }
+
   if (passwordConfirm.value === '') {
     notification.addNotification({
       title: 'Notification Title',
       message: ACCOUNT_COPY.passwordRequired,
       type: 'error',
     })
-    return
+    return false
   }
 
   if (password.value !== passwordConfirm.value) {
@@ -151,7 +152,16 @@ const onRegisterUser = async (event: Event) => {
       message: ACCOUNT_COPY.passwordMustMatch,
       type: 'error',
     })
-    return
+    return false
+  }
+  return true
+}
+
+const onRegisterUser = async (event: Event) => {
+  event.preventDefault()
+
+  if (fieldsValid() === false) {
+    return false
   }
 
   const userData = {

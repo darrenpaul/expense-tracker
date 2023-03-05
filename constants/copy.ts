@@ -31,11 +31,19 @@ export const TRANSACTION_COPY = {
   currency: 'Currency',
   date: 'Date',
   expense: 'Expense',
+  nameRequired: 'Transaction name required',
+  categoryRequired: 'Transaction category required',
+  amountRequired: 'Transaction amount required',
+  currencyRequired: 'Transaction currency required',
+  transactionAdded: 'Transaction added',
+  transactionUpdated: 'Transaction updated',
+  transactionDeleted: 'Transaction deleted',
   // TRANSACTION LIST
   transactionType: 'Transaction Type',
   transactions: 'Transactions',
   // TRANSACTION FORM
   addTransaction: 'Add Transaction',
+  editTransaction: 'Edit Transaction',
   namePlaceholder: 'Ice cream',
   notePlaceholder: 'Ice cream with John at Ice-Co',
   amountPlaceholder: '100',
@@ -43,11 +51,18 @@ export const TRANSACTION_COPY = {
   // TRANSACTION CHARTS
   expensesVsIncomes: 'Expenses Vs Incomes',
   expensesForPeriod: 'Expenses for period',
+  recommendedSpend: 'Recommended Spend',
+  spendPerDay: 'Spend Per Day',
+  spendPerWeek: 'Spend Per Week',
+  balance: 'Balance',
+  moneyIn: 'Money In',
+  moneyOut: 'Money Out',
 }
 
 export const CATEGORY_COPY = {
   categories: 'Categories',
   addCategory: 'Add Category',
+  editCategory: 'Edit Category',
   category: 'Category',
   categoryPlaceholder: 'Gift',
   delete: 'Delete',
@@ -84,4 +99,12 @@ export const SETTINGS_COPY = {
   defaultCurrency: 'Default currency',
   defaultCurrencyPlaceholder: '$',
   save: 'Save',
+}
+
+export const DIALOG_COPY = {
+  defaultWarning:
+    'You are about to do something very important. Are you sure you want to continue?',
+  yes: 'Yes',
+  no: 'No',
+  warning: 'Warning',
 }

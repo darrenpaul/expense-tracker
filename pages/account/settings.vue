@@ -16,5 +16,6 @@ import { SETTINGS_COPY } from '~~/constants/copy'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
+  layout: 'main',
 })
 </script>
