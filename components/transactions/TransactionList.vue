@@ -8,7 +8,7 @@
           {{ TRANSACTION_COPY.transactionType }}
         </th>
         <th class="table-text-center">
-          {{ TRANSACTION_COPY.transactionType }}
+          {{ TRANSACTION_COPY.account }}
         </th>
         <th class="table-text-right">{{ TRANSACTION_COPY.amount }}</th>
       </tr>

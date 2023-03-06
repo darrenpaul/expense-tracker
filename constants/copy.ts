@@ -41,10 +41,12 @@ export const COMMON_COPY = {
   amountError: 'Amount cannot be zero or less',
   categoryError: 'Category required',
   accountError: 'Account required',
+  accountTransferMatchError: 'Cannot transfer to the same account',
   added: 'Added',
   updated: 'Updated',
   deleted: 'Deleted',
   addInitialAmount: 'Add initial amount',
+  uniqueError: 'Values need to be unique',
 }
 
 export const TRANSACTION_COPY = {
@@ -77,12 +79,14 @@ export const TRANSACTION_COPY = {
   // TRANSACTION CHARTS
   expensesVsIncomes: 'Expenses Vs Incomes',
   expensesForPeriod: 'Expenses for period',
-  recommendedSpend: 'Recommended Spend',
   spendPerDay: 'Spend Per Day',
   spendPerWeek: 'Spend Per Week',
   balance: 'Balance',
   moneyIn: 'Money In',
   moneyOut: 'Money Out',
+  fromAccount: 'From account',
+  toAccount: 'To account',
+  transfer: 'Transfer',
 }
 
 export const CATEGORY_COPY = {

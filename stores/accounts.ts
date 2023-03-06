@@ -15,5 +15,8 @@ export const useAccounts = defineStore({
     async fetchAccounts() {
       this.accounts = await viewAccounts()
     },
+    clear() {
+      this.accounts = []
+    },
   },
 })

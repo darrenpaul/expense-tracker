@@ -24,5 +24,9 @@ export const useUserSettings = defineStore({
       this.id = userSettings.id
       this.currency = userSettings.currency
     },
+    clear() {
+      this.id = ''
+      this.currency = ''
+    },
   },
 })

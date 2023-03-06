@@ -28,7 +28,7 @@
           :title="TRANSACTION_COPY.balance"
           :amount="
             currencyFormat({
-              value: transactionsStore.balance,
+              value: balance(),
               currency: 'R',
             })
           "
@@ -39,7 +39,7 @@
           :amount="
             currencyFormat({
               value: spendPerDay({
-                balance: transactionsStore.balance,
+                balance: balance(),
                 date: new Date(),
               }),
               currency: 'R',
@@ -52,7 +52,7 @@
           :amount="
             currencyFormat({
               value: spendPerWeek({
-                balance: transactionsStore.balance,
+                balance: balance(),
                 date: new Date(),
               }),
               currency: 'R',
@@ -96,11 +96,10 @@ import expensesForPeriod from '~~/helpers/charts/transactions/expensesForPeriod'
 import { PERIODS } from '~~/helpers/dateFnsWrapper'
 import { TRANSACTION_COPY } from '~~/constants/copy'
 import GlanceCard from '~~/components/GlanceCard/index.vue'
-import { spendPerDay, spendPerWeek } from '~~/helpers/transactions'
+import { spendPerDay, spendPerWeek, balance } from '~~/helpers/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
-import { useAccounts } from '~~/stores/accounts'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,

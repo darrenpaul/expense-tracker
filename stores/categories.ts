@@ -29,5 +29,8 @@ export const useCategories = defineStore({
     async fetchCategories() {
       this.categories = await viewCategories()
     },
+    clear() {
+      this.categories = []
+    },
   },
 })

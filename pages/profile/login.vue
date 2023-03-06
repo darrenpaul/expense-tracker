@@ -36,12 +36,16 @@ import { useProfile } from '~~/stores/profile'
 import { useCategories } from '~~/stores/categories'
 import { useNotification } from '~~/stores/notification'
 import { useUserSettings } from '~~/stores/userSettings'
+import { useAccounts } from '~~/stores/accounts'
+import { useTransactions } from '~~/stores/transactions'
 
 const router = useRouter()
 const profile = useProfile()
 const categories = useCategories()
 const userSettings = useUserSettings()
 const notification = useNotification()
+const accountStore = useAccounts()
+const transactionsStore = useTransactions()
 
 const email = ref('')
 const password = ref('')
@@ -84,6 +88,8 @@ const onLogin = async (event: Event) => {
     if (profile.authenticated) {
       categories.fetchCategories()
       userSettings.fetchUserSettings()
+      accountStore.fetchAccounts()
+      transactionsStore.fetchTransactions()
       router.replace(DASHBOARD_ROUTE.path)
     }
   } catch (error) {

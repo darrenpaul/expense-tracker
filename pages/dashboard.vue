@@ -7,11 +7,11 @@
 
       <div class="column w-1/3">
         <GlanceCard
-          v-if="transactions"
+          v-if="transactionStore"
           :title="TRANSACTION_COPY.balance"
           :amount="
             currencyFormat({
-              value: transactions.balance,
+              value: balance(),
               currency: userSettings.currency,
             })
           "
@@ -20,7 +20,7 @@
           :title="TRANSACTION_COPY.moneyIn"
           :amount="
             currencyFormat({
-              value: transactions.incomes,
+              value: transactionStore.income(),
               currency: userSettings.currency,
             })
           "
@@ -29,7 +29,7 @@
           :title="TRANSACTION_COPY.moneyOut"
           :amount="
             currencyFormat({
-              value: transactions.expenses,
+              value: transactionStore.expense(),
               currency: userSettings.currency,
             })
           "
@@ -44,6 +44,7 @@ import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
 import expensesVsIncomes from '~~/helpers/charts/transactions/expensesVsIncomes'
 import GlanceCard from '~~/components/GlanceCard/index.vue'
+import { balance } from '~~/helpers/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
 import { TRANSACTION_COPY } from '~~/constants/copy'
 import { useTransactions } from '~~/stores/transactions'
@@ -55,16 +56,16 @@ definePageMeta({
 })
 
 const userSettings = useUserSettings()
-const transactions = useTransactions()
+const transactionStore = useTransactions()
 
 onMounted(() => {
-  transactions.fetchTransactions()
+  transactionStore.fetchTransactions()
 })
 
 const expensesVsIncomesOptions = computed(() => {
-  if (transactions.list === null) {
+  if (transactionStore.list === null) {
     return {}
   }
-  return expensesVsIncomes(transactions.list as Array<ITransaction>)
+  return expensesVsIncomes(transactionStore.list as Array<ITransaction>)
 })
 </script>

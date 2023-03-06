@@ -27,3 +27,18 @@ export const validateAmount = (amount: number) => {
   }
   return true
 }
+
+export const validateUnique = (
+  valueOne: string,
+  valueTwo: string,
+  message: string = COMMON_COPY.uniqueError
+) => {
+  if (valueOne === valueTwo) {
+    notification.addNotification({
+      message,
+      type: 'error',
+    })
+    return false
+  }
+  return true
+}

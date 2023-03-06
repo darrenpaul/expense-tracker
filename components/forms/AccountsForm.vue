@@ -116,6 +116,7 @@ import { useProfile } from '~~/stores/profile'
 import { useNotification } from '~~/stores/notification'
 import { useAccounts } from '~~/stores/accounts'
 import { useCategories } from '~~/stores/categories'
+import { useTransactions } from '~~/stores/transactions'
 
 const emit = defineEmits(['closeModal'])
 
@@ -127,11 +128,12 @@ const notification = useNotification()
 const profile = useProfile()
 const accountStore = useAccounts()
 const categoryStore = useCategories()
+const transactionStore = useTransactions()
 
 const name = ref(props.account?.name || '')
 const amount = ref(props.account?.amount || 0.0)
 const category = ref((props.account?.category?.id as string) || '')
-const includeInBalance = ref(props.account?.includeInBalance || true)
+const includeInBalance = ref(props.account?.includeInBalance)
 const showConfirmDialog = ref(false)
 const addInitialAmount = ref(false)
 
@@ -208,7 +210,7 @@ const onAddAccount = async () => {
   const { id: accountId, name: accountName } = await createAccount(data)
 
   if (addInitialAmount.value === true) {
-    onAddInitialTransaction({ accountId, accountName })
+    await onAddInitialTransaction({ accountId, accountName })
   }
 
   notification.addNotification({
@@ -226,6 +228,7 @@ const onUpdateAccount = async () => {
   }
 
   await updateAccount(data)
+
   notification.addNotification({
     message: COMMON_COPY.updated,
     type: 'success',
@@ -251,6 +254,7 @@ const onAddUpdateAccount = async (event: Event) => {
     await onAddAccount()
   }
 
+  transactionStore.fetchTransactions()
   accountStore.fetchAccounts()
 
   emit('closeModal')

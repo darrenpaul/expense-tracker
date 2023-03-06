@@ -1,4 +1,8 @@
 import { defineStore } from 'pinia'
+import { useAccounts } from './accounts'
+import { useCategories } from './categories'
+import { useTransactions } from './transactions'
+import { useUserSettings } from './userSettings'
 import { authLogin, authRefreshToken, authLogout } from '~~/endpoints/auth'
 import { ACCESS_TOKEN_COOKIE } from '~~/constants/settings'
 import { IUser } from '~~/types/user'
@@ -36,7 +40,13 @@ export const useProfile = defineStore({
       this.token = token
     },
     async logout() {
+      useAccounts().clear()
+      useCategories().clear()
+      useTransactions().clear()
+      useUserSettings().clear()
+
       useCookie(ACCESS_TOKEN_COOKIE).value = null
+
       this.user = null
       this.token = null
       await authLogout()

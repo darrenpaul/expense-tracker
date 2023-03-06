@@ -12,9 +12,12 @@
     </div>
 
     <form>
+      <!-- TRANSACTION TYPE -->
       <div class="input-group">
-        <label for="displayName">{{ TRANSACTION_COPY.transactionType }}</label>
-        <ul id="transactionTypeRadio" class="radio-buttons-container-column">
+        <label for="transactionTypeRadio">{{
+          TRANSACTION_COPY.transactionType
+        }}</label>
+        <ul id="transactionTypeRadio" class="radio-buttons-container">
           <BasicRadio
             v-for="{ id, displayName } in TRANSACTION_TYPES"
             :key="id"
@@ -28,55 +31,156 @@
         </ul>
       </div>
 
-      <!-- ACCOUNT -->
-      <div class="input-group">
-        <label for="account">{{ TRANSACTION_COPY.account }}</label>
-        <select id="account" v-model="account">
-          <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-          <option
-            v-for="{ id, name: accountName } in accountStore.accounts"
-            :key="id"
-            :value="id"
-            :selected="accountName === category"
-          >
-            {{ accountName }}
-          </option>
-        </select>
-      </div>
+      <!-- ACCOUNT & NAME & CATEGORY -->
+      <template
+        v-if="transactionType !== TRANSACTION_TYPE_TRANSFER.displayName"
+      >
+        <div class="input-group">
+          <label for="account">{{ TRANSACTION_COPY.account }}</label>
+          <select id="account" v-model="account">
+            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+            <option
+              v-for="{ id, name: accountName } in accountStore.accounts"
+              :key="id"
+              :value="id"
+              :selected="accountName === account"
+            >
+              {{ accountName }}
+            </option>
+          </select>
+        </div>
 
-      <div class="row">
+        <!-- NAME & CATEGORY -->
+        <div class="row">
+          <!-- NAME -->
+          <div class="input-group">
+            <label for="name">{{ TRANSACTION_COPY.name }}</label>
+            <input
+              id="name"
+              v-model="name"
+              :placeholder="TRANSACTION_COPY.namePlaceholder"
+              name="name"
+              type="text"
+            />
+          </div>
+
+          <!-- CATEGORY -->
+          <div class="input-group">
+            <label for="category">{{ TRANSACTION_COPY.category }}</label>
+            <select id="category" v-model="category">
+              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+              <option
+                v-for="{ id, name: categoryName } in transactionCategories"
+                :key="id"
+                :value="id"
+                :selected="categoryName === category"
+              >
+                {{ categoryName }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </template>
+
+      <!-- ACCOUNT TRANSFER -->
+      <template
+        v-if="transactionType === TRANSACTION_TYPE_TRANSFER.displayName"
+      >
+        <!-- FROM ACCOUNT -->
+        <div class="row">
+          <div class="input-group">
+            <label for="account">{{ TRANSACTION_COPY.fromAccount }}</label>
+            <select id="account" v-model="account">
+              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+              <option
+                v-for="{ id, name: accountName } in accountStore.accounts"
+                :key="id"
+                :value="id"
+                :selected="accountName === account"
+              >
+                {{ accountName }}
+              </option>
+            </select>
+          </div>
+          <!-- FROM ACCOUNT CATEGORY -->
+          <div class="input-group">
+            <label for="category">{{ TRANSACTION_COPY.category }}</label>
+            <select id="category" v-model="category">
+              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+              <option
+                v-for="{
+                  id,
+                  name: categoryName,
+                } in categoryStore.expenseCategories"
+                :key="id"
+                :value="id"
+                :selected="categoryName === category"
+              >
+                {{ categoryName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- TO ACCOUNT -->
+        <div class="row">
+          <div class="input-group">
+            <label for="accountTransfer">{{
+              TRANSACTION_COPY.toAccount
+            }}</label>
+            <select id="accountTransfer" v-model="accountTransfer">
+              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+              <option
+                v-for="{ id, name: accountName } in accountStore.accounts"
+                :key="id"
+                :value="id"
+                :selected="accountName === accountTransfer"
+              >
+                {{ accountName }}
+              </option>
+            </select>
+          </div>
+
+          <!-- TO ACCOUNT CATEGORY -->
+          <div class="input-group">
+            <label for="categoryTransfer">{{
+              TRANSACTION_COPY.category
+            }}</label>
+            <select id="categoryTransfer" v-model="categoryTransfer">
+              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+              <option
+                v-for="{
+                  id,
+                  name: categoryName,
+                } in categoryStore.incomeCategories"
+                :key="id"
+                :value="id"
+                :selected="categoryName === category"
+              >
+                {{ categoryName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
         <!-- NAME -->
         <div class="input-group">
           <label for="name">{{ TRANSACTION_COPY.name }}</label>
           <input
+            id="name"
             v-model="name"
             :placeholder="TRANSACTION_COPY.namePlaceholder"
             name="name"
             type="text"
           />
         </div>
-
-        <!-- CATEGORY -->
-        <div class="input-group">
-          <label for="category">{{ TRANSACTION_COPY.category }}</label>
-          <select v-model="category">
-            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-            <option
-              v-for="{ id, name: categoryName } in transactionCategories"
-              :key="id"
-              :value="id"
-              :selected="categoryName === category"
-            >
-              {{ categoryName }}
-            </option>
-          </select>
-        </div>
-      </div>
+      </template>
 
       <!-- NOTE -->
       <div class="input-group">
-        <label for="displayName">{{ TRANSACTION_COPY.note }}</label>
+        <label for="note">{{ TRANSACTION_COPY.note }}</label>
         <input
+          id="note"
           v-model="note"
           :placeholder="TRANSACTION_COPY.notePlaceholder"
           name="note"
@@ -88,6 +192,7 @@
       <div class="input-group">
         <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
         <input
+          id="amount"
           v-model="amount"
           :placeholder="TRANSACTION_COPY.amountPlaceholder"
           name="amount"
@@ -105,7 +210,7 @@
         <button class="button-secondary" @click="onCancel">
           {{ COMMON_COPY.cancel }}
         </button>
-        <button @click="onSave">{{ COMMON_COPY.save }}</button>
+        <button @click="onTransactionSave">{{ COMMON_COPY.save }}</button>
       </div>
     </form>
 
@@ -131,12 +236,21 @@ import {
 } from '~~/endpoints/transaction'
 import { useProfile } from '~~/stores/profile'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
-import { TRANSACTION_TYPES } from '~~/constants/transactions'
+import {
+  TRANSACTION_TYPES,
+  TRANSACTION_TYPE_EXPENSE,
+  TRANSACTION_TYPE_INCOME,
+  TRANSACTION_TYPE_TRANSFER,
+} from '~~/constants/transactions'
 import { useCategories } from '~~/stores/categories'
 import { useNotification } from '~~/stores/notification'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
 import { useAccounts } from '~~/stores/accounts'
-import { validateAmount, validateName } from '~~/helpers/validators'
+import {
+  validateAmount,
+  validateName,
+  validateUnique,
+} from '~~/helpers/validators'
 
 const emit = defineEmits(['refresh', 'closeModal'])
 
@@ -154,6 +268,8 @@ const transactionType = ref(
 )
 const name = ref(props.transaction?.name || '')
 const account = ref((props.transaction?.account?.id as string) || '')
+const accountTransfer = ref((props.transaction?.account?.id as string) || '')
+const categoryTransfer = ref((props.transaction?.category?.id as string) || '')
 const category = ref((props.transaction?.category?.id as string) || '')
 const note = ref(props.transaction?.note || '')
 const amount = ref(props.transaction?.amount || 0.0)
@@ -177,15 +293,62 @@ const transactionCategories = computed(() => {
 
 const fieldsValid = () => {
   // TRANSACTION ACCOUNT
-  if (validateName(account.value, COMMON_COPY.accountError) === false)
+  if (validateName(account.value, COMMON_COPY.accountError) === false) {
     return false
+  }
+
+  if (transactionType.value === TRANSACTION_TYPE_TRANSFER.displayName) {
+    // TRANSACTION TRANSFER ACCOUNT
+    if (
+      validateName(accountTransfer.value, COMMON_COPY.accountError) === false
+    ) {
+      return false
+    }
+
+    // TRANSACTION TRANSFER ACCOUNT
+    if (
+      validateUnique(
+        account.value,
+        accountTransfer.value,
+        COMMON_COPY.accountTransferMatchError
+      ) === false
+    ) {
+      return false
+    }
+
+    // TRANSACTION CATEGORY
+    if (validateName(category.value, COMMON_COPY.categoryError) === false) {
+      return false
+    }
+
+    // TRANSACTION TRANSFER CATEGORY
+    if (
+      validateName(categoryTransfer.value, COMMON_COPY.categoryError) === false
+    ) {
+      return false
+    }
+  }
+
   // TRANSACTION NAME
   if (validateName(name.value) === false) return false
+
   // TRANSACTION CATEGORY
-  if (validateName(category.value, COMMON_COPY.categoryError) === false)
+  if (validateName(category.value, COMMON_COPY.categoryError) === false) {
     return false
+  }
+  if (transactionType.value === TRANSACTION_TYPE_TRANSFER.displayName) {
+    // TRANSACTION TRANSFER CATEGORY
+    if (
+      validateName(categoryTransfer.value, COMMON_COPY.categoryError) === false
+    ) {
+      return false
+    }
+  }
+
   // TRANSACTION AMOUNT
-  if (!validateAmount(amount.value)) return false
+  if (!validateAmount(amount.value)) {
+    return false
+  }
 
   return true
 }
@@ -220,7 +383,7 @@ const onCancel = (event: Event) => {
   emit('closeModal')
 }
 
-const onSave = async (event: Event) => {
+const onTransactionSave = async (event: Event) => {
   event.preventDefault()
 
   if (fieldsValid() === false) {
@@ -230,9 +393,12 @@ const onSave = async (event: Event) => {
   if (!profile.userId) return
 
   // CREATE
-
   if (!props?.transaction?.id) {
-    await onCreateTransaction()
+    if (transactionType.value === TRANSACTION_TYPE_TRANSFER.displayName) {
+      await onCreateTransactionTransfer()
+    } else {
+      await onCreateTransaction()
+    }
   }
 
   // UPDATE
@@ -270,6 +436,38 @@ const onCreateTransaction = async () => {
   }
 
   await createTransaction(data)
+
+  notification.addNotification({
+    message: TRANSACTION_COPY.transactionAdded,
+    type: 'success',
+  })
+}
+
+const onCreateTransactionTransfer = async () => {
+  const transactionName = `${TRANSACTION_COPY.transfer} ${name.value}`
+  const fromData: INewTransaction = {
+    userId: profile.userId,
+    type: TRANSACTION_TYPE_EXPENSE.displayName,
+    accountId: account.value,
+    name: transactionName,
+    note: note.value,
+    categoryId: category.value,
+    amount: amount.value,
+    date: date.value,
+  }
+
+  const toDate: INewTransaction = {
+    userId: profile.userId,
+    type: TRANSACTION_TYPE_INCOME.displayName,
+    accountId: accountTransfer.value,
+    name: transactionName,
+    note: note.value,
+    categoryId: categoryTransfer.value,
+    amount: amount.value,
+    date: date.value,
+  }
+  await createTransaction(fromData)
+  await createTransaction(toDate)
 
   notification.addNotification({
     message: TRANSACTION_COPY.transactionAdded,

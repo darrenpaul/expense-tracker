@@ -12,5 +12,8 @@ export const useNotification = defineStore({
     addNotification(data) {
       this.notification = data
     },
+    clear() {
+      this.notification = {}
+    },
   },
 })

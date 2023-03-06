@@ -7,16 +7,18 @@
     </button>
 
     <div class="grid-3-col">
-      <div
-        v-for="{ name, id } in accountStore.accounts"
+      <GlanceCard
+        v-for="{ id, name, includeInBalance } in accountStore.accounts"
         :key="id"
-        class="card card-stretch cursor-pointer"
+        :title="name"
+        :amount="
+          currencyFormat({
+            value: balance(id, includeInBalance),
+            currency: userSettingStore.currency,
+          })
+        "
         @click="() => onAccountEdit(id)"
-      >
-        <p class="text-center">
-          {{ name }}
-        </p>
-      </div>
+      />
     </div>
 
     <Modal :is-open="showAccountModal" @close="onCloseAccountsModal">
@@ -28,7 +30,10 @@
 <script setup lang="ts">
 import { COMMON_COPY } from '~~/constants/copy'
 import AccountsForm from '~~/components/forms/AccountsForm.vue'
+import { currencyFormat } from '~~/helpers/formatting'
 import { useAccounts } from '~~/stores/accounts'
+import { useUserSettings } from '~~/stores/userSettings'
+import { balance } from '~~/helpers/transactions'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -36,6 +41,7 @@ definePageMeta({
 })
 
 const accountStore = useAccounts()
+const userSettingStore = useUserSettings()
 
 const showAccountModal = ref(false)
 const account = ref({})

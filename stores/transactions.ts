@@ -16,28 +16,45 @@ export const useTransactions = defineStore({
 
   getters: {
     list: (state) => state.transactions,
+    income(state) {
+      return (accountId = 'All', excluded = true) => {
+        const pandas = state.transactions.filter(
+          ({ account }) => account.includeInBalance === excluded
+        )
 
-    incomes: (state) => {
-      const incomesOnly = state.transactions.filter(
-        ({ type }) => type === TRANSACTION_TYPE_INCOME.displayName
-      )
-      return totalAmountTransactions(incomesOnly) as number
-    },
-    expenses: (state) => {
-      const expensesOnly = state.transactions.filter(
-        ({ type }) => type === TRANSACTION_TYPE_EXPENSE.displayName
-      )
-      return totalAmountTransactions(expensesOnly) as number
-    },
+        const incomesOnly = pandas.filter(
+          ({ type }) => type === TRANSACTION_TYPE_INCOME.displayName
+        )
 
-    balance(): number {
-      return this.incomes - this.expenses
+        const accountsOnly = incomesOnly.filter(
+          ({ account }) => account.id === accountId || accountId === 'All'
+        )
+        return totalAmountTransactions(accountsOnly) as number
+      }
+    },
+    expense: (state) => {
+      return (accountId = 'All', excluded = true) => {
+        const pandas = state.transactions.filter(
+          ({ account }) => account.includeInBalance === excluded
+        )
+
+        const expensesOnly = pandas.filter(
+          ({ type }) => type === TRANSACTION_TYPE_EXPENSE.displayName
+        )
+        const accountsOnly = expensesOnly.filter(
+          ({ account }) => account.id === accountId || accountId === 'All'
+        )
+        return totalAmountTransactions(accountsOnly) as number
+      }
     },
   },
 
   actions: {
     async fetchTransactions() {
       this.transactions = await viewTransactions()
+    },
+    clear() {
+      this.transactions = []
     },
   },
 })

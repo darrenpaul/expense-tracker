@@ -12,9 +12,10 @@
     </div>
 
     <form>
+      <!-- TRANSACTION TYPE -->
       <div class="input-group">
         <label for="displayName">{{ TRANSACTION_COPY.transactionType }}</label>
-        <ul id="transactionTypeRadio" class="radio-buttons-container-column">
+        <ul id="transactionTypeRadio" class="radio-buttons-container">
           <BasicRadio
             v-for="{ id, displayName } in TRANSACTION_TYPES"
             :key="id"
@@ -168,6 +169,8 @@ const onAddCategory = async (event: Event) => {
       name: name.value,
       icon: '',
     }
+
+    console.log(data)
 
     await createCategory(data)
     notification.addNotification({

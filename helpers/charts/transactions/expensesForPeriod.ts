@@ -1,4 +1,4 @@
-import { format, isSameDay, isSameMonth, isSameWeek } from 'date-fns'
+import { format, isSameDay, isSameMonth } from 'date-fns'
 import { ITransaction } from '~~/types/transaction'
 import {
   mergeTransactionsByDate,
@@ -6,6 +6,8 @@ import {
   fillPeriodDays,
   balanceIncomeExpense,
   spendPerDay,
+  balance,
+  spendPerWeek,
 } from '~~/helpers/transactions'
 import {
   PERIODS,
@@ -13,10 +15,14 @@ import {
   daysOfMonth,
   inSameWeek,
 } from '~~/helpers/dateFnsWrapper'
-import { DATE_FORMAT, DATE_TIME_FORMAT } from '~~/helpers/dateTimeHelper'
+import { DATE_FORMAT } from '~~/helpers/dateTimeHelper'
 import { TRANSACTION_COPY } from '~~/constants/copy'
-import { TRANSACTION_TYPE_EXPENSE } from '~~/constants/transactions'
+import {
+  TRANSACTION_TYPE_EXPENSE,
+  TRANSACTION_TYPE_INCOME,
+} from '~~/constants/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
+import { useAccounts } from '~~/stores/accounts'
 
 interface IParams {
   transactions: Array<ITransaction>
@@ -36,10 +42,6 @@ const filterTransactionByPeriod = ({
   }
   if (period === PERIODS.week.displayName) {
     return transactions.filter(({ date: itemDate }) => {
-      console.log(itemDate, format(date, DATE_TIME_FORMAT))
-      console.log(date)
-      console.log(new Date(itemDate))
-      console.log(inSameWeek(date, new Date(itemDate)))
       return inSameWeek(date, new Date(itemDate))
     })
   }
@@ -127,18 +129,39 @@ const weekMonthPeriodChart = ({
 }: IWeekMonthPeriodChart) => {
   const days = dayIntervals({ date, period })
 
-  const expenses = mergeTransactionsByDate(transactions)
-  const seriesData = fillPeriodDays({ transactions: expenses, days }).map(
-    (expense) => expense?.amount
+  const expensesOnly = transactions.filter(
+    ({ type }) => type === TRANSACTION_TYPE_EXPENSE.displayName
   )
+  const incomesOnly = transactions.filter(
+    ({ type }) => type === TRANSACTION_TYPE_INCOME.displayName
+  )
+
+  const expenses = mergeTransactionsByDate(expensesOnly)
+  const incomes = mergeTransactionsByDate(incomesOnly)
+
+  const expenseSeriesData = fillPeriodDays({
+    transactions: expenses,
+    days,
+  }).map((expense) => expense?.amount)
+
+  const incomeSeriesData = fillPeriodDays({ transactions: incomes, days }).map(
+    (income) => income?.amount
+  )
+
   const stringDays = days.map((day) => format(day, DATE_FORMAT))
 
-  const recommendSpends: Array<number> = []
+  const spendPerDayValues: Array<number> = []
+  const spendPerWeekValues: Array<number> = []
 
   const spendPerDayValue = spendPerDay({ balance, date })
+  const spendPerWeekValue = spendPerWeek({ balance, date })
 
   days.forEach((day) => {
-    recommendSpends.push(spendPerDayValue)
+    spendPerDayValues.push(spendPerDayValue)
+  })
+
+  days.forEach((day) => {
+    spendPerWeekValues.push(spendPerWeekValue)
   })
 
   return {
@@ -177,13 +200,25 @@ const weekMonthPeriodChart = ({
     series: [
       {
         name: TRANSACTION_TYPE_EXPENSE.displayName,
-        type: 'line',
-        data: seriesData,
+        type: 'bar',
+        data: expenseSeriesData,
       },
       {
-        name: TRANSACTION_COPY.recommendedSpend,
+        name: TRANSACTION_TYPE_INCOME.displayName,
+        type: 'bar',
+        data: incomeSeriesData,
+      },
+      {
+        name: TRANSACTION_COPY.spendPerDay,
         type: 'line',
-        data: recommendSpends,
+        data: spendPerDayValues,
+        symbol: 'none',
+        lineStyle: { type: 'dotted' },
+      },
+      {
+        name: TRANSACTION_COPY.spendPerWeek,
+        type: 'line',
+        data: spendPerWeekValues,
         symbol: 'none',
         lineStyle: { type: 'dotted' },
       },
@@ -209,21 +244,22 @@ export default ({
     period,
   })
 
-  const expenses = periodTransactions.filter(
-    ({ type }) => type === TRANSACTION_TYPE_EXPENSE.displayName
-  )
-
   if (period === PERIODS.day.displayName) {
-    return dayPeriodChart({ transactions: expenses, date, period, currency })
+    return dayPeriodChart({
+      transactions: periodTransactions,
+      date,
+      period,
+      currency,
+    })
   }
 
-  const { balance } = balanceIncomeExpense(transactions)
+  const accountBalance = balance()
 
   return weekMonthPeriodChart({
-    transactions: expenses,
+    transactions: periodTransactions,
     date,
     period,
-    balance,
+    balance: accountBalance,
     currency,
   })
 }

@@ -6,6 +6,7 @@ import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
+import { useTransactions } from '~~/stores/transactions'
 
 interface IMergeTransactionsByProperty {
   keyProperty: string
@@ -126,4 +127,11 @@ export const spendPerDay = ({ balance, date }: ISpendPerPeriod) => {
 }
 export const spendPerWeek = ({ balance, date }: ISpendPerPeriod) => {
   return parseFloat((balance / getWeeksInMonth(new Date(date))).toFixed(2))
+}
+
+export const balance = (accountId = 'All', excluded = true) => {
+  const transactionStore = useTransactions()
+  const income = transactionStore.income(accountId, excluded)
+  const expense = transactionStore.expense(accountId, excluded)
+  return income - expense
 }
