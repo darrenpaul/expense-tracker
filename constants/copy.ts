@@ -1,4 +1,15 @@
-export const ACCOUNT_COPY = {
+export const COMMON_COPY = {
+  brand: 'Expense Tracker',
+  add: 'Add',
+  edit: 'Edit',
+  delete: 'Delete',
+  update: 'Update',
+  save: 'Save',
+  cancel: 'Cancel',
+  setDate: 'Set Date',
+  actions: 'Actions',
+  selectOne: 'Please select one',
+  noChanges: 'No changes to save',
   // COMMON
   email: 'Email',
   emailPlaceholder: 'johndoe@email.com',
@@ -20,12 +31,27 @@ export const ACCOUNT_COPY = {
   firstNameRequired: 'First Name Required',
   lastNameRequired: 'Last Name Required',
   passwordMustMatch: 'Passwords must match',
+  addAccount: 'Add Account',
+  editAccount: 'Edit Account',
+  accountName: 'Account Name',
+  accountNamePlaceholder: 'Credit Card',
+  initialAmount: 'Initial Amount',
+  includeInBalance: 'Include in Balance',
+  nameError: 'Name required',
+  amountError: 'Amount cannot be zero or less',
+  categoryError: 'Category required',
+  accountError: 'Account required',
+  added: 'Added',
+  updated: 'Updated',
+  deleted: 'Deleted',
+  addInitialAmount: 'Add initial amount',
 }
 
 export const TRANSACTION_COPY = {
   // COMMON
   name: 'Name',
   note: 'Note',
+  account: 'Account',
   category: 'Category',
   amount: 'Amount',
   currency: 'Currency',
@@ -70,20 +96,6 @@ export const CATEGORY_COPY = {
   categoryAdded: 'Category Added',
   categoryUpdated: 'Category Updated',
   categoryNameError: 'Category requires a name',
-}
-
-export const COMMON_COPY = {
-  brand: 'Expense Tracker',
-  add: 'Add',
-  edit: 'Edit',
-  delete: 'Delete',
-  update: 'Update',
-  save: 'Save',
-  cancel: 'Cancel',
-  setDate: 'Set Date',
-  actions: 'Actions',
-  selectOne: 'Please select one',
-  noChanges: 'No changes to save',
 }
 
 export const NAVIGATION_COPY = {

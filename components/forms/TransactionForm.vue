@@ -28,6 +28,22 @@
         </ul>
       </div>
 
+      <!-- ACCOUNT -->
+      <div class="input-group">
+        <label for="account">{{ TRANSACTION_COPY.account }}</label>
+        <select id="account" v-model="account">
+          <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+          <option
+            v-for="{ id, name: accountName } in accountStore.accounts"
+            :key="id"
+            :value="id"
+            :selected="accountName === category"
+          >
+            {{ accountName }}
+          </option>
+        </select>
+      </div>
+
       <div class="row">
         <!-- NAME -->
         <div class="input-group">
@@ -70,7 +86,7 @@
 
       <!-- AMOUNT -->
       <div class="input-group">
-        <label for="displayName">{{ TRANSACTION_COPY.amount }}</label>
+        <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
         <input
           v-model="amount"
           :placeholder="TRANSACTION_COPY.amountPlaceholder"
@@ -81,7 +97,7 @@
 
       <!-- DATE PICKER -->
       <div class="input-group">
-        <label for="displayName">{{ TRANSACTION_COPY.date }}</label>
+        <label for="datePicker">{{ TRANSACTION_COPY.date }}</label>
         <DatePicker id="datePicker" :date="date" @on-change="onDateSelect" />
       </div>
 
@@ -113,13 +129,14 @@ import {
   updateTransaction,
   deleteTransaction,
 } from '~~/endpoints/transaction'
-import { useAccount } from '~~/stores/account'
+import { useProfile } from '~~/stores/profile'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
 import { TRANSACTION_TYPES } from '~~/constants/transactions'
 import { useCategories } from '~~/stores/categories'
-import { useUserSettings } from '~~/stores/userSettings'
 import { useNotification } from '~~/stores/notification'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
+import { useAccounts } from '~~/stores/accounts'
+import { validateAmount, validateName } from '~~/helpers/validators'
 
 const emit = defineEmits(['refresh', 'closeModal'])
 
@@ -127,8 +144,8 @@ const props = defineProps({
   transaction: { type: Object, default: () => {} },
 })
 
-const account = useAccount()
-const userSettings = useUserSettings()
+const profile = useProfile()
+const accountStore = useAccounts()
 const categoryStore = useCategories()
 const notification = useNotification()
 
@@ -136,6 +153,7 @@ const transactionType = ref(
   props.transaction?.type || TRANSACTION_TYPES[0].displayName
 )
 const name = ref(props.transaction?.name || '')
+const account = ref((props.transaction?.account?.id as string) || '')
 const category = ref((props.transaction?.category?.id as string) || '')
 const note = ref(props.transaction?.note || '')
 const amount = ref(props.transaction?.amount || 0.0)
@@ -158,37 +176,16 @@ const transactionCategories = computed(() => {
 })
 
 const fieldsValid = () => {
-  if (name.value === '' || name.value === null || name.value === undefined) {
-    notification.addNotification({
-      message: TRANSACTION_COPY.nameRequired,
-      type: 'error',
-    })
+  // TRANSACTION ACCOUNT
+  if (validateName(account.value, COMMON_COPY.accountError) === false)
     return false
-  }
-
-  if (
-    category.value === '' ||
-    category.value === null ||
-    category.value === undefined
-  ) {
-    notification.addNotification({
-      message: TRANSACTION_COPY.categoryRequired,
-      type: 'error',
-    })
+  // TRANSACTION NAME
+  if (validateName(name.value) === false) return false
+  // TRANSACTION CATEGORY
+  if (validateName(category.value, COMMON_COPY.categoryError) === false)
     return false
-  }
-
-  if (
-    amount.value <= 0.0 ||
-    amount.value === null ||
-    amount.value === undefined
-  ) {
-    notification.addNotification({
-      message: TRANSACTION_COPY.amountRequired,
-      type: 'error',
-    })
-    return false
-  }
+  // TRANSACTION AMOUNT
+  if (!validateAmount(amount.value)) return false
 
   return true
 }
@@ -230,41 +227,17 @@ const onSave = async (event: Event) => {
     return false
   }
 
-  if (!account.userId) return
+  if (!profile.userId) return
 
+  // CREATE
+
+  if (!props?.transaction?.id) {
+    await onCreateTransaction()
+  }
+
+  // UPDATE
   if (props?.transaction?.id) {
-    const data: ITransaction = {
-      id: props.transaction.id,
-      type: transactionType.value,
-      name: name.value,
-      note: note.value,
-      categoryId: category.value,
-      amount: amount.value,
-      date: date.value,
-    }
-    await updateTransaction(data)
-
-    notification.addNotification({
-      message: TRANSACTION_COPY.transactionUpdated,
-      type: 'success',
-    })
-  } else {
-    const data: INewTransaction = {
-      userId: account.userId,
-      type: transactionType.value,
-      name: name.value,
-      note: note.value,
-      categoryId: category.value,
-      amount: amount.value,
-      date: date.value,
-    }
-
-    await createTransaction(data)
-
-    notification.addNotification({
-      message: TRANSACTION_COPY.transactionAdded,
-      type: 'success',
-    })
+    await onUpdateTransaction()
   }
 
   clearFields()
@@ -282,5 +255,46 @@ const onDelete = async () => {
   clearFields()
   emit('refresh')
   emit('closeModal')
+}
+
+const onCreateTransaction = async () => {
+  const data: INewTransaction = {
+    userId: profile.userId,
+    type: transactionType.value,
+    accountId: account.value,
+    name: name.value,
+    note: note.value,
+    categoryId: category.value,
+    amount: amount.value,
+    date: date.value,
+  }
+
+  await createTransaction(data)
+
+  notification.addNotification({
+    message: TRANSACTION_COPY.transactionAdded,
+    type: 'success',
+  })
+}
+
+const onUpdateTransaction = async () => {
+  const data: ITransaction = {
+    id: props.transaction.id,
+    type: transactionType.value,
+    accountId: account.value,
+    name: name.value,
+    note: note.value,
+    categoryId: category.value,
+    amount: amount.value,
+    date: date.value,
+  }
+  await updateTransaction(data)
+
+  notification.addNotification({
+    message: TRANSACTION_COPY.transactionUpdated,
+    type: 'success',
+  })
+
+  emit('closeModal', true)
 }
 </script>

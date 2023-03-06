@@ -20,12 +20,12 @@
 
 <script setup lang="ts">
 import { SETTINGS_COPY } from '~~/constants/copy'
-import { useAccount } from '~~/stores/account'
+import { useProfile } from '~~/stores/profile'
 import { IUserSettings } from '~~/types/userSettings'
 import { updateUserSettings } from '~~/endpoints/userSettings'
 import { useUserSettings } from '~~/stores/userSettings'
 
-const account = useAccount()
+const profile = useProfile()
 const userSettings = useUserSettings()
 
 const defaultCurrency = ref(userSettings.currency)
@@ -39,11 +39,11 @@ watch(
 
 const onSaveUserSettings = async (event: Event) => {
   event.preventDefault()
-  if (!account.userId) return
+  if (!profile.userId) return
 
   const data: IUserSettings = {
     id: userSettings.id,
-    userId: account.userId,
+    userId: profile.userId,
     currency: defaultCurrency.value,
   }
 

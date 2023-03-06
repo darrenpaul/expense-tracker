@@ -23,40 +23,18 @@ form {
     /* ANIMATION AND EFFECTS */
 }
 
-.checkbox-container {
+.checkbox {
     /* SIZE */
+    @apply w-6 h-6;
     /* MARGINS AND PADDING */
     /* LAYOUT */
     @apply flex items-center;
     /* BORDERS */
+    @apply rounded focus:ring-2;
     /* COLORS */
+    @apply focus:ring-blue-500;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
-
-    .checkbox-input {
-        /* SIZE */
-        @apply w-4 h-4;
-        /* MARGINS AND PADDING */
-        /* LAYOUT */
-        @apply flex items-center;
-        /* BORDERS */
-        @apply rounded focus:ring-2;
-        /* COLORS */
-        @apply focus:ring-blue-500;
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
-    }
-    .checkbox-label {
-        /* SIZE */
-        /* MARGINS AND PADDING */
-        @apply ml-2;
-        /* LAYOUT */
-        /* BORDERS */
-        /* COLORS */
-        /* TEXT */
-        @apply text-sm font-medium;
-        /* ANIMATION AND EFFECTS */
-    }
 }
 
 .toggle-container {

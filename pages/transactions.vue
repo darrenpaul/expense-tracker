@@ -24,22 +24,22 @@
 
       <div class="column w-1/3">
         <GlanceCard
-          v-if="transactions.list"
+          v-if="transactionsStore.list"
           :title="TRANSACTION_COPY.balance"
           :amount="
             currencyFormat({
-              value: transactions.balance,
+              value: transactionsStore.balance,
               currency: 'R',
             })
           "
         />
         <GlanceCard
-          v-if="transactions.list"
+          v-if="transactionsStore.list"
           :title="TRANSACTION_COPY.spendPerDay"
           :amount="
             currencyFormat({
               value: spendPerDay({
-                balance: transactions.balance,
+                balance: transactionsStore.balance,
                 date: new Date(),
               }),
               currency: 'R',
@@ -47,12 +47,12 @@
           "
         />
         <GlanceCard
-          v-if="transactions.list"
+          v-if="transactionsStore.list"
           :title="TRANSACTION_COPY.spendPerWeek"
           :amount="
             currencyFormat({
               value: spendPerWeek({
-                balance: transactions.balance,
+                balance: transactionsStore.balance,
                 date: new Date(),
               }),
               currency: 'R',
@@ -70,8 +70,8 @@
     </div>
 
     <TransactionList
-      v-if="transactions.list"
-      :transactions="transactions.list"
+      v-if="transactionsStore.list"
+      :transactions="transactionsStore.list"
       @on-edit="onEditTransaction"
       @change="refreshData"
     />
@@ -88,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import TransactionForm from '~~/components/transactions/TransactionForm.vue'
+import TransactionForm from '~~/components/forms/TransactionForm.vue'
 import TransactionList from '~~/components/transactions/TransactionList.vue'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
@@ -100,42 +100,44 @@ import { spendPerDay, spendPerWeek } from '~~/helpers/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
+import { useAccounts } from '~~/stores/accounts'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
   layout: 'main',
 })
 
-const userSettings = useUserSettings()
-const transactions = useTransactions()
-
-onMounted(() => {
-  transactions.fetchTransactions()
-})
+const userSettingsStore = useUserSettings()
+const transactionsStore = useTransactions()
 
 const showTransactionModal = ref(false)
 const period = ref(PERIODS.day.displayName)
 const transaction = ref({})
 
 const expensesForPeriodOptions = computed(() => {
-  if (transactions.list === null) {
+  if (transactionsStore.list === null) {
     return {}
   }
 
   return expensesForPeriod({
-    transactions: transactions.list as Array<ITransaction>,
+    transactions: transactionsStore.list as Array<ITransaction>,
     date: new Date(),
     period: period.value,
-    currency: userSettings.currency,
+    currency: userSettingsStore.currency,
   })
 })
 
-const onCloseTransactionModal = () => {
+const onCloseTransactionModal = (refresh = false) => {
   showTransactionModal.value = false
   transaction.value = {}
+
+  if (refresh) {
+    refreshData()
+  }
 }
+
 const onEditTransaction = (transactionId: string) => {
-  const matchedTransaction = transactions.list?.find(
+  const matchedTransaction = transactionsStore.list?.find(
     ({ id }) => id === transactionId
   )
   if (matchedTransaction) {
@@ -149,7 +151,7 @@ const onTransactionCreatedUpdated = () => {
 }
 
 const refreshData = () => {
-  transactions.fetchTransactions()
+  transactionsStore.fetchTransactions()
 }
 
 const onPeriodButtonClick = (event: Event) => {

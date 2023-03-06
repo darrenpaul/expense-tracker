@@ -1,3 +1,4 @@
+import { IAccount } from '~~/types/account'
 import { ICategory } from '~~/types/category'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
 
@@ -14,7 +15,7 @@ export const viewTransactions = async () => {
   const pocketBaseClient = usePocketBase()
 
   const records = await pocketBaseClient.collection(TABLE).getFullList(200, {
-    expand: 'categoryId',
+    expand: 'categoryId,accountId',
     sort: '-date',
   })
 
@@ -26,10 +27,17 @@ export const viewTransactions = async () => {
       icon: record.expand.categoryId.icon,
     }
 
+    const account: IAccount = {
+      id: record.expand.accountId?.id,
+      includeInBalance: record.expand.accountId?.includeInBalance,
+      name: record.expand.accountId?.name,
+    }
+
     return {
       id: record.id,
       userId: record.userId,
       type: record.type,
+      account,
       name: record.name,
       note: record.note,
       category,

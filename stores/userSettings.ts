@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useAccount } from './account'
+import { useProfile } from './profile'
 import { viewUserSettings } from '~~/endpoints/userSettings'
 
 export const useUserSettings = defineStore({
@@ -17,8 +17,8 @@ export const useUserSettings = defineStore({
 
   actions: {
     async fetchUserSettings() {
-      const account = useAccount()
-      const userId = account.userId
+      const profile = useProfile()
+      const userId = profile.userId
       const userSettings = await viewUserSettings(userId)
 
       this.id = userSettings.id

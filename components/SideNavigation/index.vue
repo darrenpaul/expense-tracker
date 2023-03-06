@@ -25,7 +25,7 @@
         </div>
 
         <button
-          v-if="account.authenticated === true"
+          v-if="profile.authenticated === true"
           class="dropdown-button-item"
           @click="onLogout"
         >
@@ -41,20 +41,22 @@ import { HOME_ROUTE } from '~~/constants/routes/home'
 import { COMMON_COPY, NAVIGATION_COPY } from '~~/constants/copy'
 import BrandIcon from '~~/components/icons/BrandIcon.vue'
 import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
-import { ACCOUNT_SETTINGS_ROUTE } from '~~/constants/routes/account'
+import { PROFILE_SETTINGS_ROUTE } from '~~/constants/routes/profile'
+import { ACCOUNTS_ROUTE } from '~~/constants/routes/accounts'
 import { TRANSACTIONS_ROUTE } from '~~/constants/routes/transactions'
-import { useAccount } from '~~/stores/account'
+import { useProfile } from '~~/stores/profile'
 
 const LINKS = [
   HOME_ROUTE,
   DASHBOARD_ROUTE,
   TRANSACTIONS_ROUTE,
-  ACCOUNT_SETTINGS_ROUTE,
+  ACCOUNTS_ROUTE,
+  PROFILE_SETTINGS_ROUTE,
 ]
 
 const route = useRoute()
 const router = useRouter()
-const account = useAccount()
+const profile = useProfile()
 
 const matchRoute = (path: string) => {
   if (path === route.path) return true
@@ -63,7 +65,7 @@ const matchRoute = (path: string) => {
 }
 
 const onLogout = async () => {
-  await account.logout()
+  await profile.logout()
   router.replace(HOME_ROUTE.path)
 }
 </script>

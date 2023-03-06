@@ -57,6 +57,10 @@ definePageMeta({
 const userSettings = useUserSettings()
 const transactions = useTransactions()
 
+onMounted(() => {
+  transactions.fetchTransactions()
+})
+
 const expensesVsIncomesOptions = computed(() => {
   if (transactions.list === null) {
     return {}

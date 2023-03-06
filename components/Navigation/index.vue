@@ -79,12 +79,12 @@
 import DropDownButton from '~~/components/buttons/DropDownButton.vue'
 import { HOME_ROUTE } from '~~/constants/routes/home'
 import {
-  ACCOUNT_LOGIN_ROUTE,
-  ACCOUNT_REGISTER_ROUTE,
-  ACCOUNT_SETTINGS_ROUTE,
-} from '~~/constants/routes/account'
+  PROFILE_LOGIN_ROUTE,
+  PROFILE_REGISTER_ROUTE,
+  PROFILE_SETTINGS_ROUTE,
+} from '~~/constants/routes/profile'
 import { COMMON_COPY, NAVIGATION_COPY } from '~~/constants/copy'
-import { useAccount } from '~~/stores/account'
+import { useProfile } from '~~/stores/profile'
 import { useTheme } from '~~/stores/theme'
 import SunIcon from '~~/components/icons/SunIcon.vue'
 import MoonIcon from '~~/components/icons/MoonIcon.vue'
@@ -94,19 +94,19 @@ import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
 
 const router = useRouter()
 const route = useRoute()
-const account = useAccount()
+const profile = useProfile()
 const theme = useTheme()
 
 const guestRoutes = computed(() => {
-  return [HOME_ROUTE, DASHBOARD_ROUTE, ACCOUNT_SETTINGS_ROUTE]
+  return [HOME_ROUTE, DASHBOARD_ROUTE, PROFILE_SETTINGS_ROUTE]
 })
 
 const guestDropdownOptions = computed(() => {
-  return [ACCOUNT_LOGIN_ROUTE, ACCOUNT_REGISTER_ROUTE]
+  return [PROFILE_LOGIN_ROUTE, PROFILE_REGISTER_ROUTE]
 })
 
 const userDropdownOptions = computed(() => {
-  return [ACCOUNT_LOGIN_ROUTE, ACCOUNT_REGISTER_ROUTE]
+  return [PROFILE_LOGIN_ROUTE, PROFILE_REGISTER_ROUTE]
 })
 
 const matchRoute = (path: string) => {
@@ -120,7 +120,7 @@ const onToggleTheme = () => {
 }
 
 const onLogout = async () => {
-  await account.logout()
+  await profile.logout()
   router.replace(HOME_ROUTE.path)
 }
 </script>

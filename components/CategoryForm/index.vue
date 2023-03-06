@@ -60,7 +60,7 @@
 import { isEmpty } from 'lodash-es'
 import BasicRadio from '../radios/BasicRadio.vue'
 import { COMMON_COPY, CATEGORY_COPY, TRANSACTION_COPY } from '~~/constants/copy'
-import { useAccount } from '~~/stores/account'
+import { useProfile } from '~~/stores/profile'
 import {
   createCategory,
   deleteCategory,
@@ -79,7 +79,7 @@ const props = defineProps({
   category: { type: Object, default: () => {} },
 })
 
-const account = useAccount()
+const profile = useProfile()
 const categories = useCategories()
 const notification = useNotification()
 
@@ -145,7 +145,7 @@ const onAddCategory = async (event: Event) => {
   if (fieldsValid() === false) {
     return false
   }
-  if (!account.userId) return
+  if (!profile.userId) return
 
   if (props.category.name) {
     const data: ICategory = {
@@ -163,7 +163,7 @@ const onAddCategory = async (event: Event) => {
     })
   } else {
     const data: INewCategory = {
-      userId: account.userId,
+      userId: profile.userId,
       transactionType: transactionType.value,
       name: name.value,
       icon: '',

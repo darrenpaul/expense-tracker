@@ -1,16 +1,16 @@
 <template>
   <section>
-    <h1>{{ ACCOUNT_COPY.registerAccount }}</h1>
+    <h1>{{ COMMON_COPY.registerAccount }}</h1>
 
     <form>
       <!-- FIRST NAME & LAST NAME -->
       <div class="row">
         <!-- FIRST NAME -->
         <div class="input-group">
-          <label for="displayName">{{ ACCOUNT_COPY.firstName }}</label>
+          <label for="displayName">{{ COMMON_COPY.firstName }}</label>
           <input
             v-model="firstName"
-            :placeholder="ACCOUNT_COPY.firstName"
+            :placeholder="COMMON_COPY.firstName"
             name="fname"
             type="text"
           />
@@ -18,10 +18,10 @@
 
         <!-- LAST NAME -->
         <div class="input-group">
-          <label for="displayName">{{ ACCOUNT_COPY.lastName }}</label>
+          <label for="displayName">{{ COMMON_COPY.lastName }}</label>
           <input
             v-model="lastName"
-            :placeholder="ACCOUNT_COPY.lastNamePlaceholder"
+            :placeholder="COMMON_COPY.lastNamePlaceholder"
             name="lname"
             type="text"
           />
@@ -30,10 +30,10 @@
 
       <!-- EMAIL -->
       <div class="input-group">
-        <label for="displayName">{{ ACCOUNT_COPY.email }}</label>
+        <label for="displayName">{{ COMMON_COPY.email }}</label>
         <input
           v-model="email"
-          :placeholder="ACCOUNT_COPY.emailPlaceholder"
+          :placeholder="COMMON_COPY.emailPlaceholder"
           name="email"
           type="email"
         />
@@ -43,26 +43,26 @@
       <div class="row">
         <!-- PASSWORD -->
         <div class="input-group">
-          <label for="displayName">{{ ACCOUNT_COPY.password }}</label>
+          <label for="displayName">{{ COMMON_COPY.password }}</label>
           <input
             v-model="password"
-            :placeholder="ACCOUNT_COPY.passwordPlaceHolder"
+            :placeholder="COMMON_COPY.passwordPlaceHolder"
             name="password"
             type="password"
           />
         </div>
         <div class="input-group">
-          <label for="displayName">{{ ACCOUNT_COPY.passwordRepeat }}</label>
+          <label for="displayName">{{ COMMON_COPY.passwordRepeat }}</label>
           <input
             v-model="passwordConfirm"
-            :placeholder="ACCOUNT_COPY.passwordPlaceHolder"
+            :placeholder="COMMON_COPY.passwordPlaceHolder"
             name="passwordConfirm"
             type="password"
           />
         </div>
       </div>
 
-      <button @click="onRegisterUser">{{ ACCOUNT_COPY.register }}</button>
+      <button @click="onRegisterUser">{{ COMMON_COPY.register }}</button>
     </form>
   </section>
 </template>
@@ -70,9 +70,8 @@
 <script setup lang="ts">
 import isEmail from 'validator/lib/isEmail'
 import { createUserAccount } from '~~/endpoints/users'
-import { ACCOUNT_COPY } from '~~/constants/copy'
-// import { ACCOUNT_ROUTE } from '~~/constants/routes'
-import { useAccount } from '~~/stores/account'
+import { COMMON_COPY } from '~~/constants/copy'
+import { useProfile } from '~~/stores/profile'
 import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
 import { createUserSettings } from '~~/endpoints/userSettings'
 import { INewUserSettings } from '~~/types/userSettings'
@@ -83,9 +82,11 @@ import {
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
 import { useNotification } from '~~/stores/notification'
+import { INewAccount } from '~~/types/account'
+import { createAccount } from '~~/endpoints/accounts'
 
 const router = useRouter()
-const account = useAccount()
+const profile = useProfile()
 const notification = useNotification()
 
 const firstName = ref('')
@@ -95,7 +96,7 @@ const password = ref('')
 const passwordConfirm = ref('')
 
 onMounted(() => {
-  if (account.authenticated === true) {
+  if (profile.authenticated === true) {
     router.replace(DASHBOARD_ROUTE.path)
   }
 })
@@ -104,7 +105,7 @@ const fieldsValid = () => {
   if (firstName.value === '') {
     notification.addNotification({
       title: 'Notification Title',
-      message: ACCOUNT_COPY.firstNameRequired,
+      message: COMMON_COPY.firstNameRequired,
       type: 'error',
     })
     return false
@@ -113,7 +114,7 @@ const fieldsValid = () => {
   if (lastName.value === '') {
     notification.addNotification({
       title: 'Notification Title',
-      message: ACCOUNT_COPY.lastNameRequired,
+      message: COMMON_COPY.lastNameRequired,
       type: 'error',
     })
     return false
@@ -122,7 +123,7 @@ const fieldsValid = () => {
   if (email.value === '' || !isEmail(email.value)) {
     notification.addNotification({
       title: 'Notification Title',
-      message: ACCOUNT_COPY.emailRequired,
+      message: COMMON_COPY.emailRequired,
       type: 'error',
     })
     return false
@@ -131,7 +132,7 @@ const fieldsValid = () => {
   if (password.value === '') {
     notification.addNotification({
       title: 'Notification Title',
-      message: ACCOUNT_COPY.passwordRequired,
+      message: COMMON_COPY.passwordRequired,
       type: 'error',
     })
     return false
@@ -140,7 +141,7 @@ const fieldsValid = () => {
   if (passwordConfirm.value === '') {
     notification.addNotification({
       title: 'Notification Title',
-      message: ACCOUNT_COPY.passwordRequired,
+      message: COMMON_COPY.passwordRequired,
       type: 'error',
     })
     return false
@@ -149,7 +150,7 @@ const fieldsValid = () => {
   if (password.value !== passwordConfirm.value) {
     notification.addNotification({
       title: 'Notification Title',
-      message: ACCOUNT_COPY.passwordMustMatch,
+      message: COMMON_COPY.passwordMustMatch,
       type: 'error',
     })
     return false
@@ -176,7 +177,7 @@ const onRegisterUser = async (event: Event) => {
   try {
     const { id } = await createUserAccount(userData)
 
-    await account.login(email.value, password.value)
+    await profile.login(email.value, password.value)
 
     const userSettingsData: INewUserSettings = {
       userId: id,
@@ -210,7 +211,29 @@ const onRegisterUser = async (event: Event) => {
       await createCategory(category)
     }
 
-    if (account.authenticated) {
+    const userAccounts: Array<INewAccount> = [
+      {
+        userId: id,
+        name: 'Cash',
+        includeInBalance: true,
+      },
+      {
+        userId: id,
+        name: 'Credit Card',
+        includeInBalance: false,
+      },
+      {
+        userId: id,
+        name: 'Savings',
+        includeInBalance: true,
+      },
+    ]
+
+    for (const account of userAccounts) {
+      await createAccount(account)
+    }
+
+    if (profile.authenticated) {
       router.replace(DASHBOARD_ROUTE.path)
     }
   } catch (error) {

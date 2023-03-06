@@ -14,19 +14,23 @@
 </template>
 
 <script setup lang="ts">
-import { useAccount } from './stores/account'
+import { useProfile } from './stores/profile'
 import { useTheme } from '~~/stores/theme'
 import { useNotification } from '~~/stores/notification'
 import { useCategories } from '~~/stores/categories'
 import { Theme } from '~~/types/theme'
 import { LOCAL_STORAGE_THEME_KEY } from '~~/constants/settings'
 import { useUserSettings } from '~~/stores/userSettings'
+import { useTransactions } from '~~/stores/transactions'
+import { useAccounts } from '~~/stores/accounts'
 
 const theme = useTheme()
-const account = useAccount()
+const profile = useProfile()
 const categories = useCategories()
 const userSettings = useUserSettings()
 const notification = useNotification()
+const accountStore = useAccounts()
+const transactionsStore = useTransactions()
 
 onMounted(() => {
   const isDarkModePreferred = window.matchMedia(
@@ -43,9 +47,11 @@ onMounted(() => {
     theme.setTheme(isDarkModePreferred ? 'dark' : 'light')
   }
 
-  if (account.authenticated) {
+  if (profile.authenticated) {
     categories.fetchCategories()
     userSettings.fetchUserSettings()
+    accountStore.fetchAccounts()
+    transactionsStore.fetchTransactions()
   }
 })
 </script>

@@ -1,13 +1,13 @@
 <template>
   <section>
-    <h1>{{ ACCOUNT_COPY.logIntoAccount }}</h1>
+    <h1>{{ COMMON_COPY.logIntoAccount }}</h1>
     <form>
       <!-- EMAIL -->
       <div class="input-group">
-        <label for="displayName">{{ ACCOUNT_COPY.email }}</label>
+        <label for="displayName">{{ COMMON_COPY.email }}</label>
         <input
           v-model="email"
-          :placeholder="ACCOUNT_COPY.emailPlaceholder"
+          :placeholder="COMMON_COPY.emailPlaceholder"
           name="email"
           type="email"
         />
@@ -15,30 +15,30 @@
 
       <!-- PASSWORD -->
       <div class="input-group">
-        <label for="displayName">{{ ACCOUNT_COPY.password }}</label>
+        <label for="displayName">{{ COMMON_COPY.password }}</label>
         <input
           v-model="password"
-          :placeholder="ACCOUNT_COPY.passwordPlaceHolder"
+          :placeholder="COMMON_COPY.passwordPlaceHolder"
           name="password"
           type="password"
         />
       </div>
-      <button @click="onLogin">{{ ACCOUNT_COPY.login }}</button>
+      <button @click="onLogin">{{ COMMON_COPY.login }}</button>
     </form>
   </section>
 </template>
 
 <script setup lang="ts">
 import isEmail from 'validator/es/lib/isEmail'
-import { ACCOUNT_COPY } from '~~/constants/copy'
+import { COMMON_COPY } from '~~/constants/copy'
 import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
-import { useAccount } from '~~/stores/account'
+import { useProfile } from '~~/stores/profile'
 import { useCategories } from '~~/stores/categories'
 import { useNotification } from '~~/stores/notification'
 import { useUserSettings } from '~~/stores/userSettings'
 
 const router = useRouter()
-const account = useAccount()
+const profile = useProfile()
 const categories = useCategories()
 const userSettings = useUserSettings()
 const notification = useNotification()
@@ -47,7 +47,7 @@ const email = ref('')
 const password = ref('')
 
 onMounted(() => {
-  if (account.authenticated === true) {
+  if (profile.authenticated === true) {
     router.replace(DASHBOARD_ROUTE.path)
   }
 })
@@ -55,7 +55,7 @@ onMounted(() => {
 const fieldsValid = () => {
   if (email.value === '' || !isEmail(email.value)) {
     notification.addNotification({
-      message: ACCOUNT_COPY.emailRequired,
+      message: COMMON_COPY.emailRequired,
       type: 'error',
     })
     return false
@@ -63,7 +63,7 @@ const fieldsValid = () => {
 
   if (password.value === '') {
     notification.addNotification({
-      message: ACCOUNT_COPY.passwordRequired,
+      message: COMMON_COPY.passwordRequired,
       type: 'error',
     })
     return false
@@ -80,8 +80,8 @@ const onLogin = async (event: Event) => {
   }
 
   try {
-    await account.login(email.value, password.value)
-    if (account.authenticated) {
+    await profile.login(email.value, password.value)
+    if (profile.authenticated) {
       categories.fetchCategories()
       userSettings.fetchUserSettings()
       router.replace(DASHBOARD_ROUTE.path)

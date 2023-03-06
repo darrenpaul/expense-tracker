@@ -1,11 +1,11 @@
 import {
-  ACCOUNT_LOGIN_ROUTE,
-  ACCOUNT_SETTINGS_ROUTE,
-} from '~~/constants/routes/account'
+  PROFILE_LOGIN_ROUTE,
+  PROFILE_SETTINGS_ROUTE,
+} from '~~/constants/routes/profile'
 import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
 import { HOME_ROUTE } from '~~/constants/routes/home'
 
-import { useAccount } from '~~/stores/account'
+import { useProfile } from '~~/stores/profile'
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const toPath = to.path
@@ -13,16 +13,16 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const matchedRoute = [
     HOME_ROUTE,
     DASHBOARD_ROUTE,
-    ACCOUNT_SETTINGS_ROUTE,
+    PROFILE_SETTINGS_ROUTE,
   ].find((route) => route.path === toPath)
 
-  const account = useAccount()
-  if (account.authenticated === false) {
+  const profile = useProfile()
+  if (profile.authenticated === false) {
     try {
-      await account.refreshToken()
+      await profile.refreshToken()
     } catch (error) {
       if (matchedRoute?.auth === true) {
-        return navigateTo(ACCOUNT_LOGIN_ROUTE.path)
+        return navigateTo(PROFILE_LOGIN_ROUTE.path)
       }
     }
   }

@@ -3,8 +3,8 @@ import { authLogin, authRefreshToken, authLogout } from '~~/endpoints/auth'
 import { ACCESS_TOKEN_COOKIE } from '~~/constants/settings'
 import { IUser } from '~~/types/user'
 
-export const useAccount = defineStore({
-  id: 'account',
+export const useProfile = defineStore({
+  id: 'profile',
 
   state: () => ({
     user: {} as IUser,
