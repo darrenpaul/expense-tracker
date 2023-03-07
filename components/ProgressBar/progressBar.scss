@@ -1,0 +1,42 @@
+.progress-bar-container {
+    /* SIZE */
+    @apply w-full h-8;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply relative overflow-hidden;
+    /* BORDERS */
+    @apply rounded-full;
+    /* COLORS */
+    @apply bg-gray-200;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .progress-bar {
+        /* SIZE */
+        @apply h-full;
+        /* MARGINS AND PADDING */
+        @apply p-0.5;
+        /* LAYOUT */
+        /* BORDERS */
+        @apply rounded-full;
+        /* COLORS */
+        @apply bg-blue-600  text-blue-100;
+        /* TEXT */
+        @apply text-xs font-medium leading-none text-center;
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .progress-bar-text-container {
+        /* SIZE */
+        @apply w-full h-full;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply absolute top-0 left-0 flex items-center justify-center;
+        /* BORDERS */
+        @apply rounded-full;
+        /* COLORS */
+        /* TEXT */
+        @apply text-xs font-medium leading-none text-center;
+        /* ANIMATION AND EFFECTS */
+    }
+}

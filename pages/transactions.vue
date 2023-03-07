@@ -150,7 +150,7 @@ const onTransactionCreatedUpdated = () => {
 }
 
 const refreshData = () => {
-  transactionsStore.fetchTransactions()
+  transactionsStore.fetch()
 }
 
 const onPeriodButtonClick = (event: Event) => {

@@ -36,6 +36,7 @@ export const viewTransactions = async () => {
     return {
       id: record.id,
       userId: record.userId,
+      goalId: record.goalId,
       type: record.type,
       account,
       name: record.name,

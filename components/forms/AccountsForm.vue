@@ -73,6 +73,7 @@
         />
       </div>
 
+      <!-- BUTTONS -->
       <div class="row">
         <button class="button-secondary" @click="onCancel">
           {{ COMMON_COPY.cancel }}
@@ -254,7 +255,7 @@ const onAddUpdateAccount = async (event: Event) => {
     await onAddAccount()
   }
 
-  transactionStore.fetchTransactions()
+  transactionStore.fetch()
   accountStore.fetchAccounts()
 
   emit('closeModal')

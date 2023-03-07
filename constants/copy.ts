@@ -43,10 +43,23 @@ export const COMMON_COPY = {
   accountError: 'Account required',
   accountTransferMatchError: 'Cannot transfer to the same account',
   added: 'Added',
+  created: 'Created',
   updated: 'Updated',
   deleted: 'Deleted',
   addInitialAmount: 'Add initial amount',
   uniqueError: 'Values need to be unique',
+  addGoal: 'Add Goal',
+  editGoal: 'Edit Goal',
+  goalName: 'Goal Name',
+  goalNamePlaceholder: 'Camera',
+  targetDate: 'Target Date',
+  goalPayment: 'Goal Payment',
+  notGoal: 'Not a goal',
+  saveDaily: 'Save Daily',
+  saveWeekly: 'Save Weekly',
+  saveMonthly: 'Save Monthly',
+  currentAmount: 'Current Amount',
+  TargetAmount: 'Target Amount',
 }
 
 export const TRANSACTION_COPY = {

@@ -23,6 +23,7 @@ import { LOCAL_STORAGE_THEME_KEY } from '~~/constants/settings'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
 import { useAccounts } from '~~/stores/accounts'
+import { useGoals } from '~~/stores/goals'
 
 const theme = useTheme()
 const profile = useProfile()
@@ -31,6 +32,7 @@ const userSettings = useUserSettings()
 const notification = useNotification()
 const accountStore = useAccounts()
 const transactionsStore = useTransactions()
+const goalStore = useGoals()
 
 onMounted(() => {
   const isDarkModePreferred = window.matchMedia(
@@ -51,7 +53,8 @@ onMounted(() => {
     categories.fetchCategories()
     userSettings.fetchUserSettings()
     accountStore.fetchAccounts()
-    transactionsStore.fetchTransactions()
+    transactionsStore.fetch()
+    goalStore.fetch()
   }
 })
 </script>

@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
+import { useNotification } from './notification'
 import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
-import { viewTransactions } from '~~/endpoints/transaction'
+import { createTransaction, viewTransactions } from '~~/endpoints/transaction'
 import { totalAmountTransactions } from '~~/helpers/transactions'
-import { ITransaction } from '~~/types/transaction'
+import { INewTransaction, ITransaction } from '~~/types/transaction'
+import { TRANSACTION_COPY } from '~~/constants/copy'
 
 export const useTransactions = defineStore({
   id: 'transactions',
@@ -47,10 +49,28 @@ export const useTransactions = defineStore({
         return totalAmountTransactions(accountsOnly) as number
       }
     },
+    expensesForGoal: (state) => {
+      return (goalId: string) => {
+        const pandas = state.transactions.filter(
+          (transaction) => transaction.goalId === goalId
+        )
+
+        return totalAmountTransactions(pandas) as number
+      }
+    },
   },
 
   actions: {
-    async fetchTransactions() {
+    async handleCreateTransaction(data: INewTransaction) {
+      await createTransaction(data)
+      this.fetch()
+
+      useNotification().addNotification({
+        message: TRANSACTION_COPY.transactionAdded,
+        type: 'success',
+      })
+    },
+    async fetch() {
       this.transactions = await viewTransactions()
     },
     clear() {

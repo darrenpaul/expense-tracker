@@ -59,7 +59,7 @@ const userSettings = useUserSettings()
 const transactionStore = useTransactions()
 
 onMounted(() => {
-  transactionStore.fetchTransactions()
+  transactionStore.fetch()
 })
 
 const expensesVsIncomesOptions = computed(() => {

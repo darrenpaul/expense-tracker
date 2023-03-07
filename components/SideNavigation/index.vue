@@ -42,6 +42,7 @@ import { COMMON_COPY, NAVIGATION_COPY } from '~~/constants/copy'
 import BrandIcon from '~~/components/icons/BrandIcon.vue'
 import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
 import { PROFILE_SETTINGS_ROUTE } from '~~/constants/routes/profile'
+import { GOALS_ROUTE } from '~~/constants/routes/goals'
 import { ACCOUNTS_ROUTE } from '~~/constants/routes/accounts'
 import { TRANSACTIONS_ROUTE } from '~~/constants/routes/transactions'
 import { useProfile } from '~~/stores/profile'
@@ -51,6 +52,7 @@ const LINKS = [
   DASHBOARD_ROUTE,
   TRANSACTIONS_ROUTE,
   ACCOUNTS_ROUTE,
+  GOALS_ROUTE,
   PROFILE_SETTINGS_ROUTE,
 ]
 

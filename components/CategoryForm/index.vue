@@ -170,8 +170,6 @@ const onAddCategory = async (event: Event) => {
       icon: '',
     }
 
-    console.log(data)
-
     await createCategory(data)
     notification.addNotification({
       title: 'Notification Title',

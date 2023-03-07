@@ -4,6 +4,7 @@ import { ICategory } from './category'
 export interface INewTransaction {
   userId: string
   accountId: string
+  goalId?: string
   type: string
   name: string
   note: string
@@ -16,6 +17,7 @@ export interface ITransaction {
   id: string
   userId: string
   accountId: string
+  goalId: string
   account: IAccount
   type: string
   name: string

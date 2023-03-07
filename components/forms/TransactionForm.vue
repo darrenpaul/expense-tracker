@@ -35,33 +35,22 @@
       <template
         v-if="transactionType !== TRANSACTION_TYPE_TRANSFER.displayName"
       >
-        <div class="input-group">
-          <label for="account">{{ TRANSACTION_COPY.account }}</label>
-          <select id="account" v-model="account">
-            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-            <option
-              v-for="{ id, name: accountName } in accountStore.accounts"
-              :key="id"
-              :value="id"
-              :selected="accountName === account"
-            >
-              {{ accountName }}
-            </option>
-          </select>
-        </div>
-
-        <!-- NAME & CATEGORY -->
+        <!-- ACCOUNT & CATEGORY -->
         <div class="row">
-          <!-- NAME -->
+          <!-- ACCOUNT -->
           <div class="input-group">
-            <label for="name">{{ TRANSACTION_COPY.name }}</label>
-            <input
-              id="name"
-              v-model="name"
-              :placeholder="TRANSACTION_COPY.namePlaceholder"
-              name="name"
-              type="text"
-            />
+            <label for="account">{{ TRANSACTION_COPY.account }}</label>
+            <select id="account" v-model="account">
+              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+              <option
+                v-for="{ id, name: accountName } in accountStore.accounts"
+                :key="id"
+                :value="id"
+                :selected="accountName === account"
+              >
+                {{ accountName }}
+              </option>
+            </select>
           </div>
 
           <!-- CATEGORY -->
@@ -78,6 +67,33 @@
                 {{ categoryName }}
               </option>
             </select>
+          </div>
+        </div>
+
+        <!-- NAME & AMOUNT -->
+        <div class="row">
+          <!-- NAME -->
+          <div class="input-group">
+            <label for="name">{{ TRANSACTION_COPY.name }}</label>
+            <input
+              id="name"
+              v-model="name"
+              :placeholder="TRANSACTION_COPY.namePlaceholder"
+              name="name"
+              type="text"
+            />
+          </div>
+
+          <!-- AMOUNT -->
+          <div class="input-group">
+            <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
+            <input
+              id="amount"
+              v-model="amount"
+              :placeholder="TRANSACTION_COPY.amountPlaceholder"
+              name="amount"
+              type="number"
+            />
           </div>
         </div>
       </template>
@@ -163,18 +179,39 @@
           </div>
         </div>
 
-        <!-- NAME -->
-        <div class="input-group">
-          <label for="name">{{ TRANSACTION_COPY.name }}</label>
-          <input
-            id="name"
-            v-model="name"
-            :placeholder="TRANSACTION_COPY.namePlaceholder"
-            name="name"
-            type="text"
-          />
+        <!-- NAME & AMOUNT -->
+        <div class="row">
+          <!-- NAME -->
+          <div class="input-group">
+            <label for="name">{{ TRANSACTION_COPY.name }}</label>
+            <input
+              id="name"
+              v-model="name"
+              :placeholder="TRANSACTION_COPY.namePlaceholder"
+              name="name"
+              type="text"
+            />
+          </div>
+
+          <!-- AMOUNT -->
+          <div class="input-group">
+            <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
+            <input
+              id="amount"
+              v-model="amount"
+              :placeholder="TRANSACTION_COPY.amountPlaceholder"
+              name="amount"
+              type="number"
+            />
+          </div>
         </div>
       </template>
+
+      <!-- DATE PICKER -->
+      <div class="input-group">
+        <label for="datePicker">{{ TRANSACTION_COPY.date }}</label>
+        <DatePicker id="datePicker" :date="date" @on-change="date = $event" />
+      </div>
 
       <!-- NOTE -->
       <div class="input-group">
@@ -188,29 +225,34 @@
         />
       </div>
 
-      <!-- AMOUNT -->
-      <div class="input-group">
-        <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
-        <input
-          id="amount"
-          v-model="amount"
-          :placeholder="TRANSACTION_COPY.amountPlaceholder"
-          name="amount"
-          type="number"
-        />
+      <!-- LINK GOAL -->
+      <div
+        v-if="transactionType === TRANSACTION_TYPE_EXPENSE.displayName"
+        class="input-group"
+      >
+        <label for="goal">{{ COMMON_COPY.goalPayment }}</label>
+        <select id="goal" v-model="goal">
+          <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+          <option value="">{{ COMMON_COPY.notGoal }}</option>
+          <option
+            v-for="{ id, name: goalName } in goalStore.goals"
+            :key="id"
+            :value="id"
+            :selected="goalName === category"
+          >
+            {{ goalName }}
+          </option>
+        </select>
       </div>
 
-      <!-- DATE PICKER -->
-      <div class="input-group">
-        <label for="datePicker">{{ TRANSACTION_COPY.date }}</label>
-        <DatePicker id="datePicker" :date="date" @on-change="onDateSelect" />
-      </div>
-
+      <!-- BUTTONS -->
       <div class="row">
         <button class="button-secondary" @click="onCancel">
           {{ COMMON_COPY.cancel }}
         </button>
-        <button @click="onTransactionSave">{{ COMMON_COPY.save }}</button>
+        <button @click="onCreateUpdateTransaction">
+          {{ COMMON_COPY.save }}
+        </button>
       </div>
     </form>
 
@@ -246,11 +288,13 @@ import { useCategories } from '~~/stores/categories'
 import { useNotification } from '~~/stores/notification'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
 import { useAccounts } from '~~/stores/accounts'
+import { useTransactions } from '~~/stores/transactions'
 import {
   validateAmount,
   validateName,
   validateUnique,
 } from '~~/helpers/validators'
+import { useGoals } from '~~/stores/goals'
 
 const emit = defineEmits(['refresh', 'closeModal'])
 
@@ -262,6 +306,8 @@ const profile = useProfile()
 const accountStore = useAccounts()
 const categoryStore = useCategories()
 const notification = useNotification()
+const goalStore = useGoals()
+const transactionStore = useTransactions()
 
 const transactionType = ref(
   props.transaction?.type || TRANSACTION_TYPES[0].displayName
@@ -271,11 +317,12 @@ const account = ref((props.transaction?.account?.id as string) || '')
 const accountTransfer = ref((props.transaction?.account?.id as string) || '')
 const categoryTransfer = ref((props.transaction?.category?.id as string) || '')
 const category = ref((props.transaction?.category?.id as string) || '')
-const note = ref(props.transaction?.note || '')
 const amount = ref(props.transaction?.amount || 0.0)
 const date = ref(
   props.transaction?.date || format(new Date(), DATE_TIME_FORMAT)
 )
+const note = ref(props.transaction?.note || '')
+const goal = ref(props.transaction?.goal?.id || '')
 const showConfirmDialog = ref(false)
 
 const headingCopy = computed(() => {
@@ -292,6 +339,8 @@ const transactionCategories = computed(() => {
 })
 
 const fieldsValid = () => {
+  if (!profile.userId) return false
+
   // TRANSACTION ACCOUNT
   if (validateName(account.value, COMMON_COPY.accountError) === false) {
     return false
@@ -374,23 +423,17 @@ const onConfirmConfirmDialog = () => {
   onDelete()
 }
 
-const onDateSelect = (newDate: string) => {
-  date.value = newDate
-}
-
 const onCancel = (event: Event) => {
   event.preventDefault()
   emit('closeModal')
 }
 
-const onTransactionSave = async (event: Event) => {
+const onCreateUpdateTransaction = async (event: Event) => {
   event.preventDefault()
 
   if (fieldsValid() === false) {
     return false
   }
-
-  if (!profile.userId) return
 
   // CREATE
   if (!props?.transaction?.id) {
@@ -423,9 +466,16 @@ const onDelete = async () => {
   emit('closeModal')
 }
 
-const onCreateTransaction = async () => {
+const onCreateTransaction = () => {
+  // Goal payments can only get expenses so this ensures that
+  const goalId =
+    transactionType.value === TRANSACTION_TYPE_EXPENSE.displayName
+      ? goal.value
+      : ''
+
   const data: INewTransaction = {
     userId: profile.userId,
+    goalId,
     type: transactionType.value,
     accountId: account.value,
     name: name.value,
@@ -435,12 +485,7 @@ const onCreateTransaction = async () => {
     date: date.value,
   }
 
-  await createTransaction(data)
-
-  notification.addNotification({
-    message: TRANSACTION_COPY.transactionAdded,
-    type: 'success',
-  })
+  transactionStore.handleCreateTransaction(data)
 }
 
 const onCreateTransactionTransfer = async () => {
@@ -466,13 +511,9 @@ const onCreateTransactionTransfer = async () => {
     amount: amount.value,
     date: date.value,
   }
-  await createTransaction(fromData)
-  await createTransaction(toDate)
 
-  notification.addNotification({
-    message: TRANSACTION_COPY.transactionAdded,
-    type: 'success',
-  })
+  transactionStore.handleCreateTransaction(fromData)
+  transactionStore.handleCreateTransaction(toDate)
 }
 
 const onUpdateTransaction = async () => {

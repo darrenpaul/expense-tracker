@@ -1,4 +1,11 @@
-import { isSameDay, format, getDaysInMonth, getWeeksInMonth } from 'date-fns'
+import {
+  isSameDay,
+  format,
+  getDaysInMonth,
+  getWeeksInMonth,
+  eachMonthOfInterval,
+  isThisMonth,
+} from 'date-fns'
 import { DATE_FORMAT } from './dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'
 import { ICategory } from '~~/types/category'
@@ -43,11 +50,8 @@ export const mergeTransactionsByProperty = ({
 }
 
 export const mergeTransactionsByDate = (transactions: Array<ITransaction>) => {
-  console.log('mergeTransactionsByDate ~ transactions:', transactions)
   const merged: IMerged = {}
   transactions.forEach(({ amount, date }) => {
-    console.log('transactions.forEach ~ date:', date)
-
     const dateOnly = format(new Date(date), DATE_FORMAT)
     if (!merged[dateOnly]) {
       merged[dateOnly] = { amount, date }
@@ -125,8 +129,22 @@ interface ISpendPerPeriod {
 export const spendPerDay = ({ balance, date }: ISpendPerPeriod) => {
   return parseFloat((balance / getDaysInMonth(new Date(date))).toFixed(2))
 }
+
 export const spendPerWeek = ({ balance, date }: ISpendPerPeriod) => {
   return parseFloat((balance / getWeeksInMonth(new Date(date))).toFixed(2))
+}
+
+export const spendPerMonth = ({ balance, date }: ISpendPerPeriod) => {
+  if (isThisMonth(date)) {
+    return parseFloat((balance / 1).toFixed(2))
+  }
+
+  const months = eachMonthOfInterval({
+    start: new Date(),
+    end: new Date(date),
+  })
+
+  return parseFloat((balance / months.length).toFixed(2))
 }
 
 export const balance = (accountId = 'All', excluded = true) => {

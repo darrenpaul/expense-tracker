@@ -89,7 +89,7 @@ const onLogin = async (event: Event) => {
       categories.fetchCategories()
       userSettings.fetchUserSettings()
       accountStore.fetchAccounts()
-      transactionsStore.fetchTransactions()
+      transactionsStore.fetch()
       router.replace(DASHBOARD_ROUTE.path)
     }
   } catch (error) {
