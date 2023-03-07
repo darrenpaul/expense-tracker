@@ -226,7 +226,7 @@ const weekMonthPeriodChart = ({
   }
 }
 
-interface IExpensesForPeriod {
+interface ITransactionsForPeriod {
   transactions: Array<ITransaction>
   date: Date
   period: string
@@ -237,7 +237,7 @@ export default ({
   date,
   period,
   currency,
-}: IExpensesForPeriod) => {
+}: ITransactionsForPeriod) => {
   const periodTransactions = filterTransactionByPeriod({
     transactions,
     date,

@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="card card-stretch">
-        <Chart :options="expensesForPeriodOptions" />
+        <Chart :options="transactionsForPeriodOptions" />
         <div class="flex justify-center gap-4 items-center">
           <button :value="PERIODS.day.displayName" @click="onPeriodButtonClick">
             {{ PERIODS.day.displayName }}
@@ -92,7 +92,7 @@ import TransactionForm from '~~/components/forms/TransactionForm.vue'
 import TransactionList from '~~/components/transactions/TransactionList.vue'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
-import expensesForPeriod from '~~/helpers/charts/transactions/expensesForPeriod'
+import transactionsForPeriod from '~~/helpers/charts/transactions/transactionsForPeriod'
 import { PERIODS } from '~~/helpers/dateFnsWrapper'
 import { TRANSACTION_COPY } from '~~/constants/copy'
 import GlanceCard from '~~/components/GlanceCard/index.vue'
@@ -113,12 +113,12 @@ const showTransactionModal = ref(false)
 const period = ref(PERIODS.day.displayName)
 const transaction = ref({})
 
-const expensesForPeriodOptions = computed(() => {
+const transactionsForPeriodOptions = computed(() => {
   if (transactionsStore.list === null) {
     return {}
   }
 
-  return expensesForPeriod({
+  return transactionsForPeriod({
     transactions: transactionsStore.list as Array<ITransaction>,
     date: new Date(),
     period: period.value,
