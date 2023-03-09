@@ -208,7 +208,8 @@ const onAddAccount = async () => {
     includeInBalance: includeInBalance.value,
   }
 
-  const { id: accountId, name: accountName } = await createAccount(data)
+  const { id: accountId, name: accountName } =
+    await accountStore.handleCreateAccount(data)
 
   if (addInitialAmount.value === true) {
     await onAddInitialTransaction({ accountId, accountName })

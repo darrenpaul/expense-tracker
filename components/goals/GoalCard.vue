@@ -76,6 +76,7 @@ definePageMeta({
 
 const props = defineProps({
   goalId: { type: String, required: true },
+  accountId: { type: String, required: true },
   name: { type: String, default: '' },
   date: { type: String, default: '' },
   amount: { type: Number, default: 0 },
@@ -87,7 +88,7 @@ const transactionStore = useTransactions()
 const expanded = ref(false)
 
 const balance = computed(() => {
-  return transactionStore.expensesForGoal(props.goalId)
+  return transactionStore.transactionsForGoal(props.accountId)
 })
 
 const balanceWithCurrency = computed(() => {

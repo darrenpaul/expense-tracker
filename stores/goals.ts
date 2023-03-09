@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { useNotification } from './notification'
+import { useAccounts } from './accounts'
+import { useProfile } from './profile'
 import {
   createGoal,
   viewGoals,
@@ -8,7 +10,7 @@ import {
 } from '~~/endpoints/goals'
 import { IGoal, INewGoal } from '~~/types/goal'
 import { COMMON_COPY } from '~~/constants/copy'
-
+import { INewAccount } from '~~/types/account'
 export const useGoals = defineStore({
   id: 'goals',
 
@@ -20,8 +22,21 @@ export const useGoals = defineStore({
 
   actions: {
     async handleCreateGoal(data: INewGoal) {
-      const goal = await createGoal(data)
+      const { name } = data
+      const goalName = `${name} (Goal)`
+
+      const accountData: INewAccount = {
+        userId: useProfile().userId,
+        name: goalName,
+        includeInBalance: false,
+      }
+
+      const accountRecord = await useAccounts().handleCreateAccount(accountData)
+
+      const goal = await createGoal({ ...data, accountId: accountRecord.id })
       this.goals = [...this.goals, goal]
+
+      useAccounts().fetchAccounts()
 
       useNotification().addNotification({
         message: COMMON_COPY.created,
@@ -39,7 +54,7 @@ export const useGoals = defineStore({
     },
     async handleDeleteGoal(goalId: string) {
       await deleteGoal(goalId)
-      this.goals = this.goals.filter(({ id }) => id === goalId)
+      this.goals = this.goals.filter(({ id }) => id !== goalId)
 
       useNotification().addNotification({
         message: COMMON_COPY.deleted,

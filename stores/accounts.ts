@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
-import { viewAccounts } from '~~/endpoints/accounts'
-import { IAccount } from '~~/types/account'
+import { useNotification } from './notification'
+import { createAccount, viewAccounts } from '~~/endpoints/accounts'
+import { IAccount, INewAccount } from '~~/types/account'
+import { COMMON_COPY } from '~~/constants/copy'
 
 export const useAccounts = defineStore({
   id: 'accounts',
@@ -12,6 +14,9 @@ export const useAccounts = defineStore({
   getters: {},
 
   actions: {
+    async handleCreateAccount(data: INewAccount) {
+      return await createAccount(data)
+    },
     async fetchAccounts() {
       this.accounts = await viewAccounts()
     },

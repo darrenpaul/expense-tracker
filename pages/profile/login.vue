@@ -38,6 +38,7 @@ import { useNotification } from '~~/stores/notification'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useAccounts } from '~~/stores/accounts'
 import { useTransactions } from '~~/stores/transactions'
+import { useGoals } from '~~/stores/goals'
 
 const router = useRouter()
 const profile = useProfile()
@@ -90,6 +91,7 @@ const onLogin = async (event: Event) => {
       userSettings.fetchUserSettings()
       accountStore.fetchAccounts()
       transactionsStore.fetch()
+      useGoals().fetch()
       router.replace(DASHBOARD_ROUTE.path)
     }
   } catch (error) {

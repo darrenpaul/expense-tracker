@@ -49,13 +49,13 @@ export const useTransactions = defineStore({
         return totalAmountTransactions(accountsOnly) as number
       }
     },
-    expensesForGoal: (state) => {
+    transactionsForGoal: (state) => {
       return (goalId: string) => {
-        const pandas = state.transactions.filter(
-          (transaction) => transaction.goalId === goalId
+        const goalTransactions = state.transactions.filter(
+          ({ account }) => account.id === goalId
         )
 
-        return totalAmountTransactions(pandas) as number
+        return totalAmountTransactions(goalTransactions) as number
       }
     },
   },
