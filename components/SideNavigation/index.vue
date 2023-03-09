@@ -46,12 +46,14 @@ import { GOALS_ROUTE } from '~~/constants/routes/goals'
 import { ACCOUNTS_ROUTE } from '~~/constants/routes/accounts'
 import { TRANSACTIONS_ROUTE } from '~~/constants/routes/transactions'
 import { useProfile } from '~~/stores/profile'
+import { CATEGORIES_ROUTE } from '~~/constants/routes/categories'
 
 const LINKS = [
   HOME_ROUTE,
   DASHBOARD_ROUTE,
   TRANSACTIONS_ROUTE,
   ACCOUNTS_ROUTE,
+  CATEGORIES_ROUTE,
   GOALS_ROUTE,
   PROFILE_SETTINGS_ROUTE,
 ]

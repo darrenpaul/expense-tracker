@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Goals</h1>
+    <h1>{{ COMMON_COPY.goals }}</h1>
 
     <button @click="() => (showModal = true)">
       {{ COMMON_COPY.addGoal }}

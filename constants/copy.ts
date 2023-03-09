@@ -48,6 +48,7 @@ export const COMMON_COPY = {
   deleted: 'Deleted',
   addInitialAmount: 'Add initial amount',
   uniqueError: 'Values need to be unique',
+  goals: 'Goals',
   addGoal: 'Add Goal',
   editGoal: 'Edit Goal',
   goalName: 'Goal Name',

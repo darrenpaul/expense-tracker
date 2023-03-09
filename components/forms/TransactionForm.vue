@@ -225,26 +225,6 @@
         />
       </div>
 
-      <!-- LINK GOAL -->
-      <div
-        v-if="transactionType === TRANSACTION_TYPE_EXPENSE.displayName"
-        class="input-group"
-      >
-        <label for="goal">{{ COMMON_COPY.goalPayment }}</label>
-        <select id="goal" v-model="goal">
-          <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-          <option value="">{{ COMMON_COPY.notGoal }}</option>
-          <option
-            v-for="{ id, name: goalName } in goalStore.goals"
-            :key="id"
-            :value="id"
-            :selected="goalName === category"
-          >
-            {{ goalName }}
-          </option>
-        </select>
-      </div>
-
       <!-- BUTTONS -->
       <div class="row">
         <button class="button-secondary" @click="onCancel">
@@ -271,11 +251,7 @@ import BasicRadio from '../radios/BasicRadio.vue'
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
 import { COMMON_COPY, TRANSACTION_COPY } from '~~/constants/copy'
 import { DATE_FORMAT, DATE_TIME_FORMAT } from '~~/helpers/dateTimeHelper'
-import {
-  createTransaction,
-  updateTransaction,
-  deleteTransaction,
-} from '~~/endpoints/transaction'
+import { updateTransaction, deleteTransaction } from '~~/endpoints/transaction'
 import { useProfile } from '~~/stores/profile'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
 import {
@@ -306,7 +282,6 @@ const profile = useProfile()
 const accountStore = useAccounts()
 const categoryStore = useCategories()
 const notification = useNotification()
-const goalStore = useGoals()
 const transactionStore = useTransactions()
 
 const transactionType = ref(
@@ -322,7 +297,6 @@ const date = ref(
   props.transaction?.date || format(new Date(), DATE_TIME_FORMAT)
 )
 const note = ref(props.transaction?.note || '')
-const goal = ref(props.transaction?.goal?.id || '')
 const showConfirmDialog = ref(false)
 
 const headingCopy = computed(() => {
@@ -467,15 +441,8 @@ const onDelete = async () => {
 }
 
 const onCreateTransaction = () => {
-  // Goal payments can only get expenses so this ensures that
-  const goalId =
-    transactionType.value === TRANSACTION_TYPE_EXPENSE.displayName
-      ? goal.value
-      : ''
-
   const data: INewTransaction = {
     userId: profile.userId,
-    goalId,
     type: transactionType.value,
     accountId: account.value,
     name: name.value,

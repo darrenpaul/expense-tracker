@@ -8,6 +8,7 @@ label {
     /* SIZE */
     /* MARGINS AND PADDING */
     /* LAYOUT */
+    @apply block;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
@@ -18,11 +19,12 @@ label {
 h1 {
     /* SIZE */
     /* MARGINS AND PADDING */
+    @apply mb-4;
     /* LAYOUT */
     /* BORDERS */
     /* COLORS */
     /* TEXT */
-    @apply text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl;
+    @apply text-4xl font-extrabold md:text-5xl lg:text-6xl leading-none tracking-tight;
     /* ANIMATION AND EFFECTS */
 }
 h2 {
@@ -50,7 +52,6 @@ label {
     /* SIZE */
     /* MARGINS AND PADDING */
     /* LAYOUT */
-    @apply block;
     /* BORDERS */
     /* COLORS */
     /* TEXT */

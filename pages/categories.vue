@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2>{{ CATEGORY_COPY.categories }}</h2>
+    <h1>{{ CATEGORY_COPY.categories }}</h1>
+
     <button @click="() => (showCategoryModal = true)">
       {{ CATEGORY_COPY.addCategory }}
     </button>
@@ -35,7 +36,12 @@
 import { CATEGORY_COPY } from '~~/constants/copy'
 import { useCategories } from '~~/stores/categories'
 import { deleteCategory } from '~~/endpoints/category'
-import CategoryForm from '~~/components/CategoryForm/index.vue'
+import CategoryForm from '~~/components/forms/CategoryForm.vue'
+
+definePageMeta({
+  middleware: process.client ? 'auth' : undefined,
+  layout: 'main',
+})
 
 const categories = useCategories()
 
