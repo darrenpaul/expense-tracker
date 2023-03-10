@@ -4,6 +4,7 @@ import { useCategories } from './categories'
 import { useTransactions } from './transactions'
 import { useUserSettings } from './userSettings'
 import { useGoals } from './goals'
+import { useBudgets } from './budgets'
 import { authLogin, authRefreshToken, authLogout } from '~~/endpoints/auth'
 import { ACCESS_TOKEN_COOKIE } from '~~/constants/settings'
 import { IUser } from '~~/types/user'
@@ -46,6 +47,7 @@ export const useProfile = defineStore({
       useTransactions().clear()
       useUserSettings().clear()
       useGoals().clear()
+      useBudgets().clear()
 
       useCookie(ACCESS_TOKEN_COOKIE).value = null
 

@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import { useProfile } from './stores/profile'
+import { useBudgets } from './stores/budgets'
 import { useTheme } from '~~/stores/theme'
 import { useNotification } from '~~/stores/notification'
 import { useCategories } from '~~/stores/categories'
@@ -55,6 +56,7 @@ onMounted(() => {
     accountStore.fetchAccounts()
     transactionsStore.fetch()
     goalStore.fetch()
+    useBudgets().fetch()
   }
 })
 </script>

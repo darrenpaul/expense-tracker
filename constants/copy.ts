@@ -61,6 +61,13 @@ export const COMMON_COPY = {
   saveMonthly: 'Save Monthly',
   currentAmount: 'Current Amount',
   TargetAmount: 'Target Amount',
+  budgets: 'Budgets',
+  addBudget: 'Add Budget',
+  editBudget: 'Edit Budget',
+  budgetName: 'Budget Name',
+  budgetNamePlaceholder: 'Takeout',
+  startDate: 'Start Date',
+  endDate: 'End Date',
 }
 
 export const TRANSACTION_COPY = {

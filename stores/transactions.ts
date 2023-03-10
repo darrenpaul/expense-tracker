@@ -58,6 +58,13 @@ export const useTransactions = defineStore({
         return totalAmountTransactions(goalTransactions) as number
       }
     },
+    transactionsWithCategory: (state) => {
+      return (categoryIds: Array<string>) => {
+        return state.transactions.filter(({ category }) =>
+          categoryIds.includes(category.id)
+        )
+      }
+    },
   },
 
   actions: {

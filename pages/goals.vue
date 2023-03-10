@@ -29,7 +29,7 @@
 import { COMMON_COPY } from '~~/constants/copy'
 import GoalForm from '~~/components/forms/GoalForm.vue'
 import { useGoals } from '~~/stores/goals'
-import GoalCard from '~~/components/goals/GoalCard.vue'
+import GoalCard from '~~/components/cards/GoalCard.vue'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,

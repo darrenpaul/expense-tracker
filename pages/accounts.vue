@@ -34,6 +34,7 @@ import { currencyFormat } from '~~/helpers/formatting'
 import { useAccounts } from '~~/stores/accounts'
 import { useUserSettings } from '~~/stores/userSettings'
 import { balance } from '~~/helpers/transactions'
+import GlanceCard from '~~/components/cards/GlanceCard.vue'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,

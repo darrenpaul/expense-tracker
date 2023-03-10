@@ -43,7 +43,7 @@
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
 import expensesVsIncomes from '~~/helpers/charts/transactions/expensesVsIncomes'
-import GlanceCard from '~~/components/GlanceCard/index.vue'
+import GlanceCard from '~~/components/cards/GlanceCard.vue'
 import { balance } from '~~/helpers/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
 import { TRANSACTION_COPY } from '~~/constants/copy'

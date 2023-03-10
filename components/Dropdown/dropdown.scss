@@ -1,0 +1,113 @@
+.dropdown-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply relative;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .dropdown-click-close {
+        /* SIZE */
+        @apply w-screen h-screen;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply fixed top-0 left-0;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .dropdown-input {
+        /* SIZE */
+        @apply w-full min-h-[2.5rem];
+        /* MARGINS AND PADDING */
+        @apply p-1;
+        /* LAYOUT */
+        @apply flex items-center justify-between;
+        /* BORDERS */
+        @apply border rounded;
+        /* COLORS */
+        @apply bg-white border-theme-text text-theme-text focus:border-theme-text focus:ring-theme-text;
+        /* TEXT */
+        @apply text-sm;
+        /* ANIMATION AND EFFECTS */
+        @apply cursor-pointer;
+    }
+
+    .dropdown-tags {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex flex-wrap gap-2 z-10;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+        @apply pointer-events-none;
+
+        .dropdown-tag {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            @apply p-1;
+            /* LAYOUT */
+            /* BORDERS */
+            @apply border rounded;
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+            @apply pointer-events-auto;
+        }
+    }
+
+    .dropdown-menu {
+        /* SIZE */
+        @apply w-full h-56;
+        /* MARGINS AND PADDING */
+        @apply mt-2;
+        /* LAYOUT */
+        @apply absolute flex flex-col overflow-y-scroll;
+        /* BORDERS */
+        @apply border rounded;
+        /* COLORS */
+        @apply bg-white border-theme-text text-theme-text focus:border-theme-text focus:ring-theme-text;
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        .dropdown-item {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            @apply px-5 py-2;
+            /* LAYOUT */
+            /* BORDERS */
+            @apply border-b;
+            /* COLORS */
+            @apply border-theme-text;
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+
+            &:last-child {
+                /* SIZE */
+                /* MARGINS AND PADDING */
+                /* LAYOUT */
+                /* BORDERS */
+                /* COLORS */
+                @apply border-transparent;
+                /* TEXT */
+                /* ANIMATION AND EFFECTS */
+            }
+        }
+        .dropdown-item-active {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            @apply bg-yellow-400;
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+    }
+}
