@@ -4,7 +4,8 @@
       <div class="side-navigation-content side-navigation-expanded">
         <!-- BRANDING -->
         <NuxtLink class="side-navigation-brand-container" :to="HOME_ROUTE.path">
-          <BrandIcon />
+          <BrandIcon :fill="'var(--secondary)'" />
+
           <h1 class="side-navigation-brand-text">
             {{ COMMON_COPY.brand }}
           </h1>
