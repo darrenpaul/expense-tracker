@@ -1,6 +1,6 @@
 form {
     /* SIZE */
-    @apply w-96;
+    @apply w-[34rem];
     /* MARGINS AND PADDING */
     @apply mx-auto;
     /* LAYOUT */
@@ -15,10 +15,30 @@ form {
     /* SIZE */
     @apply w-full;
     /* MARGINS AND PADDING */
-    @apply mb-2;
+    @apply mb-3;
     /* LAYOUT */
+    @apply grid grid-cols-3;
     /* BORDERS */
     /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    :nth-child(2) {
+        @apply col-span-2;
+    }
+}
+
+.input-label-container {
+    /* SIZE */
+    @apply h-10;
+    /* MARGINS AND PADDING */
+    @apply px-2 pl-4 mr-3;
+    /* LAYOUT */
+    @apply flex items-center;
+    /* BORDERS */
+    @apply rounded-l-full;
+    /* COLORS */
+    @apply bg-secondary-a;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
 }
@@ -63,8 +83,7 @@ form {
 }
 
 input,
-select,
-textarea {
+select {
     /* SIZE */
     @apply w-full h-10;
     /* MARGINS AND PADDING */
@@ -72,9 +91,25 @@ textarea {
     /* LAYOUT */
     @apply block;
     /* BORDERS */
-    @apply border rounded;
+    @apply rounded-r-full;
     /* COLORS */
-    @apply bg-white border-theme-text text-theme-text focus:border-theme-text focus:ring-theme-text;
+    @apply bg-secondary-a text-primary;
+    /* TEXT */
+    @apply text-sm;
+    /* ANIMATION AND EFFECTS */
+}
+
+textarea {
+    /* SIZE */
+    @apply w-full h-24 resize-none;
+    /* MARGINS AND PADDING */
+    @apply p-2;
+    /* LAYOUT */
+    @apply block;
+    /* BORDERS */
+    @apply rounded-3xl rounded-tl-none;
+    /* COLORS */
+    @apply bg-secondary-a text-primary;
     /* TEXT */
     @apply text-sm;
     /* ANIMATION AND EFFECTS */

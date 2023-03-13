@@ -1,7 +1,8 @@
 .date-picker-container {
     /* SIZE */
-    @apply w-fit;
+    @apply w-full;
     /* MARGINS AND PADDING */
+    @apply px-2 m-0;
     /* LAYOUT */
     /* BORDERS */
     /* COLORS */
@@ -13,7 +14,7 @@
     /* SIZE */
     @apply min-w-[8rem] w-fit;
     /* MARGINS AND PADDING */
-    @apply px-4 py-2 my-2;
+    @apply my-2;
     /* LAYOUT */
     @apply flex items-center gap-2;
     /* BORDERS */

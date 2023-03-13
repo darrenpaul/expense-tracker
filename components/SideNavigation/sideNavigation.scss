@@ -26,12 +26,12 @@
         /* SIZE */
         @apply w-20 h-screen;
         /* MARGINS AND PADDING */
-        @apply p-4;
         /* LAYOUT */
         @apply fixed flex flex-col;
         /* BORDERS */
+        @apply rounded-tr-3xl;
         /* COLORS */
-        @apply bg-green-400;
+        @apply bg-primary;
         /* TEXT */
         /* ANIMATION AND EFFECTS */
     }
@@ -50,9 +50,9 @@
     .side-navigation-brand-container {
         /* SIZE */
         /* MARGINS AND PADDING */
-        @apply mb-6;
+        @apply p-4 mb-6;
         /* LAYOUT */
-        @apply flex items-center;
+        @apply flex flex-col items-center;
         /* BORDERS */
         /* COLORS */
         /* TEXT */
@@ -61,12 +61,12 @@
         .side-navigation-brand-text {
             /* SIZE */
             /* MARGINS AND PADDING */
-            @apply m-0 p-0 pl-2;
             /* LAYOUT */
             /* BORDERS */
             /* COLORS */
+            @apply text-secondary;
             /* TEXT */
-            @apply text-2xl;
+            @apply text-lg font-normal;
             /* ANIMATION AND EFFECTS */
         }
     }
@@ -75,7 +75,7 @@
         /* SIZE */
         /* MARGINS AND PADDING */
         /* LAYOUT */
-        @apply flex flex-col gap-4 flex-grow;
+        @apply flex flex-col flex-grow;
         /* BORDERS */
         /* COLORS */
         /* TEXT */
@@ -83,11 +83,12 @@
 
         .side-navigation-link {
             /* SIZE */
-            @apply w-fit;
+            @apply w-full h-12;
             /* MARGINS AND PADDING */
+            @apply p-6;
             /* LAYOUT */
+            @apply flex items-center;
             /* BORDERS */
-
             /* COLORS */
             @apply text-theme-text;
             /* TEXT */
@@ -99,8 +100,8 @@
             /* MARGINS AND PADDING */
             /* LAYOUT */
             /* BORDERS */
-            @apply border-b border-theme-text;
             /* COLORS */
+            @apply bg-secondary-b;
             /* TEXT */
             /* ANIMATION AND EFFECTS */
         }

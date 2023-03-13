@@ -3,17 +3,36 @@
     <div class="row">
       <div class="card card-stretch">
         <Chart :options="transactionsForPeriodOptions" />
+
         <div class="flex justify-center gap-4 items-center">
-          <button :value="PERIODS.day.displayName" @click="onPeriodButtonClick">
+          <button
+            :class="
+              period === PERIODS.day.displayName
+                ? 'button-small-active'
+                : 'button-small'
+            "
+            :value="PERIODS.day.displayName"
+            @click="onPeriodButtonClick"
+          >
             {{ PERIODS.day.displayName }}
           </button>
           <button
+            :class="
+              period === PERIODS.week.displayName
+                ? 'button-small-active'
+                : 'button-small'
+            "
             :value="PERIODS.week.displayName"
             @click="onPeriodButtonClick"
           >
             {{ PERIODS.week.displayName }}
           </button>
           <button
+            :class="
+              period === PERIODS.month.displayName
+                ? 'button-small-active'
+                : 'button-small'
+            "
             :value="PERIODS.month.displayName"
             @click="onPeriodButtonClick"
           >
@@ -64,7 +83,7 @@
 
     <div class="column">
       <h2>{{ TRANSACTION_COPY.transactions }}</h2>
-      <button @click="() => (showTransactionModal = true)">
+      <button class="button" @click="() => (showTransactionModal = true)">
         {{ TRANSACTION_COPY.addTransaction }}
       </button>
     </div>

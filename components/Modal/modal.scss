@@ -27,11 +27,11 @@
     /* SIZE */
     @apply w-fit h-fit;
     /* MARGINS AND PADDING */
-    @apply p-8;
+    @apply px-8 py-5;
     /* LAYOUT */
     @apply fixed left-1/2 top-1/2 flex flex-col gap-4 -translate-x-1/2 -translate-y-1/2 z-10;
     /* BORDERS */
-    @apply rounded;
+    @apply rounded-3xl;
     /* COLORS */
     @apply bg-white;
     /* TEXT */

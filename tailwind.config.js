@@ -12,6 +12,10 @@ module.exports = {
     extend: {
       colors: {
         'theme-background': 'var(--background)',
+        primary: 'var(--primary)',
+        secondary: 'var(--secondary)',
+        'secondary-a': 'var(--secondaryA)',
+        'secondary-b': 'var(--secondaryB)',
         'theme-text': 'var(--text)',
         'theme-text-information': 'var(--text-information)',
         'theme-button-primary': 'var(--button-primary)',

@@ -7,7 +7,7 @@
     />
 
     <div id="dropdown-input" class="dropdown-input" @click="dropdownClick">
-      <div class="dropdown-tags">
+      <div v-if="multiple" class="dropdown-tags">
         <button
           v-for="{ value, label } in selectionTags"
           :key="value"
@@ -18,10 +18,13 @@
           {{ label }}
         </button>
       </div>
+      <div v-else>
+        <p class="dropdown-text">{{ singleLabelText }}</p>
+      </div>
 
-      <div class="pointer-events-none">
-        <ArrowDownIcon v-if="expanded" />
-        <ArrowUpIcon v-else />
+      <div class="pointer-events-none mr-2">
+        <ArrowDownIcon v-if="expanded" :size="'12'" />
+        <ArrowUpIcon v-else :size="'12'" />
       </div>
     </div>
 
@@ -65,6 +68,11 @@ const selectionTags = computed(() => {
   return props.options.filter(({ value }) => selection.value.includes(value))
 })
 
+const singleLabelText = computed(() => {
+  return props.options.find(({ value }) => selection.value.includes(value))
+    ?.label
+})
+
 const isSelected = (value: string) => {
   if (selection.value.includes(value)) {
     return true
@@ -96,6 +104,7 @@ const dropdownItemClick = (event: Event) => {
     }
   } else {
     selection.value = value
+    expanded.value = false
   }
   emit('selectionUpdated', selection.value)
 }

@@ -2,7 +2,7 @@
   <div>
     <h1>Accounts</h1>
 
-    <button @click="() => (showAccountModal = true)">
+    <button class="button" @click="() => (showAccountModal = true)">
       {{ COMMON_COPY.addAccount }}
     </button>
 

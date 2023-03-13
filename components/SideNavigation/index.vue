@@ -22,15 +22,15 @@
           >
             {{ displayName }}
           </NuxtLink>
-        </div>
 
-        <button
-          v-if="profile.authenticated === true"
-          class="dropdown-button-item"
-          @click="onLogout"
-        >
-          {{ NAVIGATION_COPY.logout }}
-        </button>
+          <button
+            v-if="profile.authenticated === true"
+            class="side-navigation-link"
+            @click="onLogout"
+          >
+            {{ NAVIGATION_COPY.logout }}
+          </button>
+        </div>
       </div>
     </div>
   </header>

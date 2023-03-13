@@ -6,7 +6,6 @@
     /* BORDERS */
     @apply sm:rounded border;
     /* COLORS */
-    @apply border-theme-text;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
     @apply shadow-md;
@@ -19,7 +18,7 @@ table {
     /* LAYOUT */
     /* BORDERS */
     /* COLORS */
-    @apply text-theme-text;
+    @apply text-primary;
     /* TEXT */
     @apply text-sm text-left;
     /* ANIMATION AND EFFECTS */
@@ -30,9 +29,8 @@ thead {
     /* MARGINS AND PADDING */
     /* LAYOUT */
     /* BORDERS */
-    @apply border-b;
     /* COLORS */
-    @apply text-theme-text bg-theme-background border-theme-text;
+    @apply text-primary bg-secondary;
     /* TEXT */
     @apply text-xs uppercase;
     /* ANIMATION AND EFFECTS */
@@ -44,7 +42,7 @@ tbody {
     /* LAYOUT */
     /* BORDERS */
     /* COLORS */
-    @apply text-theme-text bg-theme-background;
+    @apply text-primary bg-secondary;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
 }
@@ -67,20 +65,9 @@ tr {
     /* BORDERS */
     @apply border-b;
     /* COLORS */
-    @apply border-theme-text;
+    @apply border-primary;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
-
-    &:last-child {
-        /* SIZE */
-        /* MARGINS AND PADDING */
-        /* LAYOUT */
-        /* BORDERS */
-        @apply border-none;
-        /* COLORS */
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
-    }
 }
 
 .tr-highlight {
@@ -89,7 +76,7 @@ tr {
     /* LAYOUT */
     /* BORDERS */
     /* COLORS */
-    @apply hover:bg-green-100;
+    @apply hover:bg-secondary-b;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
     @apply cursor-pointer;

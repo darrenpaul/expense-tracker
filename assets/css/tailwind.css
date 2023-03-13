@@ -3,17 +3,25 @@
 @tailwind utilities;
 
 .theme-light {
-  --background: #F1F2EE;
+  --background: #ECECEC;
+  --primary:#333333;
+  --secondary: #FFFFFF;
+  --secondaryA:#F3F3F3;
+  --secondaryB:rgba(217,217,217,30%);
   --button-primary: #058ED9;
-  --text: #313131;
-  --text-information: #313131;
-  --navigation: #F1F2EE;
-  --table-head: #b497d5;
-  --table-body: #c6ade2;
+  --text: #f8f8f8;
+  --text-information: #f8f8f8;
+  --navigation: #2D2D34;
+  --table-head: #4a2179;
+  --table-body: #2b9160;
 }
 
 .theme-dark {
-  --background: #2D2D34;
+  --background: #ECECEC;
+  --primary:#333333;
+  --secondary: #FFFFFF;
+  --secondaryA:#F3F3F3;
+  --secondaryB:rgba(217,217,217,30%);
   --button-primary: #058ED9;
   --text: #f8f8f8;
   --text-information: #f8f8f8;

@@ -2,7 +2,7 @@
   <div>
     <h1>{{ CATEGORY_COPY.categories }}</h1>
 
-    <button @click="() => (showCategoryModal = true)">
+    <button class="button" @click="() => (showCategoryModal = true)">
       {{ CATEGORY_COPY.addCategory }}
     </button>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row between">
+    <div class="row between mb-4">
       <h2>{{ headingCopy }}</h2>
       <button
         v-if="!isEmpty(props.transaction)"
@@ -14,10 +14,28 @@
     <form>
       <!-- TRANSACTION TYPE -->
       <div class="input-group">
-        <label for="transactionTypeRadio">{{
-          TRANSACTION_COPY.transactionType
-        }}</label>
-        <ul id="transactionTypeRadio" class="radio-buttons-container">
+        <div class="input-label-container">
+          <label for="transactionTypeRadio">
+            {{ TRANSACTION_COPY.transactionType }}
+          </label>
+        </div>
+
+        <div class="row items-center">
+          <button
+            v-for="{ id, displayName } in TRANSACTION_TYPES"
+            :key="id"
+            :class="
+              transactionType === displayName
+                ? 'button-small-active'
+                : 'button-small'
+            "
+            :value="displayName"
+            @click="onTransactionTypeClick"
+          >
+            {{ displayName }}
+          </button>
+        </div>
+        <!-- <ul id="transactionTypeRadio" class="radio-buttons-container">
           <BasicRadio
             v-for="{ id, displayName } in TRANSACTION_TYPES"
             :key="id"
@@ -28,73 +46,38 @@
             :label-text="displayName"
             @change="(value:string) => transactionType = value"
           />
-        </ul>
+        </ul> -->
       </div>
 
       <!-- ACCOUNT & NAME & CATEGORY -->
       <template
         v-if="transactionType !== TRANSACTION_TYPE_TRANSFER.displayName"
       >
-        <!-- ACCOUNT & CATEGORY -->
-        <div class="row">
-          <!-- ACCOUNT -->
-          <div class="input-group">
+        <!-- ACCOUNT -->
+        <div class="input-group">
+          <div class="input-label-container">
             <label for="account">{{ TRANSACTION_COPY.account }}</label>
-            <select id="account" v-model="account">
-              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-              <option
-                v-for="{ id, name: accountName } in accountStore.accounts"
-                :key="id"
-                :value="id"
-                :selected="accountName === account"
-              >
-                {{ accountName }}
-              </option>
-            </select>
           </div>
-
-          <!-- CATEGORY -->
-          <div class="input-group">
-            <label for="category">{{ TRANSACTION_COPY.category }}</label>
-            <select id="category" v-model="category">
-              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-              <option
-                v-for="{ id, name: categoryName } in transactionCategories"
-                :key="id"
-                :value="id"
-                :selected="categoryName === category"
-              >
-                {{ categoryName }}
-              </option>
-            </select>
-          </div>
+          <Dropdown
+            v-model="account"
+            :options="accountOptions"
+            :selected="account"
+            @selection-updated="account = $event"
+          />
         </div>
 
-        <!-- NAME & AMOUNT -->
-        <div class="row">
-          <!-- NAME -->
-          <div class="input-group">
-            <label for="name">{{ TRANSACTION_COPY.name }}</label>
-            <input
-              id="name"
-              v-model="name"
-              :placeholder="TRANSACTION_COPY.namePlaceholder"
-              name="name"
-              type="text"
-            />
+        <!-- CATEGORY -->
+        <div class="input-group">
+          <div class="input-label-container">
+            <label for="category">{{ TRANSACTION_COPY.category }}</label>
           </div>
 
-          <!-- AMOUNT -->
-          <div class="input-group">
-            <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
-            <input
-              id="amount"
-              v-model="amount"
-              :placeholder="TRANSACTION_COPY.amountPlaceholder"
-              name="amount"
-              type="number"
-            />
-          </div>
+          <Dropdown
+            v-model="category"
+            :options="categoryOptions"
+            :selected="category"
+            @selection-updated="category = $event"
+          />
         </div>
       </template>
 
@@ -103,120 +86,131 @@
         v-if="transactionType === TRANSACTION_TYPE_TRANSFER.displayName"
       >
         <!-- FROM ACCOUNT -->
-        <div class="row">
-          <div class="input-group">
+        <div class="input-group">
+          <div class="input-label-container">
             <label for="account">{{ TRANSACTION_COPY.fromAccount }}</label>
-            <select id="account" v-model="account">
-              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-              <option
-                v-for="{ id, name: accountName } in accountStore.accounts"
-                :key="id"
-                :value="id"
-                :selected="accountName === account"
-              >
-                {{ accountName }}
-              </option>
-            </select>
           </div>
-          <!-- FROM ACCOUNT CATEGORY -->
-          <div class="input-group">
+
+          <select id="account" v-model="account">
+            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+            <option
+              v-for="{ id, name: accountName } in accountStore.accounts"
+              :key="id"
+              :value="id"
+              :selected="accountName === account"
+            >
+              {{ accountName }}
+            </option>
+          </select>
+        </div>
+
+        <!-- FROM ACCOUNT CATEGORY -->
+        <div class="input-group">
+          <div class="input-label-container">
             <label for="category">{{ TRANSACTION_COPY.category }}</label>
-            <select id="category" v-model="category">
-              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-              <option
-                v-for="{
-                  id,
-                  name: categoryName,
-                } in categoryStore.expenseCategories"
-                :key="id"
-                :value="id"
-                :selected="categoryName === category"
-              >
-                {{ categoryName }}
-              </option>
-            </select>
           </div>
+          <select id="category" v-model="category">
+            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+            <option
+              v-for="{
+                id,
+                name: categoryName,
+              } in categoryStore.expenseCategories"
+              :key="id"
+              :value="id"
+              :selected="categoryName === category"
+            >
+              {{ categoryName }}
+            </option>
+          </select>
         </div>
 
         <!-- TO ACCOUNT -->
-        <div class="row">
-          <div class="input-group">
-            <label for="accountTransfer">{{
-              TRANSACTION_COPY.toAccount
-            }}</label>
-            <select id="accountTransfer" v-model="accountTransfer">
-              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-              <option
-                v-for="{ id, name: accountName } in accountStore.accounts"
-                :key="id"
-                :value="id"
-                :selected="accountName === accountTransfer"
-              >
-                {{ accountName }}
-              </option>
-            </select>
+        <div class="input-group">
+          <div class="input-label-container">
+            <label for="accountTransfer">
+              {{ TRANSACTION_COPY.toAccount }}
+            </label>
           </div>
-
-          <!-- TO ACCOUNT CATEGORY -->
-          <div class="input-group">
-            <label for="categoryTransfer">{{
-              TRANSACTION_COPY.category
-            }}</label>
-            <select id="categoryTransfer" v-model="categoryTransfer">
-              <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-              <option
-                v-for="{
-                  id,
-                  name: categoryName,
-                } in categoryStore.incomeCategories"
-                :key="id"
-                :value="id"
-                :selected="categoryName === category"
-              >
-                {{ categoryName }}
-              </option>
-            </select>
-          </div>
+          <select id="accountTransfer" v-model="accountTransfer">
+            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+            <option
+              v-for="{ id, name: accountName } in accountStore.accounts"
+              :key="id"
+              :value="id"
+              :selected="accountName === accountTransfer"
+            >
+              {{ accountName }}
+            </option>
+          </select>
         </div>
 
-        <!-- NAME & AMOUNT -->
-        <div class="row">
-          <!-- NAME -->
-          <div class="input-group">
-            <label for="name">{{ TRANSACTION_COPY.name }}</label>
-            <input
-              id="name"
-              v-model="name"
-              :placeholder="TRANSACTION_COPY.namePlaceholder"
-              name="name"
-              type="text"
-            />
+        <!-- TO ACCOUNT CATEGORY -->
+        <div class="input-group">
+          <div class="input-label-container">
+            <label for="categoryTransfer">
+              {{ TRANSACTION_COPY.category }}
+            </label>
           </div>
-
-          <!-- AMOUNT -->
-          <div class="input-group">
-            <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
-            <input
-              id="amount"
-              v-model="amount"
-              :placeholder="TRANSACTION_COPY.amountPlaceholder"
-              name="amount"
-              type="number"
-            />
-          </div>
+          <select id="categoryTransfer" v-model="categoryTransfer">
+            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
+            <option
+              v-for="{
+                id,
+                name: categoryName,
+              } in categoryStore.incomeCategories"
+              :key="id"
+              :value="id"
+              :selected="categoryName === category"
+            >
+              {{ categoryName }}
+            </option>
+          </select>
         </div>
       </template>
 
+      <!-- NAME -->
+      <div class="input-group">
+        <div class="input-label-container">
+          <label for="name">{{ TRANSACTION_COPY.name }}</label>
+        </div>
+        <input
+          id="name"
+          v-model="name"
+          :placeholder="TRANSACTION_COPY.namePlaceholder"
+          name="name"
+          type="text"
+        />
+      </div>
+
+      <!-- AMOUNT -->
+      <div class="input-group">
+        <div class="input-label-container">
+          <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
+        </div>
+        <input
+          id="amount"
+          v-model="amount"
+          :placeholder="TRANSACTION_COPY.amountPlaceholder"
+          name="amount"
+          type="number"
+        />
+      </div>
+
       <!-- DATE PICKER -->
       <div class="input-group">
-        <label for="datePicker">{{ TRANSACTION_COPY.date }}</label>
+        <div class="input-label-container">
+          <label for="datePicker">{{ TRANSACTION_COPY.date }}</label>
+        </div>
         <DatePicker id="datePicker" :date="date" @on-change="date = $event" />
       </div>
 
       <!-- NOTE -->
       <div class="input-group">
-        <label for="note">{{ TRANSACTION_COPY.note }}</label>
-        <input
+        <div class="input-label-container">
+          <label for="note">{{ TRANSACTION_COPY.note }}</label>
+        </div>
+        <textarea
           id="note"
           v-model="note"
           :placeholder="TRANSACTION_COPY.notePlaceholder"
@@ -226,11 +220,11 @@
       </div>
 
       <!-- BUTTONS -->
-      <div class="row">
+      <div class="row justify-end mt-2">
         <button class="button-secondary" @click="onCancel">
           {{ COMMON_COPY.cancel }}
         </button>
-        <button @click="onCreateUpdateTransaction">
+        <button class="button" @click="onCreateUpdateTransaction">
           {{ COMMON_COPY.save }}
         </button>
       </div>
@@ -306,10 +300,20 @@ const headingCopy = computed(() => {
   return TRANSACTION_COPY.editTransaction
 })
 
-const transactionCategories = computed(() => {
-  return categoryStore.categoryList.filter(
-    (item) => item.transactionType === transactionType.value
-  )
+const categoryOptions = computed(() => {
+  return categoryStore.categoryList
+    .filter((item) => item.transactionType === transactionType.value)
+    .map(({ id, name }) => ({
+      value: id,
+      label: name,
+    }))
+})
+
+const accountOptions = computed(() => {
+  return accountStore.accounts.map(({ id, name }) => ({
+    value: id,
+    label: name,
+  }))
 })
 
 const fieldsValid = () => {
@@ -382,6 +386,11 @@ const clearFields = () => {
   note.value = ''
   amount.value = 0.0
   date.value = format(new Date(), DATE_FORMAT)
+}
+
+const onTransactionTypeClick = (event: Event) => {
+  event.preventDefault()
+  transactionType.value = event.target.value
 }
 
 const onShowConfirmDialog = () => {

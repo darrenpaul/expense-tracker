@@ -34,10 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import { TRANSACTION_COPY, COMMON_COPY } from '~~/constants/copy'
+import { TRANSACTION_COPY } from '~~/constants/copy'
 import { formatDate } from '~~/helpers/dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'
-import { useNotification } from '~~/stores/notification'
 import { currencyFormat } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
 
