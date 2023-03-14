@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row between">
+    <div class="row between mb-4">
       <h2>{{ headingCopy }}</h2>
       <button
         v-if="!isEmpty(props.category)"
@@ -13,25 +13,16 @@
 
     <form>
       <!-- TRANSACTION TYPE -->
-      <div class="input-group">
-        <label for="displayName">{{ TRANSACTION_COPY.transactionType }}</label>
-        <ul id="transactionTypeRadio" class="radio-buttons-container">
-          <BasicRadio
-            v-for="{ id, displayName } in TRANSACTION_TYPES"
-            :key="id"
-            :element-id="`categoryFormTransactionType-${id}`"
-            :element-name="'categoryFormTransactionType'"
-            :value="displayName"
-            :selected="transactionType"
-            :label-text="displayName"
-            @change="(value:string) => transactionType = value"
-          />
-        </ul>
-      </div>
+      <TransactionTypeSelect
+        :selected="transactionType"
+        @on-change="transactionType = $event"
+      />
 
       <!-- NAME -->
       <div class="input-group">
-        <label for="name">{{ CATEGORY_COPY.category }}</label>
+        <div class="input-label-container">
+          <label for="name">{{ CATEGORY_COPY.name }}</label>
+        </div>
         <input
           v-model="name"
           :placeholder="CATEGORY_COPY.categoryPlaceholder"
@@ -41,12 +32,8 @@
         <small>{{ nameError }}</small>
       </div>
 
-      <div class="row">
-        <button class="button-secondary" @click="onCancel">
-          {{ COMMON_COPY.cancel }}
-        </button>
-        <button @click="onAddCategory">{{ COMMON_COPY.save }}</button>
-      </div>
+      <!-- BUTTONS -->
+      <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddCategory" />
     </form>
 
     <ConfirmDialog
@@ -59,7 +46,7 @@
 
 <script setup lang="ts">
 import { isEmpty } from 'lodash-es'
-import BasicRadio from '../radios/BasicRadio.vue'
+import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 import { COMMON_COPY, CATEGORY_COPY, TRANSACTION_COPY } from '~~/constants/copy'
 import { useProfile } from '~~/stores/profile'
 import {
@@ -136,13 +123,10 @@ const onConfirmConfirmDialog = () => {
 }
 
 const onCancel = () => {
-  event.preventDefault()
   emit('closeModal')
 }
 
-const onAddCategory = async (event: Event) => {
-  event.preventDefault()
-
+const onAddCategory = async () => {
   if (fieldsValid() === false) {
     return false
   }

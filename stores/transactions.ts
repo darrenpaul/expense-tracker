@@ -61,12 +61,11 @@ export const useTransactions = defineStore({
     transactionsWithCategory: (state) => {
       return (categoryIds: Array<string>) => {
         return state.transactions.filter(({ category }) =>
-          categoryIds.includes(category.id)
+          categoryIds.includes(category?.id)
         )
       }
     },
   },
-
   actions: {
     async handleCreateTransaction(data: INewTransaction) {
       await createTransaction(data)

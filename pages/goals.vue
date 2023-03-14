@@ -1,10 +1,12 @@
 <template>
   <div>
-    <h1>{{ COMMON_COPY.goals }}</h1>
+    <div class="row between items-center my-4">
+      <h2>{{ COMMON_COPY.goals }}</h2>
 
-    <button class="button" @click="() => (showModal = true)">
-      {{ COMMON_COPY.addGoal }}
-    </button>
+      <button class="button-secondary" @click="() => (showModal = true)">
+        {{ COMMON_COPY.addGoal }}
+      </button>
+    </div>
 
     <div class="grid-3-col">
       <GoalCard

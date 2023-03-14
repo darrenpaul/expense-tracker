@@ -3,11 +3,9 @@
     <!-- DISPLAY DATES FROM & TO -->
     <div class="date-picker-button" @click="onModalOpen">
       <CalendarIcon />
-      <div>
-        <p>
-          {{ displayDate() }}
-        </p>
-      </div>
+      <p>
+        {{ displayDate() }}
+      </p>
     </div>
 
     <!-- CALENDAR MODAL -->
@@ -20,10 +18,10 @@
         <button class="date-picker-month-button" @click="onPreviousMonthClick">
           <ArrowLeftIcon />
         </button>
-        <div>
-          <h3>{{ MONTHS_OF_YEAR[getMonth(parseDateFormat(activeDate))] }}</h3>
-          <h3>{{ getYear(parseDateFormat(activeDate)) }}</h3>
-        </div>
+
+        <h3>{{ MONTHS_OF_YEAR[getMonth(parseDateFormat(activeDate))] }}</h3>
+        <h3>{{ getYear(parseDateFormat(activeDate)) }}</h3>
+
         <button class="date-picker-month-button" @click="onNextMonthClick">
           <ArrowRightIcon />
         </button>
@@ -32,10 +30,10 @@
       <div class="date-picker-calendar-container">
         <div
           v-for="{ short, key } in DAYS_OF_WEEK"
-          :key="key"
+          :key="`datePicker-${key}`"
           class="date-picker-calendar-week-days"
         >
-          <h3 class="">{{ short }}</h3>
+          <h3>{{ short }}</h3>
         </div>
 
         <div
@@ -50,11 +48,13 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row justify-end mt-2">
         <button class="button-secondary" @click="onCancel">
           {{ COMMON_COPY.cancel }}
         </button>
-        <button @click="onSetDate">{{ COMMON_COPY.setDate }}</button>
+        <button class="button" @click="onSetDate">
+          {{ COMMON_COPY.setDate }}
+        </button>
       </div>
     </Modal>
   </div>
@@ -85,7 +85,6 @@ import {
   parseDateFormat,
   formatDate,
   DATE_FORMAT_SHORT,
-  DATE_TIME_FORMAT,
   TIME_FORMAT,
 } from '~~/helpers/dateTimeHelper'
 import { COMMON_COPY } from '~~/constants/copy'
@@ -168,7 +167,7 @@ const calendarDays = computed(() => {
   const startOfMonth = setDate(currentDate, 1)
   const endOfMonth = setDate(currentDate, getDaysInMonth(currentDate))
 
-  const startDateRange = lastDayOfWeek(subDays(startOfMonth, 7), {
+  const startDateRange = lastDayOfWeek(subDays(startOfMonth, 6), {
     weekStartsOn: 1,
   })
 

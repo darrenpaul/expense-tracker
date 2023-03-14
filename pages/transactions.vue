@@ -81,9 +81,12 @@
       </div>
     </div>
 
-    <div class="column">
+    <div class="row between items-center my-4">
       <h2>{{ TRANSACTION_COPY.transactions }}</h2>
-      <button class="button" @click="() => (showTransactionModal = true)">
+      <button
+        class="button-secondary"
+        @click="() => (showTransactionModal = true)"
+      >
         {{ TRANSACTION_COPY.addTransaction }}
       </button>
     </div>
@@ -113,7 +116,7 @@ import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
 import transactionsForPeriod from '~~/helpers/charts/transactions/transactionsForPeriod'
 import { PERIODS } from '~~/helpers/dateFnsWrapper'
-import { TRANSACTION_COPY } from '~~/constants/copy'
+import TRANSACTION_COPY from '~~/constants/copy/transactions'
 import GlanceCard from '~~/components/cards/GlanceCard.vue'
 import { spendPerDay, spendPerWeek, balance } from '~~/helpers/transactions'
 import { currencyFormat } from '~~/helpers/formatting'

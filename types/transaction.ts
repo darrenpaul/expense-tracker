@@ -8,7 +8,7 @@ export interface INewTransaction {
   type: string
   name: string
   note: string
-  categoryId: string
+  categoryId?: string
   amount: number
   date: string
 }

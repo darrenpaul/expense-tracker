@@ -12,25 +12,31 @@
         </NuxtLink>
 
         <div class="side-navigation-links">
-          <NuxtLink
-            v-for="{ displayName, name, path } in LINKS"
+          <div
+            v-for="{ displayName, name, path, icon } in LINKS"
             :key="name"
             :class="[
-              'side-navigation-link',
+              'side-navigation-link-container',
               matchRoute(path) === true && 'active',
             ]"
-            :to="path"
           >
-            {{ displayName }}
-          </NuxtLink>
+            <component :is="icon" :fill="'var(--secondary)'" :size="'42'" />
 
-          <button
-            v-if="profile.authenticated === true"
-            class="side-navigation-link"
-            @click="onLogout"
-          >
-            {{ NAVIGATION_COPY.logout }}
-          </button>
+            <NuxtLink class="side-navigation-link" :to="path">
+              {{ displayName }}
+            </NuxtLink>
+          </div>
+
+          <div class="side-navigation-link-container">
+            <LogoutIcon :fill="'var(--secondary)'" :size="'42'" />
+            <button
+              v-if="profile.authenticated === true"
+              class="side-navigation-link"
+              @click="onLogout"
+            >
+              {{ NAVIGATION_COPY.logout }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -38,6 +44,7 @@
 </template>
 
 <script setup lang="ts">
+import LogoutIcon from '~~/components/icons/sidePanel/LogoutIcon.vue'
 import { HOME_ROUTE } from '~~/constants/routes/home'
 import { COMMON_COPY, NAVIGATION_COPY } from '~~/constants/copy'
 import BrandIcon from '~~/components/icons/BrandIcon.vue'
@@ -51,7 +58,6 @@ import { CATEGORIES_ROUTE } from '~~/constants/routes/categories'
 import { BUDGETS_ROUTE } from '~~/constants/routes/budgets'
 
 const LINKS = [
-  HOME_ROUTE,
   DASHBOARD_ROUTE,
   TRANSACTIONS_ROUTE,
   ACCOUNTS_ROUTE,

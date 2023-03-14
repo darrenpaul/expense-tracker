@@ -1,3 +1,5 @@
+import ProfileIcon from '~~/components/icons/sidePanel/ProfileIcon.vue'
+
 export const PROFILE_LOGIN_ROUTE = {
   name: 'profileLogin',
   displayName: 'Login',
@@ -17,4 +19,5 @@ export const PROFILE_SETTINGS_ROUTE = {
   displayName: 'Settings',
   path: '/profile/settings',
   auth: true,
+  icon: ProfileIcon,
 }

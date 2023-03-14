@@ -2,153 +2,61 @@
     /* SIZE */
     @apply w-full;
     /* MARGINS AND PADDING */
-    @apply px-2 m-0;
     /* LAYOUT */
     /* BORDERS */
     /* COLORS */
     /* TEXT */
     /* ANIMATION AND EFFECTS */
-}
 
-.date-picker-button {
-    /* SIZE */
-    @apply min-w-[8rem] w-fit;
-    /* MARGINS AND PADDING */
-    @apply my-2;
-    /* LAYOUT */
-    @apply flex items-center gap-2;
-    /* BORDERS */
-    @apply border rounded;
-    /* COLORS */
-    @apply border-theme-text;
-    /* TEXT */
-    /* ANIMATION AND EFFECTS */
-    @apply cursor-pointer;
-}
-
-.date-picker-month-button {
-    /* SIZE */
-    @apply w-fit h-full;
-    /* MARGINS AND PADDING */
-    @apply px-4 m-0;
-    /* LAYOUT */
-    /* BORDERS */
-    @apply border-none;
-    /* COLORS */
-    @apply bg-transparent;
-    /* TEXT */
-    /* ANIMATION AND EFFECTS */
-    @apply cursor-pointer;
-}
-
-.date-picker-header {
-    /* SIZE */
-    /* MARGINS AND PADDING */
-    @apply p-2;
-    /* LAYOUT */
-    @apply flex items-center justify-between;
-    /* BORDERS */
-    @apply border rounded;
-    /* COLORS */
-    @apply border-theme-text;
-    /* TEXT */
-    /* ANIMATION AND EFFECTS */
-    h3 {
+    .date-picker-button {
         /* SIZE */
+        @apply w-full h-10;
         /* MARGINS AND PADDING */
-        @apply m-0 p-0;
+        @apply px-2;
         /* LAYOUT */
+        @apply flex items-center gap-4;
         /* BORDERS */
+        @apply rounded-r-full;
         /* COLORS */
+        @apply bg-secondary-a text-primary;
         /* TEXT */
+        @apply text-sm;
         /* ANIMATION AND EFFECTS */
-    }
-}
-
-.date-picker-calendar-container {
-    /* SIZE */
-    @apply w-96;
-    /* MARGINS AND PADDING */
-    /* LAYOUT */
-    @apply grid grid-cols-7 grid-rows-6 items-center justify-center gap-0;
-    /* BORDERS */
-    @apply border rounded;
-    /* COLORS */
-    @apply border-theme-text;
-    /* TEXT */
-    /* ANIMATION AND EFFECTS */
-
-    .date-picker-calendar-week-days {
-        /* SIZE */
-        @apply w-12 h-12;
-        /* MARGINS AND PADDING */
-        /* LAYOUT */
-        @apply flex items-center justify-center;
-        /* BORDERS */
-        /* COLORS */
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
-
-        h3 {
-            /* SIZE */
-            /* MARGINS AND PADDING */
-            @apply p-0 m-0;
-            /* LAYOUT */
-            /* BORDERS */
-            /* COLORS */
-            /* TEXT */
-            /* ANIMATION AND EFFECTS */
-            // text-center border w-12 h-10
-        }
+        @apply cursor-pointer;
     }
 
-    .date-picker-calendar-day {
+    .date-picker-month-button {
         /* SIZE */
-        @apply w-12 h-12;
+        @apply w-fit h-full;
         /* MARGINS AND PADDING */
+        @apply px-4 m-0;
         /* LAYOUT */
-        @apply flex items-center justify-center;
         /* BORDERS */
+        @apply border-none;
         /* COLORS */
+        @apply bg-transparent;
         /* TEXT */
         /* ANIMATION AND EFFECTS */
         @apply cursor-pointer;
     }
 
-    .date-picker-calendar-day-blocked {
+    .date-picker-header {
         /* SIZE */
         /* MARGINS AND PADDING */
+        @apply p-2;
         /* LAYOUT */
+        @apply flex items-center justify-between;
         /* BORDERS */
+        @apply border rounded;
         /* COLORS */
+        @apply border-theme-text;
         /* TEXT */
         /* ANIMATION AND EFFECTS */
-        @apply pointer-events-none;
-        p {
+        h3 {
             /* SIZE */
             /* MARGINS AND PADDING */
+            @apply m-0 p-0;
             /* LAYOUT */
-            /* BORDERS */
-            /* COLORS */
-            @apply text-gray-200;
-            /* TEXT */
-            /* ANIMATION AND EFFECTS */
-        }
-    }
-
-    .date-picker-calendar-day-next-month {
-        /* SIZE */
-        /* MARGINS AND PADDING */
-        /* LAYOUT */
-        /* BORDERS */
-        /* COLORS */
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
-        p {
-            /* SIZE */
-            /* MARGINS AND PADDING */
-            /* LAYOUT */
-            @apply invisible;
             /* BORDERS */
             /* COLORS */
             /* TEXT */
@@ -156,15 +64,109 @@
         }
     }
 
-    .date-picker-calendar-day-selected {
+    .date-picker-calendar-container {
         /* SIZE */
+        @apply w-96;
         /* MARGINS AND PADDING */
         /* LAYOUT */
-        @apply flex items-center justify-center;
+        @apply grid grid-cols-7 grid-rows-6 items-center justify-center gap-0;
         /* BORDERS */
+        @apply border rounded;
         /* COLORS */
-        @apply bg-blue-300;
+        @apply border-theme-text;
         /* TEXT */
         /* ANIMATION AND EFFECTS */
+
+        .date-picker-calendar-week-days {
+            /* SIZE */
+            @apply w-full h-12;
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            @apply flex items-center justify-center col-span-1;
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+
+            h3 {
+                /* SIZE */
+                @apply w-full;
+                /* MARGINS AND PADDING */
+                @apply p-0 m-0;
+                /* LAYOUT */
+                /* BORDERS */
+                /* COLORS */
+                /* TEXT */
+                @apply text-center;
+                /* ANIMATION AND EFFECTS */
+                // text-center border w-12 h-10
+            }
+        }
+
+        .date-picker-calendar-day {
+            /* SIZE */
+            @apply w-full h-12;
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            @apply flex items-center justify-center;
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+            @apply cursor-pointer;
+        }
+
+        .date-picker-calendar-day-blocked {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+            @apply pointer-events-none;
+            p {
+                /* SIZE */
+                /* MARGINS AND PADDING */
+                /* LAYOUT */
+                /* BORDERS */
+                /* COLORS */
+                @apply text-gray-200;
+                /* TEXT */
+                /* ANIMATION AND EFFECTS */
+            }
+        }
+
+        .date-picker-calendar-day-next-month {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+            p {
+                /* SIZE */
+                /* MARGINS AND PADDING */
+                /* LAYOUT */
+                @apply invisible;
+                /* BORDERS */
+                /* COLORS */
+                /* TEXT */
+                /* ANIMATION AND EFFECTS */
+            }
+        }
+
+        .date-picker-calendar-day-selected {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            @apply flex items-center justify-center;
+            /* BORDERS */
+            /* COLORS */
+            @apply bg-blue-300;
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
     }
 }

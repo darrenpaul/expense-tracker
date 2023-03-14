@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="row between">
+    <div class="row between mb-4">
       <h2>{{ headingCopy }}</h2>
+
       <button
         v-if="!isEmpty(props.budget)"
         class="button-icon"
@@ -14,10 +15,12 @@
     <form>
       <!-- NAME -->
       <div class="input-group">
-        <label for="name">{{ COMMON_COPY.budgetName }}</label>
+        <div class="input-label-container">
+          <label for="name">{{ BUDGET_COPY.budgetName }}</label>
+        </div>
         <input
           v-model="name"
-          :placeholder="COMMON_COPY.budgetNamePlaceholder"
+          :placeholder="BUDGET_COPY.budgetNamePlaceholder"
           name="name"
           type="text"
         />
@@ -25,7 +28,9 @@
 
       <!-- CATEGORY -->
       <div class="input-group">
-        <label for="category">{{ TRANSACTION_COPY.category }}</label>
+        <div class="input-label-container">
+          <label for="category">{{ BUDGET_COPY.category }}</label>
+        </div>
 
         <Dropdown
           v-model="categoryIds"
@@ -38,53 +43,59 @@
 
       <!-- AMOUNT -->
       <div class="input-group">
-        <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
-        <input v-model="amount" name="amount" type="number" />
+        <div class="input-label-container">
+          <label for="amount">{{ BUDGET_COPY.amount }}</label>
+        </div>
+
+        <input
+          id="amount"
+          v-model="amount"
+          :placeholder="BUDGET_COPY.amountPlaceholder"
+          name="amount"
+          type="number"
+        />
       </div>
 
-      <!-- DATE PICKER -->
-      <div class="row">
-        <!-- START DATE -->
-        <div class="input-group">
-          <label for="datePickerStartDate">{{ COMMON_COPY.startDate }}</label>
-          <DatePicker
-            id="datePickerStartDate"
-            :date="startDate"
-            @on-change="startDate = $event"
-          />
+      <!-- START DATE -->
+      <div class="input-group">
+        <div class="input-label-container">
+          <label for="datePickerStartDate">{{ BUDGET_COPY.startDate }}</label>
         </div>
+        <DatePicker
+          id="datePickerStartDate"
+          :date="startDate"
+          @on-change="startDate = $event"
+        />
+      </div>
 
-        <!-- END DATE -->
-        <div class="input-group">
-          <label for="datePickerEndDate">{{ COMMON_COPY.endDate }}</label>
-          <DatePicker
-            id="datePickerEndDate"
-            :date="endDate"
-            @on-change="endDate = $event"
-          />
+      <!-- END DATE -->
+      <div class="input-group">
+        <div class="input-label-container">
+          <label for="datePickerEndDate">{{ BUDGET_COPY.endDate }}</label>
         </div>
+        <DatePicker
+          id="datePickerEndDate"
+          :date="endDate"
+          @on-change="endDate = $event"
+        />
       </div>
 
       <!-- NOTE -->
       <div class="input-group">
-        <label for="note">{{ TRANSACTION_COPY.note }}</label>
-        <input
+        <div class="input-label-container">
+          <label for="note">{{ BUDGET_COPY.note }}</label>
+        </div>
+        <textarea
           id="note"
           v-model="note"
-          :placeholder="TRANSACTION_COPY.notePlaceholder"
+          :placeholder="BUDGET_COPY.notePlaceholder"
           name="note"
           type="text"
         />
       </div>
 
-      <div class="row">
-        <button class="button button-secondary" @click="onCancel">
-          {{ COMMON_COPY.cancel }}
-        </button>
-        <button class="button" @click="onAddUpdateBudget">
-          {{ COMMON_COPY.save }}
-        </button>
-      </div>
+      <!-- BUTTONS -->
+      <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddUpdateBudget" />
     </form>
 
     <ConfirmDialog
@@ -98,9 +109,10 @@
 <script setup lang="ts">
 import { format } from 'date-fns'
 import { isEmpty } from 'lodash-es'
+import BUDGET_COPY from '~~/constants/copy/budget'
+import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
-import { COMMON_COPY, TRANSACTION_COPY } from '~~/constants/copy'
 import { validateName } from '~~/helpers/validators'
 import { DATE_TIME_FORMAT } from '~~/helpers/dateTimeHelper'
 import { useProfile } from '~~/stores/profile'
@@ -120,7 +132,7 @@ const categoryStore = useCategories()
 const budgetStore = useBudgets()
 
 const name = ref(props.budget?.name || '')
-const amount = ref(props.budget?.amount || 0.0)
+const amount = ref(props.budget?.amount)
 const categoryIds = ref(props.budget?.categoryIds || [])
 const startDate = ref(
   props.budget?.startDate || format(new Date(), DATE_TIME_FORMAT)
@@ -133,9 +145,9 @@ const showConfirmDialog = ref(false)
 
 const headingCopy = computed(() => {
   if (isEmpty(props.budget)) {
-    return COMMON_COPY.addBudget
+    return BUDGET_COPY.addBudget
   }
-  return COMMON_COPY.editBudget
+  return BUDGET_COPY.editBudget
 })
 
 const dropdownOptions = computed(() => {
@@ -168,13 +180,10 @@ const onConfirmConfirmDialog = () => {
 }
 
 const onCancel = () => {
-  event.preventDefault()
   emit('closeModal')
 }
 
-const onAddUpdateBudget = async (event: Event) => {
-  event.preventDefault()
-
+const onAddUpdateBudget = () => {
   if (fieldsValid() === false) {
     return false
   }

@@ -1,10 +1,12 @@
 <template>
   <div>
-    <h1>{{ COMMON_COPY.budgets }}</h1>
+    <div class="row between items-center my-4">
+      <h2>{{ BUDGET_COPY.budgets }}</h2>
 
-    <button class="button" @click="() => (showModal = true)">
-      {{ COMMON_COPY.addBudget }}
-    </button>
+      <button class="button-secondary" @click="() => (showModal = true)">
+        {{ BUDGET_COPY.addBudget }}
+      </button>
+    </div>
 
     <div class="grid-3-col">
       <BudgetCard
@@ -22,11 +24,9 @@
 </template>
 
 <script setup lang="ts">
-import { COMMON_COPY } from '~~/constants/copy'
+import BUDGET_COPY from '~~/constants/copy/budget'
 import BudgetForm from '~~/components/forms/BudgetForm.vue'
-import { useGoals } from '~~/stores/goals'
 import BudgetCard from '~~/components/cards/BudgetCard.vue'
-import { useCategories } from '~~/stores/categories'
 import { useBudgets } from '~~/stores/budgets'
 
 definePageMeta({
@@ -34,8 +34,6 @@ definePageMeta({
   layout: 'main',
 })
 
-const goalStore = useGoals()
-const categoryStore = useCategories()
 const budgetStore = useBudgets()
 
 const showModal = ref(false)

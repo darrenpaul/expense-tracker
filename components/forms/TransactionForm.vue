@@ -13,41 +13,10 @@
 
     <form>
       <!-- TRANSACTION TYPE -->
-      <div class="input-group">
-        <div class="input-label-container">
-          <label for="transactionTypeRadio">
-            {{ TRANSACTION_COPY.transactionType }}
-          </label>
-        </div>
-
-        <div class="row items-center">
-          <button
-            v-for="{ id, displayName } in TRANSACTION_TYPES"
-            :key="id"
-            :class="
-              transactionType === displayName
-                ? 'button-small-active'
-                : 'button-small'
-            "
-            :value="displayName"
-            @click="onTransactionTypeClick"
-          >
-            {{ displayName }}
-          </button>
-        </div>
-        <!-- <ul id="transactionTypeRadio" class="radio-buttons-container">
-          <BasicRadio
-            v-for="{ id, displayName } in TRANSACTION_TYPES"
-            :key="id"
-            :element-id="`transactionFormTransactionType-${id}`"
-            :element-name="'transactionFormTransactionType'"
-            :value="displayName"
-            :selected="transactionType"
-            :label-text="displayName"
-            @change="(value:string) => transactionType = value"
-          />
-        </ul> -->
-      </div>
+      <TransactionTypeSelect
+        :selected="transactionType"
+        @on-change="transactionType = $event"
+      />
 
       <!-- ACCOUNT & NAME & CATEGORY -->
       <template
@@ -80,7 +49,6 @@
           />
         </div>
       </template>
-
       <!-- ACCOUNT TRANSFER -->
       <template
         v-if="transactionType === TRANSACTION_TYPE_TRANSFER.displayName"
@@ -91,38 +59,12 @@
             <label for="account">{{ TRANSACTION_COPY.fromAccount }}</label>
           </div>
 
-          <select id="account" v-model="account">
-            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-            <option
-              v-for="{ id, name: accountName } in accountStore.accounts"
-              :key="id"
-              :value="id"
-              :selected="accountName === account"
-            >
-              {{ accountName }}
-            </option>
-          </select>
-        </div>
-
-        <!-- FROM ACCOUNT CATEGORY -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="category">{{ TRANSACTION_COPY.category }}</label>
-          </div>
-          <select id="category" v-model="category">
-            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-            <option
-              v-for="{
-                id,
-                name: categoryName,
-              } in categoryStore.expenseCategories"
-              :key="id"
-              :value="id"
-              :selected="categoryName === category"
-            >
-              {{ categoryName }}
-            </option>
-          </select>
+          <Dropdown
+            v-model="account"
+            :options="accountOptions"
+            :selected="account"
+            @selection-updated="account = $event"
+          />
         </div>
 
         <!-- TO ACCOUNT -->
@@ -132,40 +74,13 @@
               {{ TRANSACTION_COPY.toAccount }}
             </label>
           </div>
-          <select id="accountTransfer" v-model="accountTransfer">
-            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-            <option
-              v-for="{ id, name: accountName } in accountStore.accounts"
-              :key="id"
-              :value="id"
-              :selected="accountName === accountTransfer"
-            >
-              {{ accountName }}
-            </option>
-          </select>
-        </div>
 
-        <!-- TO ACCOUNT CATEGORY -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="categoryTransfer">
-              {{ TRANSACTION_COPY.category }}
-            </label>
-          </div>
-          <select id="categoryTransfer" v-model="categoryTransfer">
-            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-            <option
-              v-for="{
-                id,
-                name: categoryName,
-              } in categoryStore.incomeCategories"
-              :key="id"
-              :value="id"
-              :selected="categoryName === category"
-            >
-              {{ categoryName }}
-            </option>
-          </select>
+          <Dropdown
+            v-model="accountTransfer"
+            :options="accountOptions"
+            :selected="accountTransfer"
+            @selection-updated="accountTransfer = $event"
+          />
         </div>
       </template>
 
@@ -220,14 +135,10 @@
       </div>
 
       <!-- BUTTONS -->
-      <div class="row justify-end mt-2">
-        <button class="button-secondary" @click="onCancel">
-          {{ COMMON_COPY.cancel }}
-        </button>
-        <button class="button" @click="onCreateUpdateTransaction">
-          {{ COMMON_COPY.save }}
-        </button>
-      </div>
+      <CancelSaveButtons
+        @on-cancel="onCancel"
+        @on-save="onCreateUpdateTransaction"
+      />
     </form>
 
     <ConfirmDialog
@@ -241,9 +152,9 @@
 <script setup lang="ts">
 import { format } from 'date-fns'
 import { isEmpty } from 'lodash-es'
-import BasicRadio from '../radios/BasicRadio.vue'
+import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
-import { COMMON_COPY, TRANSACTION_COPY } from '~~/constants/copy'
+import TRANSACTION_COPY from '~~/constants/copy/transactions'
 import { DATE_FORMAT, DATE_TIME_FORMAT } from '~~/helpers/dateTimeHelper'
 import { updateTransaction, deleteTransaction } from '~~/endpoints/transaction'
 import { useProfile } from '~~/stores/profile'
@@ -264,7 +175,7 @@ import {
   validateName,
   validateUnique,
 } from '~~/helpers/validators'
-import { useGoals } from '~~/stores/goals'
+import TransactionTypeSelect from '~~/components/TransactionTypeSelect.vue'
 
 const emit = defineEmits(['refresh', 'closeModal'])
 
@@ -284,9 +195,8 @@ const transactionType = ref(
 const name = ref(props.transaction?.name || '')
 const account = ref((props.transaction?.account?.id as string) || '')
 const accountTransfer = ref((props.transaction?.account?.id as string) || '')
-const categoryTransfer = ref((props.transaction?.category?.id as string) || '')
 const category = ref((props.transaction?.category?.id as string) || '')
-const amount = ref(props.transaction?.amount || 0.0)
+const amount = ref(props.transaction?.amount)
 const date = ref(
   props.transaction?.date || format(new Date(), DATE_TIME_FORMAT)
 )
@@ -320,14 +230,17 @@ const fieldsValid = () => {
   if (!profile.userId) return false
 
   // TRANSACTION ACCOUNT
-  if (validateName(account.value, COMMON_COPY.accountError) === false) {
+  if (
+    validateName(account.value, TRANSACTION_COPY.accountNameError) === false
+  ) {
     return false
   }
 
   if (transactionType.value === TRANSACTION_TYPE_TRANSFER.displayName) {
     // TRANSACTION TRANSFER ACCOUNT
     if (
-      validateName(accountTransfer.value, COMMON_COPY.accountError) === false
+      validateName(accountTransfer.value, TRANSACTION_COPY.accountError) ===
+      false
     ) {
       return false
     }
@@ -337,20 +250,8 @@ const fieldsValid = () => {
       validateUnique(
         account.value,
         accountTransfer.value,
-        COMMON_COPY.accountTransferMatchError
+        TRANSACTION_COPY.accountTransferMatchError
       ) === false
-    ) {
-      return false
-    }
-
-    // TRANSACTION CATEGORY
-    if (validateName(category.value, COMMON_COPY.categoryError) === false) {
-      return false
-    }
-
-    // TRANSACTION TRANSFER CATEGORY
-    if (
-      validateName(categoryTransfer.value, COMMON_COPY.categoryError) === false
     ) {
       return false
     }
@@ -358,19 +259,6 @@ const fieldsValid = () => {
 
   // TRANSACTION NAME
   if (validateName(name.value) === false) return false
-
-  // TRANSACTION CATEGORY
-  if (validateName(category.value, COMMON_COPY.categoryError) === false) {
-    return false
-  }
-  if (transactionType.value === TRANSACTION_TYPE_TRANSFER.displayName) {
-    // TRANSACTION TRANSFER CATEGORY
-    if (
-      validateName(categoryTransfer.value, COMMON_COPY.categoryError) === false
-    ) {
-      return false
-    }
-  }
 
   // TRANSACTION AMOUNT
   if (!validateAmount(amount.value)) {
@@ -388,11 +276,6 @@ const clearFields = () => {
   date.value = format(new Date(), DATE_FORMAT)
 }
 
-const onTransactionTypeClick = (event: Event) => {
-  event.preventDefault()
-  transactionType.value = event.target.value
-}
-
 const onShowConfirmDialog = () => {
   showConfirmDialog.value = true
 }
@@ -406,14 +289,11 @@ const onConfirmConfirmDialog = () => {
   onDelete()
 }
 
-const onCancel = (event: Event) => {
-  event.preventDefault()
+const onCancel = () => {
   emit('closeModal')
 }
 
-const onCreateUpdateTransaction = async (event: Event) => {
-  event.preventDefault()
-
+const onCreateUpdateTransaction = async () => {
   if (fieldsValid() === false) {
     return false
   }
@@ -441,7 +321,7 @@ const onDelete = async () => {
   await deleteTransaction(transactionId)
 
   notification.addNotification({
-    message: TRANSACTION_COPY.transactionDeleted,
+    message: TRANSACTION_COPY.deleted,
     type: 'warn',
   })
   clearFields()
@@ -472,7 +352,6 @@ const onCreateTransactionTransfer = async () => {
     accountId: account.value,
     name: transactionName,
     note: note.value,
-    categoryId: category.value,
     amount: amount.value,
     date: date.value,
   }
@@ -483,7 +362,6 @@ const onCreateTransactionTransfer = async () => {
     accountId: accountTransfer.value,
     name: transactionName,
     note: note.value,
-    categoryId: categoryTransfer.value,
     amount: amount.value,
     date: date.value,
   }
@@ -506,7 +384,7 @@ const onUpdateTransaction = async () => {
   await updateTransaction(data)
 
   notification.addNotification({
-    message: TRANSACTION_COPY.transactionUpdated,
+    message: TRANSACTION_COPY.updated,
     type: 'success',
   })
 

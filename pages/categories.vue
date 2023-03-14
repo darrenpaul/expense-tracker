@@ -1,10 +1,15 @@
 <template>
   <div>
-    <h1>{{ CATEGORY_COPY.categories }}</h1>
+    <div class="row between items-center my-4">
+      <h2>{{ CATEGORY_COPY.categories }}</h2>
 
-    <button class="button" @click="() => (showCategoryModal = true)">
-      {{ CATEGORY_COPY.addCategory }}
-    </button>
+      <button
+        class="button-secondary"
+        @click="() => (showCategoryModal = true)"
+      >
+        {{ CATEGORY_COPY.addCategory }}
+      </button>
+    </div>
 
     <div class="grid-3-col">
       <div

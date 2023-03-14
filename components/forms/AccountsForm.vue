@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row between">
+    <div class="row between mb-4">
       <h2>{{ headingCopy }}</h2>
       <button
         v-if="!isEmpty(props.account)"
@@ -14,7 +14,9 @@
     <form>
       <!-- NAME -->
       <div class="input-group">
-        <label for="name">{{ COMMON_COPY.accountName }}</label>
+        <div class="input-label-container">
+          <label for="name">{{ COMMON_COPY.accountName }}</label>
+        </div>
         <input
           v-model="name"
           :placeholder="COMMON_COPY.accountNamePlaceholder"
@@ -23,48 +25,61 @@
         />
       </div>
 
-      <!-- ADD INITIAL AMOUNT -->
-      <div class="input-group">
-        <label for="addInitialAmount">{{ COMMON_COPY.addInitialAmount }}</label>
-        <input
-          id="addInitialAmount"
-          v-model="addInitialAmount"
-          class="checkbox"
-          type="checkbox"
-        />
-      </div>
-
-      <!-- AMOUNT AND CATEGORY -->
-      <div v-if="addInitialAmount" class="row">
-        <!-- AMOUNT -->
+      <template v-if="!props.account.id">
+        <!-- ADD INITIAL AMOUNT -->
         <div class="input-group">
-          <label for="amount">{{ COMMON_COPY.initialAmount }}</label>
-          <input v-model="amount" name="amount" type="number" />
+          <div class="input-label-container">
+            <label for="addInitialAmount">{{
+              COMMON_COPY.addInitialAmount
+            }}</label>
+          </div>
+          <input
+            id="addInitialAmount"
+            v-model="addInitialAmount"
+            class="checkbox"
+            type="checkbox"
+          />
         </div>
 
-        <!-- CATEGORY -->
-        <div class="input-group">
-          <label for="category">{{ TRANSACTION_COPY.category }}</label>
-          <select v-model="category">
-            <option disabled value="">{{ COMMON_COPY.selectOne }}</option>
-            <option
-              v-for="{
-                id,
-                name: categoryName,
-              } in categoryStore.incomeCategories"
-              :key="id"
-              :value="id"
-              :selected="categoryName === category"
-            >
-              {{ categoryName }}
-            </option>
-          </select>
-        </div>
-      </div>
+        <!-- AMOUNT AND CATEGORY -->
+        <template v-if="addInitialAmount">
+          <!-- AMOUNT -->
+          <div class="input-group">
+            <div class="input-label-container">
+              <label for="amount">{{ COMMON_COPY.initialAmount }}</label>
+            </div>
+
+            <input
+              id="amount"
+              v-model="amount"
+              :placeholder="TRANSACTION_COPY.amountPlaceholder"
+              name="amount"
+              type="number"
+            />
+          </div>
+
+          <!-- CATEGORY -->
+          <div class="input-group">
+            <div class="input-label-container">
+              <label for="category">{{ TRANSACTION_COPY.category }}</label>
+            </div>
+            <Dropdown
+              v-model="category"
+              :options="categoryOptions"
+              :selected="category"
+              @selection-updated="category = $event"
+            />
+          </div>
+        </template>
+      </template>
 
       <!-- INCLUDE IN BALANCE -->
       <div class="input-group">
-        <label for="includeInBalance">{{ COMMON_COPY.includeInBalance }}</label>
+        <div class="input-label-container">
+          <label for="includeInBalance">{{
+            COMMON_COPY.includeInBalance
+          }}</label>
+        </div>
         <input
           id="includeInBalance"
           v-model="includeInBalance"
@@ -74,12 +89,7 @@
       </div>
 
       <!-- BUTTONS -->
-      <div class="row">
-        <button class="button-secondary" @click="onCancel">
-          {{ COMMON_COPY.cancel }}
-        </button>
-        <button @click="onAddUpdateAccount">{{ COMMON_COPY.save }}</button>
-      </div>
+      <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddUpdateAccount" />
     </form>
 
     <ConfirmDialog
@@ -93,6 +103,7 @@
 <script setup lang="ts">
 import { format } from 'date-fns'
 import { isEmpty } from 'lodash-es'
+import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 // COMPONENTS
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
@@ -132,7 +143,7 @@ const categoryStore = useCategories()
 const transactionStore = useTransactions()
 
 const name = ref(props.account?.name || '')
-const amount = ref(props.account?.amount || 0.0)
+const amount = ref(props.account?.amount)
 const category = ref((props.account?.category?.id as string) || '')
 const includeInBalance = ref(props.account?.includeInBalance)
 const showConfirmDialog = ref(false)
@@ -143,6 +154,13 @@ const headingCopy = computed(() => {
     return COMMON_COPY.addAccount
   }
   return COMMON_COPY.editAccount
+})
+
+const categoryOptions = computed(() => {
+  return categoryStore.incomeCategories.map(({ id, name }) => ({
+    value: id,
+    label: name,
+  }))
 })
 
 const fieldsValid = () => {
@@ -174,7 +192,6 @@ const onConfirmConfirmDialog = () => {
 }
 
 const onCancel = () => {
-  event.preventDefault()
   emit('closeModal')
 }
 

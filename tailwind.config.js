@@ -16,6 +16,7 @@ module.exports = {
         secondary: 'var(--secondary)',
         'secondary-a': 'var(--secondaryA)',
         'secondary-b': 'var(--secondaryB)',
+        'secondary-c': 'var(--secondaryC)',
         'theme-text': 'var(--text)',
         'theme-text-information': 'var(--text-information)',
         'theme-button-primary': 'var(--button-primary)',

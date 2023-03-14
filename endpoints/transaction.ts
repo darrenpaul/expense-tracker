@@ -16,17 +16,19 @@ export const viewTransactions = async () => {
 
   const records = await pocketBaseClient.collection(TABLE).getFullList(200, {
     expand: 'categoryId,accountId',
-    sort: '-date',
+    sort: '-created',
   })
 
   return records.map((record) => {
-    const category: ICategory = {
-      id: record.expand.categoryId.id,
-      transactionType: record.expand.categoryId.transactionType,
-      name: record.expand.categoryId.name,
-      icon: record.expand.categoryId.icon,
+    let category: ICategory
+    if (record.expand?.categoryId?.id) {
+      category = {
+        id: record.expand.categoryId.id,
+        transactionType: record.expand.categoryId.transactionType,
+        name: record.expand.categoryId.name,
+        icon: record.expand.categoryId.icon,
+      }
     }
-
     const account: IAccount = {
       id: record.expand.accountId?.id,
       includeInBalance: record.expand.accountId?.includeInBalance,

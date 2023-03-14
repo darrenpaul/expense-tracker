@@ -1,10 +1,12 @@
 <template>
   <div>
-    <h1>Accounts</h1>
+    <div class="row between items-center my-4">
+      <h2>{{ COMMON_COPY.accounts }}</h2>
 
-    <button class="button" @click="() => (showAccountModal = true)">
-      {{ COMMON_COPY.addAccount }}
-    </button>
+      <button class="button-secondary" @click="() => (showAccountModal = true)">
+        {{ COMMON_COPY.addAccount }}
+      </button>
+    </div>
 
     <div class="grid-3-col">
       <GlanceCard

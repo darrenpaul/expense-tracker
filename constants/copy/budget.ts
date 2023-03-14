@@ -1,0 +1,17 @@
+export default {
+  budgets: 'Budgets',
+  addBudget: 'Add Budget',
+  editBudget: 'Edit Budget',
+  edit: 'Edit',
+  startDate: 'Start Date',
+  endDate: 'End Date',
+  spendPerDay: 'Spend Per Day',
+  spendPerWeek: 'Spend Per Week',
+  budgetName: 'Budget Name',
+  budgetNamePlaceholder: 'Takeout',
+  category: 'Category',
+  amount: 'Amount',
+  amountPlaceholder: '100',
+  note: 'Note',
+  notePlaceholder: 'Budget for takeout',
+}

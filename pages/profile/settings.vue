@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>{{ SETTINGS_COPY.settings }}</h1>
+    <div class="row between items-center my-4">
+      <h2>{{ SETTINGS_COPY.settings }}</h2>
+    </div>
 
     <UserSettings />
   </div>

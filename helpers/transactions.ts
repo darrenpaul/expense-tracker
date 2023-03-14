@@ -64,13 +64,17 @@ export const mergeTransactionsByDate = (transactions: Array<ITransaction>) => {
 }
 
 export const mergeExpensesByCategory = (transactions: Array<ITransaction>) => {
-  const merged: IMerged = {}
+  const merged: IMerged = { undefined: { amount: 0 } }
   transactions.forEach(({ amount, category }) => {
-    const categoryName = category.name
-    if (!merged[categoryName]) {
-      merged[categoryName] = { amount, category }
+    const categoryName = category?.name
+    if (categoryName) {
+      if (!merged[categoryName]) {
+        merged[categoryName] = { amount, category }
+      } else {
+        merged[categoryName].amount += amount
+      }
     } else {
-      merged[categoryName].amount += amount
+      merged.undefined.amount += amount
     }
   })
 

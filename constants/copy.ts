@@ -68,6 +68,7 @@ export const COMMON_COPY = {
   budgetNamePlaceholder: 'Takeout',
   startDate: 'Start Date',
   endDate: 'End Date',
+  accounts: 'Accounts',
 }
 
 export const TRANSACTION_COPY = {
@@ -105,8 +106,8 @@ export const TRANSACTION_COPY = {
   balance: 'Balance',
   moneyIn: 'Money In',
   moneyOut: 'Money Out',
-  fromAccount: 'From account',
-  toAccount: 'To account',
+  fromAccount: 'From Account',
+  toAccount: 'To Account',
   transfer: 'Transfer',
 }
 
@@ -121,6 +122,7 @@ export const CATEGORY_COPY = {
   categoryAdded: 'Category Added',
   categoryUpdated: 'Category Updated',
   categoryNameError: 'Category requires a name',
+  name: 'Name',
 }
 
 export const NAVIGATION_COPY = {

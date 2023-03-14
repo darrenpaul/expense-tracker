@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row between">
+    <div class="row between mb-4">
       <h2>{{ headingCopy }}</h2>
       <button
         v-if="!isEmpty(props.goal)"
@@ -14,7 +14,9 @@
     <form>
       <!-- NAME -->
       <div class="input-group">
-        <label for="name">{{ COMMON_COPY.goalName }}</label>
+        <div class="input-label-container">
+          <label for="name">{{ COMMON_COPY.goalName }}</label>
+        </div>
         <input
           v-model="name"
           :placeholder="COMMON_COPY.goalNamePlaceholder"
@@ -25,7 +27,9 @@
 
       <!-- AMOUNT -->
       <div class="input-group">
-        <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
+        <div class="input-label-container">
+          <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
+        </div>
         <input
           id="amount"
           v-model="amount"
@@ -37,14 +41,18 @@
 
       <!-- DATE PICKER -->
       <div class="input-group">
-        <label for="datePicker">{{ COMMON_COPY.targetDate }}</label>
+        <div class="input-label-container">
+          <label for="datePicker">{{ COMMON_COPY.targetDate }}</label>
+        </div>
         <DatePicker id="datePicker" :date="date" @on-change="date = $event" />
       </div>
 
       <!-- NOTE -->
       <div class="input-group">
-        <label for="note">{{ TRANSACTION_COPY.note }}</label>
-        <input
+        <div class="input-label-container">
+          <label for="note">{{ TRANSACTION_COPY.note }}</label>
+        </div>
+        <textarea
           id="note"
           v-model="note"
           :placeholder="TRANSACTION_COPY.notePlaceholder"
@@ -53,12 +61,8 @@
         />
       </div>
 
-      <div class="row">
-        <button class="button-secondary" @click="onCancel">
-          {{ COMMON_COPY.cancel }}
-        </button>
-        <button @click="onAddUpdateGoal">{{ COMMON_COPY.save }}</button>
-      </div>
+      <!-- BUTTONS -->
+      <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddUpdateGoal" />
     </form>
 
     <ConfirmDialog
@@ -72,6 +76,7 @@
 <script setup lang="ts">
 import { format } from 'date-fns'
 import { isEmpty } from 'lodash-es'
+import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 // COMPONENTS
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
@@ -93,7 +98,7 @@ const profile = useProfile()
 const goalStore = useGoals()
 
 const name = ref(props.goal?.name || '')
-const amount = ref(props.goal?.amount || 0.0)
+const amount = ref(props.goal?.amount)
 const date = ref(props.goal?.date || format(new Date(), DATE_TIME_FORMAT))
 const note = ref(props.goal?.note || '')
 const showConfirmDialog = ref(false)
@@ -128,13 +133,10 @@ const onConfirmConfirmDialog = () => {
 }
 
 const onCancel = () => {
-  event.preventDefault()
   emit('closeModal')
 }
 
-const onAddUpdateGoal = async (event: Event) => {
-  event.preventDefault()
-
+const onAddUpdateGoal = () => {
   if (fieldsValid() === false) {
     return false
   }
