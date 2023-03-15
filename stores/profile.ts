@@ -40,16 +40,10 @@ export const useProfile = defineStore({
       }
 
       this.token = token
+
       this.fetchAllData()
     },
     async logout() {
-      useAccounts().clear()
-      useCategories().clear()
-      useTransactions().clear()
-      useUserSettings().clear()
-      useGoals().clear()
-      useBudgets().clear()
-
       useCookie(ACCESS_TOKEN_COOKIE).value = null
 
       this.user = null
@@ -69,13 +63,21 @@ export const useProfile = defineStore({
 
       this.fetchAllData()
     },
-    fetchAllData() {
-      useTransactions().fetch()
-      useAccounts().fetch()
-      useCategories().fetch()
-      useBudgets().fetch()
-      useGoals().fetch()
-      useUserSettings().fetch()
+    async fetchAllData() {
+      await useTransactions().fetch()
+      await useAccounts().fetch()
+      await useCategories().fetch()
+      await useBudgets().fetch()
+      await useGoals().fetch()
+      await useUserSettings().fetch()
+    },
+    clearAllData() {
+      useTransactions().clear()
+      useAccounts().clear()
+      useCategories().clear()
+      useBudgets().clear()
+      useGoals().clear()
+      useUserSettings().clear()
     },
   },
 })

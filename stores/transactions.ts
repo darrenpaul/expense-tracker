@@ -67,6 +67,10 @@ export const useTransactions = defineStore({
     },
   },
   actions: {
+    async fetch() {
+      this.transactions = await viewTransactions()
+    },
+
     async handleCreateTransaction(data: INewTransaction) {
       await createTransaction(data)
       this.fetch()
@@ -76,9 +80,7 @@ export const useTransactions = defineStore({
         type: 'success',
       })
     },
-    async fetch() {
-      this.transactions = await viewTransactions()
-    },
+
     clear() {
       this.transactions = []
     },

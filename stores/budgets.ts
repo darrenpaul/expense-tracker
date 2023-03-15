@@ -28,6 +28,7 @@ export const useBudgets = defineStore({
         type: 'success',
       })
     },
+
     async handleUpdateBudget(data: IBudget) {
       await updateBudget(data)
       this.fetch()
@@ -37,6 +38,7 @@ export const useBudgets = defineStore({
         type: 'success',
       })
     },
+
     async handleDeleteBudget(budgetId: string) {
       await deleteBudget(budgetId)
       this.budgets = this.budgets.filter(({ id }) => id !== budgetId)
@@ -46,9 +48,11 @@ export const useBudgets = defineStore({
         type: 'warn',
       })
     },
+
     async fetch() {
       this.budgets = await viewBudgets()
     },
+
     clear() {
       this.budgets = []
     },
