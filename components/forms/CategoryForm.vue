@@ -4,10 +4,10 @@
       <h2>{{ headingCopy }}</h2>
       <button
         v-if="!isEmpty(props.category)"
-        class="button-icon"
-        @click="onShowConfirmDialog"
+        class="button-icon-danger"
+        @click="onCategoryDelete"
       >
-        <TrashIcon :size="'20'" />
+        <TrashIcon />
       </button>
     </div>
 
@@ -35,40 +35,28 @@
       <!-- BUTTONS -->
       <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddCategory" />
     </form>
-
-    <ConfirmDialog
-      :show="showConfirmDialog"
-      @close-modal="onCloseConfirmDialog"
-      @confirm="onConfirmConfirmDialog"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { isEmpty } from 'lodash-es'
 import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
-import { COMMON_COPY, CATEGORY_COPY, TRANSACTION_COPY } from '~~/constants/copy'
+import { COMMON_COPY, CATEGORY_COPY } from '~~/constants/copy'
 import { useProfile } from '~~/stores/profile'
-import {
-  createCategory,
-  deleteCategory,
-  updateCategory,
-} from '~~/endpoints/category'
+import { createCategory, updateCategory } from '~~/endpoints/category'
 import { INewCategory, ICategory } from '~~/types/category'
 import { useCategories } from '~~/stores/categories'
 import { TRANSACTION_TYPES } from '~~/constants/transactions'
 import { useNotification } from '~~/stores/notification'
-import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
 
-const emit = defineEmits(['closeModal'])
+const emit = defineEmits(['closeModal', 'onCreate', 'onUpdate', 'onDelete'])
 
 const props = defineProps({
   category: { type: Object, default: () => {} },
 })
 
 const profile = useProfile()
-const categories = useCategories()
 const notification = useNotification()
 
 const name = ref(props.category.name || '')
@@ -76,7 +64,6 @@ const nameError = ref('')
 const transactionType = ref(
   props.category.transactionType || TRANSACTION_TYPES[0].displayName
 )
-const showConfirmDialog = ref(false)
 
 const headingCopy = computed(() => {
   if (isEmpty(props.category)) {
@@ -109,19 +96,6 @@ const fieldsValid = () => {
   return true
 }
 
-const onShowConfirmDialog = () => {
-  showConfirmDialog.value = true
-}
-
-const onCloseConfirmDialog = () => {
-  showConfirmDialog.value = false
-}
-
-const onConfirmConfirmDialog = () => {
-  showConfirmDialog.value = false
-  onCategoryDelete()
-}
-
 const onCancel = () => {
   emit('closeModal')
 }
@@ -136,41 +110,27 @@ const onAddCategory = async () => {
     const data: ICategory = {
       id: props.category.id,
       transactionType: transactionType.value,
-      name: name.value,
+      name: name.value.trim(),
       icon: '',
     }
 
-    await updateCategory(data)
-    notification.addNotification({
-      title: 'Notification Title',
-      message: CATEGORY_COPY.categoryUpdated,
-      type: 'success',
-    })
+    emit('onUpdate', data)
   } else {
     const data: INewCategory = {
       userId: profile.userId,
       transactionType: transactionType.value,
-      name: name.value,
+      name: name.value.trim(),
       icon: '',
     }
 
-    await createCategory(data)
-    notification.addNotification({
-      title: 'Notification Title',
-      message: CATEGORY_COPY.categoryAdded,
-      type: 'success',
-    })
+    emit('onCreate', data)
   }
-  categories.fetchCategories()
 
   emit('closeModal')
 }
 
-const onCategoryDelete = async () => {
+const onCategoryDelete = () => {
   const categoryId = props.category.id
-  await deleteCategory(categoryId)
-  categories.fetchCategories()
-
-  emit('closeModal')
+  emit('onDelete', categoryId)
 }
 </script>

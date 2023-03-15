@@ -211,7 +211,7 @@ const headingCopy = computed(() => {
 })
 
 const categoryOptions = computed(() => {
-  return categoryStore.categoryList
+  return categoryStore.categories
     .filter((item) => item.transactionType === transactionType.value)
     .map(({ id, name }) => ({
       value: id,

@@ -49,7 +49,7 @@ const onSaveUserSettings = async (event: Event) => {
 
   await updateUserSettings(data)
 
-  userSettings.fetchUserSettings()
+  userSettings.fetch()
 
   alert('Created user settings')
 }

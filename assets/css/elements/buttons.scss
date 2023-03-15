@@ -85,25 +85,49 @@
 
 .button-icon {
     /* SIZE */
-    @apply w-fit h-fit;
+    @apply w-10 h-10;
     /* MARGINS AND PADDING */
     @apply p-2 m-0;
     /* LAYOUT */
     /* BORDERS */
     @apply rounded-full focus:ring-4 focus:ring-blue-300;
     /* COLORS */
-    @apply bg-red-400 hover:bg-transparent border-transparent hover:border-theme-text transition-all;
+    @apply bg-primary hover:bg-primary border-primary hover:border-secondary transition-all;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
     svg {
         path {
-            @apply fill-white transition-all;
+            @apply fill-secondary transition-all;
         }
     }
     &:hover {
         svg {
             path {
-                @apply fill-theme-text transition-all;
+                @apply fill-secondary transition-all;
+            }
+        }
+    }
+}
+
+.button-icon-danger {
+    @extend .button-icon;
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    @apply bg-red-500 hover:bg-red-500 border-red-500 hover:border-secondary transition-all;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    svg {
+        path {
+            @apply fill-secondary transition-all;
+        }
+    }
+    &:hover {
+        svg {
+            path {
+                @apply fill-secondary transition-all;
             }
         }
     }

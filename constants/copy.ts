@@ -119,10 +119,14 @@ export const CATEGORY_COPY = {
   categoryPlaceholder: 'Gift',
   delete: 'Delete',
   edit: 'Edit',
-  categoryAdded: 'Category Added',
-  categoryUpdated: 'Category Updated',
   categoryNameError: 'Category requires a name',
   name: 'Name',
+  created: 'Category Created',
+  updated: 'Category Updated',
+  deleted: 'Category Deleted',
+  expenseCategories: 'Expense Categories',
+  incomeCategories: 'Income Categories',
+  transferCategories: 'Transfer Categories',
 }
 
 export const NAVIGATION_COPY = {

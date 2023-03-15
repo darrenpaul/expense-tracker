@@ -36,7 +36,7 @@ export const useGoals = defineStore({
       const goal = await createGoal({ ...data, accountId: accountRecord.id })
       this.goals = [...this.goals, goal]
 
-      useAccounts().fetchAccounts()
+      useAccounts().fetch()
 
       useNotification().addNotification({
         message: COMMON_COPY.created,

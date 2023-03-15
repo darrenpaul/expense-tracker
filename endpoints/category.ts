@@ -6,7 +6,16 @@ const TABLE = 'categories'
 export const createCategory = async (data: INewCategory) => {
   const pocketBaseClient = await usePocketBase()
 
-  return await pocketBaseClient.collection(TABLE).create(data)
+  const { id, transactionType, name, icon } = await pocketBaseClient
+    .collection(TABLE)
+    .create(data)
+
+  return {
+    id,
+    transactionType,
+    name,
+    icon,
+  } as ICategory
 }
 
 // ---------- VIEW

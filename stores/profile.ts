@@ -40,6 +40,7 @@ export const useProfile = defineStore({
       }
 
       this.token = token
+      this.fetchAllData()
     },
     async logout() {
       useAccounts().clear()
@@ -65,6 +66,16 @@ export const useProfile = defineStore({
         email: record.email,
       }
       this.token = token
+
+      this.fetchAllData()
+    },
+    fetchAllData() {
+      useTransactions().fetch()
+      useAccounts().fetch()
+      useCategories().fetch()
+      useBudgets().fetch()
+      useGoals().fetch()
+      useUserSettings().fetch()
     },
   },
 })

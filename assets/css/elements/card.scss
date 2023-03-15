@@ -7,10 +7,23 @@
     /* BORDERS */
     @apply rounded-3xl;
     /* COLORS */
-    @apply bg-white;
+    @apply bg-secondary;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
     @apply drop-shadow-sm shadow-sm;
+}
+
+.card-slim {
+    @extend .card;
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    // @apply py-4 px-6;
+    @apply p-1;
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
 }
 
 .card-stretch {

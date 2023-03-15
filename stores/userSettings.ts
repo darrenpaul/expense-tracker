@@ -16,7 +16,7 @@ export const useUserSettings = defineStore({
   },
 
   actions: {
-    async fetchUserSettings() {
+    async fetch() {
       const profile = useProfile()
       const userId = profile.userId
       const userSettings = await viewUserSettings(userId)

@@ -274,7 +274,7 @@ const onAddUpdateAccount = async (event: Event) => {
   }
 
   transactionStore.fetch()
-  accountStore.fetchAccounts()
+  accountStore.fetch()
 
   emit('closeModal')
 }
@@ -282,7 +282,7 @@ const onAddUpdateAccount = async (event: Event) => {
 const onDeleteAccount = async () => {
   const accountId = props.account.id
   await deleteAccount(accountId)
-  accountStore.fetchAccounts()
+  accountStore.fetch()
 
   notification.addNotification({
     message: COMMON_COPY.delete,

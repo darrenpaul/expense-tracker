@@ -17,7 +17,7 @@ export const useAccounts = defineStore({
     async handleCreateAccount(data: INewAccount) {
       return await createAccount(data)
     },
-    async fetchAccounts() {
+    async fetch() {
       this.accounts = await viewAccounts()
     },
     clear() {

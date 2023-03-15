@@ -87,9 +87,9 @@ const onLogin = async (event: Event) => {
   try {
     await profile.login(email.value, password.value)
     if (profile.authenticated) {
-      categories.fetchCategories()
-      userSettings.fetchUserSettings()
-      accountStore.fetchAccounts()
+      categories.fetch()
+      userSettings.fetch()
+      accountStore.fetch()
       transactionsStore.fetch()
       useGoals().fetch()
       router.replace(DASHBOARD_ROUTE.path)
