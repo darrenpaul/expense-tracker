@@ -29,7 +29,7 @@
 .card-half {
     @extend .card;
     /* SIZE */
-    @apply w-screen-half;
+    @apply w-full md:w-screen-half;
     /* MARGINS AND PADDING */
     /* LAYOUT */
     /* BORDERS */
@@ -39,6 +39,7 @@
 }
 
 .card-stretch {
+    @extend .card;
     /* SIZE */
     @apply w-full;
     /* MARGINS AND PADDING */

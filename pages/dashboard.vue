@@ -1,40 +1,40 @@
 <template>
-  <div>
-    <div class="row">
-      <div class="card-half">
+  <div class="dashboard-container">
+    <div class="dashboard-card-container">
+      <div class="card-stretch">
         <Chart :options="expensesVsIncomesOptions" />
       </div>
+    </div>
 
-      <div class="column">
-        <GlanceCard
-          v-if="transactionStore"
-          :title="TRANSACTION_COPY.balance"
-          :amount="
-            currencyFormat({
-              value: balance(),
-              currency: userSettings.currency,
-            })
-          "
-        />
-        <GlanceCard
-          :title="TRANSACTION_COPY.moneyIn"
-          :amount="
-            currencyFormat({
-              value: transactionStore.income(),
-              currency: userSettings.currency,
-            })
-          "
-        />
-        <GlanceCard
-          :title="TRANSACTION_COPY.moneyOut"
-          :amount="
-            currencyFormat({
-              value: transactionStore.expense(),
-              currency: userSettings.currency,
-            })
-          "
-        />
-      </div>
+    <div class="dashboard-glance-cards">
+      <GlanceCard
+        v-if="transactionStore"
+        :title="TRANSACTION_COPY.balance"
+        :amount="
+          currencyFormat({
+            value: balance(),
+            currency: userSettings.currency,
+          })
+        "
+      />
+      <GlanceCard
+        :title="TRANSACTION_COPY.moneyIn"
+        :amount="
+          currencyFormat({
+            value: transactionStore.income(),
+            currency: userSettings.currency,
+          })
+        "
+      />
+      <GlanceCard
+        :title="TRANSACTION_COPY.moneyOut"
+        :amount="
+          currencyFormat({
+            value: transactionStore.expense(),
+            currency: userSettings.currency,
+          })
+        "
+      />
     </div>
   </div>
 </template>
@@ -69,3 +69,7 @@ const expensesVsIncomesOptions = computed(() => {
   return expensesVsIncomes(transactionStore.list as Array<ITransaction>)
 })
 </script>
+
+<style lang="scss">
+@import '~~/assets/css/pages/dashboard.scss';
+</style>

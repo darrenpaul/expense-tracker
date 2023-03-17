@@ -4,16 +4,11 @@
       <Chart :options="categoryUsageOptions" />
     </div>
 
-    <div class="row between items-center my-4">
-      <h2>{{ CATEGORY_COPY.categories }}</h2>
-
-      <button
-        class="button-secondary"
-        @click="() => (showCategoryModal = true)"
-      >
-        {{ CATEGORY_COPY.addCategory }}
-      </button>
-    </div>
+    <HeadingWithButton
+      :heading="CATEGORY_COPY.categories"
+      :button-text="CATEGORY_COPY.addCategory"
+      @on-click="() => (showCategoryModal = true)"
+    />
 
     <div class="row between items-center my-4">
       <h3>{{ CATEGORY_COPY.expenseCategories }}</h3>
@@ -73,6 +68,7 @@
 </template>
 
 <script setup lang="ts">
+import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import { CATEGORY_COPY } from '~~/constants/copy'
 import { useCategories } from '~~/stores/categories'
 import CategoryForm from '~~/components/forms/CategoryForm.vue'

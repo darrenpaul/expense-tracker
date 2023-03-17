@@ -1,26 +1,45 @@
 <template>
   <div class="dropdown-container">
+    <!-- CLICK AND CLOSE BACKGROUND -->
     <div
       v-if="expanded"
       class="dropdown-click-close"
       @click="expanded = !expanded"
     />
 
+    <!-- INPUT -->
     <div id="dropdown-input" class="dropdown-input" @click="dropdownClick">
-      <div v-if="multiple" class="dropdown-tags">
-        <button
-          v-for="{ value, label } in selectionTags"
-          :key="value"
-          :value="value"
-          class="dropdown-tag"
-          @click="tagClick"
-        >
-          {{ label }}
-        </button>
-      </div>
-      <div v-else>
-        <p class="dropdown-text">{{ singleLabelText }}</p>
-      </div>
+      <template v-if="optionsAreComponents === true">
+        <template v-for="{ value, component } in options">
+          <component
+            :is="component"
+            v-if="selected === value"
+            :key="value"
+            :fill="'var(--primary)'"
+            :size="'24'"
+          />
+        </template>
+
+        <p v-if="!selected"></p>
+      </template>
+
+      <template v-if="optionsAreComponents === false">
+        <div v-if="multiple === true" class="dropdown-tags">
+          <button
+            v-for="{ value, label } in selectionTags"
+            :key="value"
+            :value="value"
+            class="dropdown-tag"
+            @click="tagClick"
+          >
+            {{ label }}
+          </button>
+        </div>
+
+        <div v-if="multiple === false">
+          <p class="dropdown-text">{{ singleLabelText }}</p>
+        </div>
+      </template>
 
       <div class="pointer-events-none mr-2">
         <ArrowDownIcon v-if="expanded" :size="'12'" />
@@ -28,19 +47,42 @@
       </div>
     </div>
 
-    <div v-if="expanded" class="dropdown-menu">
-      <button
-        v-for="{ value, label } in options"
-        :key="value"
-        :class="[
-          'dropdown-item',
-          isSelected(value) ? 'dropdown-item-active' : '',
-        ]"
-        :value="value"
-        @click="dropdownItemClick"
-      >
-        {{ label }}
-      </button>
+    <!-- MENU -->
+    <div
+      v-if="expanded"
+      :class="[
+        optionsAreComponents ? 'dropdown-menu-components' : 'dropdown-menu',
+      ]"
+    >
+      <template v-if="optionsAreComponents === true">
+        <button
+          v-for="{ value, component } in options"
+          :key="value"
+          :class="[
+            'dropdown-item',
+            isSelected(value) ? 'dropdown-item-active' : '',
+          ]"
+          :value="value"
+          @click="() => dropdownItemClick(value)"
+        >
+          <component :is="component" :fill="'var(--primary)'" :size="'42'" />
+        </button>
+      </template>
+
+      <template v-if="optionsAreComponents === false">
+        <button
+          v-for="{ value, label } in options"
+          :key="value"
+          :class="[
+            'dropdown-item',
+            isSelected(value) ? 'dropdown-item-active' : '',
+          ]"
+          :value="value"
+          @click="() => dropdownItemClick(value)"
+        >
+          {{ label }}
+        </button>
+      </template>
     </div>
   </div>
 </template>
@@ -54,11 +96,13 @@ const emit = defineEmits(['selectionUpdated'])
 interface IOptions {
   value: string
   label: string
+  component?: any
 }
 const props = defineProps({
   options: { type: Array<IOptions>, default: () => [] },
   selected: { type: String || Array<String>, default: '' },
   multiple: { type: Boolean, default: false },
+  optionsAreComponents: { type: Boolean, default: false },
 })
 
 const expanded = ref(false)
@@ -93,9 +137,7 @@ const tagClick = (event: Event) => {
   emit('selectionUpdated', selection.value)
 }
 
-const dropdownItemClick = (event: Event) => {
-  event.preventDefault()
-  const value = event.target?.value
+const dropdownItemClick = (value) => {
   if (props.multiple === true) {
     if (isSelected(value)) {
       selection.value = selection.value.filter((x: string) => x !== value)

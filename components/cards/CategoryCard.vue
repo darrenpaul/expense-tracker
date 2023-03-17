@@ -1,7 +1,15 @@
 <template>
   <div class="card-slim card-stretch row whitespace-nowrap centered between">
     <div class="row ml-2">
-      <PetrolIcon />
+      <template v-for="{ value, component } in CATEGORY_ICONS">
+        <component
+          :is="component"
+          v-if="category.icon === value"
+          :key="value"
+          :fill="'var(--primary)'"
+          :size="'24'"
+        />
+      </template>
       <p>{{ category.name }}</p>
     </div>
 
@@ -18,7 +26,7 @@
 import { ICategory } from '~~/types/category'
 import PencilIcon from '~~/components/icons/PencilIcon.vue'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
-import PetrolIcon from '~~/components/icons/categories/PetrolIcon.vue'
+import { CATEGORY_ICONS } from '~~/constants/category'
 
 const emit = defineEmits(['onEdit', 'onDelete'])
 

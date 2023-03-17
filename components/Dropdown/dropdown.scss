@@ -80,7 +80,7 @@
         /* MARGINS AND PADDING */
         @apply mt-2;
         /* LAYOUT */
-        @apply absolute flex flex-col overflow-y-scroll z-20;
+        @apply absolute right-0 flex flex-col overflow-y-scroll z-20;
         /* BORDERS */
         @apply border rounded;
         /* COLORS */
@@ -121,5 +121,17 @@
             /* TEXT */
             /* ANIMATION AND EFFECTS */
         }
+    }
+
+    .dropdown-menu-components {
+        @extend .dropdown-menu;
+        /* SIZE */
+        @apply w-fit;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
     }
 }

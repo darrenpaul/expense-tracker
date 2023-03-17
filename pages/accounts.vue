@@ -1,12 +1,10 @@
 <template>
   <div>
-    <div class="row between items-center my-4">
-      <h2>{{ COMMON_COPY.accounts }}</h2>
-
-      <button class="button-secondary" @click="() => (showAccountModal = true)">
-        {{ COMMON_COPY.addAccount }}
-      </button>
-    </div>
+    <HeadingWithButton
+      :heading="COMMON_COPY.accounts"
+      :button-text="COMMON_COPY.addAccount"
+      @on-click="() => (showAccountModal = true)"
+    />
 
     <div class="grid-3-col">
       <GlanceCard
@@ -30,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import { COMMON_COPY } from '~~/constants/copy'
 import AccountsForm from '~~/components/forms/AccountsForm.vue'
 import { currencyFormat } from '~~/helpers/formatting'

@@ -14,7 +14,7 @@ import { sleep } from '~~/helpers/delay'
 
 const props = defineProps({
   width: { type: String, default: '100%' },
-  height: { type: String, default: '80vh' },
+  height: { type: String, default: '50vh' },
   options: {
     type: Object,
     default: () => {},

@@ -32,7 +32,7 @@ export const viewCategories = async () => {
       userId: record.userId,
       transactionType: record.transactionType,
       name: record.name,
-      icon: '',
+      icon: record.icon,
     } as ICategory
   })
 }

@@ -1,46 +1,47 @@
 <template>
   <div>
-    <div class="row">
-      <div class="card-half">
-        <Chart :options="transactionsForPeriodOptions" />
+    <div class="transactions-container">
+      <div class="transactions-card-container">
+        <div class="card-stretch">
+          <Chart :options="transactionsForPeriodOptions" />
 
-        <div class="row justify-center">
-          <button
-            :class="
-              period === PERIODS.day.displayName
-                ? 'button-small-active'
-                : 'button-small'
-            "
-            :value="PERIODS.day.displayName"
-            @click="onPeriodButtonClick"
-          >
-            {{ PERIODS.day.displayName }}
-          </button>
-          <button
-            :class="
-              period === PERIODS.week.displayName
-                ? 'button-small-active'
-                : 'button-small'
-            "
-            :value="PERIODS.week.displayName"
-            @click="onPeriodButtonClick"
-          >
-            {{ PERIODS.week.displayName }}
-          </button>
-          <button
-            :class="
-              period === PERIODS.month.displayName
-                ? 'button-small-active'
-                : 'button-small'
-            "
-            :value="PERIODS.month.displayName"
-            @click="onPeriodButtonClick"
-          >
-            {{ PERIODS.month.displayName }}
-          </button>
+          <div class="row justify-center">
+            <button
+              :class="
+                period === PERIODS.day.displayName
+                  ? 'button-small-active'
+                  : 'button-small'
+              "
+              :value="PERIODS.day.displayName"
+              @click="onPeriodButtonClick"
+            >
+              {{ PERIODS.day.displayName }}
+            </button>
+            <button
+              :class="
+                period === PERIODS.week.displayName
+                  ? 'button-small-active'
+                  : 'button-small'
+              "
+              :value="PERIODS.week.displayName"
+              @click="onPeriodButtonClick"
+            >
+              {{ PERIODS.week.displayName }}
+            </button>
+            <button
+              :class="
+                period === PERIODS.month.displayName
+                  ? 'button-small-active'
+                  : 'button-small'
+              "
+              :value="PERIODS.month.displayName"
+              @click="onPeriodButtonClick"
+            >
+              {{ PERIODS.month.displayName }}
+            </button>
+          </div>
         </div>
       </div>
-
       <div class="column">
         <GlanceCard
           v-if="transactionsStore.list"
@@ -81,15 +82,11 @@
       </div>
     </div>
 
-    <div class="row between items-center my-4">
-      <h2>{{ TRANSACTION_COPY.transactions }}</h2>
-      <button
-        class="button-secondary"
-        @click="() => (showTransactionModal = true)"
-      >
-        {{ TRANSACTION_COPY.addTransaction }}
-      </button>
-    </div>
+    <HeadingWithButton
+      :heading="TRANSACTION_COPY.transactions"
+      :button-text="TRANSACTION_COPY.addTransaction"
+      @on-click="() => (showTransactionModal = true)"
+    />
 
     <TransactionList
       v-if="transactionsStore.list"
@@ -110,6 +107,7 @@
 </template>
 
 <script setup lang="ts">
+import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import TransactionForm from '~~/components/forms/TransactionForm.vue'
 import TransactionList from '~~/components/transactions/TransactionList.vue'
 import Chart from '~~/components/Chart.vue'
@@ -181,3 +179,7 @@ const onPeriodButtonClick = (event: Event) => {
   period.value = eventValue
 }
 </script>
+
+<style lang="scss">
+@import '~~/assets/css/pages/transactions.scss';
+</style>

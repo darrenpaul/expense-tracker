@@ -27,7 +27,7 @@
         @apply w-20 h-screen;
         /* MARGINS AND PADDING */
         /* LAYOUT */
-        @apply fixed flex flex-col justify-between;
+        @apply fixed flex flex-col justify-start md:justify-between;
         /* BORDERS */
         @apply rounded-tr-3xl;
         /* COLORS */

@@ -1,12 +1,10 @@
 <template>
   <div>
-    <div class="row between items-center my-4">
-      <h2>{{ COMMON_COPY.goals }}</h2>
-
-      <button class="button-secondary" @click="() => (showModal = true)">
-        {{ COMMON_COPY.addGoal }}
-      </button>
-    </div>
+    <HeadingWithButton
+      :heading="GOAL_COPY.goals"
+      :button-text="GOAL_COPY.add"
+      @on-click="() => (showModal = true)"
+    />
 
     <div class="grid-3-col">
       <GoalCard
@@ -28,7 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import { COMMON_COPY } from '~~/constants/copy'
+import HeadingWithButton from '~~/components/HeadingWithButton.vue'
+import GOAL_COPY from '~~/constants/copy/goals'
 import GoalForm from '~~/components/forms/GoalForm.vue'
 import { useGoals } from '~~/stores/goals'
 import GoalCard from '~~/components/cards/GoalCard.vue'

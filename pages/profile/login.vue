@@ -1,36 +1,43 @@
 <template>
   <section>
-    <h1>{{ COMMON_COPY.logIntoAccount }}</h1>
-    <form>
-      <!-- EMAIL -->
-      <div class="input-group">
-        <label for="displayName">{{ COMMON_COPY.email }}</label>
-        <input
-          v-model="email"
-          :placeholder="COMMON_COPY.emailPlaceholder"
-          name="email"
-          type="email"
-        />
-      </div>
+    <div class="card">
+      <h2 class="mb-4">{{ COPY.accountLogin }}</h2>
 
-      <!-- PASSWORD -->
-      <div class="input-group">
-        <label for="displayName">{{ COMMON_COPY.password }}</label>
-        <input
-          v-model="password"
-          :placeholder="COMMON_COPY.passwordPlaceHolder"
-          name="password"
-          type="password"
-        />
-      </div>
-      <button @click="onLogin">{{ COMMON_COPY.login }}</button>
-    </form>
+      <form>
+        <!-- EMAIL -->
+        <div class="input-group">
+          <div class="input-label-container">
+            <label for="displayName">{{ COPY.email }}</label>
+          </div>
+          <input
+            v-model="email"
+            :placeholder="COPY.emailPlaceholder"
+            name="email"
+            type="email"
+          />
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="input-group">
+          <div class="input-label-container">
+            <label for="displayName">{{ COPY.password }}</label>
+          </div>
+          <input
+            v-model="password"
+            :placeholder="COPY.passwordPlaceHolder"
+            name="password"
+            type="password"
+          />
+        </div>
+        <button class="button" @click="onLogin">{{ COPY.login }}</button>
+      </form>
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import isEmail from 'validator/es/lib/isEmail'
-import { COMMON_COPY } from '~~/constants/copy'
+import COPY from '~~/constants/copy/profile'
 import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
 import { useProfile } from '~~/stores/profile'
 import { useCategories } from '~~/stores/categories'
@@ -60,7 +67,7 @@ onMounted(() => {
 const fieldsValid = () => {
   if (email.value === '' || !isEmail(email.value)) {
     notification.addNotification({
-      message: COMMON_COPY.emailRequired,
+      message: COPY.emailRequired,
       type: 'error',
     })
     return false
@@ -68,7 +75,7 @@ const fieldsValid = () => {
 
   if (password.value === '') {
     notification.addNotification({
-      message: COMMON_COPY.passwordRequired,
+      message: COPY.passwordRequired,
       type: 'error',
     })
     return false

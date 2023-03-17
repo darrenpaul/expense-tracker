@@ -20,7 +20,7 @@ header {
         /* BORDERS */
         @apply rounded border border-theme-text;
         /* COLORS */
-        @apply bg-theme-background;
+        @apply bg-primary;
         /* TEXT */
         /* ANIMATION AND EFFECTS */
         @apply shadow-md;
@@ -44,6 +44,7 @@ header {
         /* LAYOUT */
         /* BORDERS */
         /* COLORS */
+        @apply text-secondary;
         /* TEXT */
         @apply text-2xl;
         /* ANIMATION AND EFFECTS */
@@ -64,7 +65,6 @@ header {
             /* MARGINS AND PADDING */
             /* LAYOUT */
             /* BORDERS */
-
             /* COLORS */
             @apply text-theme-text;
             /* TEXT */
@@ -76,7 +76,7 @@ header {
             /* MARGINS AND PADDING */
             /* LAYOUT */
             /* BORDERS */
-            @apply border-b border-theme-text;
+            @apply border-b border-secondary;
             /* COLORS */
             /* TEXT */
             /* ANIMATION AND EFFECTS */

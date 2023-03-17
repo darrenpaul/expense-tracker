@@ -1,12 +1,10 @@
 <template>
   <div>
-    <div class="row between items-center my-4">
-      <h2>{{ BUDGET_COPY.budgets }}</h2>
-
-      <button class="button-secondary" @click="() => (showModal = true)">
-        {{ BUDGET_COPY.addBudget }}
-      </button>
-    </div>
+    <HeadingWithButton
+      :heading="BUDGET_COPY.budgets"
+      :button-text="BUDGET_COPY.addBudget"
+      @on-click="() => (showModal = true)"
+    />
 
     <div class="grid-3-col">
       <BudgetCard
@@ -24,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import BUDGET_COPY from '~~/constants/copy/budget'
 import BudgetForm from '~~/components/forms/BudgetForm.vue'
 import BudgetCard from '~~/components/cards/BudgetCard.vue'

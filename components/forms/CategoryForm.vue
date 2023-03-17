@@ -29,7 +29,19 @@
           name="name"
           type="text"
         />
-        <small>{{ nameError }}</small>
+      </div>
+
+      <div class="input-group">
+        <div class="input-label-container">
+          <label for="account">Icon</label>
+        </div>
+        <Dropdown
+          v-model="icon"
+          :options="CATEGORY_ICONS"
+          :selected="icon"
+          :options-are-components="true"
+          @selection-updated="icon = $event"
+        />
       </div>
 
       <!-- BUTTONS -->
@@ -43,12 +55,11 @@ import { isEmpty } from 'lodash-es'
 import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 import { COMMON_COPY, CATEGORY_COPY } from '~~/constants/copy'
 import { useProfile } from '~~/stores/profile'
-import { createCategory, updateCategory } from '~~/endpoints/category'
 import { INewCategory, ICategory } from '~~/types/category'
-import { useCategories } from '~~/stores/categories'
 import { TRANSACTION_TYPES } from '~~/constants/transactions'
 import { useNotification } from '~~/stores/notification'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
+import { CATEGORY_ICONS } from '~~/constants/category'
 
 const emit = defineEmits(['closeModal', 'onCreate', 'onUpdate', 'onDelete'])
 
@@ -60,7 +71,7 @@ const profile = useProfile()
 const notification = useNotification()
 
 const name = ref(props.category.name || '')
-const nameError = ref('')
+const icon = ref(props.category.icon)
 const transactionType = ref(
   props.category.transactionType || TRANSACTION_TYPES[0].displayName
 )
@@ -83,8 +94,10 @@ const fieldsValid = () => {
   }
 
   if (
+    transactionType.value === props.category.transactionType &&
     name.value === props.category.name &&
-    transactionType.value === props.category.transactionType
+    transactionType.value === props.category.transactionType &&
+    icon.value === props.category.icon
   ) {
     notification.addNotification({
       title: 'Notification Title',
@@ -111,7 +124,7 @@ const onAddCategory = async () => {
       id: props.category.id,
       transactionType: transactionType.value,
       name: name.value.trim(),
-      icon: '',
+      icon: icon.value,
     }
 
     emit('onUpdate', data)
@@ -120,7 +133,7 @@ const onAddCategory = async () => {
       userId: profile.userId,
       transactionType: transactionType.value,
       name: name.value.trim(),
-      icon: '',
+      icon: icon.value,
     }
 
     emit('onCreate', data)
