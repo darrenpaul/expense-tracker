@@ -1,7 +1,8 @@
 <template>
   <main class="main-layout-container">
     <SideNavigation />
-    <section class="w-full p-3">
+
+    <section class="main-layout-content">
       <slot />
     </section>
   </main>

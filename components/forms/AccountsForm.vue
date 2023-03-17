@@ -254,9 +254,7 @@ const onUpdateAccount = async () => {
   })
 }
 
-const onAddUpdateAccount = async (event: Event) => {
-  event.preventDefault()
-
+const onAddUpdateAccount = async () => {
   if (fieldsValid() === false) {
     return false
   }

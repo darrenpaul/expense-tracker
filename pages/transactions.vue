@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="row">
-      <div class="card card-stretch">
+      <div class="card-half">
         <Chart :options="transactionsForPeriodOptions" />
 
-        <div class="flex justify-center gap-4 items-center">
+        <div class="row justify-center">
           <button
             :class="
               period === PERIODS.day.displayName
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div class="column w-1/3">
+      <div class="column">
         <GlanceCard
           v-if="transactionsStore.list"
           :title="TRANSACTION_COPY.balance"
@@ -132,7 +132,7 @@ const userSettingsStore = useUserSettings()
 const transactionsStore = useTransactions()
 
 const showTransactionModal = ref(false)
-const period = ref(PERIODS.day.displayName)
+const period = ref(PERIODS.week.displayName)
 const transaction = ref({})
 
 const transactionsForPeriodOptions = computed(() => {

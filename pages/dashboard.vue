@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="row">
-      <div class="card card-stretch">
+      <div class="card-half">
         <Chart :options="expensesVsIncomesOptions" />
       </div>
 
-      <div class="column w-1/3">
+      <div class="column">
         <GlanceCard
           v-if="transactionStore"
           :title="TRANSACTION_COPY.balance"

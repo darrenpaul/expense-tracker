@@ -33,7 +33,6 @@ export const viewUserSettings = async (userId: string) => {
 export const updateUserSettings = async (userSettings: IUserSettings) => {
   const pocketBaseClient = await usePocketBase()
 
-  const { id, userId, currency } = userSettings
   const data: IUpdateUserSettings = {
     userId,
     currency,

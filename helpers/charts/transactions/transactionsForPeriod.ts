@@ -4,7 +4,6 @@ import {
   mergeTransactionsByDate,
   mergeExpensesByCategory,
   fillPeriodDays,
-  balanceIncomeExpense,
   spendPerDay,
   balance,
   spendPerWeek,
@@ -22,7 +21,6 @@ import {
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
-import { useAccounts } from '~~/stores/accounts'
 
 interface IParams {
   transactions: Array<ITransaction>
@@ -69,12 +67,7 @@ const dayIntervals = ({ date, period }: { date: Date; period: string }) => {
 interface IDayPeriodChart extends IParams {
   currency: string
 }
-const dayPeriodChart = ({
-  transactions,
-  date,
-  period,
-  currency,
-}: IDayPeriodChart) => {
+const dayPeriodChart = ({ transactions, currency }: IDayPeriodChart) => {
   const seriesData = mergeExpensesByCategory(transactions).map(
     ({ amount: value, category }) => ({ name: category?.name, value })
   )
@@ -82,7 +75,7 @@ const dayPeriodChart = ({
   return {
     chartType: 'pie',
     title: {
-      text: TRANSACTION_COPY.expensesForPeriod,
+      text: TRANSACTION_COPY.transactionsForPeriod,
       left: 'center',
     },
     tooltip: {
@@ -167,7 +160,7 @@ const weekMonthPeriodChart = ({
   return {
     chartType: 'line',
     title: {
-      text: TRANSACTION_COPY.expensesForPeriod,
+      text: TRANSACTION_COPY.transactionsForPeriod,
       left: 'center',
     },
     tooltip: {

@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="card-half">
+      <Chart :options="categoryUsageOptions" />
+    </div>
+
     <div class="row between items-center my-4">
       <h2>{{ CATEGORY_COPY.categories }}</h2>
 
@@ -75,6 +79,9 @@ import CategoryForm from '~~/components/forms/CategoryForm.vue'
 import CategoryCard from '~~/components/cards/CategoryCard.vue'
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
 import { ICategory, INewCategory } from '~~/types/category'
+import categoryUsage from '~~/helpers/charts/categories/categoriesUsage'
+import { useTransactions } from '~~/stores/transactions'
+import { ITransaction } from '~~/types/transaction'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -82,11 +89,19 @@ definePageMeta({
 })
 
 const categoryStore = useCategories()
+const transactionStore = useTransactions()
 
 const showCategoryModal = ref(false)
 const category = ref({})
 const showConfirmDialog = ref(false)
 const toDeleteId = ref('')
+
+const categoryUsageOptions = computed(() => {
+  if (transactionStore.list === null || categoryStore.categories === null) {
+    return {}
+  }
+  return categoryUsage(transactionStore.list as Array<ITransaction>)
+})
 
 const onCloseCategoryModal = () => {
   showCategoryModal.value = false

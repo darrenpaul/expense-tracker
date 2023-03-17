@@ -27,6 +27,9 @@ module.exports = {
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
       },
+      width: {
+        'screen-half': '50vw',
+      },
     },
   },
   plugins: [],

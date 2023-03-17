@@ -27,7 +27,7 @@
         @apply w-20 h-screen;
         /* MARGINS AND PADDING */
         /* LAYOUT */
-        @apply fixed flex flex-col;
+        @apply fixed flex flex-col justify-between;
         /* BORDERS */
         @apply rounded-tr-3xl;
         /* COLORS */
@@ -76,7 +76,7 @@
         /* SIZE */
         /* MARGINS AND PADDING */
         /* LAYOUT */
-        @apply flex flex-col flex-grow;
+        @apply flex flex-col;
         /* BORDERS */
         /* COLORS */
         /* TEXT */
@@ -108,9 +108,8 @@
             /* SIZE */
             @apply w-full;
             /* MARGINS AND PADDING */
-            @apply pl-3;
             /* LAYOUT */
-            @apply flex items-center;
+            @apply flex items-center gap-4;
             /* BORDERS */
             /* COLORS */
             @apply text-theme-text;

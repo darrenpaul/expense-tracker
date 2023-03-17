@@ -101,6 +101,7 @@ export const TRANSACTION_COPY = {
   // TRANSACTION CHARTS
   expensesVsIncomes: 'Expenses Vs Incomes',
   expensesForPeriod: 'Expenses for period',
+  transactionsForPeriod: 'Transactions For Period',
   spendPerDay: 'Spend Per Day',
   spendPerWeek: 'Spend Per Week',
   balance: 'Balance',

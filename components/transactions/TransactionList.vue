@@ -4,6 +4,7 @@
       <tr>
         <th>{{ TRANSACTION_COPY.date }}</th>
         <th>{{ TRANSACTION_COPY.name }}</th>
+        <th>{{ TRANSACTION_COPY.category }}</th>
         <th class="table-text-center">
           {{ TRANSACTION_COPY.transactionType }}
         </th>
@@ -14,13 +15,22 @@
       </tr>
 
       <tr
-        v-for="{ id, type, account, name, amount, date } in transactions"
+        v-for="{
+          id,
+          type,
+          account,
+          name,
+          category,
+          amount,
+          date,
+        } in transactions"
         :key="id"
         class="tr-highlight"
         @click="() => onEdit(id)"
       >
         <td>{{ formatDate(new Date(date)) }}</td>
         <td>{{ name }}</td>
+        <td>{{ category?.name }}</td>
         <td class="table-text-center">{{ type }}</td>
         <td class="table-text-center">{{ account.name }}</td>
         <td class="table-text-right">

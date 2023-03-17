@@ -1,7 +1,7 @@
 <template>
   <div class="card card-stretch whitespace-nowrap">
-    <h3>{{ title }}</h3>
-    <h2>{{ amount }}</h2>
+    <h3 class="font-normal">{{ title }}</h3>
+    <h3 class="font-black">{{ amount }}</h3>
   </div>
 </template>
 

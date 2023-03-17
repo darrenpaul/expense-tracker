@@ -1,7 +1,7 @@
 <template>
   <svg
-    width="138"
-    height="79"
+    :width="scaleSize.width"
+    :height="scaleSize.height"
     viewBox="0 0 138 79"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -23,5 +23,16 @@
 
 <script setup lang="ts">
 import { ICON_PROPS } from '~~/props/icon'
-const props = defineProps(ICON_PROPS)
+
+const props = defineProps({
+  ...ICON_PROPS,
+  width: { type: String, default: '138' },
+  height: { type: String, default: '79' },
+})
+
+const scaleSize = computed(() => {
+  const width = parseFloat(props.width) / parseFloat(props.size)
+  const height = parseFloat(props.height) / parseFloat(props.size)
+  return { width, height }
+})
 </script>

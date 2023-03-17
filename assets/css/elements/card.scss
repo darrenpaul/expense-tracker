@@ -26,6 +26,18 @@
     /* ANIMATION AND EFFECTS */
 }
 
+.card-half {
+    @extend .card;
+    /* SIZE */
+    @apply w-screen-half;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
 .card-stretch {
     /* SIZE */
     @apply w-full;
