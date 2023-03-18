@@ -146,8 +146,8 @@ const dropdownItemClick = (value) => {
     }
   } else {
     selection.value = value
-    expanded.value = false
   }
+  expanded.value = false
   emit('selectionUpdated', selection.value)
 }
 </script>
