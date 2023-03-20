@@ -25,9 +25,9 @@
 
 .modal-content {
     /* SIZE */
-    @apply w-fit h-fit;
+    @apply w-full md:w-fit h-fit;
     /* MARGINS AND PADDING */
-    @apply px-10 py-5;
+    @apply px-4 md:px-10 py-5;
     /* LAYOUT */
     @apply fixed left-1/2 top-1/2 flex flex-col gap-4 -translate-x-1/2 -translate-y-1/2 z-10;
     /* BORDERS */

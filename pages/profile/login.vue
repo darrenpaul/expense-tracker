@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="card">
+    <div class="card-stretch">
       <h2 class="mb-4">{{ COPY.accountLogin }}</h2>
 
       <form>

@@ -1,6 +1,6 @@
 form {
     /* SIZE */
-    @apply w-[34rem];
+    @apply w-full md:w-[34rem];
     /* MARGINS AND PADDING */
     @apply mx-auto;
     /* LAYOUT */
@@ -17,7 +17,7 @@ form {
     /* MARGINS AND PADDING */
     @apply mb-3;
     /* LAYOUT */
-    @apply grid grid-cols-3;
+    @apply grid grid-cols-1 md:grid-cols-3;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
@@ -30,15 +30,15 @@ form {
 
 .input-label-container {
     /* SIZE */
-    @apply h-10;
+    @apply h-fit md:h-10;
     /* MARGINS AND PADDING */
     @apply px-2 pl-4 mr-3;
     /* LAYOUT */
     @apply flex items-center;
     /* BORDERS */
-    @apply rounded-l-full;
+    @apply rounded-none md:rounded-l-full;
     /* COLORS */
-    @apply bg-secondary-a;
+    @apply bg-transparent md:bg-secondary-a;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
 }
@@ -87,11 +87,11 @@ select {
     /* SIZE */
     @apply w-full h-10;
     /* MARGINS AND PADDING */
-    @apply p-2;
+    @apply px-4 py-2;
     /* LAYOUT */
     @apply block;
     /* BORDERS */
-    @apply rounded-r-full;
+    @apply rounded-full md:rounded-l-none;
     /* COLORS */
     @apply bg-secondary-a text-primary;
     /* TEXT */

@@ -10,7 +10,7 @@
           :size="'24'"
         />
       </template>
-      <p>{{ category.name }}</p>
+      <h3>{{ category.name }}</h3>
     </div>
 
     <div class="category-card-button-group">

@@ -26,7 +26,7 @@ const props = defineProps({
   currentAmount: { type: Number, default: 0 },
   maxAmount: { type: Number, default: 1 },
   labels: { type: Array, default: () => [] },
-  backgroundColor: { type: String, default: 'bg-green-500' },
+  backgroundColor: { type: String, default: 'bg-secondary-a' },
   progressBarColor: { type: String, default: 'bg-blue-500' },
   hideInnerText: { type: Boolean, default: false },
 })

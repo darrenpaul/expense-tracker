@@ -1,6 +1,6 @@
 .button {
     /* SIZE */
-    @apply w-44;
+    @apply w-full md:w-44;
     /* MARGINS AND PADDING */
     @apply px-5 py-2 mb-2;
     /* LAYOUT */
@@ -67,20 +67,16 @@
 }
 
 .button-secondary {
+    @extend .button;
     /* SIZE */
-    @apply w-44;
     /* MARGINS AND PADDING */
-    @apply px-5 py-2 mb-2;
     /* LAYOUT */
     /* BORDERS */
-    @apply rounded-full focus:ring-4 focus:ring-blue-300 border;
     /* COLORS */
     @apply text-primary border-primary bg-secondary;
     @apply hover:bg-secondary hover:text-primary hover:border-primary;
     /* TEXT */
-    @apply text-sm font-medium;
     /* ANIMATION AND EFFECTS */
-    @apply transition-all;
 }
 
 .button-icon {
