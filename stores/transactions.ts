@@ -3,6 +3,7 @@ import { useNotification } from './notification'
 import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
+  TRANSACTION_TYPE_TRANSFER,
 } from '~~/constants/transactions'
 import { createTransaction, viewTransactions } from '~~/endpoints/transaction'
 import { totalAmountTransactions } from '~~/helpers/transactions'
@@ -18,6 +19,18 @@ export const useTransactions = defineStore({
 
   getters: {
     list: (state) => state.transactions,
+    expenses: (state) =>
+      state.transactions.filter(
+        ({ type }) => type === TRANSACTION_TYPE_EXPENSE.displayName
+      ),
+    incomes: (state) =>
+      state.transactions.filter(
+        ({ type }) => type === TRANSACTION_TYPE_INCOME.displayName
+      ),
+    transfers: (state) =>
+      state.transactions.filter(
+        ({ type }) => type === TRANSACTION_TYPE_TRANSFER.displayName
+      ),
     income(state) {
       return (accountId = 'All', excluded = true) => {
         const pandas = state.transactions.filter(

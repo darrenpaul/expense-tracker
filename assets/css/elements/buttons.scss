@@ -109,6 +109,30 @@
     }
 }
 
+.button-icon-secondary {
+    @extend .button-icon;
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    @apply bg-secondary hover:bg-secondary border-secondary hover:border-secondary;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    svg {
+        path {
+            @apply fill-primary transition-all;
+        }
+    }
+    &:hover {
+        svg {
+            path {
+                @apply fill-primary transition-all;
+            }
+        }
+    }
+}
+
 .button-icon-danger {
     @extend .button-icon;
     /* SIZE */

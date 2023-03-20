@@ -30,7 +30,7 @@
       >
         <td>{{ formatDate(new Date(date)) }}</td>
         <td>{{ name }}</td>
-        <td>{{ category?.name }}</td>
+        <td>{{ category?.name || UNCATEGORISED_CATEGORY }}</td>
         <td class="table-text-center">{{ type }}</td>
         <td class="table-text-center">{{ account.name }}</td>
         <td class="table-text-right">
@@ -49,6 +49,7 @@ import { formatDate } from '~~/helpers/dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'
 import { currencyFormat } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
+import { UNCATEGORISED_CATEGORY } from '~~/constants/category'
 
 const emit = defineEmits(['onEdit'])
 

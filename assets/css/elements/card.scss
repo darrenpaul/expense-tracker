@@ -1,6 +1,5 @@
 .card {
     /* SIZE */
-    @apply w-fit h-fit;
     /* MARGINS AND PADDING */
     @apply py-4 px-6;
     /* LAYOUT */
@@ -46,6 +45,18 @@
     /* LAYOUT */
     /* BORDERS */
     /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.card-dark {
+    @extend .card;
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    @apply bg-secondary-a;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
 }

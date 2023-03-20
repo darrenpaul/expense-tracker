@@ -1,52 +1,78 @@
 <template>
-  <div>
-    <div class="card-half">
-      <Chart :options="categoryUsageOptions" />
+  <div class="categories-container">
+    <!-- EXPENSE CATEGORIES -->
+    <div class="categories-transaction-type">
+      <div class="card-stretch">
+        <HeadingWithButton
+          :heading="COPY.expenseCategories"
+          :button-text="COPY.addCategory"
+          @on-click="() => (showCategoryModal = true)"
+        />
+
+        <div class="category-cards">
+          <CategoryCard
+            v-for="item in categoryStore.expenseCategories"
+            :key="item.id"
+            :category="item"
+            @on-edit="onCategoryEdit"
+            @on-delete="onShowConfirmDialog"
+          />
+        </div>
+      </div>
+
+      <div class="card category-chart-container">
+        <Chart :options="expenseUsageOptions" />
+      </div>
     </div>
 
-    <HeadingWithButton
-      :heading="CATEGORY_COPY.categories"
-      :button-text="CATEGORY_COPY.addCategory"
-      @on-click="() => (showCategoryModal = true)"
-    />
+    <!-- INCOME CATEGORIES -->
+    <div class="categories-transaction-type">
+      <div class="card-stretch">
+        <HeadingWithButton
+          :heading="COPY.incomeCategories"
+          :button-text="COPY.addCategory"
+          @on-click="() => (showCategoryModal = true)"
+        />
 
-    <div class="row between items-center my-4">
-      <h3>{{ CATEGORY_COPY.expenseCategories }}</h3>
-    </div>
-    <div class="grid-3-col">
-      <CategoryCard
-        v-for="item in categoryStore.expenseCategories"
-        :key="item.id"
-        :category="item"
-        @on-edit="onCategoryEdit"
-        @on-delete="onShowConfirmDialog"
-      />
-    </div>
+        <div class="category-cards">
+          <CategoryCard
+            v-for="item in categoryStore.incomeCategories"
+            :key="item.id"
+            :category="item"
+            @on-edit="onCategoryEdit"
+            @on-delete="onShowConfirmDialog"
+          />
+        </div>
+      </div>
 
-    <div class="row between items-center my-4">
-      <h3>{{ CATEGORY_COPY.incomeCategories }}</h3>
-    </div>
-    <div class="grid-3-col">
-      <CategoryCard
-        v-for="item in categoryStore.incomeCategories"
-        :key="item.id"
-        :category="item"
-        @on-edit="onCategoryEdit"
-        @on-delete="onShowConfirmDialog"
-      />
+      <div class="card category-chart-container">
+        <Chart :options="incomeUsageOptions" />
+      </div>
     </div>
 
-    <div class="row between items-center my-4">
-      <h3>{{ CATEGORY_COPY.transferCategories }}</h3>
-    </div>
-    <div class="grid-3-col">
-      <CategoryCard
-        v-for="item in categoryStore.transferCategories"
-        :key="item.id"
-        :category="item"
-        @on-edit="onCategoryEdit"
-        @on-delete="onShowConfirmDialog"
-      />
+    <!-- TRANSFER CATEGORIES -->
+    <div class="categories-transaction-type">
+      <div class="card-stretch">
+        <HeadingWithButton
+          :heading="COPY.transferCategories"
+          :button-text="COPY.addCategory"
+          @on-click="() => (showCategoryModal = true)"
+        />
+
+        <div class="category-cards">
+          <CategoryCard
+            v-for="item in categoryStore.transferCategories"
+            :key="item.id"
+            :category="item"
+            @on-edit="onCategoryEdit"
+            @on-delete="onShowConfirmDialog"
+          />
+        </div>
+      </div>
+
+      <div class="card category-chart-container">
+        <Chart :options="transferUsageOptions" />
+      </div>
     </div>
 
     <Modal :is-open="showCategoryModal" @close="onCloseCategoryModal">
@@ -69,7 +95,7 @@
 
 <script setup lang="ts">
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
-import { CATEGORY_COPY } from '~~/constants/copy'
+import COPY from '~~/constants/copy/category'
 import { useCategories } from '~~/stores/categories'
 import CategoryForm from '~~/components/forms/CategoryForm.vue'
 import CategoryCard from '~~/components/cards/CategoryCard.vue'
@@ -92,11 +118,34 @@ const category = ref({})
 const showConfirmDialog = ref(false)
 const toDeleteId = ref('')
 
-const categoryUsageOptions = computed(() => {
+const expenseUsageOptions = computed(() => {
   if (transactionStore.list === null || categoryStore.categories === null) {
     return {}
   }
-  return categoryUsage(transactionStore.list as Array<ITransaction>)
+  return categoryUsage(
+    transactionStore.expenses as Array<ITransaction>,
+    COPY.expenseUsage
+  )
+})
+
+const incomeUsageOptions = computed(() => {
+  if (transactionStore.list === null || categoryStore.categories === null) {
+    return {}
+  }
+  return categoryUsage(
+    transactionStore.incomes as Array<ITransaction>,
+    COPY.incomeUsage
+  )
+})
+
+const transferUsageOptions = computed(() => {
+  if (transactionStore.list === null || categoryStore.categories === null) {
+    return {}
+  }
+  return categoryUsage(
+    transactionStore.transfers as Array<ITransaction>,
+    COPY.transferUsage
+  )
 })
 
 const onCloseCategoryModal = () => {
@@ -133,5 +182,10 @@ const onCategoryDelete = () => {
   showCategoryModal.value = false
   category.value = {}
   categoryStore.handleDeleteCategory(toDeleteId.value)
+  toDeleteId.value = ''
 }
 </script>
+
+<style lang="scss">
+@import '~~/assets/css/pages/categories.scss';
+</style>

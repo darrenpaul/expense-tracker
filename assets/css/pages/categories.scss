@@ -1,0 +1,44 @@
+.categories-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .categories-transaction-type {
+        /* SIZE */
+        @apply w-full;
+        /* MARGINS AND PADDING */
+        @apply mb-4;
+        /* LAYOUT */
+        @apply flex flex-col md:flex-row gap-4;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        .category-cards {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            @apply grid grid-cols-1 lg:grid-cols-2 gap-4;
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+
+        .category-chart-container {
+            /* SIZE */
+            @apply w-full md:w-1/3;
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+    }
+}

@@ -1,23 +1,28 @@
 import { ITransaction } from '~~/types/transaction'
 import { totalAmountTransactions } from '~~/helpers/transactions'
-import { TRANSACTION_COPY } from '~~/constants/copy'
-import { useCategories } from '~~/stores/categories'
+import { UNCATEGORISED_CATEGORY } from '~~/constants/category'
 
-export default (transactions: Array<ITransaction>) => {
-  const categoryStore = useCategories()
-  const categories = categoryStore.categories
+export default (transactions: Array<ITransaction>, title: string) => {
+  const categories = [...new Set(transactions.map(({ category }) => category))]
 
   const groupedById = {}
-  categories.forEach(({ name, id }) => {
-    const abc = transactions.filter(({ category }) => category?.name === name)
+  categories.forEach((category) => {
+    const transactionsForCategory = transactions.filter(
+      ({ category: transactionCategory }) =>
+        category?.id === transactionCategory?.id
+    )
 
-    const key = id || 'undefined'
+    const key = category?.id || 'undefined'
     if (!groupedById[key]) {
-      groupedById[key] = { value: [], name: '' }
+      groupedById[key] = {
+        value: [],
+        name: category?.name || UNCATEGORISED_CATEGORY,
+      }
     }
 
-    groupedById[key].name = name
-    groupedById[key].value.push(totalAmountTransactions(abc))
+    groupedById[key].value.push(
+      totalAmountTransactions(transactionsForCategory)
+    )
   })
 
   const seriesData = Object.values(groupedById)
@@ -25,7 +30,7 @@ export default (transactions: Array<ITransaction>) => {
   return {
     chartType: 'pie',
     title: {
-      text: TRANSACTION_COPY.expensesVsIncomes,
+      text: title,
       left: 'center',
     },
     tooltip: {
@@ -34,6 +39,7 @@ export default (transactions: Array<ITransaction>) => {
     legend: {
       left: 'center',
       bottom: '5%',
+      type: 'scroll',
     },
     series: [
       {
@@ -47,10 +53,13 @@ export default (transactions: Array<ITransaction>) => {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
           label: {
-            show: true,
+            show: false,
             fontSize: 14,
             fontWeight: 'bold',
           },
+        },
+        label: {
+          show: false,
         },
         data: seriesData,
       },

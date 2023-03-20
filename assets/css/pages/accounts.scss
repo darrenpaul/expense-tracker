@@ -1,0 +1,20 @@
+.accounts-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .account-cards {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}

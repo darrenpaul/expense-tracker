@@ -1,6 +1,6 @@
 <template>
-  <div class="card-slim card-stretch row whitespace-nowrap centered between">
-    <div class="row ml-2">
+  <div class="card-slim card-dark card-stretch category-card">
+    <div class="category-card-title-icon-group">
       <template v-for="{ value, component } in CATEGORY_ICONS">
         <component
           :is="component"
@@ -13,11 +13,12 @@
       <p>{{ category.name }}</p>
     </div>
 
-    <div class="row">
-      <button class="button-icon" @click="onEdit"><PencilIcon /></button>
-      <button class="button-icon-danger" @click="onDelete">
-        <TrashIcon />
+    <div class="category-card-button-group">
+      <button class="button-icon-secondary" @click="onDelete">
+        <TrashIcon :fill="'var(--primary)'" />
       </button>
+
+      <button class="button-icon" @click="onEdit"><PencilIcon /></button>
     </div>
   </div>
 </template>
@@ -40,3 +41,7 @@ const onDelete = () => {
   emit('onDelete', props.category.id)
 }
 </script>
+
+<style lang="scss">
+@import './cards.scss';
+</style>
