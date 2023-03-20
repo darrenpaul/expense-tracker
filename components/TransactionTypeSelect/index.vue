@@ -7,7 +7,7 @@
       </label>
     </div>
 
-    <div class="row items-center">
+    <div class="transaction-type-buttons">
       <button
         v-for="{ id, displayName } in TRANSACTION_TYPES"
         :key="id"
@@ -42,3 +42,7 @@ const onTransactionTypeClick = (event: Event) => {
   emit('onChange', value)
 }
 </script>
+
+<style lang="scss">
+@import './transactionTypeSelect.scss';
+</style>

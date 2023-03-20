@@ -175,7 +175,7 @@ import {
   validateName,
   validateUnique,
 } from '~~/helpers/validators'
-import TransactionTypeSelect from '~~/components/TransactionTypeSelect.vue'
+import TransactionTypeSelect from '~~/components/TransactionTypeSelect/index.vue'
 
 const emit = defineEmits(['refresh', 'closeModal'])
 
