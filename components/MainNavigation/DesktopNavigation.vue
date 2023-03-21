@@ -1,49 +1,52 @@
 <template>
-  <header class="side-navigation-header">
+  <div class="main-navigation-desktop">
     <div
       :class="[
-        'side-navigation-container',
+        'main-navigation-desktop-container',
         expanded === true
-          ? 'side-navigation-expanded'
-          : 'side-navigation-collapsed',
+          ? 'main-navigation-desktop-expanded'
+          : 'main-navigation-desktop-collapsed',
       ]"
     >
       <div
         :class="[
-          'side-navigation-content',
+          'main-navigation-desktop-content',
           expanded === true
-            ? 'side-navigation-expanded'
-            : 'side-navigation-collapsed',
+            ? 'main-navigation-desktop-expanded'
+            : 'main-navigation-desktop-collapsed',
         ]"
       >
         <!-- BRANDING -->
-        <NuxtLink class="side-navigation-brand-container" :to="HOME_ROUTE.path">
+        <NuxtLink
+          class="main-navigation-desktop-brand-container"
+          :to="HOME_ROUTE.path"
+        >
           <BrandIcon :size="expanded ? '1' : '4'" :fill="'var(--secondary)'" />
 
-          <h1 v-if="expanded" class="side-navigation-brand-text">
+          <h1 v-if="expanded" class="main-navigation-desktop-brand-text">
             {{ COMMON_COPY.brand }}
           </h1>
         </NuxtLink>
 
         <!-- PAGE LINKS -->
-        <div class="side-navigation-links">
+        <div class="main-navigation-desktop-links">
           <div
-            v-for="{ displayName, name, path, icon } in LINKS"
+            v-for="{ displayName, name, path, icon } in props.links"
             :key="name"
             :class="[
-              'side-navigation-link-container',
+              'main-navigation-desktop-link-container',
               matchRoute(path) === true && 'active',
             ]"
           >
-            <NuxtLink class="side-navigation-link" :to="path">
+            <NuxtLink class="main-navigation-desktop-link" :to="path">
               <component :is="icon" :fill="'var(--secondary)'" :size="'42'" />
 
               {{ expanded ? displayName : '' }}
             </NuxtLink>
           </div>
 
-          <div class="side-navigation-link-container">
-            <button class="side-navigation-link" @click="onLogout">
+          <div class="main-navigation-desktop-link-container">
+            <button class="main-navigation-desktop-link" @click="onLogout">
               <LogoutIcon :fill="'var(--secondary)'" :size="'42'" />
 
               {{ expanded ? NAVIGATION_COPY.logout : '' }}
@@ -52,11 +55,11 @@
         </div>
 
         <!-- EXPAND TOGGLE -->
-        <div class="side-navigation-links">
-          <div class="side-navigation-link-container">
+        <div class="main-navigation-desktop-links">
+          <div class="main-navigation-desktop-link-container">
             <button
               v-if="profile.authenticated === true"
-              class="side-navigation-link"
+              class="main-navigation-desktop-link"
               @click="onExpandToggle"
             >
               <ExpandIcon
@@ -70,7 +73,7 @@
         </div>
       </div>
     </div>
-  </header>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -80,28 +83,15 @@ import { COMMON_COPY, NAVIGATION_COPY } from '~~/constants/copy'
 import BrandIcon from '~~/components/icons/BrandIcon.vue'
 import ExpandIcon from '~~/components/icons/sidePanel/ExpandIcon.vue'
 import CollapseIcon from '~~/components/icons/sidePanel/CollapseIcon.vue'
-import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
-import { PROFILE_SETTINGS_ROUTE } from '~~/constants/routes/profile'
-import { GOALS_ROUTE } from '~~/constants/routes/goals'
-import { ACCOUNTS_ROUTE } from '~~/constants/routes/accounts'
-import { TRANSACTIONS_ROUTE } from '~~/constants/routes/transactions'
 import { useProfile } from '~~/stores/profile'
 import { useUserSettings } from '~~/stores/userSettings'
-import { CATEGORIES_ROUTE } from '~~/constants/routes/categories'
-import { BUDGETS_ROUTE } from '~~/constants/routes/budgets'
+import { ILink } from '~~/types/link'
 
-const LINKS = [
-  DASHBOARD_ROUTE,
-  TRANSACTIONS_ROUTE,
-  ACCOUNTS_ROUTE,
-  CATEGORIES_ROUTE,
-  BUDGETS_ROUTE,
-  GOALS_ROUTE,
-  PROFILE_SETTINGS_ROUTE,
-]
+const emit = defineEmits(['onLogout'])
+
+const props = defineProps<{ links: Array<ILink> }>()
 
 const route = useRoute()
-const router = useRouter()
 const profile = useProfile()
 const userSettingStore = useUserSettings()
 
@@ -118,12 +108,7 @@ const onExpandToggle = () => {
   userSettingStore.saveSidePanelState(expanded.value)
 }
 
-const onLogout = async () => {
-  await profile.logout()
-  router.replace(HOME_ROUTE.path)
+const onLogout = () => {
+  emit('onLogout')
 }
 </script>
-
-<style lang="scss">
-@import './sideNavigation.scss';
-</style>

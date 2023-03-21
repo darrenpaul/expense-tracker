@@ -1,6 +1,6 @@
 <template>
   <main class="main-layout-container">
-    <SideNavigation />
+    <MainNavigation />
 
     <section class="main-layout-content">
       <slot />
@@ -8,4 +8,6 @@
   </main>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import MainNavigation from '~~/components/MainNavigation/index.vue'
+</script>
