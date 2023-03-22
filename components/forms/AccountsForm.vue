@@ -25,7 +25,7 @@
         />
       </div>
 
-      <template v-if="!props.account.id">
+      <template v-if="!props.account?.id">
         <!-- ADD INITIAL AMOUNT -->
         <div class="input-group">
           <div class="input-label-container">
@@ -164,6 +164,7 @@ const categoryOptions = computed(() => {
 })
 
 const fieldsValid = () => {
+  if (!profile.authenticated) return false
   // ACCOUNT NAME
   if (validateName(name.value) === false) return false
 
@@ -255,11 +256,7 @@ const onUpdateAccount = async () => {
 }
 
 const onAddUpdateAccount = async () => {
-  if (fieldsValid() === false) {
-    return false
-  }
-
-  if (!profile.authenticated) return
+  if (fieldsValid() === false) return false
 
   // UPDATE ACCOUNT
   if (props.account?.name) {

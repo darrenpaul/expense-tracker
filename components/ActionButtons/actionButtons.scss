@@ -1,0 +1,37 @@
+.action-buttons-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    @apply m-4;
+    /* LAYOUT */
+    @apply fixed right-0 bottom-0;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .action-buttons-main-button {
+        /* SIZE */
+        @apply w-12 h-12;
+        /* MARGINS AND PADDING */
+        @apply p-2;
+        /* LAYOUT */
+        @apply flex items-center justify-center;
+        /* BORDERS */
+        @apply rounded-full;
+        /* COLORS */
+        @apply bg-primary text-secondary;
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .action-buttons-menu {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply absolute bottom-0 right-0 -translate-y-12;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}

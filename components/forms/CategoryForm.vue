@@ -35,13 +35,20 @@
         <div class="input-label-container">
           <label for="account">Icon</label>
         </div>
-        <Dropdown
-          v-model="icon"
-          :options="CATEGORY_ICONS"
-          :selected="icon"
-          :options-are-components="true"
-          @selection-updated="icon = $event"
-        />
+
+        <div class="flex flex-wrap">
+          <button
+            v-for="categoryIcon in CATEGORY_ICONS"
+            :key="categoryIcon.label"
+            :class="[
+              'w-10 h-10 flex items-center justify-center',
+              categoryIcon.value === icon ? 'bg-yellow-300' : '',
+            ]"
+            @click="() => onIconClick(categoryIcon.value)"
+          >
+            <component :is="categoryIcon.component" :size="'32'" />
+          </button>
+        </div>
       </div>
 
       <!-- BUTTONS -->
@@ -82,6 +89,11 @@ const headingCopy = computed(() => {
   }
   return CATEGORY_COPY.editCategory
 })
+
+const onIconClick = (value: string) => {
+  event?.preventDefault()
+  icon.value = value
+}
 
 const fieldsValid = () => {
   if (name.value === '' || name.value === null || name.value === undefined) {

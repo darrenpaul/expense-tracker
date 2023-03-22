@@ -80,7 +80,7 @@
         /* MARGINS AND PADDING */
         @apply mt-2;
         /* LAYOUT */
-        @apply absolute right-0 flex flex-col overflow-y-scroll z-20;
+        @apply absolute right-0 grid grid-cols-4 overflow-y-scroll z-20;
         /* BORDERS */
         @apply border rounded;
         /* COLORS */
@@ -88,15 +88,17 @@
         /* TEXT */
         /* ANIMATION AND EFFECTS */
 
+        :nth-child(2) {
+            @apply col-span-1;
+        }
+
         .dropdown-item {
             /* SIZE */
             /* MARGINS AND PADDING */
             @apply px-5 py-2;
             /* LAYOUT */
             /* BORDERS */
-            @apply border-b;
             /* COLORS */
-            @apply border-primary;
             /* TEXT */
             /* ANIMATION AND EFFECTS */
 

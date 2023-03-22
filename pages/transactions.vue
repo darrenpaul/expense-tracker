@@ -5,7 +5,7 @@
         <div class="card-stretch">
           <Chart :options="transactionsForPeriodOptions" />
 
-          <div class="row justify-center">
+          <div class="flex flex-row gap-4 justify-center">
             <button
               :class="
                 period === PERIODS.day.displayName
@@ -42,6 +42,7 @@
           </div>
         </div>
       </div>
+
       <div class="column">
         <GlanceCard
           v-if="transactionsStore.list"
@@ -53,6 +54,7 @@
             })
           "
         />
+
         <GlanceCard
           v-if="transactionsStore.list"
           :title="TRANSACTION_COPY.spendPerDay"
@@ -66,6 +68,7 @@
             })
           "
         />
+
         <GlanceCard
           v-if="transactionsStore.list"
           :title="TRANSACTION_COPY.spendPerWeek"
@@ -100,7 +103,6 @@
       <TransactionForm
         :transaction="transaction"
         @close-modal="onCloseTransactionModal"
-        @refresh="onTransactionCreatedUpdated"
       />
     </Modal>
   </div>
@@ -109,7 +111,7 @@
 <script setup lang="ts">
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import TransactionForm from '~~/components/forms/TransactionForm.vue'
-import TransactionList from '~~/components/transactions/TransactionList.vue'
+import TransactionList from '~~/components/tables/TransactionList.vue'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
 import transactionsForPeriod from '~~/helpers/charts/transactions/transactionsForPeriod'

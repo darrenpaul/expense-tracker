@@ -294,9 +294,7 @@ const onCancel = () => {
 }
 
 const onCreateUpdateTransaction = async () => {
-  if (fieldsValid() === false) {
-    return false
-  }
+  if (fieldsValid() === false) return false
 
   // CREATE
   if (!props?.transaction?.id) {
@@ -318,12 +316,8 @@ const onCreateUpdateTransaction = async () => {
 
 const onDelete = async () => {
   const transactionId = props.transaction.id
-  await deleteTransaction(transactionId)
+  transactionStore.handleDeleteTransaction(transactionId)
 
-  notification.addNotification({
-    message: TRANSACTION_COPY.deleted,
-    type: 'warn',
-  })
   clearFields()
   emit('refresh')
   emit('closeModal')

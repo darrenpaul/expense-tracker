@@ -5,7 +5,11 @@ import {
   TRANSACTION_TYPE_INCOME,
   TRANSACTION_TYPE_TRANSFER,
 } from '~~/constants/transactions'
-import { createTransaction, viewTransactions } from '~~/endpoints/transaction'
+import {
+  createTransaction,
+  deleteTransaction,
+  viewTransactions,
+} from '~~/endpoints/transaction'
 import { totalAmountTransactions } from '~~/helpers/transactions'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
 import { TRANSACTION_COPY } from '~~/constants/copy'
@@ -91,6 +95,18 @@ export const useTransactions = defineStore({
       useNotification().addNotification({
         message: TRANSACTION_COPY.transactionAdded,
         type: 'success',
+      })
+    },
+
+    async handleDeleteTransaction(transactionId: string) {
+      await deleteTransaction(transactionId)
+      this.transactions = this.transactions.filter(
+        ({ id }) => id !== transactionId
+      )
+
+      useNotification().addNotification({
+        message: TRANSACTION_COPY.deleted,
+        type: 'warn',
       })
     },
 
