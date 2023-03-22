@@ -6,7 +6,6 @@
           <tr>
             <th>{{ TRANSACTION_COPY.date }}</th>
             <th>{{ TRANSACTION_COPY.name }}</th>
-            <th>{{ TRANSACTION_COPY.category }}</th>
             <th class="table-text-center">
               {{ TRANSACTION_COPY.transactionType }}
             </th>
@@ -31,8 +30,21 @@
             @click="() => onEdit(id)"
           >
             <td>{{ formatDate(new Date(date)) }}</td>
-            <td>{{ name }}</td>
-            <td>{{ category?.name || UNCATEGORISED_CATEGORY }}</td>
+            <td class="flex items-center gap-4">
+              <template v-if="category">
+                <template
+                  v-for="categoryIcon in CATEGORY_ICONS"
+                  :key="categoryIcon.label"
+                >
+                  <component
+                    :is="categoryIcon.component"
+                    v-if="category.icon === categoryIcon.value"
+                    :size="'32'"
+                  />
+                </template>
+              </template>
+              {{ name }}
+            </td>
             <td class="table-text-center">{{ type }}</td>
             <td class="table-text-center">{{ account.name }}</td>
             <td class="table-text-right">
@@ -87,7 +99,7 @@ import { formatDate } from '~~/helpers/dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'
 import { currencyFormat } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
-import { UNCATEGORISED_CATEGORY } from '~~/constants/category'
+import { UNCATEGORISED_CATEGORY, CATEGORY_ICONS } from '~~/constants/category'
 
 const emit = defineEmits(['onEdit'])
 

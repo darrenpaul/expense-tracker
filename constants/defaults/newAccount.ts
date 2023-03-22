@@ -9,17 +9,17 @@ export const initialCategories = [
   {
     transactionType: TRANSACTION_TYPE_EXPENSE.displayName,
     name: 'Groceries',
-    icon: '',
+    icon: 'GroceryBagIcon',
   },
   {
     transactionType: TRANSACTION_TYPE_EXPENSE.displayName,
     name: 'Petrol',
-    icon: '',
+    icon: 'PetrolTankIcon',
   },
   {
     transactionType: TRANSACTION_TYPE_INCOME.displayName,
     name: 'Salary',
-    icon: '',
+    icon: 'MoneyNotesIcon',
   },
 ]
 

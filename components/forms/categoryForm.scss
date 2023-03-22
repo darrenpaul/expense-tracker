@@ -1,0 +1,58 @@
+.category-form-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .category-form-icon-container {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex gap-2 flex-wrap;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        .category-form-icon-button {
+            /* SIZE */
+            @apply w-10 h-10;
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            @apply flex items-center justify-center;
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+
+        .category-form-icon-button-active {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            @apply p-2;
+            /* LAYOUT */
+            /* BORDERS */
+            @apply rounded-lg;
+            /* COLORS */
+            @apply bg-primary;
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+
+            svg {
+                path {
+                    @apply fill-secondary transition-all;
+                }
+            }
+            &:hover {
+                svg {
+                    path {
+                        @apply fill-secondary transition-all;
+                    }
+                }
+            }
+        }
+    }
+}

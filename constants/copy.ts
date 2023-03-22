@@ -132,6 +132,7 @@ export const CATEGORY_COPY = {
   expenseUsage: 'Expense Usage',
   incomeUsage: 'Income Usage',
   transferUsage: 'Transfer Usage',
+  icon: 'Icon',
 }
 
 export const NAVIGATION_COPY = {

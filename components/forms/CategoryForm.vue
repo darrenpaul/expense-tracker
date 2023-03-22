@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="category-form-container">
     <div class="row between mb-4">
       <h2>{{ headingCopy }}</h2>
       <button
@@ -31,18 +31,19 @@
         />
       </div>
 
+      <!-- ICON -->
       <div class="input-group">
         <div class="input-label-container">
-          <label for="account">Icon</label>
+          <label>{{ CATEGORY_COPY.icon }}</label>
         </div>
 
-        <div class="flex flex-wrap">
+        <div class="category-form-icon-container">
           <button
             v-for="categoryIcon in CATEGORY_ICONS"
             :key="categoryIcon.label"
             :class="[
-              'w-10 h-10 flex items-center justify-center',
-              categoryIcon.value === icon ? 'bg-yellow-300' : '',
+              'category-form-icon-button',
+              categoryIcon.value === icon && 'category-form-icon-button-active',
             ]"
             @click="() => onIconClick(categoryIcon.value)"
           >
@@ -159,3 +160,7 @@ const onCategoryDelete = () => {
   emit('onDelete', categoryId)
 }
 </script>
+
+<style lang="scss">
+@import './categoryForm.scss';
+</style>
