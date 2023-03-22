@@ -9,37 +9,21 @@
 
     <!-- INPUT -->
     <div id="dropdown-input" class="dropdown-input" @click="dropdownClick">
-      <template v-if="optionsAreComponents === true">
-        <template v-for="{ value, component } in options">
-          <component
-            :is="component"
-            v-if="selected === value"
-            :key="value"
-            :fill="'var(--primary)'"
-            :size="'24'"
-          />
-        </template>
+      <div v-if="multiple === true" class="dropdown-tags">
+        <button
+          v-for="{ value, label } in selectionTags"
+          :key="value"
+          :value="value"
+          class="dropdown-tag"
+          @click="tagClick"
+        >
+          {{ label }}
+        </button>
+      </div>
 
-        <p v-if="!selected"></p>
-      </template>
-
-      <template v-if="optionsAreComponents === false">
-        <div v-if="multiple === true" class="dropdown-tags">
-          <button
-            v-for="{ value, label } in selectionTags"
-            :key="value"
-            :value="value"
-            class="dropdown-tag"
-            @click="tagClick"
-          >
-            {{ label }}
-          </button>
-        </div>
-
-        <div v-if="multiple === false">
-          <p class="dropdown-text">{{ singleLabelText }}</p>
-        </div>
-      </template>
+      <div v-if="multiple === false">
+        <p class="dropdown-text">{{ singleLabelText }}</p>
+      </div>
 
       <div class="pointer-events-none mr-2">
         <ArrowDownIcon v-if="expanded" :size="'12'" />
@@ -48,41 +32,19 @@
     </div>
 
     <!-- MENU -->
-    <div
-      v-if="expanded"
-      :class="[
-        optionsAreComponents ? 'dropdown-menu-components' : 'dropdown-menu',
-      ]"
-    >
-      <template v-if="optionsAreComponents === true">
-        <button
-          v-for="{ value, component } in options"
-          :key="value"
-          :class="[
-            'dropdown-item',
-            isSelected(value) ? 'dropdown-item-active' : '',
-          ]"
-          :value="value"
-          @click="() => dropdownItemClick(value)"
-        >
-          <component :is="component" :fill="'var(--primary)'" :size="'42'" />
-        </button>
-      </template>
-
-      <template v-if="optionsAreComponents === false">
-        <button
-          v-for="{ value, label } in options"
-          :key="value"
-          :class="[
-            'dropdown-item',
-            isSelected(value) ? 'dropdown-item-active' : '',
-          ]"
-          :value="value"
-          @click="() => dropdownItemClick(value)"
-        >
-          {{ label }}
-        </button>
-      </template>
+    <div v-if="expanded" class="dropdown-menu">
+      <button
+        v-for="{ value, label } in options"
+        :key="value"
+        :class="[
+          'dropdown-item',
+          isSelected(value) ? 'dropdown-item-active' : '',
+        ]"
+        :value="value"
+        @click="() => dropdownItemClick(value)"
+      >
+        {{ label }}
+      </button>
     </div>
   </div>
 </template>

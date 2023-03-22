@@ -111,7 +111,7 @@
 <script setup lang="ts">
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import TransactionForm from '~~/components/forms/TransactionForm.vue'
-import TransactionList from '~~/components/tables/TransactionList.vue'
+import TransactionList from '~~/components/tables/transactionList/index.vue'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
 import transactionsForPeriod from '~~/helpers/charts/transactions/transactionsForPeriod'

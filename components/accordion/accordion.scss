@@ -1,0 +1,59 @@
+.accordion-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    @apply mb-2;
+    /* LAYOUT */
+    @apply flex flex-col;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    &:last-child {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        @apply mb-0;
+        /* LAYOUT */
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .accordion-header {
+        /* SIZE */
+        @apply w-full h-fit;
+        /* MARGINS AND PADDING */
+        @apply px-4 py-2 mb-2;
+        /* LAYOUT */
+        @apply flex items-center justify-between;
+        /* BORDERS */
+        @apply border rounded-full;
+        /* COLORS */
+        @apply border-primary bg-secondary-a;
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        &:last-child {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            @apply mb-0;
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+    }
+
+    .accordion-content-container {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        @apply border border-primary rounded-lg;
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}

@@ -80,7 +80,7 @@
         /* MARGINS AND PADDING */
         @apply mt-2;
         /* LAYOUT */
-        @apply absolute right-0 grid grid-cols-4 overflow-y-scroll z-20;
+        @apply absolute right-0 flex flex-col overflow-y-scroll z-20;
         /* BORDERS */
         @apply border rounded;
         /* COLORS */
@@ -98,6 +98,7 @@
             @apply px-5 py-2;
             /* LAYOUT */
             /* BORDERS */
+            @apply border-b border-primary;
             /* COLORS */
             /* TEXT */
             /* ANIMATION AND EFFECTS */
@@ -123,17 +124,5 @@
             /* TEXT */
             /* ANIMATION AND EFFECTS */
         }
-    }
-
-    .dropdown-menu-components {
-        @extend .dropdown-menu;
-        /* SIZE */
-        @apply w-fit;
-        /* MARGINS AND PADDING */
-        /* LAYOUT */
-        /* BORDERS */
-        /* COLORS */
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
     }
 }

@@ -1,0 +1,113 @@
+.transaction-list-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .transaction-list-desktop {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply hidden md:block;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .transaction-list-mobile {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply block md:hidden;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        .transaction-list-mobile-accordion-content {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            @apply flex flex-col;
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+
+        .transaction-list-mobile-accordion-content-item {
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            @apply p-2;
+            /* LAYOUT */
+            /* BORDERS */
+            @apply border-b;
+            /* COLORS */
+            @apply border-primary;
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+
+            &:first-child {
+                /* SIZE */
+                /* MARGINS AND PADDING */
+                /* LAYOUT */
+                /* BORDERS */
+                @apply border-b-0 rounded-t-lg;
+                /* COLORS */
+                /* TEXT */
+                /* ANIMATION AND EFFECTS */
+            }
+
+            &:last-child {
+                /* SIZE */
+                /* MARGINS AND PADDING */
+                /* LAYOUT */
+                /* BORDERS */
+                @apply border-b-0 rounded-b-lg;
+                /* COLORS */
+                /* TEXT */
+                /* ANIMATION AND EFFECTS */
+            }
+        }
+
+        .transaction-list-mobile-accordion-content-item-expense {
+            @extend .transaction-list-mobile-accordion-content-item;
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            @apply bg-red-300;
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+
+        .transaction-list-mobile-accordion-content-item-income {
+            @extend .transaction-list-mobile-accordion-content-item;
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            @apply bg-green-300;
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+
+        .transaction-list-mobile-accordion-content-item-transfer {
+            @extend .transaction-list-mobile-accordion-content-item;
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            @apply bg-blue-300;
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
+    }
+}
