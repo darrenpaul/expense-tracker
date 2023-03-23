@@ -1,48 +1,62 @@
 <template>
-  <div class="card-slim transaction-list-mobile">
+  <div class="transaction-list-mobile">
     <Accordion
       v-for="[key, values] in Object.entries(groupedTransactions)"
       :key="key"
       :title="key"
     >
       <div class="transaction-list-mobile-accordion-content">
-        <div
-          v-for="{ id, type, account, name, category, amount, date } in values"
+        <button
+          v-for="{ id, type, name, category, amount, date } in values"
           :key="id"
-          :class="accordionClassColor(type)"
+          type="button"
+          class="transaction-list-mobile-accordion-content-button"
+          @click="() => onEdit(id)"
         >
-          <h3>{{ name }}</h3>
-          <h3>
-            {{
-              currencyFormat({
-                value: amount,
-                currency: userSettingStore.currency,
-              })
-            }}
-          </h3>
-          <p>{{ type }}</p>
-          <p>{{ account.name }}</p>
-          <p>{{ category?.name }}</p>
-          <small>{{ formatDate(new Date(date)) }}</small>
-        </div>
+          <div class="transaction-list-mobile-accordion-content-item">
+            <div class="text-left">
+              <h3>{{ name }}</h3>
+              <small>
+                {{ formatDate(new Date(date)) }}
+              </small>
+            </div>
+
+            <div class="text-right">
+              <p>{{ category?.name }}</p>
+              <h3>
+                {{
+                  addChangeSymbol({
+                    value: currencyFormat({
+                      value: amount,
+                      currency: userSettingStore.currency,
+                    }),
+                    transactionType: type,
+                  })
+                }}
+              </h3>
+            </div>
+          </div>
+          <CaretRightIcon />
+        </button>
       </div>
     </Accordion>
   </div>
 </template>
 
 <script setup lang="ts">
-import { groupBy, chain, zipObject } from 'lodash-es'
-import { TRANSACTION_COPY } from '~~/constants/copy'
+import { groupBy } from 'lodash-es'
 import { formatDate } from '~~/helpers/dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'
-import { currencyFormat } from '~~/helpers/formatting'
+import { currencyFormat, addChangeSymbol } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
-import { UNCATEGORISED_CATEGORY, CATEGORY_ICONS } from '~~/constants/category'
+import CaretRightIcon from '~~/components/icons/CaretRightIcon.vue'
 import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
   TRANSACTION_TYPE_TRANSFER,
 } from '~~/constants/transactions'
+
+const emit = defineEmits(['onEdit'])
 
 const props = defineProps({
   transactions: { type: Array<ITransaction>, default: [] },
@@ -56,16 +70,8 @@ const groupedTransactions = computed(() => {
   })
 })
 
-const accordionClassColor = (transactionType: string) => {
-  if (transactionType === TRANSACTION_TYPE_EXPENSE.displayName) {
-    return 'transaction-list-mobile-accordion-content-item-expense'
-  }
-  if (transactionType === TRANSACTION_TYPE_INCOME.displayName) {
-    return 'transaction-list-mobile-accordion-content-item-income'
-  }
-  if (transactionType === TRANSACTION_TYPE_TRANSFER.displayName) {
-    return 'transaction-list-mobile-accordion-content-item-transfer'
-  }
+const onEdit = (transactionId: string) => {
+  emit('onEdit', transactionId)
 }
 </script>
 

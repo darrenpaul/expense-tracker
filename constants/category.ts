@@ -26,6 +26,7 @@ import TrashRecyclingIcon from '~~/components/icons/categories/TrashRecyclingIco
 import DogCatIcon from '~~/components/icons/categories/DogCatIcon.vue'
 import PetShampooIcon from '~~/components/icons/categories/PetShampooIcon.vue'
 import PetFoodIcon from '~~/components/icons/categories/PetFoodIcon.vue'
+import MissingCategoryIcon from '~~/components/icons/categories/MissingCategoryIcon.vue'
 
 export const UNCATEGORISED_CATEGORY = 'UNCATEGORISED'
 

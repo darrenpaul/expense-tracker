@@ -6,7 +6,7 @@
       @on-click="() => (showModal = true)"
     />
 
-    <div class="grid-3-col">
+    <div class="flex flex-col md:grid-3-col">
       <GoalCard
         v-for="{ id, accountId, name, date, amount } in goalStore.goals"
         :key="id"

@@ -1,5 +1,6 @@
 .transaction-list-container {
     /* SIZE */
+    @apply w-full;
     /* MARGINS AND PADDING */
     /* LAYOUT */
     /* BORDERS */
@@ -9,6 +10,7 @@
 
     .transaction-list-desktop {
         /* SIZE */
+        @apply w-full;
         /* MARGINS AND PADDING */
         /* LAYOUT */
         @apply hidden md:block;
@@ -39,28 +41,17 @@
             /* ANIMATION AND EFFECTS */
         }
 
-        .transaction-list-mobile-accordion-content-item {
+        .transaction-list-mobile-accordion-content-button {
             /* SIZE */
             /* MARGINS AND PADDING */
-            @apply p-2;
             /* LAYOUT */
+            @apply flex justify-center items-center;
             /* BORDERS */
             @apply border-b;
             /* COLORS */
             @apply border-primary;
             /* TEXT */
             /* ANIMATION AND EFFECTS */
-
-            &:first-child {
-                /* SIZE */
-                /* MARGINS AND PADDING */
-                /* LAYOUT */
-                /* BORDERS */
-                @apply border-b-0 rounded-t-lg;
-                /* COLORS */
-                /* TEXT */
-                /* ANIMATION AND EFFECTS */
-            }
 
             &:last-child {
                 /* SIZE */
@@ -74,38 +65,14 @@
             }
         }
 
-        .transaction-list-mobile-accordion-content-item-expense {
-            @extend .transaction-list-mobile-accordion-content-item;
+        .transaction-list-mobile-accordion-content-item {
             /* SIZE */
             /* MARGINS AND PADDING */
+            @apply p-2;
             /* LAYOUT */
+            @apply flex-grow grid grid-cols-2;
             /* BORDERS */
             /* COLORS */
-            @apply bg-red-300;
-            /* TEXT */
-            /* ANIMATION AND EFFECTS */
-        }
-
-        .transaction-list-mobile-accordion-content-item-income {
-            @extend .transaction-list-mobile-accordion-content-item;
-            /* SIZE */
-            /* MARGINS AND PADDING */
-            /* LAYOUT */
-            /* BORDERS */
-            /* COLORS */
-            @apply bg-green-300;
-            /* TEXT */
-            /* ANIMATION AND EFFECTS */
-        }
-
-        .transaction-list-mobile-accordion-content-item-transfer {
-            @extend .transaction-list-mobile-accordion-content-item;
-            /* SIZE */
-            /* MARGINS AND PADDING */
-            /* LAYOUT */
-            /* BORDERS */
-            /* COLORS */
-            @apply bg-blue-300;
             /* TEXT */
             /* ANIMATION AND EFFECTS */
         }

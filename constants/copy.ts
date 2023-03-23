@@ -111,6 +111,7 @@ export const TRANSACTION_COPY = {
   toAccount: 'To Account',
   transfer: 'Transfer',
   deleted: 'Transaction Deleted',
+  categoryUsage: 'Categories',
 }
 
 export const CATEGORY_COPY = {

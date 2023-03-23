@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { isToday } from 'date-fns'
 import { useNotification } from './notification'
 import {
   TRANSACTION_TYPE_EXPENSE,
@@ -82,6 +83,8 @@ export const useTransactions = defineStore({
         )
       }
     },
+    transactionsForToday: (state) =>
+      state.transactions.filter(({ date }) => isToday(new Date(date))),
   },
   actions: {
     async fetch() {

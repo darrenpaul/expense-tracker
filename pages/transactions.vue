@@ -167,10 +167,6 @@ const onEditTransaction = (transactionId: string) => {
   }
 }
 
-const onTransactionCreatedUpdated = () => {
-  refreshData()
-}
-
 const refreshData = () => {
   transactionsStore.fetch()
 }

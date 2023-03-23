@@ -68,6 +68,18 @@ tr {
     @apply border-secondary-c;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
+
+    &:last-child {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        @apply border-b-0;
+        /* COLORS */
+        @apply border-secondary-c;
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
 }
 
 .tr-highlight {

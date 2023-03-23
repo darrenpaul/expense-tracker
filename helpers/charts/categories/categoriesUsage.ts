@@ -46,6 +46,11 @@ export default (transactions: Array<ITransaction>, title: string) => {
         type: 'pie',
         radius: ['40%', '70%'],
         avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2,
+        },
         emphasis: {
           itemStyle: {
             shadowBlur: 10,

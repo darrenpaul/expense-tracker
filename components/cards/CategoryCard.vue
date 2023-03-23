@@ -1,15 +1,10 @@
 <template>
   <div class="card-slim card-dark card-stretch category-card">
+    <div>
+      <component :is="iconForCategory" :fill="'var(--primary)'" :size="'32'" />
+    </div>
+
     <div class="category-card-title-icon-group">
-      <template v-for="{ value, component } in CATEGORY_ICONS">
-        <component
-          :is="component"
-          v-if="category.icon === value"
-          :key="value"
-          :fill="'var(--primary)'"
-          :size="'24'"
-        />
-      </template>
       <h3>{{ category.name }}</h3>
     </div>
 
@@ -28,10 +23,21 @@ import { ICategory } from '~~/types/category'
 import PencilIcon from '~~/components/icons/PencilIcon.vue'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
 import { CATEGORY_ICONS } from '~~/constants/category'
+import MissingCategoryIcon from '~~/components/icons/categories/MissingCategoryIcon.vue'
 
 const emit = defineEmits(['onEdit', 'onDelete'])
 
 const props = defineProps<{ category: ICategory }>()
+
+const iconForCategory = computed(() => {
+  const matchedComponent = CATEGORY_ICONS.find(
+    ({ value }) => props.category.icon === value
+  )
+  if (matchedComponent) {
+    return matchedComponent.component
+  }
+  return MissingCategoryIcon
+})
 
 const onEdit = () => {
   emit('onEdit', props.category.id)
