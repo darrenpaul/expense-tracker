@@ -16,7 +16,7 @@
         /* LAYOUT */
         @apply flex items-center gap-4;
         /* BORDERS */
-        @apply rounded-r-full;
+        @apply rounded md:rounded-r-full;
         /* COLORS */
         @apply bg-secondary-a text-primary;
         /* TEXT */

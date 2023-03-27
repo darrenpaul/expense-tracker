@@ -7,7 +7,7 @@
         class="button-icon"
         @click="onShowConfirmDialog"
       >
-        <TrashIcon :size="'20'" />
+        <TrashIcon />
       </button>
     </div>
 
@@ -85,34 +85,31 @@
       </template>
 
       <!-- NAME -->
-
-      <div class="row">
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="name">{{ TRANSACTION_COPY.name }}</label>
-          </div>
-          <input
-            id="name"
-            v-model="name"
-            :placeholder="TRANSACTION_COPY.namePlaceholder"
-            name="name"
-            type="text"
-          />
+      <div class="input-group">
+        <div class="input-label-container">
+          <label for="name">{{ TRANSACTION_COPY.name }}</label>
         </div>
+        <input
+          id="name"
+          v-model="name"
+          :placeholder="TRANSACTION_COPY.namePlaceholder"
+          name="name"
+          type="text"
+        />
+      </div>
 
-        <!-- AMOUNT -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
-          </div>
-          <input
-            id="amount"
-            v-model="amount"
-            :placeholder="TRANSACTION_COPY.amountPlaceholder"
-            name="amount"
-            type="number"
-          />
+      <!-- AMOUNT -->
+      <div class="input-group">
+        <div class="input-label-container">
+          <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
         </div>
+        <input
+          id="amount"
+          v-model="amount"
+          :placeholder="TRANSACTION_COPY.amountPlaceholder"
+          name="amount"
+          type="number"
+        />
       </div>
 
       <!-- DATE PICKER -->

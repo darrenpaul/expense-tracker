@@ -1,10 +1,8 @@
 <template>
   <div class="card-slim card-dark card-stretch category-card">
-    <div>
-      <component :is="iconForCategory" :fill="'var(--primary)'" :size="'32'" />
-    </div>
-
     <div class="category-card-title-icon-group">
+      <component :is="iconForCategory" :fill="'var(--primary)'" :size="'32'" />
+
       <h3>{{ category.name }}</h3>
     </div>
 

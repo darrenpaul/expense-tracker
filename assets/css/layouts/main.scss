@@ -1,5 +1,6 @@
 .main-layout-container {
     /* SIZE */
+    @apply h-full;
     /* MARGINS AND PADDING */
     /* LAYOUT */
     @apply flex flex-col md:flex-row;

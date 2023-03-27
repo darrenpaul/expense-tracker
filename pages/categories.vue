@@ -6,7 +6,10 @@
         <HeadingWithButton
           :heading="COPY.expenseCategories"
           :button-text="COPY.addCategory"
-          @on-click="() => (showCategoryModal = true)"
+          @on-click="
+            () =>
+              onShowCategoryCreateModal(TRANSACTION_TYPE_EXPENSE.displayName)
+          "
         />
 
         <div class="category-cards">
@@ -31,7 +34,9 @@
         <HeadingWithButton
           :heading="COPY.incomeCategories"
           :button-text="COPY.addCategory"
-          @on-click="() => (showCategoryModal = true)"
+          @on-click="
+            () => onShowCategoryCreateModal(TRANSACTION_TYPE_INCOME.displayName)
+          "
         />
 
         <div class="category-cards">
@@ -50,34 +55,10 @@
       </div>
     </div>
 
-    <!-- TRANSFER CATEGORIES -->
-    <div class="categories-transaction-type">
-      <div class="card-stretch">
-        <HeadingWithButton
-          :heading="COPY.transferCategories"
-          :button-text="COPY.addCategory"
-          @on-click="() => (showCategoryModal = true)"
-        />
-
-        <div class="category-cards">
-          <CategoryCard
-            v-for="item in categoryStore.transferCategories"
-            :key="item.id"
-            :category="item"
-            @on-edit="onCategoryEdit"
-            @on-delete="onShowConfirmDialog"
-          />
-        </div>
-      </div>
-
-      <div class="card category-chart-container">
-        <Chart :options="transferUsageOptions" />
-      </div>
-    </div>
-
     <Modal :is-open="showCategoryModal" @close="onCloseCategoryModal">
       <CategoryForm
         :category="category"
+        :transaction-type="transactionType"
         @on-create="onCategoryCreate"
         @on-update="onCategoryUpdate"
         @on-delete="onShowConfirmDialog"
@@ -104,6 +85,10 @@ import { ICategory, INewCategory } from '~~/types/category'
 import categoryUsage from '~~/helpers/charts/categories/categoriesUsage'
 import { useTransactions } from '~~/stores/transactions'
 import { ITransaction } from '~~/types/transaction'
+import {
+  TRANSACTION_TYPE_EXPENSE,
+  TRANSACTION_TYPE_INCOME,
+} from '~~/constants/transactions'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -116,6 +101,7 @@ const transactionStore = useTransactions()
 const showCategoryModal = ref(false)
 const category = ref({})
 const showConfirmDialog = ref(false)
+const transactionType = ref(TRANSACTION_TYPE_EXPENSE.displayName)
 const toDeleteId = ref('')
 
 const expenseUsageOptions = computed(() => {
@@ -138,18 +124,9 @@ const incomeUsageOptions = computed(() => {
   )
 })
 
-const transferUsageOptions = computed(() => {
-  if (transactionStore.list === null || categoryStore.categories === null) {
-    return {}
-  }
-  return categoryUsage(
-    transactionStore.transfers as Array<ITransaction>,
-    COPY.transferUsage
-  )
-})
-
 const onCloseCategoryModal = () => {
   showCategoryModal.value = false
+  transactionType.value = ''
   category.value = {}
 }
 
@@ -175,6 +152,11 @@ const onCategoryEdit = (categoryId: string) => {
     category.value = matchedCategory
     showCategoryModal.value = true
   }
+}
+
+const onShowCategoryCreateModal = (transactionTypeValue: string) => {
+  transactionType.value = transactionTypeValue
+  showCategoryModal.value = true
 }
 
 const onCategoryDelete = () => {

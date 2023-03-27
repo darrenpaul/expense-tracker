@@ -33,12 +33,18 @@ export default (transactions: Array<ITransaction>) => {
     legend: {
       left: 'center',
       bottom: '5%',
+      type: 'scroll',
     },
     series: [
       {
         type: 'pie',
         radius: ['40%', '70%'],
         avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2,
+        },
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -46,10 +52,13 @@ export default (transactions: Array<ITransaction>) => {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
           label: {
-            show: true,
+            show: false,
             fontSize: 14,
             fontWeight: 'bold',
           },
+        },
+        label: {
+          show: false,
         },
         data: seriesData,
       },

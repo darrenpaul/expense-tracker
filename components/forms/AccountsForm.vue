@@ -7,7 +7,7 @@
         class="button-icon"
         @click="onShowConfirmDialog"
       >
-        <TrashIcon :size="'20'" />
+        <TrashIcon />
       </button>
     </div>
 

@@ -4,7 +4,7 @@
       <h2>{{ headingCopy }}</h2>
       <button
         v-if="!isEmpty(props.category)"
-        class="button-icon-danger"
+        class="button-icon"
         @click="onCategoryDelete"
       >
         <TrashIcon />
@@ -73,6 +73,7 @@ const emit = defineEmits(['closeModal', 'onCreate', 'onUpdate', 'onDelete'])
 
 const props = defineProps({
   category: { type: Object, default: () => {} },
+  transactionType: { type: String, default: TRANSACTION_TYPES[0].displayName },
 })
 
 const profile = useProfile()
@@ -81,7 +82,7 @@ const notification = useNotification()
 const name = ref(props.category.name || '')
 const icon = ref(props.category.icon)
 const transactionType = ref(
-  props.category.transactionType || TRANSACTION_TYPES[0].displayName
+  props.category.transactionType || props.transactionType
 )
 
 const headingCopy = computed(() => {

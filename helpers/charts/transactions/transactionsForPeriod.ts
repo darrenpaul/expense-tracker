@@ -91,6 +91,11 @@ const dayPeriodChart = ({ transactions, currency }: IDayPeriodChart) => {
         type: 'pie',
         radius: ['40%', '70%'],
         avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2,
+        },
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -98,10 +103,13 @@ const dayPeriodChart = ({ transactions, currency }: IDayPeriodChart) => {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
           label: {
-            show: true,
+            show: false,
             fontSize: 14,
             fontWeight: 'bold',
           },
+        },
+        label: {
+          show: false,
         },
         data: seriesData,
       },
@@ -170,11 +178,10 @@ const weekMonthPeriodChart = ({
       },
       valueFormatter: (value: number) => currencyFormat({ value, currency }),
     },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true,
+    legend: {
+      left: 'center',
+      bottom: '5%',
+      type: 'scroll',
     },
     xAxis: [
       {

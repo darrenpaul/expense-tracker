@@ -36,7 +36,7 @@ form {
     /* LAYOUT */
     @apply flex items-center;
     /* BORDERS */
-    @apply rounded-none md:rounded-l-full;
+    @apply rounded-lg md:rounded-l-full;
     /* COLORS */
     @apply bg-transparent md:bg-secondary-a;
     /* TEXT */
@@ -91,7 +91,7 @@ select {
     /* LAYOUT */
     @apply block;
     /* BORDERS */
-    @apply rounded-full md:rounded-l-none;
+    @apply rounded md:rounded-full md:rounded-l-none;
     /* COLORS */
     @apply bg-secondary-a text-primary;
     /* TEXT */
@@ -107,7 +107,7 @@ textarea {
     /* LAYOUT */
     @apply block;
     /* BORDERS */
-    @apply rounded-3xl rounded-tl-none;
+    @apply rounded md:rounded-3xl md:rounded-tl-none;
     /* COLORS */
     @apply bg-secondary-a text-primary;
     /* TEXT */
