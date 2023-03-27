@@ -8,6 +8,7 @@ import { useBudgets } from './budgets'
 import { authLogin, authRefreshToken, authLogout } from '~~/endpoints/auth'
 import { ACCESS_TOKEN_COOKIE } from '~~/constants/settings'
 import { IUser } from '~~/types/user'
+import { deleteUserAccount } from '~~/endpoints/users'
 
 export const useProfile = defineStore({
   id: 'profile',
@@ -48,7 +49,13 @@ export const useProfile = defineStore({
 
       this.user = null
       this.token = null
+      this.clearAllData()
       await authLogout()
+    },
+    // WARNING: this deletes the user and all their information
+    async handleDeleteProfile() {
+      await deleteUserAccount(this.userId)
+      await this.logout()
     },
     async refreshToken() {
       const { record, token } = await authRefreshToken()

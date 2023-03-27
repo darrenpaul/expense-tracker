@@ -18,3 +18,8 @@ export const createUserAccount = async (userData: IUserRegister) => {
 // ---------- UPDATE
 
 // ---------- DELETE
+export const deleteUserAccount = async (userId: string) => {
+  const pocketBaseClient = await usePocketBase()
+
+  return await pocketBaseClient.collection(TABLE).delete(userId)
+}

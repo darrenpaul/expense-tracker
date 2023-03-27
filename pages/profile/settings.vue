@@ -5,6 +5,8 @@
     </div>
 
     <UserSettings />
+
+    <button class="button" @click="handleDeleteUserAccount">Delete</button>
   </div>
 </template>
 
@@ -12,9 +14,16 @@
 import UserSettings from '~~/components/settings/UserSettings.vue'
 
 import { SETTINGS_COPY } from '~~/constants/copy'
+import { useProfile } from '~~/stores/profile'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
   layout: 'main',
 })
+
+const profileStore = useProfile()
+
+const handleDeleteUserAccount = async () => {
+  await profileStore.handleDeleteProfile()
+}
 </script>

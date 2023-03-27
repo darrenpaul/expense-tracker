@@ -197,6 +197,7 @@ const onRegisterUser = async (event: Event) => {
     }
 
     if (profile.authenticated) {
+      profile.fetchAllData()
       router.replace(DASHBOARD_ROUTE.path)
     }
   } catch (error) {
