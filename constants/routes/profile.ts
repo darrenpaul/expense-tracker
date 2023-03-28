@@ -1,4 +1,4 @@
-import ProfileIcon from '~~/components/icons/sidePanel/ProfileIcon.vue'
+import ProfileIcon from '~~/components/icons/mainNavigation/ProfileIcon.vue'
 
 export const PROFILE_LOGIN_ROUTE = {
   name: 'profileLogin',

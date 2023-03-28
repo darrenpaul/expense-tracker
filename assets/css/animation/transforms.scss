@@ -1,0 +1,34 @@
+.rotation {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply transition-transform ease-in-out duration-300;
+}
+
+.rotation-0 {
+    @extend .rotation;
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply rotate-0;
+}
+
+.rotation-180 {
+    @extend .rotation;
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply rotate-180;
+}

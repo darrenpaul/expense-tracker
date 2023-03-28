@@ -59,15 +59,14 @@
           <div class="main-navigation-desktop-link-container">
             <button
               v-if="profile.authenticated === true"
-              class="main-navigation-desktop-link"
+              class="main-navigation-desktop-expand-container"
               @click="onExpandToggle"
             >
-              <ExpandIcon
-                v-if="expanded"
+              <CollapseIcon
+                :class="expanded ? 'rotation-180' : 'rotation-0'"
                 :size="'42'"
                 :fill="'var(--secondary)'"
               />
-              <CollapseIcon v-else :size="'42'" :fill="'var(--secondary)'" />
             </button>
           </div>
         </div>
@@ -77,12 +76,11 @@
 </template>
 
 <script setup lang="ts">
-import LogoutIcon from '~~/components/icons/sidePanel/LogoutIcon.vue'
+import LogoutIcon from '~~/components/icons/mainNavigation/LogoutIcon.vue'
 import { HOME_ROUTE } from '~~/constants/routes/home'
 import { COMMON_COPY, NAVIGATION_COPY } from '~~/constants/copy'
 import BrandIcon from '~~/components/icons/BrandIcon.vue'
-import ExpandIcon from '~~/components/icons/sidePanel/ExpandIcon.vue'
-import CollapseIcon from '~~/components/icons/sidePanel/CollapseIcon.vue'
+import CollapseIcon from '~~/components/icons/mainNavigation/CollapseIcon.vue'
 import { useProfile } from '~~/stores/profile'
 import { useUserSettings } from '~~/stores/userSettings'
 import { ILink } from '~~/types/link'

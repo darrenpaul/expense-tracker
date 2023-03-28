@@ -155,6 +155,18 @@
             @apply text-base;
             /* ANIMATION AND EFFECTS */
         }
+
+        .main-navigation-desktop-expand-container {
+            @extend .main-navigation-desktop-link;
+            /* SIZE */
+            /* MARGINS AND PADDING */
+            @apply mb-4;
+            /* LAYOUT */
+            /* BORDERS */
+            /* COLORS */
+            /* TEXT */
+            /* ANIMATION AND EFFECTS */
+        }
     }
 }
 

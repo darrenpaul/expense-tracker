@@ -1,4 +1,4 @@
-import AccountIcon from '~~/components/icons/sidePanel/AccountIcon.vue'
+import AccountIcon from '~~/components/icons/mainNavigation/AccountIcon.vue'
 
 export const ACCOUNTS_ROUTE = {
   name: 'accounts',
