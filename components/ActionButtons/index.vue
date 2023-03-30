@@ -1,14 +1,16 @@
 <template>
-  <div class="action-buttons-container">
-    <div v-if="isOpen" class="action-buttons-menu">
-      <button class="button" @click="onShowTransaction">
-        {{ TRANSACTION_COPY.addTransaction }}
+  <div>
+    <div class="action-buttons-container">
+      <div v-if="isOpen" class="action-buttons-menu">
+        <button class="button" @click="onShowTransaction">
+          {{ TRANSACTION_COPY.addTransaction }}
+        </button>
+      </div>
+
+      <button class="action-buttons-main-button" @click="isOpen = !isOpen">
+        <CrossIcon :fill="'var(--secondary)'" />
       </button>
     </div>
-
-    <button class="action-buttons-main-button" @click="isOpen = !isOpen">
-      <CrossIcon :fill="'var(--secondary)'" />
-    </button>
 
     <!-- TRANSACTION -->
     <Modal :is-open="showModal" @close="onModalClose">

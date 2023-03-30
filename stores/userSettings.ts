@@ -14,6 +14,7 @@ export const useUserSettings = defineStore({
   state: () => ({
     id: '',
     currency: '',
+    monthStart: 1,
     sidePanelExpanded: getSidePanelExpandStateCookie(
       useCookie(SIDE_PANEL_EXPANDED_COOKIE).value
     ),
@@ -21,7 +22,6 @@ export const useUserSettings = defineStore({
 
   getters: {
     settingsId: (state) => state.id,
-    defaultCurrency: (state) => state.currency,
   },
 
   actions: {
@@ -32,6 +32,7 @@ export const useUserSettings = defineStore({
 
       this.id = userSettings.id
       this.currency = userSettings.currency
+      this.monthStart = userSettings.monthStart || 1
     },
     saveSidePanelState(expandedState: Boolean) {
       useCookie(SIDE_PANEL_EXPANDED_COOKIE).value = expandedState.toString()

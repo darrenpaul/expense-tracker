@@ -32,7 +32,7 @@ form {
     /* SIZE */
     @apply h-fit md:h-10;
     /* MARGINS AND PADDING */
-    @apply px-2 pl-4 mr-3;
+    @apply px-2 md:pl-4 mr-3;
     /* LAYOUT */
     @apply flex items-center;
     /* BORDERS */

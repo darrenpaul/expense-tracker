@@ -1,6 +1,6 @@
 <template>
   <!-- BUTTONS -->
-  <div class="flex flex-row gap-4 justify-end mt-2">
+  <div class="button-2-group">
     <button class="button-secondary" @click="onCancel">
       {{ COMMON_COPY.cancel }}
     </button>
