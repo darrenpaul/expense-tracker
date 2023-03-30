@@ -1,5 +1,5 @@
 <template>
-  <div class="card w-fit">
+  <div class="card w-full md:w-fit">
     <h3>{{ COPY.userSettings }}</h3>
 
     <form>
@@ -30,9 +30,11 @@
         />
       </div>
 
-      <button class="button" @click="onSaveUserSettings">
-        {{ COPY.save }}
-      </button>
+      <div class="flex items-center justify-end">
+        <button class="button" @click="onSaveUserSettings">
+          {{ COPY.save }}
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -43,9 +45,11 @@ import { useProfile } from '~~/stores/profile'
 import { IUserSettings } from '~~/types/userSettings'
 import { updateUserSettings } from '~~/endpoints/userSettings'
 import { useUserSettings } from '~~/stores/userSettings'
+import { useNotification } from '~~/stores/notification'
 
-const profile = useProfile()
+const profileStore = useProfile()
 const userSettingStore = useUserSettings()
+const notificationStore = useNotification()
 
 const defaultCurrency = ref(userSettingStore.currency)
 const monthStart = ref(userSettingStore.monthStart)
@@ -59,11 +63,11 @@ watch(
 
 const onSaveUserSettings = async (event: Event) => {
   event.preventDefault()
-  if (!profile.userId) return
+  if (!profileStore.userId) return
 
   const data: IUserSettings = {
     id: userSettingStore.id,
-    userId: profile.userId,
+    userId: profileStore.userId,
     currency: defaultCurrency.value,
     monthStart: monthStart.value,
   }
@@ -72,6 +76,9 @@ const onSaveUserSettings = async (event: Event) => {
 
   userSettingStore.fetch()
 
-  alert('Created user settings')
+  notificationStore.addNotification({
+    message: COPY.updated,
+    type: 'success',
+  })
 }
 </script>

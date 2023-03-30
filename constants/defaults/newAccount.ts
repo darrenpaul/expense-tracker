@@ -3,7 +3,7 @@ import {
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
 
-export const initialSettings = { currency: 'ZAR' }
+export const initialSettings = { currency: 'ZAR', monthStart: 1 }
 
 export const initialCategories = [
   {

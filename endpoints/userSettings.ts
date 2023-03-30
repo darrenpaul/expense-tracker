@@ -1,9 +1,4 @@
-import { INewCategory, ICategory } from '~~/types/category'
-import {
-  INewUserSettings,
-  IUpdateUserSettings,
-  IUserSettings,
-} from '~~/types/userSettings'
+import { INewUserSettings, IUserSettings } from '~~/types/userSettings'
 
 const TABLE = 'settings'
 
@@ -26,6 +21,7 @@ export const viewUserSettings = async (userId: string) => {
     id: record.id,
     userId: record.userId,
     currency: record.currency,
+    monthStart: record.monthStart,
   } as IUserSettings
 }
 
@@ -33,12 +29,9 @@ export const viewUserSettings = async (userId: string) => {
 export const updateUserSettings = async (userSettings: IUserSettings) => {
   const pocketBaseClient = await usePocketBase()
 
-  const data: IUpdateUserSettings = {
-    userId,
-    currency,
-  }
+  const { id } = userSettings
 
-  return await pocketBaseClient.collection(TABLE).update(id, data)
+  return await pocketBaseClient.collection(TABLE).update(id, userSettings)
 }
 
 // ---------- DELETE

@@ -6,4 +6,5 @@ export default {
   monthStart: 'Month Start',
   monthStartPlaceholder: '1',
   save: 'Save',
+  updated: 'User settings updated',
 }

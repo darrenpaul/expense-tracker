@@ -22,6 +22,7 @@ export interface ITransaction {
   type: string
   name: string
   note: string
+  categoryId?: string
   category: ICategory
   amount: number
   date: string

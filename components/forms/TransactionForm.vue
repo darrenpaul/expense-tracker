@@ -108,7 +108,8 @@
           v-model="amount"
           :placeholder="TRANSACTION_COPY.amountPlaceholder"
           name="amount"
-          type="number"
+          pattern="[0-9]*"
+          type="text"
         />
       </div>
 
