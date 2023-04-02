@@ -128,8 +128,7 @@ const weekMonthPeriodChart = ({
   balance,
   currency,
 }: IWeekMonthPeriodChart) => {
-  const days = dayIntervals({ date, period })
-
+  const days = dayIntervals({ date: new Date(), period })
   const expensesOnly = transactions.filter(
     ({ type }) => type === TRANSACTION_TYPE_EXPENSE.displayName
   )
@@ -154,8 +153,8 @@ const weekMonthPeriodChart = ({
   const spendPerDayValues: Array<number> = []
   const spendPerWeekValues: Array<number> = []
 
-  const spendPerDayValue = spendPerDay({ balance, date })
-  const spendPerWeekValue = spendPerWeek({ balance, date })
+  const spendPerDayValue = spendPerDay({ balance, endDate: date })
+  const spendPerWeekValue = spendPerWeek({ balance, endDate: date })
 
   days.forEach((day) => {
     spendPerDayValues.push(spendPerDayValue)
@@ -240,10 +239,9 @@ export default ({
 }: ITransactionsForPeriod) => {
   const periodTransactions = filterTransactionByPeriod({
     transactions,
-    date,
+    date: new Date(),
     period,
   })
-
   if (period === PERIODS.day.displayName) {
     return dayPeriodChart({
       transactions: periodTransactions,

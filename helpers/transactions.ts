@@ -53,6 +53,7 @@ export const mergeTransactionsByProperty = ({
 
 export const mergeTransactionsByDate = (transactions: Array<ITransaction>) => {
   const merged: IMerged = {}
+
   transactions.forEach(({ amount, date }) => {
     const dateOnly = format(new Date(date), DATE_FORMAT)
     if (!merged[dateOnly]) {

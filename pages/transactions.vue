@@ -45,7 +45,7 @@
 
       <div class="column">
         <GlanceCard
-          v-if="transactionsStore.list"
+          v-if="transactionsStore.transactions"
           :title="TRANSACTION_COPY.balance"
           :amount="
             currencyFormat({
@@ -56,7 +56,7 @@
         />
 
         <GlanceCard
-          v-if="transactionsStore.list"
+          v-if="transactionsStore.transactions"
           :title="TRANSACTION_COPY.spendPerDay"
           :amount="
             currencyFormat({
@@ -70,7 +70,7 @@
         />
 
         <GlanceCard
-          v-if="transactionsStore.list"
+          v-if="transactionsStore.transactions"
           :title="TRANSACTION_COPY.spendPerWeek"
           :amount="
             currencyFormat({
@@ -92,8 +92,8 @@
     />
 
     <TransactionList
-      v-if="transactionsStore.list"
-      :transactions="transactionsStore.list"
+      v-if="transactionsStore.transactions"
+      :transactions="transactionsStore.transactions"
       @on-edit="onEditTransaction"
       @change="refreshData"
     />
@@ -140,10 +140,9 @@ const transactionsForPeriodOptions = computed(() => {
   if (transactionsStore.list === null) {
     return {}
   }
-
   return transactionsForPeriod({
-    transactions: transactionsStore.list as Array<ITransaction>,
-    date: new Date(),
+    transactions: transactionsStore.transactions as Array<ITransaction>,
+    date: monthEndDate.value,
     period: period.value,
     currency: userSettingsStore.currency,
   })

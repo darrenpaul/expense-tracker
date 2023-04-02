@@ -16,7 +16,7 @@ export const viewTransactions = async () => {
 
   const records = await pocketBaseClient.collection(TABLE).getFullList(200, {
     expand: 'categoryId,accountId',
-    sort: '-created',
+    sort: '-date',
   })
 
   return records.map((record) => {
