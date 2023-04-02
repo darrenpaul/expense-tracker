@@ -5,6 +5,8 @@ import {
   getWeeksInMonth,
   eachMonthOfInterval,
   isThisMonth,
+  differenceInCalendarDays,
+  differenceInWeeks,
 } from 'date-fns'
 import { DATE_FORMAT } from './dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'
@@ -128,24 +130,26 @@ export const balanceIncomeExpense = (transactions: Array<ITransaction>) => {
 
 interface ISpendPerPeriod {
   balance: number
-  date: Date
+  endDate: Date
 }
-export const spendPerDay = ({ balance, date }: ISpendPerPeriod) => {
-  return parseFloat((balance / getDaysInMonth(new Date(date))).toFixed(2))
-}
-
-export const spendPerWeek = ({ balance, date }: ISpendPerPeriod) => {
-  return parseFloat((balance / getWeeksInMonth(new Date(date))).toFixed(2))
+export const spendPerDay = ({ balance, endDate }: ISpendPerPeriod) => {
+  const remainingDays = differenceInCalendarDays(endDate, new Date())
+  return parseFloat((balance / remainingDays).toFixed(2))
 }
 
-export const spendPerMonth = ({ balance, date }: ISpendPerPeriod) => {
-  if (isThisMonth(date)) {
+export const spendPerWeek = ({ balance, endDate }: ISpendPerPeriod) => {
+  const remainingWeeks = differenceInWeeks(endDate, new Date())
+  return parseFloat((balance / remainingWeeks).toFixed(2))
+}
+
+export const spendPerMonth = ({ balance, endDate }: ISpendPerPeriod) => {
+  if (isThisMonth(endDate)) {
     return parseFloat((balance / 1).toFixed(2))
   }
 
   const months = eachMonthOfInterval({
     start: new Date(),
-    end: new Date(date),
+    end: new Date(endDate),
   })
 
   return parseFloat((balance / months.length).toFixed(2))

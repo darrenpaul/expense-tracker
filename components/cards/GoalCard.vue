@@ -108,8 +108,10 @@ const amountWithCurrency = computed(() => {
 const savePerDay = computed(() => {
   const value = spendPerDay({
     balance: props.amount,
-    date: new Date(props.date),
+    endDate: new Date(props.date),
   })
+
+  console.log(value)
 
   return currencyFormat({ value, currency: userSettingStore.currency })
 })
@@ -117,7 +119,7 @@ const savePerDay = computed(() => {
 const savePerWeek = computed(() => {
   const value = spendPerWeek({
     balance: props.amount,
-    date: new Date(props.date),
+    endDate: new Date(props.date),
   })
 
   return currencyFormat({ value, currency: userSettingStore.currency })
@@ -126,7 +128,7 @@ const savePerWeek = computed(() => {
 const savePerMonth = computed(() => {
   const value = spendPerMonth({
     balance: props.amount,
-    date: new Date(props.date),
+    endDate: new Date(props.date),
   })
 
   return currencyFormat({ value, currency: userSettingStore.currency })

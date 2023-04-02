@@ -62,7 +62,7 @@
             currencyFormat({
               value: spendPerDay({
                 balance: balance(),
-                date: new Date(),
+                endDate: monthEndDate,
               }),
               currency: 'R',
             })
@@ -76,7 +76,7 @@
             currencyFormat({
               value: spendPerWeek({
                 balance: balance(),
-                date: new Date(),
+                endDate: monthEndDate,
               }),
               currency: 'R',
             })
@@ -109,6 +109,7 @@
 </template>
 
 <script setup lang="ts">
+import { addMonths, isAfter, setDate, subDays } from 'date-fns'
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import TransactionForm from '~~/components/forms/TransactionForm.vue'
 import TransactionList from '~~/components/tables/transactionList/index.vue'
@@ -146,6 +147,15 @@ const transactionsForPeriodOptions = computed(() => {
     period: period.value,
     currency: userSettingsStore.currency,
   })
+})
+
+const monthEndDate = computed(() => {
+  let date = subDays(setDate(new Date(), userSettingsStore.monthStart), 1)
+
+  if (isAfter(new Date(), date)) {
+    date = setDate(addMonths(new Date(), 1), userSettingsStore.monthStart)
+  }
+  return date
 })
 
 const onCloseTransactionModal = (refresh = false) => {

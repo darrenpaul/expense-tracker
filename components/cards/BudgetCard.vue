@@ -82,7 +82,7 @@ const dailySpend = computed(() => {
   const current = props.budget.amount - balance.value
   const value = spendPerDay({
     balance: current,
-    date: new Date(props.budget.endDate),
+    endDate: new Date(props.budget.endDate),
   })
 
   return currencyFormat({ value, currency: userSettingStore.currency })
@@ -92,7 +92,7 @@ const weeklySpend = computed(() => {
   const current = props.budget.amount - balance.value
   const value = spendPerWeek({
     balance: current,
-    date: new Date(props.budget.endDate),
+    endDate: new Date(props.budget.endDate),
   })
 
   return currencyFormat({ value, currency: userSettingStore.currency })

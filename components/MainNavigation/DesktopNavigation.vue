@@ -39,7 +39,7 @@
             ]"
           >
             <NuxtLink class="main-navigation-desktop-link" :to="path">
-              <component :is="icon" :fill="'var(--secondary)'" :size="'42'" />
+              <component :is="icon" :fill="'var(--secondary)'" :size="'32'" />
 
               {{ expanded ? displayName : '' }}
             </NuxtLink>
@@ -47,7 +47,7 @@
 
           <div class="main-navigation-desktop-link-container">
             <button class="main-navigation-desktop-link" @click="onLogout">
-              <LogoutIcon :fill="'var(--secondary)'" :size="'42'" />
+              <LogoutIcon :fill="'var(--secondary)'" :size="'32'" />
 
               {{ expanded ? NAVIGATION_COPY.logout : '' }}
             </button>
@@ -64,7 +64,7 @@
             >
               <CollapseIcon
                 :class="expanded ? 'rotation-180' : 'rotation-0'"
-                :size="'42'"
+                :size="'32'"
                 :fill="'var(--secondary)'"
               />
             </button>
