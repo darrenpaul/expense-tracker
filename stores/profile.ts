@@ -71,12 +71,12 @@ export const useProfile = defineStore({
       this.fetchAllData()
     },
     async fetchAllData() {
+      await useUserSettings().fetch()
       await useTransactions().fetch()
       await useAccounts().fetch()
       await useCategories().fetch()
       await useBudgets().fetch()
       await useGoals().fetch()
-      await useUserSettings().fetch()
     },
     clearAllData() {
       useTransactions().clear()

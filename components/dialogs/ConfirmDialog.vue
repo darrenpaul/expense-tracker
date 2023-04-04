@@ -9,7 +9,8 @@
         {{ message }}
       </p>
     </div>
-    <div class="row">
+
+    <div class="button-2-group">
       <button class="button-secondary" @click="onDecline">
         {{ DIALOG_COPY.no }}
       </button>

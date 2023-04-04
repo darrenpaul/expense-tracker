@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
-import { isToday } from 'date-fns'
+import { format, isToday, setDate, subMonths } from 'date-fns'
 import { useNotification } from './notification'
+import { useUserSettings } from './userSettings'
 import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
@@ -88,7 +89,11 @@ export const useTransactions = defineStore({
   },
   actions: {
     async fetch() {
-      this.transactions = await viewTransactions()
+      // TODO: improve this so it has more functionality
+      const monthStart = useUserSettings().monthStart
+      const lastMonthDateObj = subMonths(setDate(new Date(), monthStart), 1)
+      const lastMonthDateStr = format(lastMonthDateObj, 'yyyy-MM-dd 00:00')
+      this.transactions = await viewTransactions({ date: lastMonthDateStr })
     },
 
     async handleCreateTransaction(data: INewTransaction) {

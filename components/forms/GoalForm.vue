@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row between mb-4">
+    <div class="flex between mb-2">
       <h2>{{ headingCopy }}</h2>
       <button
         v-if="!isEmpty(props.goal)"

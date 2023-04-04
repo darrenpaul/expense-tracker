@@ -15,7 +15,9 @@
     </div>
 
     <template v-if="expanded">
-      <button @click="emit('onEdit', goalId)">{{ COMMON_COPY.edit }}</button>
+      <button class="button-secondary" @click="emit('onEdit', goalId)">
+        {{ COMMON_COPY.edit }}
+      </button>
 
       <div class="grid grid-cols-2">
         <p>{{ COMMON_COPY.targetDate }}:</p>
@@ -110,8 +112,6 @@ const savePerDay = computed(() => {
     balance: props.amount,
     endDate: new Date(props.date),
   })
-
-  console.log(value)
 
   return currencyFormat({ value, currency: userSettingStore.currency })
 })

@@ -50,20 +50,16 @@
 }
 
 .button-warn {
+    @extend .button;
     /* SIZE */
-    @apply w-44;
     /* MARGINS AND PADDING */
-    @apply px-5 py-2 mb-2;
     /* LAYOUT */
     /* BORDERS */
-    @apply rounded-full focus:ring-4 focus:ring-blue-300 border;
     /* COLORS */
     @apply text-white border-theme-button-primary border-red-500 bg-red-500;
     @apply hover:bg-red-400 hover:text-white hover:border-red-400;
     /* TEXT */
-    @apply text-sm font-medium;
     /* ANIMATION AND EFFECTS */
-    @apply transition-all;
 }
 
 .button-secondary {

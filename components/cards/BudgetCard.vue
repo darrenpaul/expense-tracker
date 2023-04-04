@@ -15,7 +15,9 @@
     </div>
 
     <template v-if="expanded">
-      <button @click="emit('onEdit', budget.id)">{{ BUDGET_COPY.edit }}</button>
+      <button class="button-secondary" @click="emit('onEdit', budget.id)">
+        {{ BUDGET_COPY.edit }}
+      </button>
 
       <div class="grid grid-cols-2">
         <p>{{ BUDGET_COPY.startDate }}:</p>
