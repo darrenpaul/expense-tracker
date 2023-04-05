@@ -11,15 +11,11 @@ export const createTransaction = async (data: INewTransaction) => {
 }
 
 // ---------- VIEW
-interface IViewTransactions {
-  date?: string
-}
-export const viewTransactions = async ({ date }: IViewTransactions) => {
+export const viewTransactions = async () => {
   const pocketBaseClient = usePocketBase()
   const records = await pocketBaseClient.collection(TABLE).getFullList(200, {
     expand: 'categoryId,accountId',
     sort: '-date',
-    filter: `date >= "${date}"`,
   })
 
   return records.map((record) => {

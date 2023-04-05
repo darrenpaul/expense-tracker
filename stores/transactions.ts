@@ -89,11 +89,7 @@ export const useTransactions = defineStore({
   },
   actions: {
     async fetch() {
-      // TODO: improve this so it has more functionality
-      const monthStart = useUserSettings().monthStart
-      const lastMonthDateObj = subMonths(setDate(new Date(), monthStart), 1)
-      const lastMonthDateStr = format(lastMonthDateObj, 'yyyy-MM-dd 00:00')
-      this.transactions = await viewTransactions({ date: lastMonthDateStr })
+      this.transactions = await viewTransactions()
     },
 
     async handleCreateTransaction(data: INewTransaction) {
