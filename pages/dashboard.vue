@@ -65,10 +65,6 @@ const categoryStore = useCategories()
 const showTransactionModal = ref(false)
 const transaction = ref({})
 
-onMounted(() => {
-  transactionStore.fetch()
-})
-
 const categoryUsageOptions = computed(() => {
   if (transactionStore.list === null || categoryStore.categories === null) {
     return {}

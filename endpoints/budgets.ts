@@ -22,7 +22,6 @@ export const createBudget = async (data: INewBudget) => {
 // ---------- VIEW
 export const viewBudgets = async () => {
   const pocketBaseClient = usePocketBase()
-
   const records = await pocketBaseClient.collection(TABLE).getFullList(200, {
     sort: '+name',
   })

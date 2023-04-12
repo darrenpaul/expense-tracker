@@ -56,8 +56,4 @@
 import Budgeting from '~~/components/illustrations/Budgeting.vue'
 import Saving from '~~/components/illustrations/Saving.vue'
 import Transactions from '~~/components/illustrations/Transactions.vue'
-
-definePageMeta({
-  middleware: process.client ? 'auth' : undefined,
-})
 </script>

@@ -46,6 +46,7 @@ import { useUserSettings } from '~~/stores/userSettings'
 import { useAccounts } from '~~/stores/accounts'
 import { useTransactions } from '~~/stores/transactions'
 import { useGoals } from '~~/stores/goals'
+import { useBudgets } from '~~/stores/budgets'
 
 const router = useRouter()
 const profile = useProfile()
@@ -94,11 +95,7 @@ const onLogin = async (event: Event) => {
   try {
     await profile.login(email.value, password.value)
     if (profile.authenticated) {
-      categories.fetch()
-      userSettings.fetch()
-      accountStore.fetch()
-      transactionsStore.fetch()
-      useGoals().fetch()
+      useProfile().fetchAllData()
       router.replace(DASHBOARD_ROUTE.path)
     }
   } catch (error) {

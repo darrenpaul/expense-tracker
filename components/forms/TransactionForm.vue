@@ -337,6 +337,7 @@ const onCreateTransaction = () => {
   }
 
   transactionStore.handleCreateTransaction(data)
+  emit('closeModal', true)
 }
 
 const onCreateTransactionTransfer = async () => {
@@ -363,6 +364,7 @@ const onCreateTransactionTransfer = async () => {
 
   transactionStore.handleCreateTransaction(fromData)
   transactionStore.handleCreateTransaction(toDate)
+  emit('closeModal', true)
 }
 
 const onUpdateTransaction = async () => {

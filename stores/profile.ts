@@ -41,8 +41,6 @@ export const useProfile = defineStore({
       }
 
       this.token = token
-
-      this.fetchAllData()
     },
     async logout() {
       useCookie(ACCESS_TOKEN_COOKIE).value = null
@@ -75,8 +73,8 @@ export const useProfile = defineStore({
       await useTransactions().fetch()
       await useAccounts().fetch()
       await useCategories().fetch()
-      await useBudgets().fetch()
       await useGoals().fetch()
+      await useBudgets().fetch()
     },
     clearAllData() {
       useTransactions().clear()
