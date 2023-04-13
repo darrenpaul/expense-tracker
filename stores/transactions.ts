@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { format, isToday, setDate, subMonths } from 'date-fns'
+import { isToday } from 'date-fns'
 import { useNotification } from './notification'
-import { useUserSettings } from './userSettings'
+import { useAccounts } from './accounts'
 import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
@@ -10,11 +10,12 @@ import {
 import {
   createTransaction,
   deleteTransaction,
+  updateTransaction,
   viewTransactions,
 } from '~~/endpoints/transaction'
 import { totalAmountTransactions } from '~~/helpers/transactions'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
-import { TRANSACTION_COPY } from '~~/constants/copy'
+import COPY from '~~/constants/copy/transactions'
 
 export const useTransactions = defineStore({
   id: 'transactions',
@@ -42,7 +43,6 @@ export const useTransactions = defineStore({
         const pandas = state.transactions.filter(
           ({ account }) => account.includeInBalance === excluded
         )
-
         const incomesOnly = pandas.filter(
           ({ type }) => type === TRANSACTION_TYPE_INCOME.displayName
         )
@@ -87,6 +87,7 @@ export const useTransactions = defineStore({
     transactionsForToday: (state) =>
       state.transactions.filter(({ date }) => isToday(new Date(date))),
   },
+
   actions: {
     async fetch() {
       this.transactions = await viewTransactions()
@@ -94,22 +95,31 @@ export const useTransactions = defineStore({
 
     async handleCreateTransaction(data: INewTransaction) {
       await createTransaction(data)
+
       this.fetch()
 
       useNotification().addNotification({
-        message: TRANSACTION_COPY.transactionAdded,
+        message: COPY.created,
+        type: 'success',
+      })
+    },
+
+    async handleUpdateTransaction(data: ITransaction) {
+      await updateTransaction(data)
+
+      this.fetch()
+
+      useNotification().addNotification({
+        message: COPY.updated,
         type: 'success',
       })
     },
 
     async handleDeleteTransaction(transactionId: string) {
       await deleteTransaction(transactionId)
-      this.transactions = this.transactions.filter(
-        ({ id }) => id !== transactionId
-      )
 
       useNotification().addNotification({
-        message: TRANSACTION_COPY.deleted,
+        message: COPY.deleted,
         type: 'warn',
       })
     },

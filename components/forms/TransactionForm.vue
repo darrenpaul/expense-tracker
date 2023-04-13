@@ -315,7 +315,7 @@ const onCreateUpdateTransaction = async () => {
   emit('refresh')
 }
 
-const onDelete = async () => {
+const onDelete = () => {
   const transactionId = props.transaction.id
   transactionStore.handleDeleteTransaction(transactionId)
 
@@ -378,12 +378,8 @@ const onUpdateTransaction = async () => {
     amount: amount.value,
     date: date.value,
   }
-  await updateTransaction(data)
 
-  notification.addNotification({
-    message: TRANSACTION_COPY.updated,
-    type: 'success',
-  })
+  transactionStore.handleUpdateTransaction(data)
 
   emit('closeModal', true)
 }

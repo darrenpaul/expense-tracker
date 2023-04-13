@@ -2,6 +2,7 @@ export default {
   transactions: 'Transactions',
   addTransaction: 'Add Transaction',
   editTransaction: 'Edit Transaction',
+  created: 'Transaction Created',
   deleted: 'Transaction Deleted',
   updated: 'Transaction Updated',
   transfer: 'Transfer',
