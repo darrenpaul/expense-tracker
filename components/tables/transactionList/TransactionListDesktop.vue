@@ -1,7 +1,10 @@
 <template>
   <div class="transaction-list-desktop">
     <div class="card-stretch">
-      <table class="w-full">
+      <p v-if="transactions.length === 0">
+        {{ TRANSACTION_COPY.noTransactions }}
+      </p>
+      <table v-else class="w-full">
         <tr>
           <th v-if="canShowRow(TRANSACTION_COPY.date)">
             {{ TRANSACTION_COPY.date }}

@@ -112,6 +112,7 @@ export const TRANSACTION_COPY = {
   transfer: 'Transfer',
   deleted: 'Transaction Deleted',
   categoryUsage: 'Categories',
+  noTransactions: 'No transactions to view',
 }
 
 export const CATEGORY_COPY = {

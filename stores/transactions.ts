@@ -118,6 +118,10 @@ export const useTransactions = defineStore({
     async handleDeleteTransaction(transactionId: string) {
       await deleteTransaction(transactionId)
 
+      this.transactions = this.transactions.filter(
+        (transaction) => transaction.id !== transactionId
+      )
+
       useNotification().addNotification({
         message: COPY.deleted,
         type: 'warn',
