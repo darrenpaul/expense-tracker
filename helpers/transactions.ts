@@ -23,7 +23,7 @@ interface IMergeTransactionsByProperty {
 }
 interface IAmountDate {
   amount?: number
-  date?: string
+  date: string
   category?: ICategory
 }
 interface IMerged {

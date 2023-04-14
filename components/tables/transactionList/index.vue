@@ -1,15 +1,12 @@
 <template>
   <div class="transaction-list-container">
     <TransactionListDesktop
-      :transactions="props.transactions"
+      :transactions="transactions"
       :rows="props.rows"
       @on-edit="onEdit"
     />
 
-    <TransactionListMobile
-      :transactions="props.transactions"
-      @on-edit="onEdit"
-    />
+    <TransactionListMobile :transactions="transactions" @on-edit="onEdit" />
   </div>
 </template>
 

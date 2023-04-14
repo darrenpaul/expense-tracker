@@ -1,8 +1,10 @@
 .dropdown-button-container {
     /* SIZE */
-    @apply w-fit;
+    @apply w-full h-full;
     /* MARGINS AND PADDING */
+    @apply m-0 p-0;
     /* LAYOUT */
+    @apply relative;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
@@ -15,11 +17,9 @@
     /* MARGINS AND PADDING */
     @apply px-2 pb-2 m-0;
     /* LAYOUT */
-    @apply absolute flex flex-col top-0 right-0 translate-y-16 z-50;
+    @apply absolute flex flex-col top-0 left-1/2 -translate-x-1/2 translate-y-11 z-50 gap-1;
     /* BORDERS */
-    @apply rounded border border-theme-text bg-theme-navigation;
     /* COLORS */
     /* TEXT */
     /* ANIMATION AND EFFECTS */
-    @apply shadow-md;
 }

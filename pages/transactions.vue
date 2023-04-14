@@ -3,43 +3,7 @@
     <div class="transactions-container">
       <div class="transactions-card-container">
         <div class="card-stretch">
-          <Chart :options="transactionsForPeriodOptions" />
-
-          <div class="flex flex-row gap-4 justify-center">
-            <button
-              :class="
-                period === PERIODS.day.displayName
-                  ? 'button-small-active'
-                  : 'button-small'
-              "
-              :value="PERIODS.day.displayName"
-              @click="onPeriodButtonClick"
-            >
-              {{ PERIODS.day.displayName }}
-            </button>
-            <button
-              :class="
-                period === PERIODS.week.displayName
-                  ? 'button-small-active'
-                  : 'button-small'
-              "
-              :value="PERIODS.week.displayName"
-              @click="onPeriodButtonClick"
-            >
-              {{ PERIODS.week.displayName }}
-            </button>
-            <button
-              :class="
-                period === PERIODS.month.displayName
-                  ? 'button-small-active'
-                  : 'button-small'
-              "
-              :value="PERIODS.month.displayName"
-              @click="onPeriodButtonClick"
-            >
-              {{ PERIODS.month.displayName }}
-            </button>
-          </div>
+          <Chart :options="transactionsForPeriodChartOptions" />
         </div>
       </div>
 
@@ -89,11 +53,13 @@
       :heading="TRANSACTION_COPY.transactions"
       :button-text="TRANSACTION_COPY.addTransaction"
       @on-click="() => (showTransactionModal = true)"
-    />
+    >
+      <PeriodSelect :period="period" @on-period-change="period = $event" />
+    </HeadingWithButton>
 
     <TransactionList
       v-if="transactionsStore.transactions"
-      :transactions="transactionsStore.transactions"
+      :transactions="filteredTransactions"
       @on-edit="onEditTransaction"
       @change="refreshData"
     />
@@ -109,7 +75,16 @@
 </template>
 
 <script setup lang="ts">
-import { addMonths, isAfter, setDate, subDays } from 'date-fns'
+import {
+  addMonths,
+  isAfter,
+  isThisMonth,
+  isThisWeek,
+  isToday,
+  setDate,
+  subDays,
+} from 'date-fns'
+import PeriodSelect from '~~/components/buttons/PeriodSelect.vue'
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import TransactionForm from '~~/components/forms/TransactionForm.vue'
 import TransactionList from '~~/components/tables/transactionList/index.vue'
@@ -136,12 +111,13 @@ const showTransactionModal = ref(false)
 const period = ref(PERIODS.week.displayName)
 const transaction = ref({})
 
-const transactionsForPeriodOptions = computed(() => {
-  if (transactionsStore.list === null) {
+const transactionsForPeriodChartOptions = computed(() => {
+  if (transactionsStore.transactions === null) {
     return {}
   }
+
   return transactionsForPeriod({
-    transactions: transactionsStore.transactions as Array<ITransaction>,
+    transactions: filteredTransactions.value as Array<ITransaction>,
     date: monthEndDate.value,
     period: period.value,
     currency: userSettingsStore.currency,
@@ -155,6 +131,28 @@ const monthEndDate = computed(() => {
     date = setDate(addMonths(new Date(), 1), userSettingsStore.monthStart)
   }
   return date
+})
+
+const filteredTransactions = computed(() => {
+  if (period.value === PERIODS.day.displayName) {
+    return transactionsStore.transactions.filter((transaction) =>
+      isToday(new Date(transaction.date))
+    )
+  }
+
+  if (period.value === PERIODS.week.displayName) {
+    return transactionsStore.transactions.filter((transaction) =>
+      isThisWeek(new Date(transaction.date))
+    )
+  }
+
+  if (period.value === PERIODS.month.displayName) {
+    return transactionsStore.transactions.filter((transaction) =>
+      isThisMonth(new Date(transaction.date))
+    )
+  }
+
+  return transactionsStore.transactions
 })
 
 const onCloseTransactionModal = (refresh = false) => {
@@ -178,12 +176,6 @@ const onEditTransaction = (transactionId: string) => {
 
 const refreshData = () => {
   transactionsStore.fetch()
-}
-
-const onPeriodButtonClick = (event: Event) => {
-  event.preventDefault()
-  const eventValue = event.target.value
-  period.value = eventValue
 }
 </script>
 

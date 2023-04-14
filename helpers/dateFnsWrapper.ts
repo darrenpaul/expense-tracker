@@ -15,6 +15,7 @@ export const PERIODS = {
   day: { displayName: 'Day', name: 'day' },
   week: { displayName: 'Week', name: 'week' },
   month: { displayName: 'Month', name: 'month' },
+  infinity: { displayName: 'Infinity', name: 'infinity' },
 }
 
 export const weekStartEnd = (date = new Date()) => {

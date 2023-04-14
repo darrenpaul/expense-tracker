@@ -1,0 +1,21 @@
+<template>
+  <svg
+    :width="props.size"
+    :height="props.size"
+    viewBox="0 0 10 7"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M9.843 1.211C9.951 1.07 10 0.911 10 0.755C10 0.366 9.694 0 9.251 0H0.75C0.305 0 0 0.367 0 0.755C0 0.912 0.0499999 1.071 0.159 1.212C1.362 2.766 3.411 5.411 4.417 6.71C4.559 6.894 4.777 7 5.009 7C5.239 7 5.458 6.893 5.6 6.709C6.602 5.41 8.644 2.764 9.843 1.211Z"
+      :fill="props.fill"
+    />
+  </svg>
+</template>
+
+<script setup lang="ts">
+import { ICON_PROPS } from '~~/props/icon'
+const props = defineProps(ICON_PROPS)
+</script>
