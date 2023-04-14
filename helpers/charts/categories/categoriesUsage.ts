@@ -1,6 +1,11 @@
+import { barChartBaseOptions } from '../options/barChartOptions'
+import { chartEmphasisOptions } from '../options/emphasisOptions'
+import { TRANSACTION_COPY } from '~~/constants/copy'
 import { ITransaction } from '~~/types/transaction'
 import { totalAmountTransactions } from '~~/helpers/transactions'
 import { UNCATEGORISED_CATEGORY } from '~~/constants/category'
+import { currencyFormat } from '~~/helpers/formatting'
+import { useUserSettings } from '~~/stores/userSettings'
 
 export default (transactions: Array<ITransaction>, title: string) => {
   const categories = [...new Set(transactions.map(({ category }) => category))]
@@ -20,54 +25,43 @@ export default (transactions: Array<ITransaction>, title: string) => {
       }
     }
 
-    groupedById[key].value.push(
-      totalAmountTransactions(transactionsForCategory)
-    )
+    groupedById[key].value = totalAmountTransactions(transactionsForCategory)
   })
 
-  const seriesData = Object.values(groupedById)
+  const xAxisLabels = Object.values(groupedById).map(({ name }) => name)
+  const seriesData = Object.values(groupedById).map(({ value }) => value)
 
-  return {
-    chartType: 'pie',
-    title: {
-      text: title,
-      left: 'center',
-    },
-    tooltip: {
-      trigger: 'item',
-    },
-    legend: {
-      left: 'center',
-      bottom: '5%',
-      type: 'scroll',
+  const options = {
+    ...barChartBaseOptions,
+    xAxis: {
+      type: 'category',
+      data: xAxisLabels,
+      axisLabel: {
+        rotate: 45,
+      },
     },
     series: [
       {
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
+        data: seriesData,
         itemStyle: {
-          borderRadius: 10,
-          borderColor: '#fff',
+          color: () => `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+          borderRadius: [10, 10, 0, 0],
           borderWidth: 2,
         },
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)',
-          },
-          label: {
-            show: false,
-            fontSize: 14,
-            fontWeight: 'bold',
-          },
+        type: 'bar',
+        showBackground: true,
+        backgroundStyle: {
+          color: 'rgba(180, 180, 180, 0.2)',
         },
-        label: {
-          show: false,
-        },
-        data: seriesData,
+        emphasis: chartEmphasisOptions,
       },
     ],
   }
+
+  options.title.text = TRANSACTION_COPY.transactionsForPeriod
+  options.tooltip.valueFormatter = (value: number) =>
+    currencyFormat({ value, currency: useUserSettings().currency })
+  options.grid.bottom = '0%'
+
+  return options
 }

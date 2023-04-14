@@ -1,3 +1,5 @@
+import { chartEmphasisOptions } from './emphasisOptions'
+
 export interface IBarChartOptions {
   chartType: string
   title: {
@@ -15,6 +17,12 @@ export interface IBarChartOptions {
     left: string
     bottom: string
     type: string
+  }
+  grid: {
+    left: string
+    right: string
+    bottom: string
+    containLabel: boolean
   }
   xAxis?: Array<Object>
   yAxis: Array<Object>
@@ -39,6 +47,12 @@ export const barChartBaseOptions: IBarChartOptions = {
     bottom: '5%',
     type: 'scroll',
   },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '15%',
+    containLabel: true,
+  },
   yAxis: [
     {
       type: 'value',
@@ -58,6 +72,13 @@ export const createBarSeriesObject = ({
     name,
     type: 'bar',
     data,
+    itemStyle: {
+      borderRadius: [10, 10, 0, 0],
+      borderWidth: 2,
+      borderColor: '#fff',
+    },
+    emphasis: chartEmphasisOptions,
+    barMaxWidth: 20,
   }
 }
 

@@ -1,3 +1,5 @@
+import { chartEmphasisOptions } from './emphasisOptions'
+
 export interface IPieChartOptions {
   chartType: string
   title: {
@@ -41,18 +43,7 @@ export const createPieSeriesObject = (data: any) => {
       borderColor: '#fff',
       borderWidth: 2,
     },
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)',
-      },
-      label: {
-        show: false,
-        fontSize: 14,
-        fontWeight: 'bold',
-      },
-    },
+    emphasis: chartEmphasisOptions,
     label: {
       show: false,
     },

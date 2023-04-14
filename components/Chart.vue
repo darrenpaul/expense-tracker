@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div
-      ref="chartElement"
-      :style="{ width: props.width, height: props.height }"
-    />
-  </div>
+  <div
+    ref="chartElement"
+    :style="{ width: props.width, height: props.height }"
+  />
 </template>
 
 <script setup lang="ts">
