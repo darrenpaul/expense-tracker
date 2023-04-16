@@ -109,6 +109,7 @@ export default ({
   options.title.text = TRANSACTION_COPY.transactionsForPeriod
   options.tooltip.valueFormatter = (value: number) =>
     currencyFormat({ value, currency })
+  options.grid.bottom = '18%'
 
   return options
 }

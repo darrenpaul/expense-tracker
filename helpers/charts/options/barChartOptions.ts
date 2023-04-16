@@ -50,7 +50,7 @@ export const barChartBaseOptions: IBarChartOptions = {
   grid: {
     left: '3%',
     right: '4%',
-    bottom: '15%',
+    bottom: '18%',
     containLabel: true,
   },
   yAxis: [
@@ -75,7 +75,6 @@ export const createBarSeriesObject = ({
     itemStyle: {
       borderRadius: [10, 10, 0, 0],
       borderWidth: 2,
-      borderColor: '#fff',
     },
     emphasis: chartEmphasisOptions,
     barMaxWidth: 20,
