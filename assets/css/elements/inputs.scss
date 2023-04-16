@@ -11,6 +11,39 @@ form {
     /* ANIMATION AND EFFECTS */
 }
 
+input,
+select {
+    /* SIZE */
+    @apply w-full h-10;
+    /* MARGINS AND PADDING */
+    @apply px-4 py-2;
+    /* LAYOUT */
+    @apply block;
+    /* BORDERS */
+    @apply rounded md:rounded-full md:rounded-l-none;
+    /* COLORS */
+    @apply bg-secondary-a text-primary;
+    /* TEXT */
+    @apply text-base md:text-sm;
+    /* ANIMATION AND EFFECTS */
+}
+
+textarea {
+    /* SIZE */
+    @apply w-full h-16 md:h-24 resize-none;
+    /* MARGINS AND PADDING */
+    @apply p-2;
+    /* LAYOUT */
+    @apply block;
+    /* BORDERS */
+    @apply rounded md:rounded-3xl md:rounded-tl-none;
+    /* COLORS */
+    @apply bg-secondary-a text-primary;
+    /* TEXT */
+    @apply text-base md:text-sm;
+    /* ANIMATION AND EFFECTS */
+}
+
 .input-group {
     /* SIZE */
     @apply w-full;
@@ -80,37 +113,4 @@ form {
         /* ANIMATION AND EFFECTS */
         @apply peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all;
     }
-}
-
-input,
-select {
-    /* SIZE */
-    @apply w-full h-10;
-    /* MARGINS AND PADDING */
-    @apply px-4 py-2;
-    /* LAYOUT */
-    @apply block;
-    /* BORDERS */
-    @apply rounded md:rounded-full md:rounded-l-none;
-    /* COLORS */
-    @apply bg-secondary-a text-primary;
-    /* TEXT */
-    @apply text-sm;
-    /* ANIMATION AND EFFECTS */
-}
-
-textarea {
-    /* SIZE */
-    @apply w-full h-24 resize-none;
-    /* MARGINS AND PADDING */
-    @apply p-2;
-    /* LAYOUT */
-    @apply block;
-    /* BORDERS */
-    @apply rounded md:rounded-3xl md:rounded-tl-none;
-    /* COLORS */
-    @apply bg-secondary-a text-primary;
-    /* TEXT */
-    @apply text-sm;
-    /* ANIMATION AND EFFECTS */
 }
