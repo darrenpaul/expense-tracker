@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { eachDayOfInterval, format, startOfMonth, subDays } from 'date-fns'
 import { TRANSACTION_COPY } from '~~/constants/copy'
 import { currencyFormat } from '~~/helpers/formatting'
 import {
@@ -19,17 +19,23 @@ import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
-import { PERIODS, daysOfMonth, daysOfWeek } from '~~/helpers/dateFnsWrapper'
+import { PERIODS, daysOfMonth } from '~~/helpers/dateFnsWrapper'
 
 const dayIntervals = ({ date, period }: { date: Date; period: string }) => {
   if (period === PERIODS.day.displayName) {
     return []
   }
   if (period === PERIODS.week.displayName) {
-    return daysOfWeek(date)
+    return eachDayOfInterval({
+      start: subDays(date, 7),
+      end: date,
+    })
   }
   if (period === PERIODS.month.displayName) {
-    return daysOfMonth(date)
+    return eachDayOfInterval({
+      start: startOfMonth(date),
+      end: date,
+    })
   }
 
   if (period === PERIODS.infinity.displayName) {

@@ -78,11 +78,12 @@
 import {
   addMonths,
   isAfter,
-  isThisMonth,
-  isThisWeek,
   isToday,
   setDate,
   subDays,
+  isWithinInterval,
+  addDays,
+  startOfMonth,
 } from 'date-fns'
 import PeriodSelect from '~~/components/buttons/PeriodSelect.vue'
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
@@ -141,14 +142,26 @@ const filteredTransactions = computed(() => {
   }
 
   if (period.value === PERIODS.week.displayName) {
+    const startDate = subDays(new Date(), 7)
+    const endDate = addDays(new Date(), 1)
+
     return transactionsStore.transactions.filter((transaction) =>
-      isThisWeek(new Date(transaction.date))
+      isWithinInterval(new Date(transaction.date), {
+        start: startDate,
+        end: endDate,
+      })
     )
   }
 
   if (period.value === PERIODS.month.displayName) {
+    const startDate = startOfMonth(new Date())
+    const endDate = addDays(new Date(), 1)
+
     return transactionsStore.transactions.filter((transaction) =>
-      isThisMonth(new Date(transaction.date))
+      isWithinInterval(new Date(transaction.date), {
+        start: startDate,
+        end: endDate,
+      })
     )
   }
 
