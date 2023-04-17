@@ -33,11 +33,10 @@ const functionality = ref([
 const bugs = ref(['Fix issue with date picker not start from selected date'])
 
 const icons = ref([
-  'Vacation (Palm tree with umbrella)',
-  'Miscellaneous',
-  'Software',
-  'Games (xbox controller)',
-  'Car',
-  'Home',
+  'Car (From side view)',
+  'Motor Bike',
+  'Bicycle',
+  'Doctor/Hospital/Health Care',
+  'Money Transfer Icon',
 ])
 </script>

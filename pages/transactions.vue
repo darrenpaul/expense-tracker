@@ -54,6 +54,8 @@
       :button-text="TRANSACTION_COPY.addTransaction"
       @on-click="() => (showTransactionModal = true)"
     >
+      <AccountSelect :account="account" @on-account-change="account = $event" />
+
       <PeriodSelect :period="period" @on-period-change="period = $event" />
     </HeadingWithButton>
 
@@ -86,6 +88,7 @@ import {
   startOfMonth,
 } from 'date-fns'
 import PeriodSelect from '~~/components/buttons/PeriodSelect.vue'
+import AccountSelect from '~~/components/buttons/AccountSelect.vue'
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import TransactionForm from '~~/components/forms/TransactionForm.vue'
 import TransactionList from '~~/components/tables/transactionList/index.vue'
@@ -110,6 +113,7 @@ const transactionsStore = useTransactions()
 
 const showTransactionModal = ref(false)
 const period = ref(PERIODS.week.displayName)
+const account = ref('All')
 const transaction = ref({})
 
 const transactionsForPeriodChartOptions = computed(() => {
@@ -135,8 +139,17 @@ const monthEndDate = computed(() => {
 })
 
 const filteredTransactions = computed(() => {
+  const transactionsByAccount = transactionsStore.transactions.filter(
+    ({ id }) => account.value === id
+  )
+  console.log(
+    'filteredTransactions ~ transactionsByAccount:',
+    transactionsByAccount
+  )
+  console.log(account.value)
+
   if (period.value === PERIODS.day.displayName) {
-    return transactionsStore.transactions.filter((transaction) =>
+    return transactionsByAccount.filter((transaction) =>
       isToday(new Date(transaction.date))
     )
   }
@@ -145,7 +158,7 @@ const filteredTransactions = computed(() => {
     const startDate = subDays(new Date(), 7)
     const endDate = addDays(new Date(), 1)
 
-    return transactionsStore.transactions.filter((transaction) =>
+    return transactionsByAccount.filter((transaction) =>
       isWithinInterval(new Date(transaction.date), {
         start: startDate,
         end: endDate,
@@ -157,7 +170,7 @@ const filteredTransactions = computed(() => {
     const startDate = startOfMonth(new Date())
     const endDate = addDays(new Date(), 1)
 
-    return transactionsStore.transactions.filter((transaction) =>
+    return transactionsByAccount.filter((transaction) =>
       isWithinInterval(new Date(transaction.date), {
         start: startDate,
         end: endDate,

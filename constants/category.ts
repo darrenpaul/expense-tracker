@@ -26,6 +26,13 @@ import TrashRecyclingIcon from '~~/components/icons/categories/TrashRecyclingIco
 import DogCatIcon from '~~/components/icons/categories/DogCatIcon.vue'
 import PetShampooIcon from '~~/components/icons/categories/PetShampooIcon.vue'
 import PetFoodIcon from '~~/components/icons/categories/PetFoodIcon.vue'
+import GameControlIcon from '~~/components/icons/categories/GameControlIcon.vue'
+import IslandIcon from '~~/components/icons/categories/IslandIcon.vue'
+import DiscIcon from '~~/components/icons/categories/DiscIcon.vue'
+import HouseIcon from '~~/components/icons/categories/HouseIcon.vue'
+import PresentIcon from '~~/components/icons/categories/PresentIcon.vue'
+import ShoppingBagIcon from '~~/components/icons/categories/ShoppingBagIcon.vue'
+import ChargeStationIcon from '~~/components/icons/categories/ChargeStationIcon.vue'
 import MissingCategoryIcon from '~~/components/icons/categories/MissingCategoryIcon.vue'
 
 export const UNCATEGORISED_CATEGORY = 'UNCATEGORISED'
@@ -93,6 +100,16 @@ export const CATEGORY_ICONS = [
     label: 'InternetRouterIcon',
   },
   {
+    component: GameControlIcon,
+    value: 'GameControlIcon',
+    label: 'GameControlIcon',
+  },
+  {
+    component: DiscIcon,
+    value: 'DiscIcon',
+    label: 'DiscIcon',
+  },
+  {
     component: ContractFormIcon,
     value: 'ContractFormIcon',
     label: 'ContractFormIcon',
@@ -108,9 +125,19 @@ export const CATEGORY_ICONS = [
     label: 'HousePercentageIcon',
   },
   {
+    component: HouseIcon,
+    value: 'HouseIcon',
+    label: 'HouseIcon',
+  },
+  {
     component: PetrolTankIcon,
     value: 'PetrolTankIcon',
     label: 'PetrolTankIcon',
+  },
+  {
+    component: ChargeStationIcon,
+    value: 'ChargeStationIcon',
+    label: 'ChargeStationIcon',
   },
   { component: BusStopIcon, value: 'BusStopIcon', label: 'BusStopIcon' },
   { component: CarShieldIcon, value: 'CarShieldIcon', label: 'CarShieldIcon' },
@@ -154,5 +181,20 @@ export const CATEGORY_ICONS = [
     component: PetFoodIcon,
     value: 'PetFoodIcon',
     label: 'PetFoodIcon',
+  },
+  {
+    component: PresentIcon,
+    value: 'PresentIcon',
+    label: 'PresentIcon',
+  },
+  {
+    component: ShoppingBagIcon,
+    value: 'ShoppingBagIcon',
+    label: 'ShoppingBagIcon',
+  },
+  {
+    component: IslandIcon,
+    value: 'IslandIcon',
+    label: 'IslandIcon',
   },
 ]
