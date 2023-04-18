@@ -176,7 +176,7 @@ const filteredTransactions = computed(() => {
     )
   }
 
-  return transactionsStore.transactions
+  return transactionsByAccount
 })
 
 const onCloseTransactionModal = (refresh = false) => {
