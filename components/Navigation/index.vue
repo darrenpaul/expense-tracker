@@ -24,9 +24,6 @@ const route = useRoute()
 const profileStore = useProfile()
 
 const pageLinks = computed(() => {
-  if (profileStore.authenticated === true) {
-    return [HOME_ROUTE, DASHBOARD_ROUTE]
-  }
   return [HOME_ROUTE, ABOUT_ROUTE, FEATURES_ROUTE, CONTACT_ROUTE]
 })
 
