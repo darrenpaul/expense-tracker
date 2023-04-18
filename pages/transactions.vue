@@ -85,7 +85,7 @@ import {
   subDays,
   isWithinInterval,
   addDays,
-  startOfMonth,
+  subMonths,
 } from 'date-fns'
 import PeriodSelect from '~~/components/buttons/PeriodSelect.vue'
 import AccountSelect from '~~/components/buttons/AccountSelect.vue'
@@ -162,7 +162,10 @@ const filteredTransactions = computed(() => {
   }
 
   if (period.value === PERIODS.month.displayName) {
-    const startDate = startOfMonth(new Date())
+    const startDate = setDate(
+      subMonths(new Date(), 1),
+      userSettingsStore.monthStart
+    )
     const endDate = addDays(new Date(), 1)
 
     return transactionsByAccount.filter((transaction) =>

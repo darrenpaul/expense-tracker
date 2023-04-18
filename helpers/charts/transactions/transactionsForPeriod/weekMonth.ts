@@ -1,4 +1,10 @@
-import { eachDayOfInterval, format, startOfMonth, subDays } from 'date-fns'
+import {
+  eachDayOfInterval,
+  format,
+  setDate,
+  subDays,
+  subMonths,
+} from 'date-fns'
 import { TRANSACTION_COPY } from '~~/constants/copy'
 import { currencyFormat } from '~~/helpers/formatting'
 import {
@@ -20,6 +26,7 @@ import {
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
 import { PERIODS, daysOfMonth } from '~~/helpers/dateFnsWrapper'
+import { useUserSettings } from '~~/stores/userSettings'
 
 const dayIntervals = ({ date, period }: { date: Date; period: string }) => {
   if (period === PERIODS.day.displayName) {
@@ -32,8 +39,12 @@ const dayIntervals = ({ date, period }: { date: Date; period: string }) => {
     })
   }
   if (period === PERIODS.month.displayName) {
+    const startDate = setDate(
+      subMonths(new Date(), 1),
+      useUserSettings().monthStart
+    )
     return eachDayOfInterval({
-      start: startOfMonth(date),
+      start: startDate,
       end: date,
     })
   }
