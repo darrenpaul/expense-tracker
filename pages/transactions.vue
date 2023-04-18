@@ -140,13 +140,8 @@ const monthEndDate = computed(() => {
 
 const filteredTransactions = computed(() => {
   const transactionsByAccount = transactionsStore.transactions.filter(
-    ({ id }) => account.value === id
+    (t) => account.value === t.account.id || account.value === 'All'
   )
-  console.log(
-    'filteredTransactions ~ transactionsByAccount:',
-    transactionsByAccount
-  )
-  console.log(account.value)
 
   if (period.value === PERIODS.day.displayName) {
     return transactionsByAccount.filter((transaction) =>
