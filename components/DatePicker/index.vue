@@ -99,10 +99,8 @@ const props = defineProps({
   date: { type: String, default: format(new Date(), DATE_FORMAT) },
 })
 
-const today = format(new Date(), DATE_FORMAT)
-
 const selectedDay = ref(props.date)
-const activeDate = ref(today)
+const activeDate = ref(format(new Date(props.date), DATE_FORMAT))
 const showModal = ref(false)
 
 const onModalOpen = (event: Event) => {
@@ -142,6 +140,10 @@ const dayStyle = (day: Date) => {
   // HI-LIGHT SELECTED DATE
   if (isToday(day) && isSameDay(day, parseDateFormat(selectedDay.value))) {
     return 'font-bold date-picker-calendar-day-selected'
+  }
+
+  if (isSameDay(day, new Date(props.date))) {
+    return 'date-picker-calendar-day-selected'
   }
 
   // HI-LIGHT THE TODAY DATE

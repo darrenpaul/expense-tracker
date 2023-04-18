@@ -1,109 +1,204 @@
-header {
+.navigation-header {
     /* SIZE */
     @apply w-full;
     /* MARGINS AND PADDING */
-    @apply p-4;
     /* LAYOUT */
     @apply fixed z-10;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
     /* ANIMATION AND EFFECTS */
+}
 
-    .navigation-content {
-        /* SIZE */
-        @apply w-full h-fit;
-        /* MARGINS AND PADDING */
-        @apply p-2;
-        /* LAYOUT */
-        @apply relative grid grid-cols-3 items-center justify-between;
-        /* BORDERS */
-        @apply rounded border border-theme-text;
-        /* COLORS */
-        @apply bg-primary;
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
-        @apply shadow-md;
-    }
+.navigation-desktop {
+    /* SIZE */
+    @apply w-full h-fit;
+    /* MARGINS AND PADDING */
+    @apply p-2;
+    /* LAYOUT */
+    @apply hidden relative md:grid grid-cols-3 items-center justify-between;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
 
-    .navigation-brand-container {
-        /* SIZE */
-        /* MARGINS AND PADDING */
-        /* LAYOUT */
-        @apply flex items-center;
-        /* BORDERS */
-        /* COLORS */
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
-    }
+.navigation-brand-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    // @apply p-4 my-6;
+    /* LAYOUT */
+    @apply flex flex-row;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
 
     .navigation-brand-text {
         /* SIZE */
         /* MARGINS AND PADDING */
-        @apply m-0 p-0 pl-2;
+        @apply m-0 p-0 ml-2;
         /* LAYOUT */
         /* BORDERS */
         /* COLORS */
-        @apply text-secondary;
+        @apply text-primary;
         /* TEXT */
-        @apply text-2xl;
+        @apply text-lg font-normal;
         /* ANIMATION AND EFFECTS */
     }
+}
 
-    .navigation-links {
+.navigation-links {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex items-center gap-4;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .navigation-link {
         /* SIZE */
         /* MARGINS AND PADDING */
         /* LAYOUT */
-        @apply flex justify-center gap-4;
+        /* BORDERS */
+        /* COLORS */
+        @apply text-primary;
+        /* TEXT */
+        @apply text-base;
+        /* ANIMATION AND EFFECTS */
+    }
+    .active {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        /* BORDERS */
+        @apply border-b border-primary;
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}
+
+.navigation-account-container {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex items-center justify-end;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.navigation-account-dropdown-button {
+    /* SIZE */
+    @apply w-fit h-fit;
+    /* MARGINS AND PADDING */
+    @apply m-0 p-2;
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    @apply bg-transparent ring-transparent;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.navigation-mobile {
+    /* SIZE */
+    @apply w-screen h-14;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply fixed top-0 left-0 right-0 md:hidden z-50;
+    /* BORDERS */
+    /* COLORS */
+    @apply bg-primary;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .navigation-mobile-content {
+        /* SIZE */
+        @apply w-full h-full;
+        /* MARGINS AND PADDING */
+        @apply p-4;
+        /* LAYOUT */
+        @apply flex items-center justify-between;
         /* BORDERS */
         /* COLORS */
         /* TEXT */
         /* ANIMATION AND EFFECTS */
+    }
 
-        .navigation-link {
+    .navigation-mobile-menu {
+        /* SIZE */
+        @apply w-screen h-screen;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply absolute top-0 left-0 z-50;
+        /* BORDERS */
+        /* COLORS */
+        @apply bg-primary;
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+
+        .navigation-mobile-menu-header {
+            @extend .navigation-mobile-content;
             /* SIZE */
+            @apply h-14;
             /* MARGINS AND PADDING */
             /* LAYOUT */
             /* BORDERS */
             /* COLORS */
-            @apply text-theme-text;
             /* TEXT */
-            @apply text-base;
             /* ANIMATION AND EFFECTS */
         }
-        .active {
+
+        .navigation-mobile-menu-links {
             /* SIZE */
             /* MARGINS AND PADDING */
+            @apply mt-4;
             /* LAYOUT */
+            @apply flex flex-col;
             /* BORDERS */
-            @apply border-b border-secondary;
             /* COLORS */
             /* TEXT */
             /* ANIMATION AND EFFECTS */
+
+            .navigation-mobile-link-container {
+                /* SIZE */
+                /* MARGINS AND PADDING */
+                @apply py-2;
+                /* LAYOUT */
+                /* BORDERS */
+                /* COLORS */
+                /* TEXT */
+                /* ANIMATION AND EFFECTS */
+
+                &.active {
+                    /* SIZE */
+                    /* MARGINS AND PADDING */
+                    /* LAYOUT */
+                    /* BORDERS */
+                    /* COLORS */
+                    @apply bg-secondary-b;
+                    /* TEXT */
+                    /* ANIMATION AND EFFECTS */
+                }
+
+                .navigation-mobile-link {
+                    /* SIZE */
+                    /* MARGINS AND PADDING */
+                    @apply ml-4;
+                    /* LAYOUT */
+                    @apply flex items-center gap-4;
+                    /* BORDERS */
+                    /* COLORS */
+                    @apply text-secondary;
+                    /* TEXT */
+                    /* ANIMATION AND EFFECTS */
+                }
+            }
         }
-    }
-
-    .navigation-account-container {
-        /* SIZE */
-        /* MARGINS AND PADDING */
-        /* LAYOUT */
-        @apply flex items-center justify-end;
-        /* BORDERS */
-        /* COLORS */
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
-    }
-
-    .navigation-account-dropdown-button {
-        /* SIZE */
-        @apply w-fit h-fit;
-        /* MARGINS AND PADDING */
-        @apply m-0 p-2;
-        /* LAYOUT */
-        /* BORDERS */
-        /* COLORS */
-        @apply bg-transparent ring-transparent;
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
     }
 }

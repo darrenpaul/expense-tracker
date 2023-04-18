@@ -1,38 +1,47 @@
 <template>
-  <section>
-    <div class="card-stretch">
-      <h2 class="mb-4">{{ COPY.accountLogin }}</h2>
+  <div class="login-page-container">
+    <div class="login-page-image-container">
+      <img
+        class="login-page-image"
+        src="https://res.cloudinary.com/darren-paul-photography/image/upload/v1681830181/expense-tracker/login-page_kzie8r.webp"
+      />
+    </div>
 
-      <form>
-        <!-- EMAIL -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="displayName">{{ COPY.email }}</label>
-          </div>
+    <div class="login-page-content-container">
+      <div class="login-page-form-container">
+        <h2 class="mb-8">{{ COPY.accountLogin }}</h2>
+
+        <form class="max-w-sm">
+          <!-- EMAIL -->
           <input
             v-model="email"
+            class="input mb-4"
             :placeholder="COPY.emailPlaceholder"
             name="email"
             type="email"
           />
-        </div>
 
-        <!-- PASSWORD -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="displayName">{{ COPY.password }}</label>
-          </div>
+          <!-- PASSWORD -->
           <input
             v-model="password"
+            class="input mb-4"
             :placeholder="COPY.passwordPlaceHolder"
             name="password"
             type="password"
           />
-        </div>
-        <button class="button" @click="onLogin">{{ COPY.login }}</button>
-      </form>
+          <button class="button" @click="onLogin">{{ COPY.login }}</button>
+
+          <p>
+            {{ COPY.noAccount }}
+
+            <NuxtLink class="navigation-link" :to="PROFILE_REGISTER_ROUTE.path">
+              {{ PROFILE_REGISTER_ROUTE.displayName }}
+            </NuxtLink>
+          </p>
+        </form>
+      </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -47,6 +56,7 @@ import { useAccounts } from '~~/stores/accounts'
 import { useTransactions } from '~~/stores/transactions'
 import { useGoals } from '~~/stores/goals'
 import { useBudgets } from '~~/stores/budgets'
+import { PROFILE_REGISTER_ROUTE } from '~~/constants/routes/profile'
 
 const router = useRouter()
 const profile = useProfile()
@@ -106,3 +116,7 @@ const onLogin = async (event: Event) => {
   }
 }
 </script>
+
+<style lang="scss">
+@import '~~/assets/css/pages/profile/login.scss';
+</style>

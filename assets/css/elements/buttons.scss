@@ -1,16 +1,16 @@
 .button {
     /* SIZE */
-    @apply w-full md:w-44;
+    @apply w-full;
     /* MARGINS AND PADDING */
     @apply px-5 py-2 mb-2;
     /* LAYOUT */
     /* BORDERS */
-    @apply rounded-full focus:ring-4 focus:ring-blue-300 border;
+    @apply rounded-lg focus:ring-4 focus:ring-blue-300 border;
     /* COLORS */
     @apply text-secondary border-primary bg-primary;
     @apply hover:bg-primary hover:text-secondary hover:border-primary;
     /* TEXT */
-    @apply text-sm font-medium;
+    @apply font-medium;
     /* ANIMATION AND EFFECTS */
     @apply transition-all;
 }

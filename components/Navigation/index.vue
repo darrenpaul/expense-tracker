@@ -1,47 +1,40 @@
 <template>
-  <header>
-    <div class="navigation-content">
-      <!-- BRANDING -->
-      <NuxtLink class="navigation-brand-container" :to="HOME_ROUTE.path">
-        <BrandIcon :size="'3'" :fill="'var(--secondary)'" />
-        <h1 class="navigation-brand-text">
-          {{ COMMON_COPY.brand }}
-        </h1>
-      </NuxtLink>
+  <header class="navigation-header">
+    <MobileNavigation :page-links="pageLinks" :account-links="accountLinks" />
 
-      <div class="navigation-links">
-        <NuxtLink
-          v-for="{ displayName, name, path } in links"
-          :key="name"
-          :class="['navigation-link', matchRoute(path) === true && 'active']"
-          :to="path"
-        >
-          {{ displayName }}
-        </NuxtLink>
-      </div>
-    </div>
+    <DesktopNavigation :page-links="pageLinks" :account-links="accountLinks" />
   </header>
 </template>
 
 <script setup lang="ts">
+import MobileNavigation from './MobileNavigation.vue'
+import DesktopNavigation from './DesktopNavigation.vue'
 import { HOME_ROUTE } from '~~/constants/routes/home'
 import {
   PROFILE_LOGIN_ROUTE,
   PROFILE_REGISTER_ROUTE,
 } from '~~/constants/routes/profile'
-import { COMMON_COPY } from '~~/constants/copy'
 import { useProfile } from '~~/stores/profile'
-import BrandIcon from '~~/components/icons/BrandIcon.vue'
 import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
+import { ABOUT_ROUTE } from '~~/constants/routes/about'
+import { CONTACT_ROUTE } from '~~/constants/routes/contact'
+import { FEATURES_ROUTE } from '~~/constants/routes/features'
 
 const route = useRoute()
 const profileStore = useProfile()
 
-const links = computed(() => {
+const pageLinks = computed(() => {
   if (profileStore.authenticated === true) {
     return [HOME_ROUTE, DASHBOARD_ROUTE]
   }
-  return [HOME_ROUTE, PROFILE_LOGIN_ROUTE, PROFILE_REGISTER_ROUTE]
+  return [HOME_ROUTE, ABOUT_ROUTE, FEATURES_ROUTE, CONTACT_ROUTE]
+})
+
+const accountLinks = computed(() => {
+  if (profileStore.authenticated === true) {
+    return [DASHBOARD_ROUTE]
+  }
+  return [PROFILE_LOGIN_ROUTE, PROFILE_REGISTER_ROUTE]
 })
 
 const matchRoute = (path: string) => {

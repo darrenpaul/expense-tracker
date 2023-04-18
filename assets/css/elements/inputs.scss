@@ -11,20 +11,20 @@ form {
     /* ANIMATION AND EFFECTS */
 }
 
-input,
-select {
+.input,
+.select {
     /* SIZE */
     @apply w-full h-10;
     /* MARGINS AND PADDING */
-    @apply px-4 py-2;
+    @apply px-3 py-2;
     /* LAYOUT */
     @apply block;
     /* BORDERS */
-    @apply rounded md:rounded-full md:rounded-l-none;
+    @apply rounded-lg;
     /* COLORS */
     @apply bg-secondary-a text-primary;
     /* TEXT */
-    @apply text-base md:text-sm;
+    @apply text-base;
     /* ANIMATION AND EFFECTS */
 }
 
@@ -48,17 +48,13 @@ textarea {
     /* SIZE */
     @apply w-full;
     /* MARGINS AND PADDING */
-    @apply mb-3;
+    @apply mb-0;
     /* LAYOUT */
-    @apply grid grid-cols-1 md:grid-cols-3;
+    @apply grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-2;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
     /* ANIMATION AND EFFECTS */
-
-    :nth-child(2) {
-        @apply col-span-2;
-    }
 }
 
 .input-label-container {

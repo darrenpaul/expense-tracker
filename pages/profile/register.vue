@@ -1,79 +1,80 @@
 <template>
-  <section>
-    <div class="card">
-      <h2 class="mb-4">{{ COPY.accountRegister }}</h2>
+  <div class="login-page-container">
+    <div class="login-page-image-container">
+      <img
+        class="login-page-image"
+        src="https://res.cloudinary.com/darren-paul-photography/image/upload/v1681830181/expense-tracker/login-page_kzie8r.webp"
+      />
+    </div>
 
-      <form>
-        <!-- FIRST NAME -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="displayName">{{ COPY.firstName }}</label>
-          </div>
-          <input
-            v-model="firstName"
-            :placeholder="COPY.firstName"
-            name="fname"
-            type="text"
-          />
-        </div>
+    <div class="login-page-content-container">
+      <div class="login-page-form-container">
+        <h2 class="mb-4">{{ COPY.accountRegister }}</h2>
 
-        <!-- LAST NAME -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="displayName">{{ COPY.lastName }}</label>
-          </div>
-          <input
-            v-model="lastName"
-            :placeholder="COPY.lastNamePlaceholder"
-            name="lname"
-            type="text"
-          />
-        </div>
+        <form class="max-w-sm">
+          <div class="input-group">
+            <!-- FIRST NAME -->
+            <input
+              v-model="firstName"
+              class="input mb-4"
+              :placeholder="COPY.firstNamePlaceholder"
+              name="fname"
+              type="text"
+            />
 
-        <!-- EMAIL -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="displayName">{{ COPY.email }}</label>
+            <!-- LAST NAME -->
+            <input
+              v-model="lastName"
+              class="input mb-4"
+              :placeholder="COPY.lastNamePlaceholder"
+              name="lname"
+              type="text"
+            />
           </div>
+
+          <!-- EMAIL -->
           <input
             v-model="email"
+            class="input mb-4"
             :placeholder="COPY.emailPlaceholder"
             name="email"
             type="email"
           />
-        </div>
 
-        <!-- PASSWORD -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="displayName">{{ COPY.password }}</label>
-          </div>
-          <input
-            v-model="password"
-            :placeholder="COPY.passwordPlaceHolder"
-            name="password"
-            type="password"
-          />
-        </div>
-        <!-- PASSWORD REPEAT -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="displayName">{{ COPY.passwordRepeat }}</label>
-          </div>
-          <input
-            v-model="passwordConfirm"
-            :placeholder="COPY.passwordPlaceHolder"
-            name="passwordConfirm"
-            type="password"
-          />
-        </div>
+          <div class="input-group">
+            <!-- PASSWORD -->
+            <input
+              v-model="password"
+              class="input mb-4"
+              :placeholder="COPY.passwordPlaceHolder"
+              name="password"
+              type="password"
+            />
+            <!-- PASSWORD REPEAT -->
 
-        <button class="button" @click="onRegisterUser">
-          {{ COPY.register }}
-        </button>
-      </form>
+            <input
+              v-model="passwordConfirm"
+              class="input mb-4"
+              :placeholder="COPY.passwordRepeatPlaceHolder"
+              name="passwordConfirm"
+              type="password"
+            />
+          </div>
+          <button class="button" @click="onRegisterUser">
+            {{ COPY.register }}
+          </button>
+
+          <p>
+            {{ COPY.noAccount }}
+
+            <NuxtLink class="navigation-link" :to="PROFILE_LOGIN_ROUTE.path">
+              {{ PROFILE_LOGIN_ROUTE.displayName }}
+            </NuxtLink>
+          </p>
+        </form>
+      </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -91,6 +92,7 @@ import {
 } from '~~/constants/defaults/newAccount'
 import { useNotification } from '~~/stores/notification'
 import { createAccount } from '~~/endpoints/accounts'
+import { PROFILE_LOGIN_ROUTE } from '~~/constants/routes/profile'
 
 const router = useRouter()
 const profile = useProfile()

@@ -3,5 +3,5 @@ export interface ILink {
   displayName: string
   path: string
   auth: boolean
-  icon: Component
+  icon?: Component
 }

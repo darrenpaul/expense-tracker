@@ -8,6 +8,13 @@
     >
       <template #dropdownButtons>
         <button
+          :class="account === 'All' ? 'button-small-active' : 'button-small'"
+          :value="'All'"
+          @click="() => onAccountClick('All')"
+        >
+          All
+        </button>
+        <button
           v-for="{ id, name } in accountStore.accounts"
           :key="id"
           :class="account === id ? 'button-small-active' : 'button-small'"

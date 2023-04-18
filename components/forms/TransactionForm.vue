@@ -157,7 +157,6 @@ import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
 import TRANSACTION_COPY from '~~/constants/copy/transactions'
 import { DATE_FORMAT, DATE_TIME_FORMAT } from '~~/helpers/dateTimeHelper'
-import { updateTransaction, deleteTransaction } from '~~/endpoints/transaction'
 import { useProfile } from '~~/stores/profile'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
 import {
@@ -167,7 +166,6 @@ import {
   TRANSACTION_TYPE_TRANSFER,
 } from '~~/constants/transactions'
 import { useCategories } from '~~/stores/categories'
-import { useNotification } from '~~/stores/notification'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
 import { useAccounts } from '~~/stores/accounts'
 import { useTransactions } from '~~/stores/transactions'
@@ -187,7 +185,6 @@ const props = defineProps({
 const profile = useProfile()
 const accountStore = useAccounts()
 const categoryStore = useCategories()
-const notification = useNotification()
 const transactionStore = useTransactions()
 
 const transactionType = ref(
