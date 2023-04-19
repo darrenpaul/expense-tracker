@@ -1,24 +1,16 @@
 <template>
   <div>
     <div class="flex between mb-2">
-      <h2>{{ headingCopy }}</h2>
-      <button
-        v-if="!isEmpty(props.account)"
-        class="button-icon"
-        @click="onShowConfirmDialog"
-      >
-        <TrashIcon />
-      </button>
+      <h3>{{ headingCopy }}</h3>
     </div>
 
     <form>
       <!-- NAME -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="name">{{ COMMON_COPY.accountName }}</label>
-        </div>
+        <label class="label" for="name">{{ COMMON_COPY.accountName }}</label>
         <input
           v-model="name"
+          class="input"
           :placeholder="COMMON_COPY.accountNamePlaceholder"
           name="name"
           type="text"
@@ -28,11 +20,9 @@
       <template v-if="!props.account?.id">
         <!-- ADD INITIAL AMOUNT -->
         <div class="input-group">
-          <div class="input-label-container">
-            <label for="addInitialAmount">{{
-              COMMON_COPY.addInitialAmount
-            }}</label>
-          </div>
+          <label class="label" for="addInitialAmount">{{
+            COMMON_COPY.addInitialAmount
+          }}</label>
           <input
             id="addInitialAmount"
             v-model="addInitialAmount"
@@ -45,13 +35,14 @@
         <template v-if="addInitialAmount">
           <!-- AMOUNT -->
           <div class="input-group">
-            <div class="input-label-container">
-              <label for="amount">{{ COMMON_COPY.initialAmount }}</label>
-            </div>
+            <label class="label" for="amount">{{
+              COMMON_COPY.initialAmount
+            }}</label>
 
             <input
               id="amount"
               v-model="amount"
+              class="input"
               :placeholder="TRANSACTION_COPY.amountPlaceholder"
               name="amount"
               pattern="[0-9]*"
@@ -61,9 +52,9 @@
 
           <!-- CATEGORY -->
           <div class="input-group">
-            <div class="input-label-container">
-              <label for="category">{{ TRANSACTION_COPY.category }}</label>
-            </div>
+            <label class="label" for="category">{{
+              TRANSACTION_COPY.category
+            }}</label>
             <Dropdown
               v-model="category"
               :options="categoryOptions"
@@ -76,11 +67,9 @@
 
       <!-- INCLUDE IN BALANCE -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="includeInBalance">{{
-            COMMON_COPY.includeInBalance
-          }}</label>
-        </div>
+        <label class="label" for="includeInBalance">{{
+          COMMON_COPY.includeInBalance
+        }}</label>
         <input
           id="includeInBalance"
           v-model="includeInBalance"
@@ -90,7 +79,21 @@
       </div>
 
       <!-- BUTTONS -->
-      <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddUpdateAccount" />
+
+      <div>
+        <button
+          v-if="!isEmpty(props.account)"
+          class="button-warn"
+          type="button"
+          @click="onShowConfirmDialog"
+        >
+          {{ COPY.delete }}
+        </button>
+        <CancelSaveButtons
+          @on-cancel="onCancel"
+          @on-save="onAddUpdateAccount"
+        />
+      </div>
     </form>
 
     <ConfirmDialog
@@ -107,10 +110,10 @@ import { isEmpty } from 'lodash-es'
 import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 // COMPONENTS
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
-import TrashIcon from '~~/components/icons/TrashIcon.vue'
 // CONSTANTS
 import { TRANSACTION_TYPE_INCOME } from '~~/constants/transactions'
 import { COMMON_COPY, TRANSACTION_COPY } from '~~/constants/copy'
+import COPY from '~~/constants/copy/account'
 // HELPERS
 import { validateName, validateAmount } from '~~/helpers/validators'
 import { DATE_TIME_FORMAT } from '~~/helpers/dateTimeHelper'

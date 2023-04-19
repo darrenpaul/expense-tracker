@@ -1,36 +1,28 @@
 <template>
   <div>
     <div class="flex between mb-2">
-      <h2>{{ headingCopy }}</h2>
-
-      <button
-        v-if="!isEmpty(props.budget)"
-        class="button-icon"
-        @click="onShowConfirmDialog"
-      >
-        <TrashIcon />
-      </button>
+      <h3>{{ headingCopy }}</h3>
     </div>
 
     <form>
       <!-- NAME -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="name">{{ BUDGET_COPY.budgetName }}</label>
-        </div>
+        <label class="label" for="budgetName">{{
+          BUDGET_COPY.budgetName
+        }}</label>
+
         <input
           v-model="name"
+          class="input"
           :placeholder="BUDGET_COPY.budgetNamePlaceholder"
-          name="name"
+          name="budgetName"
           type="text"
         />
       </div>
 
       <!-- CATEGORY -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="category">{{ BUDGET_COPY.category }}</label>
-        </div>
+        <label class="label" for="category">{{ BUDGET_COPY.category }}</label>
 
         <Dropdown
           v-model="categoryIds"
@@ -43,13 +35,12 @@
 
       <!-- AMOUNT -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="amount">{{ BUDGET_COPY.amount }}</label>
-        </div>
+        <label class="label" for="amount">{{ BUDGET_COPY.amount }}</label>
 
         <input
           id="amount"
           v-model="amount"
+          class="input"
           :placeholder="BUDGET_COPY.amountPlaceholder"
           name="amount"
           pattern="[0-9]*"
@@ -58,37 +49,41 @@
       </div>
 
       <!-- START DATE -->
-      <div class="input-group">
-        <div class="input-label-container">
-          <label for="datePickerStartDate">{{ BUDGET_COPY.startDate }}</label>
-        </div>
-        <DatePicker
-          id="datePickerStartDate"
-          :date="startDate"
-          @on-change="startDate = $event"
-        />
-      </div>
+      <div class="input-groups">
+        <div class="input-group">
+          <label class="label" for="datePickerStartDate">{{
+            BUDGET_COPY.startDate
+          }}</label>
 
-      <!-- END DATE -->
-      <div class="input-group">
-        <div class="input-label-container">
-          <label for="datePickerEndDate">{{ BUDGET_COPY.endDate }}</label>
+          <DatePicker
+            id="datePickerStartDate"
+            :date="startDate"
+            @on-change="startDate = $event"
+          />
         </div>
-        <DatePicker
-          id="datePickerEndDate"
-          :date="endDate"
-          @on-change="endDate = $event"
-        />
+
+        <!-- END DATE -->
+        <div class="input-group">
+          <label class="label" for="datePickerEndDate">{{
+            BUDGET_COPY.endDate
+          }}</label>
+
+          <DatePicker
+            id="datePickerEndDate"
+            :date="endDate"
+            @on-change="endDate = $event"
+          />
+        </div>
       </div>
 
       <!-- NOTE -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="note">{{ BUDGET_COPY.note }}</label>
-        </div>
+        <label class="label" for="note">{{ BUDGET_COPY.note }}</label>
+
         <textarea
           id="note"
           v-model="note"
+          class="textarea"
           :placeholder="BUDGET_COPY.notePlaceholder"
           name="note"
           type="text"
@@ -96,6 +91,15 @@
       </div>
 
       <!-- BUTTONS -->
+      <button
+        v-if="!isEmpty(props.budget)"
+        class="button-warn"
+        type="button"
+        @click="onShowConfirmDialog"
+      >
+        {{ BUDGET_COPY.delete }}
+      </button>
+
       <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddUpdateBudget" />
     </form>
 

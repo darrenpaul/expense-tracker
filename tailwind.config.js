@@ -32,6 +32,7 @@ module.exports = {
       },
       zIndex: {
         modal: '999',
+        notification: '9999',
       },
     },
   },

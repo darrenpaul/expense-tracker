@@ -121,7 +121,6 @@ const onLogin = async (event: Event) => {
       message: error?.message,
       type: 'error',
     })
-  } finally {
     isRequesting.value = false
   }
 }

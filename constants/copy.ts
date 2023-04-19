@@ -121,7 +121,7 @@ export const CATEGORY_COPY = {
   editCategory: 'Edit Category',
   category: 'Category',
   categoryPlaceholder: 'Gift',
-  delete: 'Delete',
+  delete: 'Delete category',
   edit: 'Edit',
   categoryNameError: 'Category requires a name',
   name: 'Name',

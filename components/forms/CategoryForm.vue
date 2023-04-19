@@ -1,14 +1,7 @@
 <template>
   <div class="category-form-container">
     <div class="flex between mb-2">
-      <h2>{{ headingCopy }}</h2>
-      <button
-        v-if="!isEmpty(props.category)"
-        class="button-icon"
-        @click="onCategoryDelete"
-      >
-        <TrashIcon />
-      </button>
+      <h3>{{ headingCopy }}</h3>
     </div>
 
     <form>
@@ -20,11 +13,11 @@
 
       <!-- NAME -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="name">{{ CATEGORY_COPY.name }}</label>
-        </div>
+        <label class="label" for="name">{{ CATEGORY_COPY.name }}</label>
+
         <input
           v-model="name"
+          class="input"
           :placeholder="CATEGORY_COPY.categoryPlaceholder"
           name="name"
           type="text"
@@ -33,9 +26,7 @@
 
       <!-- ICON -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label>{{ CATEGORY_COPY.icon }}</label>
-        </div>
+        <label class="label">{{ CATEGORY_COPY.icon }}</label>
 
         <div class="category-form-icon-container">
           <button
@@ -53,7 +44,17 @@
       </div>
 
       <!-- BUTTONS -->
-      <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddCategory" />
+      <div>
+        <button
+          v-if="!isEmpty(props.category)"
+          class="button-warn"
+          type="button"
+          @click="onCategoryDelete"
+        >
+          {{ CATEGORY_COPY.delete }}
+        </button>
+        <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddCategory" />
+      </div>
     </form>
   </div>
 </template>

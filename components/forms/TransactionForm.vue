@@ -167,7 +167,6 @@ import {
   TRANSACTION_TYPE_TRANSFER,
 } from '~~/constants/transactions'
 import { useCategories } from '~~/stores/categories'
-import TrashIcon from '~~/components/icons/TrashIcon.vue'
 import { useAccounts } from '~~/stores/accounts'
 import { useTransactions } from '~~/stores/transactions'
 import {
@@ -231,24 +230,6 @@ const fieldsValid = () => {
   // TRANSACTION ACCOUNT
   if (validateName(account.value, COPY.accountNameError) === false) {
     return false
-  }
-
-  if (transactionType.value === TRANSACTION_TYPE_TRANSFER.displayName) {
-    // TRANSACTION TRANSFER ACCOUNT
-    if (validateName(accountTransfer.value, COPY.accountError) === false) {
-      return false
-    }
-
-    // TRANSACTION TRANSFER ACCOUNT
-    if (
-      validateUnique(
-        account.value,
-        accountTransfer.value,
-        COPY.accountTransferMatchError
-      ) === false
-    ) {
-      return false
-    }
   }
 
   // TRANSACTION NAME

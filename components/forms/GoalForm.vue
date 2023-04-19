@@ -1,24 +1,18 @@
 <template>
   <div>
     <div class="flex between mb-2">
-      <h2>{{ headingCopy }}</h2>
-      <button
-        v-if="!isEmpty(props.goal)"
-        class="button-icon"
-        @click="onShowConfirmDialog"
-      >
-        <TrashIcon />
-      </button>
+      <h3>{{ headingCopy }}</h3>
     </div>
 
     <form>
       <!-- NAME -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="name">{{ COMMON_COPY.goalName }}</label>
-        </div>
+        <label class="label" for="name">{{ COMMON_COPY.goalName }}</label>
+
         <input
+          id="name"
           v-model="name"
+          class="input"
           :placeholder="COMMON_COPY.goalNamePlaceholder"
           name="name"
           type="text"
@@ -27,43 +21,53 @@
 
       <!-- AMOUNT -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
-        </div>
+        <label class="label" for="amount">{{ TRANSACTION_COPY.amount }}</label>
+
         <input
           id="amount"
           v-model="amount"
           :placeholder="TRANSACTION_COPY.amountPlaceholder"
           name="amount"
           pattern="[0-9]*"
+          class="input"
           type="text"
         />
       </div>
 
       <!-- DATE PICKER -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="datePicker">{{ COMMON_COPY.targetDate }}</label>
-        </div>
+        <label class="label" for="datePicker">{{
+          COMMON_COPY.targetDate
+        }}</label>
         <DatePicker id="datePicker" :date="date" @on-change="date = $event" />
       </div>
 
       <!-- NOTE -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="note">{{ TRANSACTION_COPY.note }}</label>
-        </div>
+        <label class="label" for="note">{{ TRANSACTION_COPY.note }}</label>
+
         <textarea
           id="note"
           v-model="note"
           :placeholder="TRANSACTION_COPY.notePlaceholder"
           name="note"
+          class="textarea"
           type="text"
         />
       </div>
 
-      <!-- BUTTONS -->
-      <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddUpdateGoal" />
+      <div>
+        <button
+          v-if="!isEmpty(props.goal)"
+          class="button-warn"
+          type="button"
+          @click="onShowConfirmDialog"
+        >
+          {{ COPY.delete }}
+        </button>
+        <!-- BUTTONS -->
+        <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddUpdateGoal" />
+      </div>
     </form>
 
     <ConfirmDialog
@@ -80,9 +84,9 @@ import { isEmpty } from 'lodash-es'
 import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 // COMPONENTS
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
-import TrashIcon from '~~/components/icons/TrashIcon.vue'
 // CONSTANTS
 import { COMMON_COPY, TRANSACTION_COPY } from '~~/constants/copy'
+import COPY from '~~/constants/copy/goals'
 import { validateName } from '~~/helpers/validators'
 import { DATE_TIME_FORMAT } from '~~/helpers/dateTimeHelper'
 import { useProfile } from '~~/stores/profile'

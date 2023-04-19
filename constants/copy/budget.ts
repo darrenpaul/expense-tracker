@@ -2,6 +2,7 @@ export default {
   budgets: 'Budgets',
   addBudget: 'Add Budget',
   editBudget: 'Edit Budget',
+  delete: 'Delete budget',
   edit: 'Edit',
   startDate: 'Start Date',
   endDate: 'End Date',

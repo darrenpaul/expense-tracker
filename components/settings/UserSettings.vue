@@ -5,11 +5,13 @@
     <form>
       <!-- DEFAULT CURRENCY -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="defaultCurrency">{{ COPY.defaultCurrency }}</label>
-        </div>
+        <label class="label" for="defaultCurrency">{{
+          COPY.defaultCurrency
+        }}</label>
+
         <input
           v-model="defaultCurrency"
+          class="input"
           :placeholder="COPY.defaultCurrencyPlaceholder"
           name="defaultCurrency"
           type="text"
@@ -18,11 +20,11 @@
 
       <!-- MONTH START -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="monthStart">{{ COPY.monthStart }}</label>
-        </div>
+        <label class="label" for="monthStart">{{ COPY.monthStart }}</label>
+
         <input
           v-model="monthStart"
+          class="input"
           :placeholder="COPY.monthStartPlaceholder"
           name="monthStart"
           pattern="[0-9]*"

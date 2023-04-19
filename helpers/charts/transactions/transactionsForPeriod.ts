@@ -37,9 +37,6 @@ export default ({
   if (period === PERIODS.infinity.displayName) {
     return infinityChart({
       transactions,
-      date,
-      period,
-      balance: accountBalance,
       currency,
     })
   }
