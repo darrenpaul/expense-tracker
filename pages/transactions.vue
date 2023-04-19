@@ -175,7 +175,6 @@ const filteredTransactions = computed(() => {
       })
     )
   }
-
   return transactionsByAccount
 })
 

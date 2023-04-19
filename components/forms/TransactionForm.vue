@@ -1,14 +1,7 @@
 <template>
   <div>
     <div class="flex between mb-2">
-      <h2>{{ headingCopy }}</h2>
-      <button
-        v-if="!isEmpty(props.transaction)"
-        class="button-icon"
-        @click="onShowConfirmDialog"
-      >
-        <TrashIcon />
-      </button>
+      <h3>{{ headingCopy }}</h3>
     </div>
 
     <form>
@@ -22,124 +15,132 @@
       <template
         v-if="transactionType !== TRANSACTION_TYPE_TRANSFER.displayName"
       >
-        <!-- ACCOUNT -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="account">{{ TRANSACTION_COPY.account }}</label>
-          </div>
-          <Dropdown
-            v-model="account"
-            :options="accountOptions"
-            :selected="account"
-            @selection-updated="account = $event"
-          />
-        </div>
-
-        <!-- CATEGORY -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="category">{{ TRANSACTION_COPY.category }}</label>
+        <div class="input-groups">
+          <!-- ACCOUNT -->
+          <div class="input-group">
+            <label class="label" for="account">{{ COPY.account }}</label>
+            <Dropdown
+              v-model="account"
+              :options="accountOptions"
+              :selected="account"
+              @selection-updated="account = $event"
+            />
           </div>
 
-          <Dropdown
-            v-model="category"
-            :options="categoryOptions"
-            :selected="category"
-            @selection-updated="category = $event"
-          />
+          <!-- CATEGORY -->
+          <div class="input-group">
+            <label class="label" for="category">{{ COPY.category }}</label>
+
+            <Dropdown
+              v-model="category"
+              :options="categoryOptions"
+              :selected="category"
+              @selection-updated="category = $event"
+            />
+          </div>
         </div>
       </template>
+
       <!-- ACCOUNT TRANSFER -->
       <template
         v-if="transactionType === TRANSACTION_TYPE_TRANSFER.displayName"
       >
-        <!-- FROM ACCOUNT -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="account">{{ TRANSACTION_COPY.fromAccount }}</label>
+        <div class="input-groups">
+          <!-- FROM ACCOUNT -->
+          <div class="input-group">
+            <label class="label" for="account">{{ COPY.fromAccount }}</label>
+
+            <Dropdown
+              v-model="account"
+              :options="accountOptions"
+              :selected="account"
+              @selection-updated="account = $event"
+            />
           </div>
 
-          <Dropdown
-            v-model="account"
-            :options="accountOptions"
-            :selected="account"
-            @selection-updated="account = $event"
-          />
-        </div>
-
-        <!-- TO ACCOUNT -->
-        <div class="input-group">
-          <div class="input-label-container">
-            <label for="accountTransfer">
-              {{ TRANSACTION_COPY.toAccount }}
+          <!-- TO ACCOUNT -->
+          <div class="input-group">
+            <label class="label" for="accountTransfer">
+              {{ COPY.toAccount }}
             </label>
-          </div>
 
-          <Dropdown
-            v-model="accountTransfer"
-            :options="accountOptions"
-            :selected="accountTransfer"
-            @selection-updated="accountTransfer = $event"
-          />
+            <Dropdown
+              v-model="accountTransfer"
+              :options="accountOptions"
+              :selected="accountTransfer"
+              @selection-updated="accountTransfer = $event"
+            />
+          </div>
         </div>
       </template>
 
-      <!-- NAME -->
-      <div class="input-group">
-        <div class="input-label-container">
-          <label for="name">{{ TRANSACTION_COPY.name }}</label>
+      <div class="input-groups">
+        <!-- NAME -->
+        <div class="input-group">
+          <label class="label" for="name">{{ COPY.name }}</label>
+          <input
+            id="name"
+            v-model="name"
+            class="input"
+            :placeholder="COPY.namePlaceholder"
+            name="name"
+            type="text"
+          />
         </div>
-        <input
-          id="name"
-          v-model="name"
-          :placeholder="TRANSACTION_COPY.namePlaceholder"
-          name="name"
-          type="text"
-        />
-      </div>
 
-      <!-- AMOUNT -->
-      <div class="input-group">
-        <div class="input-label-container">
-          <label for="amount">{{ TRANSACTION_COPY.amount }}</label>
+        <!-- AMOUNT -->
+        <div class="input-group">
+          <label class="label" for="amount">{{ COPY.amount }}</label>
+
+          <input
+            id="amount"
+            v-model="amount"
+            class="input"
+            :placeholder="COPY.amountPlaceholder"
+            name="amount"
+            pattern="[0-9]*"
+            type="text"
+          />
         </div>
-        <input
-          id="amount"
-          v-model="amount"
-          :placeholder="TRANSACTION_COPY.amountPlaceholder"
-          name="amount"
-          pattern="[0-9]*"
-          type="text"
-        />
       </div>
 
       <!-- DATE PICKER -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="datePicker">{{ TRANSACTION_COPY.date }}</label>
-        </div>
+        <label class="label" for="datePicker">{{ COPY.date }}</label>
+
         <DatePicker id="datePicker" :date="date" @on-change="date = $event" />
       </div>
 
       <!-- NOTE -->
       <div class="input-group">
-        <div class="input-label-container">
-          <label for="note">{{ TRANSACTION_COPY.note }}</label>
-        </div>
+        <label class="label" for="note">{{ COPY.note }}</label>
+
         <textarea
           id="note"
           v-model="note"
-          :placeholder="TRANSACTION_COPY.notePlaceholder"
+          class="textarea"
+          :placeholder="COPY.notePlaceholder"
           name="note"
           type="text"
         />
       </div>
 
-      <!-- BUTTONS -->
-      <CancelSaveButtons
-        @on-cancel="onCancel"
-        @on-save="onCreateUpdateTransaction"
-      />
+      <div>
+        <button
+          v-if="!isEmpty(props.transaction)"
+          class="button-warn"
+          type="button"
+          @click="onShowConfirmDialog"
+        >
+          {{ COPY.delete }}
+        </button>
+
+        <!-- BUTTONS -->
+        <CancelSaveButtons
+          @on-cancel="onCancel"
+          @on-save="onCreateUpdateTransaction"
+        />
+      </div>
     </form>
 
     <ConfirmDialog
@@ -155,7 +156,7 @@ import { format } from 'date-fns'
 import { isEmpty } from 'lodash-es'
 import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
-import TRANSACTION_COPY from '~~/constants/copy/transactions'
+import COPY from '~~/constants/copy/transactions'
 import { DATE_FORMAT, DATE_TIME_FORMAT } from '~~/helpers/dateTimeHelper'
 import { useProfile } from '~~/stores/profile'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
@@ -203,9 +204,9 @@ const showConfirmDialog = ref(false)
 
 const headingCopy = computed(() => {
   if (isEmpty(props.transaction)) {
-    return TRANSACTION_COPY.addTransaction
+    return COPY.addTransaction
   }
-  return TRANSACTION_COPY.editTransaction
+  return COPY.editTransaction
 })
 
 const categoryOptions = computed(() => {
@@ -228,18 +229,13 @@ const fieldsValid = () => {
   if (!profile.userId) return false
 
   // TRANSACTION ACCOUNT
-  if (
-    validateName(account.value, TRANSACTION_COPY.accountNameError) === false
-  ) {
+  if (validateName(account.value, COPY.accountNameError) === false) {
     return false
   }
 
   if (transactionType.value === TRANSACTION_TYPE_TRANSFER.displayName) {
     // TRANSACTION TRANSFER ACCOUNT
-    if (
-      validateName(accountTransfer.value, TRANSACTION_COPY.accountError) ===
-      false
-    ) {
+    if (validateName(accountTransfer.value, COPY.accountError) === false) {
       return false
     }
 
@@ -248,7 +244,7 @@ const fieldsValid = () => {
       validateUnique(
         account.value,
         accountTransfer.value,
-        TRANSACTION_COPY.accountTransferMatchError
+        COPY.accountTransferMatchError
       ) === false
     ) {
       return false
@@ -338,7 +334,7 @@ const onCreateTransaction = () => {
 }
 
 const onCreateTransactionTransfer = async () => {
-  const transactionName = `${TRANSACTION_COPY.transfer} ${name.value}`
+  const transactionName = `${COPY.transfer} ${name.value}`
   const fromData: INewTransaction = {
     userId: profile.userId,
     type: TRANSACTION_TYPE_EXPENSE.displayName,

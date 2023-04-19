@@ -9,9 +9,7 @@
       <template #dropdownButtons>
         <button
           :class="
-            period === PERIODS.day.displayName
-              ? 'button-small-active'
-              : 'button-small'
+            period === PERIODS.day.displayName ? 'button' : 'button-secondary'
           "
           :value="PERIODS.day.displayName"
           @click="() => onPeriodClick(PERIODS.day.displayName)"
@@ -21,9 +19,7 @@
 
         <button
           :class="
-            period === PERIODS.week.displayName
-              ? 'button-small-active'
-              : 'button-small'
+            period === PERIODS.week.displayName ? 'button' : 'button-secondary'
           "
           :value="PERIODS.week.displayName"
           @click="() => onPeriodClick(PERIODS.week.displayName)"
@@ -33,9 +29,7 @@
 
         <button
           :class="
-            period === PERIODS.month.displayName
-              ? 'button-small-active'
-              : 'button-small'
+            period === PERIODS.month.displayName ? 'button' : 'button-secondary'
           "
           :value="PERIODS.month.displayName"
           @click="() => onPeriodClick(PERIODS.month.displayName)"
@@ -46,8 +40,8 @@
         <button
           :class="
             period === PERIODS.infinity.displayName
-              ? 'button-small-active'
-              : 'button-small'
+              ? 'button'
+              : 'button-secondary'
           "
           :value="PERIODS.infinity.displayName"
           @click="() => onPeriodClick(PERIODS.infinity.displayName)"

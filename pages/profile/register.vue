@@ -1,67 +1,89 @@
 <template>
   <div class="login-page-container">
     <div class="login-page-image-container">
-      <img
-        class="login-page-image"
-        src="https://res.cloudinary.com/darren-paul-photography/image/upload/v1681830181/expense-tracker/login-page_kzie8r.webp"
-      />
+      <LoginRegister />
     </div>
 
     <div class="login-page-content-container">
       <div class="login-page-form-container">
         <h2 class="mb-4">{{ COPY.accountRegister }}</h2>
 
-        <form class="max-w-sm">
-          <div class="input-group">
-            <!-- FIRST NAME -->
-            <input
-              v-model="firstName"
-              class="input mb-4"
-              :placeholder="COPY.firstNamePlaceholder"
-              name="fname"
-              type="text"
-            />
+        <form class="form max-w-sm">
+          <!-- FIRST NAME -->
+          <div class="input-groups">
+            <div class="input-group">
+              <label class="label" for="fname">{{ COPY.firstName }}</label>
+
+              <input
+                v-model="firstName"
+                class="input"
+                :placeholder="COPY.firstNamePlaceholder"
+                name="fname"
+                type="text"
+              />
+            </div>
 
             <!-- LAST NAME -->
-            <input
-              v-model="lastName"
-              class="input mb-4"
-              :placeholder="COPY.lastNamePlaceholder"
-              name="lname"
-              type="text"
-            />
+            <div class="input-group">
+              <label class="label" for="lname">{{ COPY.lastName }}</label>
+
+              <input
+                v-model="lastName"
+                class="input"
+                :placeholder="COPY.lastNamePlaceholder"
+                name="lname"
+                type="text"
+              />
+            </div>
           </div>
 
           <!-- EMAIL -->
-          <input
-            v-model="email"
-            class="input mb-4"
-            :placeholder="COPY.emailPlaceholder"
-            name="email"
-            type="email"
-          />
-
           <div class="input-group">
-            <!-- PASSWORD -->
-            <input
-              v-model="password"
-              class="input mb-4"
-              :placeholder="COPY.passwordPlaceHolder"
-              name="password"
-              type="password"
-            />
-            <!-- PASSWORD REPEAT -->
+            <label class="label" for="email">{{ COPY.email }}</label>
 
             <input
-              v-model="passwordConfirm"
-              class="input mb-4"
-              :placeholder="COPY.passwordRepeatPlaceHolder"
-              name="passwordConfirm"
-              type="password"
+              v-model="email"
+              class="input"
+              :placeholder="COPY.emailPlaceholder"
+              name="email"
+              type="email"
             />
           </div>
+
+          <div class="input-groups">
+            <!-- PASSWORD -->
+            <div class="input-group">
+              <label class="label" for="email">{{ COPY.password }}</label>
+              <input
+                v-model="password"
+                class="input"
+                :placeholder="COPY.passwordPlaceHolder"
+                name="password"
+                type="password"
+              />
+            </div>
+
+            <!-- PASSWORD REPEAT -->
+            <div class="input-group">
+              <label class="label" for="passwordConfirm">{{
+                COPY.passwordRepeat
+              }}</label>
+
+              <input
+                v-model="passwordConfirm"
+                class="input"
+                :placeholder="COPY.passwordPlaceHolder"
+                name="passwordConfirm"
+                type="password"
+              />
+            </div>
+          </div>
+
           <button class="button" @click="onRegisterUser">
-            {{ COPY.register }}
+            <template v-if="isRequesting === false">
+              {{ COPY.register }}
+            </template>
+            <CircleSpinner v-else :fill="'var(--secondary)'" />
           </button>
 
           <p>
@@ -93,6 +115,8 @@ import {
 import { useNotification } from '~~/stores/notification'
 import { createAccount } from '~~/endpoints/accounts'
 import { PROFILE_LOGIN_ROUTE } from '~~/constants/routes/profile'
+import LoginRegister from '~~/components/illustrations/LoginRegister.vue'
+import CircleSpinner from '~~/components/spinners/CircleSpinner.vue'
 
 const router = useRouter()
 const profile = useProfile()
@@ -103,6 +127,7 @@ const lastName = ref('')
 const email = ref('')
 const password = ref('')
 const passwordConfirm = ref('')
+const isRequesting = ref(false)
 
 onMounted(() => {
   if (profile.authenticated === true) {
@@ -170,6 +195,8 @@ const fieldsValid = () => {
 const onRegisterUser = async (event: Event) => {
   event.preventDefault()
 
+  if (isRequesting.value === true) return
+
   if (fieldsValid() === false) {
     return false
   }
@@ -182,6 +209,8 @@ const onRegisterUser = async (event: Event) => {
     password: password.value,
     passwordConfirm: passwordConfirm.value,
   }
+
+  isRequesting.value = true
 
   try {
     const { id } = await createUserAccount(userData)
@@ -208,6 +237,8 @@ const onRegisterUser = async (event: Event) => {
       message: error.message,
       type: 'error',
     })
+  } finally {
+    isRequesting.value = false
   }
 }
 </script>

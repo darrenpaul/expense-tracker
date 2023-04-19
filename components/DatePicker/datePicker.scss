@@ -10,17 +10,12 @@
 
     .date-picker-button {
         /* SIZE */
-        @apply w-full h-10;
         /* MARGINS AND PADDING */
-        @apply px-2;
         /* LAYOUT */
         @apply flex items-center gap-4;
         /* BORDERS */
-        @apply rounded md:rounded-r-full;
         /* COLORS */
-        @apply bg-secondary-a text-primary;
         /* TEXT */
-        @apply text-sm;
         /* ANIMATION AND EFFECTS */
         @apply cursor-pointer;
     }

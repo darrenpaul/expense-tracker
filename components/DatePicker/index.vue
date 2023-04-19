@@ -1,7 +1,7 @@
 <template>
   <div class="date-picker-container">
     <!-- DISPLAY DATES FROM & TO -->
-    <div class="date-picker-button" @click="onModalOpen">
+    <div class="input date-picker-button" @click="onModalOpen">
       <CalendarIcon />
       <p>
         {{ displayDate() }}

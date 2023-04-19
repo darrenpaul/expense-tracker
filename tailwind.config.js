@@ -30,6 +30,9 @@ module.exports = {
       width: {
         'screen-half': '50vw',
       },
+      zIndex: {
+        modal: '999',
+      },
     },
   },
   plugins: [],

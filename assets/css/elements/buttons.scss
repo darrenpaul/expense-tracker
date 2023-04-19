@@ -1,14 +1,15 @@
 .button {
     /* SIZE */
-    @apply w-full;
+    @apply w-full h-10;
     /* MARGINS AND PADDING */
     @apply px-5 py-2 mb-2;
     /* LAYOUT */
+    @apply flex justify-center items-center;
     /* BORDERS */
     @apply rounded-lg focus:ring-4 focus:ring-blue-300 border;
     /* COLORS */
     @apply text-secondary border-primary bg-primary;
-    @apply hover:bg-primary hover:text-secondary hover:border-primary;
+    @apply hover:bg-secondary-c hover:text-primary hover:border-primary;
     /* TEXT */
     @apply font-medium;
     /* ANIMATION AND EFFECTS */
@@ -16,13 +17,13 @@
 }
 
 .button-small {
+    @extend .button;
     /* SIZE */
-    @apply w-44 h-fit;
+    @apply h-fit;
     /* MARGINS AND PADDING */
     @apply p-0;
     /* LAYOUT */
     /* BORDERS */
-    @apply rounded-full focus:ring-4 focus:ring-blue-300 border;
     /* COLORS */
     @apply text-primary border-primary bg-secondary;
     @apply hover:bg-primary hover:text-secondary hover:border-primary;
@@ -33,20 +34,16 @@
 }
 
 .button-small-active {
+    @extend .button-small;
     /* SIZE */
-    @apply w-44 h-fit;
     /* MARGINS AND PADDING */
-    @apply p-0;
     /* LAYOUT */
     /* BORDERS */
-    @apply rounded-full focus:ring-4 focus:ring-blue-300 border;
     /* COLORS */
     @apply text-secondary border-primary bg-primary;
     @apply hover:bg-primary hover:text-secondary hover:border-primary;
     /* TEXT */
-    @apply text-sm font-medium;
     /* ANIMATION AND EFFECTS */
-    @apply transition-all;
 }
 
 .button-warn {
@@ -70,7 +67,6 @@
     /* BORDERS */
     /* COLORS */
     @apply text-primary border-primary bg-secondary;
-    @apply hover:bg-secondary hover:text-primary hover:border-primary;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
 }

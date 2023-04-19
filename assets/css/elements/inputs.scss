@@ -4,7 +4,7 @@ form {
     /* MARGINS AND PADDING */
     @apply mx-auto;
     /* LAYOUT */
-    @apply flex flex-col;
+    @apply flex flex-col gap-4;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
@@ -22,25 +22,22 @@ form {
     /* BORDERS */
     @apply rounded-lg;
     /* COLORS */
-    @apply bg-secondary-a text-primary;
+    @apply bg-secondary text-primary;
     /* TEXT */
     @apply text-base;
     /* ANIMATION AND EFFECTS */
+    @apply drop-shadow;
 }
 
-textarea {
+.textarea {
+    @extend .input;
     /* SIZE */
-    @apply w-full h-16 md:h-24 resize-none;
+    @apply h-16 md:h-24 resize-none;
     /* MARGINS AND PADDING */
-    @apply p-2;
     /* LAYOUT */
-    @apply block;
     /* BORDERS */
-    @apply rounded md:rounded-3xl md:rounded-tl-none;
     /* COLORS */
-    @apply bg-secondary-a text-primary;
     /* TEXT */
-    @apply text-base md:text-sm;
     /* ANIMATION AND EFFECTS */
 }
 
@@ -48,9 +45,19 @@ textarea {
     /* SIZE */
     @apply w-full;
     /* MARGINS AND PADDING */
-    @apply mb-0;
     /* LAYOUT */
-    @apply grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-2;
+    @apply flex flex-col gap-1;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.input-groups {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply grid grid-cols-2 gap-2;
     /* BORDERS */
     /* COLORS */
     /* TEXT */

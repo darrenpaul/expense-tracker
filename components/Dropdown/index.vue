@@ -8,7 +8,11 @@
     />
 
     <!-- INPUT -->
-    <div id="dropdown-input" class="dropdown-input" @click="dropdownClick">
+    <div
+      id="dropdown-input"
+      class="input dropdown-input"
+      @click="dropdownClick"
+    >
       <div v-if="multiple === true" class="dropdown-tags">
         <button
           v-for="{ value, label } in selectionTags"
@@ -21,8 +25,10 @@
         </button>
       </div>
 
-      <div v-if="multiple === false">
-        <p class="dropdown-text">{{ singleLabelText }}</p>
+      <div v-if="multiple === false" class="pointer-events-none">
+        <p class="dropdown-text pointer-events-none">
+          {{ singleLabelText }}
+        </p>
       </div>
 
       <div class="pointer-events-none mr-2">

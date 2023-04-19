@@ -44,18 +44,20 @@ h3 {
     /* BORDERS */
     /* COLORS */
     /* TEXT */
-    @apply font-semibold;
+    @apply text-xl font-semibold;
     /* ANIMATION AND EFFECTS */
 }
 
-label {
+.label {
     /* SIZE */
     /* MARGINS AND PADDING */
+    @apply ml-2;
     /* LAYOUT */
     /* BORDERS */
     /* COLORS */
+    @apply text-primary;
     /* TEXT */
-    @apply text-base md:text-sm font-medium;
+    @apply text-sm font-medium;
     /* ANIMATION AND EFFECTS */
 }
 

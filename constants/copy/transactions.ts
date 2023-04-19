@@ -4,6 +4,7 @@ export default {
   editTransaction: 'Edit Transaction',
   created: 'Transaction Created',
   deleted: 'Transaction Deleted',
+  delete: 'Delete transaction',
   updated: 'Transaction Updated',
   transfer: 'Transfer',
   balance: 'Balance',

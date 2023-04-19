@@ -1,18 +1,18 @@
 <template>
   <!-- TRANSACTION TYPE -->
   <div class="input-group">
-    <div class="input-label-container">
-      <label for="transactionTypeRadio">
-        {{ TRANSACTION_COPY.transactionType }}
-      </label>
-    </div>
+    <label class="label" for="transactionTypeRadio">
+      {{ TRANSACTION_COPY.transactionType }}
+    </label>
 
-    <div class="transaction-type-buttons">
+    <div class="transaction-type-buttons mt-1">
       <button
         v-for="{ id, displayName } in TRANSACTION_TYPES"
         :key="id"
         :class="
-          selected === displayName ? 'button-small-active' : 'button-small'
+          selected === displayName
+            ? 'button transaction-type-button'
+            : 'button-secondary transaction-type-button'
         "
         :value="displayName"
         @click="onTransactionTypeClick"

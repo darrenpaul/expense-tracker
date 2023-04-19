@@ -1,35 +1,46 @@
 <template>
   <div class="login-page-container">
     <div class="login-page-image-container">
-      <img
-        class="login-page-image"
-        src="https://res.cloudinary.com/darren-paul-photography/image/upload/v1681830181/expense-tracker/login-page_kzie8r.webp"
-      />
+      <LoginRegister />
     </div>
 
     <div class="login-page-content-container">
       <div class="login-page-form-container">
-        <h2 class="mb-8">{{ COPY.accountLogin }}</h2>
+        <h2 class="mb-4 md:mb-8">{{ COPY.accountLogin }}</h2>
 
-        <form class="max-w-sm">
+        <form class="form max-w-sm">
           <!-- EMAIL -->
-          <input
-            v-model="email"
-            class="input mb-4"
-            :placeholder="COPY.emailPlaceholder"
-            name="email"
-            type="email"
-          />
+          <div class="input-group">
+            <label class="label" for="email">{{ COPY.email }}</label>
+
+            <input
+              v-model="email"
+              class="input"
+              :placeholder="COPY.emailPlaceholder"
+              name="email"
+              type="email"
+            />
+          </div>
 
           <!-- PASSWORD -->
-          <input
-            v-model="password"
-            class="input mb-4"
-            :placeholder="COPY.passwordPlaceHolder"
-            name="password"
-            type="password"
-          />
-          <button class="button" @click="onLogin">{{ COPY.login }}</button>
+          <div class="input-group">
+            <label class="label" for="password">{{ COPY.password }}</label>
+
+            <input
+              v-model="password"
+              class="input"
+              :placeholder="COPY.passwordPlaceHolder"
+              name="password"
+              type="password"
+            />
+          </div>
+
+          <button class="button" @click="onLogin">
+            <template v-if="isRequesting === false">
+              {{ COPY.login }}
+            </template>
+            <CircleSpinner v-else :fill="'var(--secondary)'" />
+          </button>
 
           <p>
             {{ COPY.noAccount }}
@@ -49,25 +60,18 @@ import isEmail from 'validator/es/lib/isEmail'
 import COPY from '~~/constants/copy/profile'
 import { DASHBOARD_ROUTE } from '~~/constants/routes/dashboard'
 import { useProfile } from '~~/stores/profile'
-import { useCategories } from '~~/stores/categories'
 import { useNotification } from '~~/stores/notification'
-import { useUserSettings } from '~~/stores/userSettings'
-import { useAccounts } from '~~/stores/accounts'
-import { useTransactions } from '~~/stores/transactions'
-import { useGoals } from '~~/stores/goals'
-import { useBudgets } from '~~/stores/budgets'
 import { PROFILE_REGISTER_ROUTE } from '~~/constants/routes/profile'
+import LoginRegister from '~~/components/illustrations/LoginRegister.vue'
+import CircleSpinner from '~~/components/spinners/CircleSpinner.vue'
 
 const router = useRouter()
 const profile = useProfile()
-const categories = useCategories()
-const userSettings = useUserSettings()
 const notification = useNotification()
-const accountStore = useAccounts()
-const transactionsStore = useTransactions()
 
 const email = ref('')
 const password = ref('')
+const isRequesting = ref(false)
 
 onMounted(() => {
   if (profile.authenticated === true) {
@@ -98,9 +102,13 @@ const fieldsValid = () => {
 const onLogin = async (event: Event) => {
   event.preventDefault()
 
+  if (isRequesting.value === true) return
+
   if (fieldsValid() === false) {
     return false
   }
+
+  isRequesting.value = true
 
   try {
     await profile.login(email.value, password.value)
@@ -113,6 +121,8 @@ const onLogin = async (event: Event) => {
       message: error?.message,
       type: 'error',
     })
+  } finally {
+    isRequesting.value = false
   }
 }
 </script>

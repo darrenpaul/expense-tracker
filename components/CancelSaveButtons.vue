@@ -1,11 +1,11 @@
 <template>
   <!-- BUTTONS -->
   <div class="button-2-group">
-    <button class="button-secondary" @click="onCancel">
+    <button type="button" class="button-secondary" @click="onCancel">
       {{ COMMON_COPY.cancel }}
     </button>
 
-    <button class="button" @click="onSave">
+    <button type="button" class="button" @click="onSave">
       {{ COMMON_COPY.save }}
     </button>
   </div>

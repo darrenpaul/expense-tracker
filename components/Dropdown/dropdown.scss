@@ -22,19 +22,16 @@
     }
 
     .dropdown-input {
-        /* SIZE */
-        @apply w-full min-h-[2.5rem];
-        /* MARGINS AND PADDING */
-        @apply p-1;
-        /* LAYOUT */
+        // /* SIZE */
+        // @apply w-full min-h-[2.5rem];
+        // /* MARGINS AND PADDING */
+        // @apply p-1;
+        // /* LAYOUT */
         @apply flex items-center justify-between;
-        /* BORDERS */
-        @apply rounded md:rounded-r-full;
-        /* COLORS */
-        @apply bg-secondary-a text-primary;
-        /* TEXT */
-        @apply text-sm;
-        /* ANIMATION AND EFFECTS */
+        // /* BORDERS */
+        // /* COLORS */
+        // /* TEXT */
+        // /* ANIMATION AND EFFECTS */
         @apply cursor-pointer;
     }
 
@@ -88,10 +85,6 @@
         /* TEXT */
         /* ANIMATION AND EFFECTS */
 
-        :nth-child(2) {
-            @apply col-span-1;
-        }
-
         .dropdown-item {
             /* SIZE */
             /* MARGINS AND PADDING */
@@ -100,8 +93,10 @@
             /* BORDERS */
             @apply border-b border-primary;
             /* COLORS */
+            @apply hover:bg-secondary-c hover:text-primary;
             /* TEXT */
             /* ANIMATION AND EFFECTS */
+            @apply transition-all;
 
             &:last-child {
                 /* SIZE */
@@ -120,7 +115,7 @@
             /* LAYOUT */
             /* BORDERS */
             /* COLORS */
-            @apply bg-yellow-400;
+            @apply bg-primary text-secondary;
             /* TEXT */
             /* ANIMATION AND EFFECTS */
         }

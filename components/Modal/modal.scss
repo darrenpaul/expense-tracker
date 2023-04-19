@@ -3,7 +3,7 @@
     @apply w-screen h-screen;
     /* MARGINS AND PADDING */
     /* LAYOUT */
-    @apply fixed top-0 left-0 z-20;
+    @apply fixed top-0 left-0 z-modal;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
@@ -33,7 +33,7 @@
     /* BORDERS */
     @apply rounded-none md:rounded-3xl;
     /* COLORS */
-    @apply bg-white;
+    @apply bg-secondary-a;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
     @apply drop-shadow shadow-md;

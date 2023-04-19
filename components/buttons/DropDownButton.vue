@@ -1,11 +1,11 @@
 <template>
   <div class="dropdown-button-container">
     <button :class="[buttonStyle]" @click="emit('toggleIsOpen', !props.isOpen)">
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between gap-4 truncate">
         {{ buttonText }}
 
-        <CaretDownIcon v-if="isOpen" :size="'10'" />
-        <CaretUpIcon v-else :size="'10'" />
+        <ArrowDownIcon v-if="isOpen" :size="'12'" />
+        <ArrowUpIcon v-else :size="'12'" />
       </div>
     </button>
 
@@ -16,8 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import CaretUpIcon from '~~/components/icons/CaretUpIcon.vue'
-import CaretDownIcon from '~~/components/icons/CaretDownIcon.vue'
+import ArrowDownIcon from '~~/components/icons/ArrowDownIcon.vue'
+import ArrowUpIcon from '~~/components/icons/ArrowUpIcon.vue'
 
 const props = defineProps({
   isOpen: { type: Boolean, default: false },

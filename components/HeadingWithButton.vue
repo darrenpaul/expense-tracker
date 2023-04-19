@@ -5,7 +5,7 @@
     <div class="flex flex-col md:flex-row gap-4">
       <slot></slot>
 
-      <button class="button-secondary" @click="() => $emit('onClick')">
+      <button class="button" @click="() => $emit('onClick')">
         {{ props.buttonText }}
       </button>
     </div>

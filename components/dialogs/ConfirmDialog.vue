@@ -11,10 +11,10 @@
     </div>
 
     <div class="button-2-group">
-      <button class="button-secondary" @click="onDecline">
+      <button type="button" class="button-secondary" @click="onDecline">
         {{ DIALOG_COPY.no }}
       </button>
-      <button class="button-warn" @click="onConfirm">
+      <button type="button" class="button-warn" @click="onConfirm">
         {{ DIALOG_COPY.yes }}
       </button>
     </div>
