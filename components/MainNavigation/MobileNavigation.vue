@@ -3,7 +3,7 @@
     <div class="main-navigation-mobile-content">
       <!-- BRANDING -->
       <NuxtLink class="main-navigation-brand-container" :to="HOME_ROUTE.path">
-        <BrandIcon :size="expanded ? '1' : '4'" :fill="'var(--secondary)'" />
+        <BrandIcon :size="'4'" :fill="'var(--secondary)'" />
 
         <h1 class="main-navigation-brand-text">
           {{ COMMON_COPY.brand }}

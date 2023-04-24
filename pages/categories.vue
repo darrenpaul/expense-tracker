@@ -2,7 +2,7 @@
   <div class="categories-container">
     <!-- EXPENSE CATEGORIES -->
     <div class="categories-transaction-type">
-      <div class="card-stretch">
+      <div class="w-full">
         <HeadingWithButton
           :heading="COPY.expenseCategories"
           :button-text="COPY.addCategory"
@@ -17,12 +17,12 @@
             v-for="item in categoryStore.expenseCategories"
             :key="item.id"
             :category="item"
+            :total-amount="expenseTotal"
             @on-edit="onCategoryEdit"
             @on-delete="onShowConfirmDialog"
           />
         </div>
       </div>
-
       <div class="card category-chart-container">
         <Chart :options="expenseUsageOptions" />
       </div>
@@ -30,7 +30,7 @@
 
     <!-- INCOME CATEGORIES -->
     <div class="categories-transaction-type">
-      <div class="card-stretch">
+      <div class="w-full">
         <HeadingWithButton
           :heading="COPY.incomeCategories"
           :button-text="COPY.addCategory"
@@ -44,6 +44,7 @@
             v-for="item in categoryStore.incomeCategories"
             :key="item.id"
             :category="item"
+            :total-amount="incomeTotal"
             @on-edit="onCategoryEdit"
             @on-delete="onShowConfirmDialog"
           />
@@ -122,6 +123,21 @@ const incomeUsageOptions = computed(() => {
     transactionStore.incomes as Array<ITransaction>,
     COPY.incomeUsage
   )
+})
+
+const expenseTotal = computed(() => {
+  const transactionAmounts = transactionStore.expenses.map(
+    (transaction) => transaction.amount
+  )
+
+  return transactionAmounts.reduce((a, b) => a + b, 0)
+})
+
+const incomeTotal = computed(() => {
+  const transactionAmounts = transactionStore.incomes.map(
+    (transaction) => transaction.amount
+  )
+  return transactionAmounts.reduce((a, b) => a + b, 0)
 })
 
 const onCloseCategoryModal = () => {

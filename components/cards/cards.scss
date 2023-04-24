@@ -1,22 +1,43 @@
 .category-card {
     /* SIZE */
     /* MARGINS AND PADDING */
-    @apply p-4 md:p-1;
+    @apply p-4;
     /* LAYOUT */
-    @apply flex flex-row gap-4 justify-between items-center;
+    @apply flex flex-col gap-4;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
     @apply whitespace-nowrap;
     /* ANIMATION AND EFFECTS */
 
+    .category-card-title-amount-group {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex items-center justify-between;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
     .category-card-title-icon-group {
         /* SIZE */
-        @apply w-full;
+        @apply w-fit;
         /* MARGINS AND PADDING */
-        @apply ml-4;
         /* LAYOUT */
-        @apply flex items-center justify-center md:justify-start gap-4;
+        @apply flex items-center md:justify-start gap-4;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .category-card-percentage-button-group {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex items-center justify-between gap-4;
         /* BORDERS */
         /* COLORS */
         /* TEXT */
@@ -28,7 +49,7 @@
         /* MARGINS AND PADDING */
         @apply m-0 p-0;
         /* LAYOUT */
-        @apply flex gap-4;
+        @apply flex items-center gap-4;
         /* BORDERS */
         /* COLORS */
         /* TEXT */

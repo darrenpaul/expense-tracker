@@ -11,6 +11,7 @@ export interface IPieChartOptions {
     valueFormatter: Function
   }
   legend: {
+    type: string
     left: string
     bottom: string
   }
@@ -28,6 +29,7 @@ export const pieChartBaseOptions: IPieChartOptions = {
     valueFormatter: (value: number) => value,
   },
   legend: {
+    type: 'scroll',
     left: 'center',
     bottom: '5%',
   },
@@ -39,9 +41,9 @@ export const createPieSeriesObject = (data: any) => {
     radius: ['40%', '70%'],
     avoidLabelOverlap: false,
     itemStyle: {
-      borderRadius: 10,
+      borderRadius: 5,
       borderColor: '#fff',
-      borderWidth: 2,
+      borderWidth: 1,
     },
     emphasis: chartEmphasisOptions,
     label: {

@@ -1,3 +1,7 @@
+import {
+  createPieSeriesObject,
+  pieChartBaseOptions,
+} from '../options/pieChartOptions'
 import { ITransaction } from '~~/types/transaction'
 import { mergeTransactionsByProperty } from '~~/helpers/transactions'
 import { TRANSACTION_COPY } from '~~/constants/copy'
@@ -21,47 +25,13 @@ export default (transactions: Array<ITransaction>) => {
     name: type,
   }))
 
-  return {
-    chartType: 'pie',
+  const options = {
+    ...pieChartBaseOptions,
+    series: [createPieSeriesObject(seriesData)],
     title: {
       text: TRANSACTION_COPY.expensesVsIncomes,
-      left: 'center',
     },
-    tooltip: {
-      trigger: 'item',
-    },
-    legend: {
-      left: 'center',
-      bottom: '5%',
-      type: 'scroll',
-    },
-    series: [
-      {
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2,
-        },
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)',
-          },
-          label: {
-            show: false,
-            fontSize: 14,
-            fontWeight: 'bold',
-          },
-        },
-        label: {
-          show: false,
-        },
-        data: seriesData,
-      },
-    ],
   }
+
+  return options
 }

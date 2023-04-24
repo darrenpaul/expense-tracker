@@ -91,16 +91,18 @@
       </div>
 
       <!-- BUTTONS -->
-      <button
-        v-if="!isEmpty(props.budget)"
-        class="button-warn"
-        type="button"
-        @click="onShowConfirmDialog"
-      >
-        {{ BUDGET_COPY.delete }}
-      </button>
+      <div>
+        <button
+          v-if="!isEmpty(props.budget)"
+          class="button-warn"
+          type="button"
+          @click="onShowConfirmDialog"
+        >
+          {{ BUDGET_COPY.delete }}
+        </button>
 
-      <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddUpdateBudget" />
+        <CancelSaveButtons @on-cancel="onCancel" @on-save="onAddUpdateBudget" />
+      </div>
     </form>
 
     <ConfirmDialog

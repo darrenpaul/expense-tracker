@@ -6,6 +6,7 @@
           <Chart :options="categoryUsageOptions" />
         </div>
       </div>
+
       <div class="dashboard-card-container">
         <div class="card-stretch">
           <Chart :options="expensesVsIncomesOptions" />
@@ -85,10 +86,6 @@ const expensesVsIncomesOptions = computed(() => {
 const onCloseTransactionModal = (refresh = false) => {
   showTransactionModal.value = false
   transaction.value = {}
-
-  if (refresh) {
-    refreshData()
-  }
 }
 
 const onEditTransaction = (transactionId: string) => {

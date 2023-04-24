@@ -1,13 +1,6 @@
 <template>
   <div class="main-navigation-desktop">
-    <div
-      :class="[
-        'main-navigation-desktop-container',
-        expanded === true
-          ? 'main-navigation-desktop-expanded'
-          : 'main-navigation-desktop-collapsed',
-      ]"
-    >
+    <div :class="['main-navigation-desktop-container']">
       <div
         :class="[
           'main-navigation-desktop-content',
@@ -58,7 +51,6 @@
         <div class="main-navigation-desktop-links">
           <div class="main-navigation-desktop-link-container">
             <button
-              v-if="profile.authenticated === true"
               class="main-navigation-desktop-expand-container"
               @click="onExpandToggle"
             >

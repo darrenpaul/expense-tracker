@@ -26,6 +26,7 @@
         :background-color="'bg-green-500'"
         :progress-bar-color="'bg-red-500'"
         :hide-inner-text="true"
+        :show-percentage="true"
       />
 
       <div class="account-card-button-group">

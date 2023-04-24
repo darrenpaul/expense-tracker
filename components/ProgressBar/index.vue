@@ -9,6 +9,9 @@
       <div v-if="hideInnerText === false" class="progress-bar-text-container">
         {{ current }} / {{ total }}
       </div>
+      <div v-if="showPercentage === false" class="progress-bar-text-container">
+        {{ percentage }}%
+      </div>
     </div>
 
     <div class="progress-bar-labels-container">
@@ -29,6 +32,7 @@ const props = defineProps({
   backgroundColor: { type: String, default: 'bg-secondary' },
   progressBarColor: { type: String, default: 'bg-blue-500' },
   hideInnerText: { type: Boolean, default: false },
+  showPercentage: { type: Boolean, default: false },
 })
 
 const userSettingStore = useUserSettings()
