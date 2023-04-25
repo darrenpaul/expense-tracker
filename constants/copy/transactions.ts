@@ -8,6 +8,8 @@ export default {
   updated: 'Transaction Updated',
   transfer: 'Transfer',
   balance: 'Balance',
+  moneyIn: 'Money In',
+  moneyOut: 'Money Out',
   spendPerDay: 'Spend Per Day',
   spendPerWeek: 'Spend Per Week',
   account: 'Account',

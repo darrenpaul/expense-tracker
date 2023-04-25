@@ -16,6 +16,8 @@ import {
 import { totalAmountTransactions } from '~~/helpers/transactions'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
 import COPY from '~~/constants/copy/transactions'
+import { ALL } from '~~/constants/stringTypes'
+import { sumArrayNumbers } from '~~/helpers/maths'
 
 export const useTransactions = defineStore({
   id: 'transactions',
@@ -51,6 +53,38 @@ export const useTransactions = defineStore({
           ({ account }) => account.id === accountId || accountId === 'All'
         )
         return totalAmountTransactions(accountsOnly) as number
+      }
+    },
+    incomeV2(state) {
+      return (accountIds: Array<string>) => {
+        let accountTransactions = this.incomes
+        if (accountIds.length > 0) {
+          accountTransactions = accountTransactions.filter(
+            ({ account }) => accountIds.includes(account.id) === true
+          )
+        }
+
+        const transactionAmounts = accountTransactions.map(
+          ({ amount }) => amount
+        )
+
+        return sumArrayNumbers(transactionAmounts)
+      }
+    },
+    expenseV2(state) {
+      return (accountIds: Array<string>) => {
+        let accountTransactions = this.expenses
+        if (accountIds.length > 0) {
+          accountTransactions = accountTransactions.filter(
+            ({ account }) => accountIds.includes(account.id) === true
+          )
+        }
+
+        const transactionAmounts = accountTransactions.map(
+          ({ amount }) => amount
+        )
+
+        return sumArrayNumbers(transactionAmounts)
       }
     },
     expense: (state) => {

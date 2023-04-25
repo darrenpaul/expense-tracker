@@ -1,79 +1,84 @@
 <template>
-  <div>
-    <div class="transactions-container">
-      <div class="transactions-card-container">
-        <div class="card-stretch">
-          <Chart :options="transactionsForPeriodChartOptions" />
+  <ClientOnly>
+    <div>
+      <div class="transactions-container">
+        <div class="transactions-card-container">
+          <div class="card-stretch">
+            <Chart :options="transactionsForPeriodChartOptions" />
+          </div>
+        </div>
+
+        <div class="column">
+          <GlanceCard
+            v-if="transactionsStore.transactions"
+            :title="TRANSACTION_COPY.balance"
+            :amount="
+              currencyFormat({
+                value: balance(),
+                currency: 'R',
+              })
+            "
+          />
+
+          <GlanceCard
+            v-if="transactionsStore.transactions"
+            :title="TRANSACTION_COPY.spendPerDay"
+            :amount="
+              currencyFormat({
+                value: spendPerDay({
+                  balance: balance(),
+                  endDate: monthEndDate,
+                }),
+                currency: 'R',
+              })
+            "
+          />
+
+          <GlanceCard
+            v-if="transactionsStore.transactions"
+            :title="TRANSACTION_COPY.spendPerWeek"
+            :amount="
+              currencyFormat({
+                value: spendPerWeek({
+                  balance: balance(),
+                  endDate: monthEndDate,
+                }),
+                currency: 'R',
+              })
+            "
+          />
         </div>
       </div>
 
-      <div class="column">
-        <GlanceCard
-          v-if="transactionsStore.transactions"
-          :title="TRANSACTION_COPY.balance"
-          :amount="
-            currencyFormat({
-              value: balance(),
-              currency: 'R',
-            })
-          "
+      <HeadingWithButton
+        :heading="TRANSACTION_COPY.transactions"
+        :button-text="TRANSACTION_COPY.addTransaction"
+        @on-click="() => (showTransactionModal = true)"
+      >
+        <AccountSelect
+          :account="account"
+          @on-account-change="account = $event"
         />
 
-        <GlanceCard
-          v-if="transactionsStore.transactions"
-          :title="TRANSACTION_COPY.spendPerDay"
-          :amount="
-            currencyFormat({
-              value: spendPerDay({
-                balance: balance(),
-                endDate: monthEndDate,
-              }),
-              currency: 'R',
-            })
-          "
-        />
+        <PeriodSelect :period="period" @on-period-change="period = $event" />
+      </HeadingWithButton>
 
-        <GlanceCard
-          v-if="transactionsStore.transactions"
-          :title="TRANSACTION_COPY.spendPerWeek"
-          :amount="
-            currencyFormat({
-              value: spendPerWeek({
-                balance: balance(),
-                endDate: monthEndDate,
-              }),
-              currency: 'R',
-            })
-          "
-        />
-      </div>
-    </div>
-
-    <HeadingWithButton
-      :heading="TRANSACTION_COPY.transactions"
-      :button-text="TRANSACTION_COPY.addTransaction"
-      @on-click="() => (showTransactionModal = true)"
-    >
-      <AccountSelect :account="account" @on-account-change="account = $event" />
-
-      <PeriodSelect :period="period" @on-period-change="period = $event" />
-    </HeadingWithButton>
-
-    <TransactionList
-      v-if="transactionsStore.transactions"
-      :transactions="filteredTransactions"
-      @on-edit="onEditTransaction"
-      @change="refreshData"
-    />
-
-    <!-- TRANSACTION FORM -->
-    <Modal :is-open="showTransactionModal" @close="onCloseTransactionModal">
-      <TransactionForm
-        :transaction="transaction"
-        @close-modal="onCloseTransactionModal"
+      <TransactionList
+        v-if="transactionsStore.transactions"
+        :transactions="filteredTransactions"
+        @on-edit="onEditTransaction"
+        @change="refreshData"
       />
-    </Modal>
-  </div>
+
+      <!-- TRANSACTION FORM -->
+      <Modal :is-open="showTransactionModal" @close="onCloseTransactionModal">
+        <TransactionForm
+          :transaction="transaction"
+          @close-modal="onCloseTransactionModal"
+        />
+      </Modal>
+    </div>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
@@ -86,6 +91,7 @@ import {
   isWithinInterval,
   addDays,
   subMonths,
+  isBefore,
 } from 'date-fns'
 import PeriodSelect from '~~/components/buttons/PeriodSelect.vue'
 import AccountSelect from '~~/components/buttons/AccountSelect.vue'
@@ -102,6 +108,7 @@ import { spendPerDay, spendPerWeek, balance } from '~~/helpers/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
+import { useBudgets } from '~~/stores/budgets'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,

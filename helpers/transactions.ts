@@ -7,6 +7,8 @@ import {
   isThisMonth,
   differenceInCalendarDays,
   differenceInWeeks,
+  isAfter,
+  isBefore,
 } from 'date-fns'
 import { DATE_FORMAT } from './dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'
@@ -16,6 +18,7 @@ import {
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
 import { useTransactions } from '~~/stores/transactions'
+import { useBudgets } from '~~/stores/budgets'
 
 interface IMergeTransactionsByProperty {
   keyProperty: string
@@ -158,6 +161,22 @@ export const spendPerMonth = ({ balance, endDate }: ISpendPerPeriod) => {
 
 export const balance = (accountId = 'All', excluded = true) => {
   const transactionStore = useTransactions()
+  // const budgets = useBudgets().budgets
+
+  // const budgetAmounts = budgets.map((budget) => {
+  //   const transactionsForBudget = transactionStore.expenses.filter(
+  //     ({ category, date }) =>
+  //       budget.categoryIds.includes(category.id) &&
+  //       isAfter(new Date(date), new Date(budget.startDate)) &&
+  //       isBefore(new Date(date), new Date(budget.endDate))
+  //   )
+  //   const transactionAmounts = transactionsForBudget.map(({ amount }) => amount)
+  //   const transactionAmountsSum = transactionAmounts.reduce((a, b) => a + b, 0)
+  //   return budget.amount - transactionAmountsSum
+  // })
+
+  // const budgetAmountRemaining = budgetAmounts.reduce((a, b) => a + b, 0)
+
   const income = transactionStore.income(accountId, excluded)
   const expense = transactionStore.expense(accountId, excluded)
   return income - expense
