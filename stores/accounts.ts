@@ -7,7 +7,6 @@ import {
   viewAccounts,
 } from '~~/endpoints/accounts'
 import { IAccount, INewAccount } from '~~/types/account'
-import { COMMON_COPY } from '~~/constants/copy'
 import COPY from '~~/constants/copy/account'
 import { balance } from '~~/helpers/transactions'
 
@@ -18,7 +17,14 @@ export const useAccounts = defineStore({
     accounts: [] as Array<IAccount>,
   }),
 
-  getters: {},
+  getters: {
+    accountsInBalance: (state) => {
+      const accountsIncludedInBalance = state.accounts.filter(
+        ({ includeInBalance }) => includeInBalance === true
+      )
+      return accountsIncludedInBalance.map(({ id }) => id)
+    },
+  },
 
   actions: {
     async handleCreateAccount(data: INewAccount) {

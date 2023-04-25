@@ -10,18 +10,18 @@
 
         <div class="column">
           <GlanceCard
-            v-if="transactionsStore.transactions"
+            v-if="transactionStore.transactions"
             :title="TRANSACTION_COPY.balance"
             :amount="
               currencyFormat({
-                value: balance(),
-                currency: 'R',
+                value: transactionStore.balance(),
+                currency: userSettingStore.currency,
               })
             "
           />
 
           <GlanceCard
-            v-if="transactionsStore.transactions"
+            v-if="transactionStore.transactions"
             :title="TRANSACTION_COPY.spendPerDay"
             :amount="
               currencyFormat({
@@ -29,13 +29,13 @@
                   balance: balance(),
                   endDate: monthEndDate,
                 }),
-                currency: 'R',
+                currency: userSettingStore.currency,
               })
             "
           />
 
           <GlanceCard
-            v-if="transactionsStore.transactions"
+            v-if="transactionStore.transactions"
             :title="TRANSACTION_COPY.spendPerWeek"
             :amount="
               currencyFormat({
@@ -43,7 +43,7 @@
                   balance: balance(),
                   endDate: monthEndDate,
                 }),
-                currency: 'R',
+                currency: userSettingStore.currency,
               })
             "
           />
@@ -64,7 +64,7 @@
       </HeadingWithButton>
 
       <TransactionList
-        v-if="transactionsStore.transactions"
+        v-if="transactionStore.transactions"
         :transactions="filteredTransactions"
         @on-edit="onEditTransaction"
         @change="refreshData"
@@ -91,7 +91,6 @@ import {
   isWithinInterval,
   addDays,
   subMonths,
-  isBefore,
 } from 'date-fns'
 import PeriodSelect from '~~/components/buttons/PeriodSelect.vue'
 import AccountSelect from '~~/components/buttons/AccountSelect.vue'
@@ -115,8 +114,8 @@ definePageMeta({
   layout: 'main',
 })
 
-const userSettingsStore = useUserSettings()
-const transactionsStore = useTransactions()
+const userSettingStore = useUserSettings()
+const transactionStore = useTransactions()
 
 const showTransactionModal = ref(false)
 const period = ref(PERIODS.week.displayName)
@@ -124,7 +123,7 @@ const account = ref('All')
 const transaction = ref({})
 
 const transactionsForPeriodChartOptions = computed(() => {
-  if (transactionsStore.transactions === null) {
+  if (transactionStore.transactions === null) {
     return {}
   }
 
@@ -132,21 +131,21 @@ const transactionsForPeriodChartOptions = computed(() => {
     transactions: filteredTransactions.value as Array<ITransaction>,
     date: monthEndDate.value,
     period: period.value,
-    currency: userSettingsStore.currency,
+    currency: userSettingStore.currency,
   })
 })
 
 const monthEndDate = computed(() => {
-  let date = setDate(new Date(), userSettingsStore.monthStart)
+  let date = setDate(new Date(), userSettingStore.monthStart)
 
   if (isAfter(new Date(), date)) {
-    date = setDate(addMonths(new Date(), 1), userSettingsStore.monthStart)
+    date = setDate(addMonths(new Date(), 1), userSettingStore.monthStart)
   }
   return date
 })
 
 const filteredTransactions = computed(() => {
-  const transactionsByAccount = transactionsStore.transactions.filter(
+  const transactionsByAccount = transactionStore.transactions.filter(
     (t) => account.value === t.account.id || account.value === 'All'
   )
 
@@ -171,7 +170,7 @@ const filteredTransactions = computed(() => {
   if (period.value === PERIODS.month.displayName) {
     const startDate = setDate(
       subMonths(new Date(), 1),
-      userSettingsStore.monthStart
+      userSettingStore.monthStart
     )
     const endDate = addDays(new Date(), 1)
 
@@ -195,7 +194,7 @@ const onCloseTransactionModal = (refresh = false) => {
 }
 
 const onEditTransaction = (transactionId: string) => {
-  const matchedTransaction = transactionsStore.list?.find(
+  const matchedTransaction = transactionStore.list?.find(
     ({ id }) => id === transactionId
   )
   if (matchedTransaction) {
@@ -205,7 +204,7 @@ const onEditTransaction = (transactionId: string) => {
 }
 
 const refreshData = () => {
-  transactionsStore.fetch()
+  transactionStore.fetch()
 }
 </script>
 

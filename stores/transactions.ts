@@ -16,7 +16,6 @@ import {
 import { totalAmountTransactions } from '~~/helpers/transactions'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
 import COPY from '~~/constants/copy/transactions'
-import { ALL } from '~~/constants/stringTypes'
 import { sumArrayNumbers } from '~~/helpers/maths'
 
 export const useTransactions = defineStore({
@@ -120,6 +119,15 @@ export const useTransactions = defineStore({
     },
     transactionsForToday: (state) =>
       state.transactions.filter(({ date }) => isToday(new Date(date))),
+    balanceIncome() {
+      return () => this.incomeV2(useAccounts().accountsInBalance)
+    },
+    balanceExpense() {
+      return () => this.expenseV2(useAccounts().accountsInBalance)
+    },
+    balance() {
+      return () => this.balanceIncome() - this.balanceExpense()
+    },
   },
 
   actions: {

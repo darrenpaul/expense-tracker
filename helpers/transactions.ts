@@ -142,7 +142,8 @@ export const spendPerDay = ({ balance, endDate }: ISpendPerPeriod) => {
 }
 
 export const spendPerWeek = ({ balance, endDate }: ISpendPerPeriod) => {
-  const remainingWeeks = differenceInWeeks(endDate, new Date())
+  let remainingWeeks = differenceInWeeks(endDate, new Date())
+  if (remainingWeeks === 0) remainingWeeks = 1
   return parseFloat((balance / remainingWeeks).toFixed(2))
 }
 

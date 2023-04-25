@@ -5,7 +5,7 @@
       <div class="border-b pb-3 text-center">
         <h4>{{ COPY.moneyIn }}</h4>
         <h3>
-          {{ moneyInAmount }}
+          {{ moneyIn }}
         </h3>
       </div>
 
@@ -13,7 +13,7 @@
       <div class="border-b pb-3 text-center">
         <h4>{{ COPY.moneyOut }}</h4>
         <h3>
-          {{ moneyOutAmount }}
+          {{ moneyOut }}
         </h3>
       </div>
 
@@ -21,7 +21,7 @@
       <div class="text-center">
         <h4>{{ COPY.balance }}</h4>
         <h3>
-          {{ balanceAmount }}
+          {{ balance }}
         </h3>
       </div>
     </div>
@@ -29,7 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import { balance } from '~~/helpers/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
 import COPY from '~~/constants/copy/transactions'
 import { useTransactions } from '~~/stores/transactions'
@@ -40,31 +39,32 @@ const userSettingStore = useUserSettings()
 const transactionStore = useTransactions()
 const accountStore = useAccounts()
 
-const transactionAccountIds = computed(() => {
-  // These are the accounts that have includeInBalance set to true
-  const accountsIncludedInBalance = accountStore.accounts.filter(
-    ({ includeInBalance }) => includeInBalance === true
-  )
-  return accountsIncludedInBalance.map(({ id }) => id)
+const incomeAmount = computed(() => {
+  return transactionStore.balanceIncome()
 })
 
-const balanceAmount = computed(() => {
+const expenseAmount = computed(() => {
+  return transactionStore.balanceExpense()
+})
+
+const balance = computed(() => {
+  // TODO: Added computed property for when adding the budget totals
   return currencyFormat({
-    value: balance(),
+    value: transactionStore.balance(),
     currency: userSettingStore.currency,
   })
 })
 
-const moneyInAmount = computed(() => {
+const moneyIn = computed(() => {
   return currencyFormat({
-    value: transactionStore.incomeV2(transactionAccountIds.value),
+    value: incomeAmount.value,
     currency: userSettingStore.currency,
   })
 })
 
-const moneyOutAmount = computed(() => {
+const moneyOut = computed(() => {
   return currencyFormat({
-    value: transactionStore.expenseV2(transactionAccountIds.value),
+    value: expenseAmount.value,
     currency: userSettingStore.currency,
   })
 })
