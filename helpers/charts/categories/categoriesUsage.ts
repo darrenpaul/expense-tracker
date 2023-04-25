@@ -5,6 +5,8 @@ import {
 import { ITransaction } from '~~/types/transaction'
 import { totalAmountTransactions } from '~~/helpers/transactions'
 import { UNCATEGORISED_CATEGORY } from '~~/constants/category'
+import { currencyFormat } from '~~/helpers/formatting'
+import { useUserSettings } from '~~/stores/userSettings'
 
 export default (transactions: Array<ITransaction>, title: string) => {
   const categories = [...new Set(transactions.map(({ category }) => category))]
@@ -37,6 +39,10 @@ export default (transactions: Array<ITransaction>, title: string) => {
       text: 'Category Usage',
     },
   }
+
+  const currency = useUserSettings().currency
+  options.tooltip.valueFormatter = (value: number) =>
+    currencyFormat({ value, currency })
 
   return options
 }

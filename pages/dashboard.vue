@@ -54,6 +54,7 @@ import { useUserSettings } from '~~/stores/userSettings'
 import { useCategories } from '~~/stores/categories'
 import categoryUsage from '~~/helpers/charts/categories/categoriesUsage'
 import ExpenseIncomeBalanceCard from '~~/components/cards/ExpenseIncomeBalanceCard.vue'
+import UserSettings from '~~/components/settings/UserSettings.vue'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -62,7 +63,7 @@ definePageMeta({
 
 const transactionStore = useTransactions()
 const categoryStore = useCategories()
-
+const userSettingStore = useUserSettings()
 const showTransactionModal = ref(false)
 const transaction = ref({})
 
@@ -80,7 +81,11 @@ const expensesVsIncomesOptions = computed(() => {
   if (transactionStore.list === null) {
     return {}
   }
-  return expensesVsIncomes(transactionStore.list as Array<ITransaction>)
+  const currency = userSettingStore.currency
+  return expensesVsIncomes(
+    transactionStore.list as Array<ITransaction>,
+    currency
+  )
 })
 
 const onCloseTransactionModal = (refresh = false) => {

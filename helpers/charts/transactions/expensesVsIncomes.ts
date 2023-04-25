@@ -9,8 +9,9 @@ import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
+import { currencyFormat } from '~~/helpers/formatting'
 
-export default (transactions: Array<ITransaction>) => {
+export default (transactions: Array<ITransaction>, currency: string) => {
   const expenses = mergeTransactionsByProperty({
     keyProperty: TRANSACTION_TYPE_EXPENSE.displayName,
     data: transactions,
@@ -32,6 +33,9 @@ export default (transactions: Array<ITransaction>) => {
       text: TRANSACTION_COPY.expensesVsIncomes,
     },
   }
+
+  options.tooltip.valueFormatter = (value: number) =>
+    currencyFormat({ value, currency })
 
   return options
 }

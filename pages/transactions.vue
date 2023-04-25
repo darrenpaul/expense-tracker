@@ -130,7 +130,7 @@ const transactionsForPeriodChartOptions = computed(() => {
 })
 
 const monthEndDate = computed(() => {
-  let date = subDays(setDate(new Date(), userSettingsStore.monthStart), 1)
+  let date = setDate(new Date(), userSettingsStore.monthStart)
 
   if (isAfter(new Date(), date)) {
     date = setDate(addMonths(new Date(), 1), userSettingsStore.monthStart)
