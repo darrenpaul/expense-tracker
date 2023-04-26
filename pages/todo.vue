@@ -38,5 +38,6 @@ const icons = ref([
   'Bicycle',
   'Doctor/Hospital/Health Care',
   'Money Transfer Icon',
+  'Clothing',
 ])
 </script>

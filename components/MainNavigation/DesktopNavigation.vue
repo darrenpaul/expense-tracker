@@ -89,7 +89,6 @@ const expanded = ref(userSettingStore.sidePanelExpanded)
 
 const matchRoute = (path: string) => {
   if (path === route.path) return true
-  if (path !== HOME_ROUTE.path && route.path.startsWith(path)) return true
   return false
 }
 
