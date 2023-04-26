@@ -44,17 +44,13 @@ import TransactionForm from '~~/components/forms/TransactionForm.vue'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
 import expensesVsIncomes from '~~/helpers/charts/transactions/expensesVsIncomes'
-import GlanceCard from '~~/components/cards/GlanceCard.vue'
-import { balance } from '~~/helpers/transactions'
 import TransactionList from '~~/components/tables/transactionList/index.vue'
-import { currencyFormat } from '~~/helpers/formatting'
 import { TRANSACTION_COPY } from '~~/constants/copy'
 import { useTransactions } from '~~/stores/transactions'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useCategories } from '~~/stores/categories'
 import categoryUsage from '~~/helpers/charts/categories/categoriesUsage'
 import ExpenseIncomeBalanceCard from '~~/components/cards/ExpenseIncomeBalanceCard.vue'
-import UserSettings from '~~/components/settings/UserSettings.vue'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,

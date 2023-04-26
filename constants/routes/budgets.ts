@@ -3,7 +3,7 @@ import BudgetIcon from '~~/components/icons/mainNavigation/BudgetIcon.vue'
 export const BUDGETS_ROUTE = {
   name: 'budgets',
   displayName: 'Budgets',
-  path: '/budgets',
+  path: '/dashboard/budgets',
   auth: true,
   icon: BudgetIcon,
 }
