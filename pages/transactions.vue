@@ -60,6 +60,8 @@
           @on-account-change="account = $event"
         />
 
+        <CategorySelect :category="category" @on-change="category = $event" />
+
         <PeriodSelect :period="period" @on-period-change="period = $event" />
       </HeadingWithButton>
 
@@ -94,6 +96,7 @@ import {
 } from 'date-fns'
 import PeriodSelect from '~~/components/buttons/PeriodSelect.vue'
 import AccountSelect from '~~/components/buttons/AccountSelect.vue'
+import CategorySelect from '~~/components/buttons/CategorySelect.vue'
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import TransactionForm from '~~/components/forms/TransactionForm.vue'
 import TransactionList from '~~/components/tables/transactionList/index.vue'
@@ -107,7 +110,6 @@ import { spendPerDay, spendPerWeek, balance } from '~~/helpers/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
-import { useBudgets } from '~~/stores/budgets'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -120,6 +122,7 @@ const transactionStore = useTransactions()
 const showTransactionModal = ref(false)
 const period = ref(PERIODS.week.displayName)
 const account = ref('All')
+const category = ref('All')
 const transaction = ref({})
 
 const transactionsForPeriodChartOptions = computed(() => {
@@ -149,8 +152,12 @@ const filteredTransactions = computed(() => {
     (t) => account.value === t.account.id || account.value === 'All'
   )
 
+  const transactionsByCategory = transactionsByAccount.filter(
+    (t) => category.value === t.category.id || category.value === 'All'
+  )
+
   if (period.value === PERIODS.day.displayName) {
-    return transactionsByAccount.filter((transaction) =>
+    return transactionsByCategory.filter((transaction) =>
       isToday(new Date(transaction.date))
     )
   }
@@ -159,7 +166,7 @@ const filteredTransactions = computed(() => {
     const startDate = subDays(new Date(), 7)
     const endDate = addDays(new Date(), 1)
 
-    return transactionsByAccount.filter((transaction) =>
+    return transactionsByCategory.filter((transaction) =>
       isWithinInterval(new Date(transaction.date), {
         start: startDate,
         end: endDate,
@@ -174,14 +181,14 @@ const filteredTransactions = computed(() => {
     )
     const endDate = addDays(new Date(), 1)
 
-    return transactionsByAccount.filter((transaction) =>
+    return transactionsByCategory.filter((transaction) =>
       isWithinInterval(new Date(transaction.date), {
         start: startDate,
         end: endDate,
       })
     )
   }
-  return transactionsByAccount
+  return transactionsByCategory
 })
 
 const onCloseTransactionModal = (refresh = false) => {

@@ -137,7 +137,9 @@ interface ISpendPerPeriod {
   endDate: Date
 }
 export const spendPerDay = ({ balance, endDate }: ISpendPerPeriod) => {
-  const remainingDays = differenceInCalendarDays(endDate, new Date())
+  let remainingDays = differenceInCalendarDays(endDate, new Date())
+  if (remainingDays === 0) remainingDays = 1
+
   const amount = parseFloat((balance / remainingDays).toFixed(2))
   if (amount < 0) {
     return 0.0

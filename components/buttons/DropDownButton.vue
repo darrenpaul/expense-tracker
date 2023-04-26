@@ -10,7 +10,9 @@
     </button>
 
     <div v-if="props.isOpen" class="dropdown-button-content">
-      <slot name="dropdownButtons"></slot>
+      <div>
+        <slot name="dropdownButtons"></slot>
+      </div>
     </div>
   </div>
 </template>

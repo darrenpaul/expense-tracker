@@ -13,13 +13,16 @@
 
 .dropdown-button-content {
     /* SIZE */
-    @apply w-48;
+    @apply w-48 max-h-48;
     /* MARGINS AND PADDING */
-    @apply px-2 pb-2 m-0;
+    @apply p-2 m-0;
     /* LAYOUT */
-    @apply absolute flex flex-col bottom-0 left-1/2 -translate-x-1/2 -translate-y-11 z-50 gap-1;
+    @apply absolute flex flex-col bottom-0 left-1/2 -translate-x-1/2 -translate-y-12 z-50 gap-1 overflow-y-auto;
     /* BORDERS */
+    @apply rounded-xl;
     /* COLORS */
+    @apply bg-secondary-a;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
+    @apply drop-shadow-sm shadow-sm;
 }
