@@ -169,11 +169,7 @@ import {
 import { useCategories } from '~~/stores/categories'
 import { useAccounts } from '~~/stores/accounts'
 import { useTransactions } from '~~/stores/transactions'
-import {
-  validateAmount,
-  validateName,
-  validateUnique,
-} from '~~/helpers/validators'
+import { validateAmount, validateName } from '~~/helpers/validators'
 import TransactionTypeSelect from '~~/components/TransactionTypeSelect/index.vue'
 
 const emit = defineEmits(['refresh', 'closeModal'])
@@ -316,12 +312,22 @@ const onCreateTransaction = () => {
 
 const onCreateTransactionTransfer = async () => {
   const transactionName = `${COPY.transfer} ${name.value}`
+
+  const fromAccount = accountStore.accounts.find(
+    ({ id }) => id === account.value
+  )
+  const toAccount = accountStore.accounts.find(
+    ({ id }) => id === accountTransfer.value
+  )
+
+  const dataNote = `Transfer from ${fromAccount?.name} to ${toAccount?.name}\n${note.value}`
+
   const fromData: INewTransaction = {
     userId: profile.userId,
     type: TRANSACTION_TYPE_EXPENSE.displayName,
     accountId: account.value,
     name: transactionName,
-    note: note.value,
+    note: dataNote,
     amount: amount.value,
     date: date.value,
   }
@@ -331,7 +337,7 @@ const onCreateTransactionTransfer = async () => {
     type: TRANSACTION_TYPE_INCOME.displayName,
     accountId: accountTransfer.value,
     name: transactionName,
-    note: note.value,
+    note: dataNote,
     amount: amount.value,
     date: date.value,
   }

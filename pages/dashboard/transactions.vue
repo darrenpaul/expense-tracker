@@ -153,7 +153,7 @@ const filteredTransactions = computed(() => {
   )
 
   const transactionsByCategory = transactionsByAccount.filter(
-    (t) => category.value === t.category.id || category.value === 'All'
+    (t) => category.value === t.category?.id || category.value === 'All'
   )
 
   if (period.value === PERIODS.day.displayName) {
