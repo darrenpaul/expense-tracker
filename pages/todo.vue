@@ -128,6 +128,7 @@ const { data: todos, refresh } = await useAsyncData('todos', () => viewTodos())
 
 const labels = ref([
   { value: 'feature', label: 'Feature' },
+  { value: 'design', label: 'Design' },
   { value: 'bug', label: 'Bug' },
 ])
 
@@ -144,6 +145,7 @@ const assignedTo = ref('')
 const labelColor = (label: string) => {
   if (label === 'bug') return 'bg-red-300'
   if (label === 'feature') return 'bg-blue-300'
+  if (label === 'feature') return 'bg-green-300'
 }
 const onCreateTodo = async () => {
   if (!profileStore.userId) return
