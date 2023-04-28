@@ -1,7 +1,16 @@
 import { defineStore } from 'pinia'
-import { isToday } from 'date-fns'
+import {
+  differenceInCalendarDays,
+  isAfter,
+  isBefore,
+  isSameDay,
+  isToday,
+  setDate,
+  subMonths,
+} from 'date-fns'
 import { useNotification } from './notification'
 import { useAccounts } from './accounts'
+import { useUserSettings } from './userSettings'
 import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
@@ -16,7 +25,7 @@ import {
 import { totalAmountTransactions } from '~~/helpers/transactions'
 import { INewTransaction, ITransaction } from '~~/types/transaction'
 import COPY from '~~/constants/copy/transactions'
-import { sumArrayNumbers } from '~~/helpers/maths'
+import { average, sumArrayNumbers } from '~~/helpers/maths'
 
 export const useTransactions = defineStore({
   id: 'transactions',
@@ -127,6 +136,46 @@ export const useTransactions = defineStore({
     },
     balance() {
       return () => this.balanceIncome() - this.balanceExpense()
+    },
+    previousMonthAverage(state) {
+      return () => {
+        const userMonthStart = useUserSettings().monthStart
+        const pastMonthStartDate = setDate(
+          subMonths(new Date(), 2),
+          userMonthStart
+        )
+        const pastMonthEndDate = setDate(
+          subMonths(new Date(), 1),
+          userMonthStart
+        )
+
+        const transactionsForPeriod = state.transactions.filter(
+          ({ date }) =>
+            isSameDay(new Date(date), pastMonthStartDate) ||
+            isSameDay(new Date(date), pastMonthEndDate) ||
+            (isAfter(new Date(date), pastMonthStartDate) &&
+              isBefore(new Date(date), pastMonthEndDate))
+        )
+
+        const daysBetween = differenceInCalendarDays(
+          pastMonthEndDate,
+          pastMonthStartDate
+        )
+
+        const transactionAmounts = transactionsForPeriod.map(
+          ({ amount }) => amount
+        )
+
+        const filledAmounts = new Array(
+          daysBetween - transactionAmounts.length
+        ).fill(0)
+
+        const averageValue = average({
+          values: [...transactionAmounts, ...filledAmounts],
+        })
+
+        return parseFloat(averageValue.toFixed(2))
+      }
     },
   },
 

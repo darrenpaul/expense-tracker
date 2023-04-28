@@ -27,6 +27,7 @@ import {
 } from '~~/constants/transactions'
 import { PERIODS, daysOfMonth } from '~~/helpers/dateFnsWrapper'
 import { useUserSettings } from '~~/stores/userSettings'
+import { useTransactions } from '~~/stores/transactions'
 
 const dayIntervals = ({ date, period }: { date: Date; period: string }) => {
   if (period === PERIODS.day.displayName) {
@@ -106,6 +107,10 @@ export default ({
     spendPerWeekValues.push(spendPerWeekValue)
   })
 
+  const averageApples = new Array(days.length).fill(
+    useTransactions().previousMonthAverage()
+  )
+
   const seriesData = [
     createBarSeriesObject({
       data: incomeSeriesData,
@@ -115,6 +120,17 @@ export default ({
       data: expenseSeriesData,
       name: TRANSACTION_TYPE_EXPENSE.displayName,
     }),
+    {
+      name: 'Average Spend (Last Month)',
+      type: 'line',
+      data: averageApples,
+      showSymbol: false,
+      lineStyle: {
+        normal: {
+          type: 'dashed',
+        },
+      },
+    },
   ]
 
   const options = {
