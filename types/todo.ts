@@ -4,6 +4,7 @@ export interface INewTodo {
   description: string
   label: string
   assignedTo: string
+  status: string
 }
 
 export interface ITodo {
@@ -12,4 +13,5 @@ export interface ITodo {
   description: string
   label: string
   assignedTo: string
+  status: string
 }

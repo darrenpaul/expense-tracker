@@ -5,9 +5,8 @@ const TABLE = 'todos'
 // ---------- CREATE
 export const createTodo = async (data: INewTodo) => {
   const pocketBaseClient = await usePocketBase()
-  const { id, title, description, label, assignedTo } = await pocketBaseClient
-    .collection(TABLE)
-    .create(data)
+  const { id, title, description, label, assignedTo, status } =
+    await pocketBaseClient.collection(TABLE).create(data)
 
   return {
     id,
@@ -15,6 +14,7 @@ export const createTodo = async (data: INewTodo) => {
     description,
     label,
     assignedTo,
+    status,
   } as ITodo
 }
 
@@ -26,35 +26,57 @@ export const viewTodos = async () => {
     sort: '+created',
   })
 
-  return records.map(({ id, title, description, label, assignedTo }) => {
-    return {
-      id,
-      title,
-      description,
-      label,
-      assignedTo,
-    } as ITodo
-  })
+  return records.map(
+    ({ id, title, description, label, assignedTo, status }) => {
+      return {
+        id,
+        title,
+        description,
+        label,
+        assignedTo,
+        status,
+      } as ITodo
+    }
+  )
 }
 
-// // ---------- UPDATE
-// export const updateTodo = async (goal: IGoal) => {
-//   const pocketBaseClient = usePocketBase()
-//   const { id } = goal
+// ---------- UPDATE
+export const markTodoAsComplete = async (todoId: string) => {
+  const pocketBaseClient = usePocketBase()
 
-//   const { accountId, name, amount, date, note } = await pocketBaseClient
-//     .collection(TABLE)
-//     .update(id, goal)
+  const { id, title, description, label, assignedTo, status } =
+    await pocketBaseClient
+      .collection(TABLE)
+      .update(todoId, { status: 'complete' })
 
-//   return {
-//     id,
-//     accountId,
-//     name,
-//     amount,
-//     date,
-//     note,
-//   } as IGoal
-// }
+  return {
+    id,
+    title,
+    description,
+    label,
+    assignedTo,
+    status,
+  } as ITodo
+}
+
+export const markTodoAsIncomplete = async (todoId: string) => {
+  const pocketBaseClient = usePocketBase()
+
+  const { id, title, description, label, assignedTo, status } =
+    await pocketBaseClient
+      .collection(TABLE)
+      .update(todoId, { status: 'incomplete' })
+
+  return {
+    id,
+    title,
+    description,
+    label,
+    assignedTo,
+    status,
+  } as ITodo
+}
+
 // // ---------- DELETE
 // export const deleteTodo = async (id: string) => {
 //   const pocketBaseClient = usePocketBase()

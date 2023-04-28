@@ -49,15 +49,17 @@
       <button type="button" class="button" @click="onCreateTodo">Add</button>
     </form>
 
-    <ul class="mb-6">
-      <h3>Darren Paul</h3>
+    <ul v-for="assignee in assignees" :key="assignee.value" class="mb-6">
+      <h3>{{ assignee.label }}</h3>
       <li v-for="todo in todos" :key="todo.id">
         <div
-          v-if="todo.assignedTo === 'darrenpaul'"
+          v-if="todo.assignedTo === assignee.value"
           class="card w-full md:w-1/2 mb-3"
         >
           <div class="flex items-center justify-between">
-            <h3>{{ todo.title }}</h3>
+            <h3 :class="[todo.status === 'complete' && 'line-through']">
+              {{ todo.title }}
+            </h3>
             <div class="flex items-center gap-4">
               <p>
                 <b>{{ todo.assignedTo }}</b>
@@ -73,36 +75,26 @@
               </p>
             </div>
           </div>
-          <p>{{ todo.description }}</p>
-        </div>
-      </li>
-    </ul>
+          <p :class="[todo.status === 'complete' && 'line-through']">
+            {{ todo.description }}
+          </p>
 
-    <ul class="mb-6">
-      <h3>Thalia Rabie</h3>
-      <li v-for="todo in todos" :key="todo.id">
-        <div
-          v-if="todo.assignedTo === 'thaliarabie'"
-          class="card w-full md:w-1/2 mb-3"
-        >
-          <div class="flex items-center justify-between">
-            <h3>{{ todo.title }}</h3>
-            <div class="flex items-center gap-4">
-              <p>
-                <b>{{ todo.assignedTo }}</b>
-              </p>
-
-              <p
-                :class="[
-                  labelColor(todo.label),
-                  'w-24 text-center p-2 rounded-xl',
-                ]"
-              >
-                {{ todo.label }}
-              </p>
-            </div>
-          </div>
-          <p>{{ todo.description }}</p>
+          <button
+            v-if="todo.status !== 'complete'"
+            type="button"
+            class="button"
+            @click="() => onMarkTicketAsComplete(todo.id)"
+          >
+            Mark as Done
+          </button>
+          <button
+            v-else
+            type="button"
+            class="button-secondary"
+            @click="() => onMarkTicketAsIncomplete(todo.id)"
+          >
+            Mark as Incomplete
+          </button>
         </div>
       </li>
     </ul>
@@ -112,7 +104,12 @@
 <script setup lang="ts">
 import Dropdown from '~~/components/Dropdown/index.vue'
 
-import { createTodo, viewTodos } from '~~/endpoints/todo'
+import {
+  createTodo,
+  viewTodos,
+  markTodoAsComplete,
+  markTodoAsIncomplete,
+} from '~~/endpoints/todo'
 import { useNotification } from '~~/stores/notification'
 import { useProfile } from '~~/stores/profile'
 import { INewTodo } from '~~/types/todo'
@@ -147,6 +144,17 @@ const labelColor = (label: string) => {
   if (label === 'feature') return 'bg-blue-300'
   if (label === 'feature') return 'bg-green-300'
 }
+
+const onMarkTicketAsComplete = async (todoId: string) => {
+  await markTodoAsComplete(todoId)
+  refresh()
+}
+
+const onMarkTicketAsIncomplete = async (todoId: string) => {
+  await markTodoAsIncomplete(todoId)
+  refresh()
+}
+
 const onCreateTodo = async () => {
   if (!profileStore.userId) return
   const data = {
