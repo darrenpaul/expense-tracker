@@ -1,6 +1,10 @@
 <template>
   <div class="dropdown-button-container">
-    <button :class="[buttonStyle]" @click="emit('toggleIsOpen', !props.isOpen)">
+    <button
+      type="button"
+      :class="[buttonStyle]"
+      @click="emit('toggleIsOpen', !props.isOpen)"
+    >
       <div class="flex items-center justify-between gap-4 truncate">
         {{ buttonText }}
 
