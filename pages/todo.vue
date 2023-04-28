@@ -142,7 +142,7 @@ const assignedTo = ref('')
 const labelColor = (label: string) => {
   if (label === 'bug') return 'bg-red-300'
   if (label === 'feature') return 'bg-blue-300'
-  if (label === 'feature') return 'bg-green-300'
+  if (label === 'design') return 'bg-green-300'
 }
 
 const onMarkTicketAsComplete = async (todoId: string) => {
