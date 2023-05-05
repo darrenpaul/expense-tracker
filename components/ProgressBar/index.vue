@@ -9,7 +9,8 @@
       <div v-if="hideInnerText === false" class="progress-bar-text-container">
         {{ current }} / {{ total }}
       </div>
-      <div v-if="showPercentage === false" class="progress-bar-text-container">
+
+      <div v-if="showPercentage === true" class="progress-bar-text-container">
         {{ percentage }}%
       </div>
     </div>

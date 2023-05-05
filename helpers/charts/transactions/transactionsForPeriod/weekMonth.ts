@@ -107,10 +107,6 @@ export default ({
     spendPerWeekValues.push(spendPerWeekValue)
   })
 
-  const averageApples = new Array(days.length).fill(
-    useTransactions().previousMonthAverage()
-  )
-
   const seriesData = [
     createBarSeriesObject({
       data: incomeSeriesData,
@@ -120,17 +116,17 @@ export default ({
       data: expenseSeriesData,
       name: TRANSACTION_TYPE_EXPENSE.displayName,
     }),
-    {
-      name: 'Average Spend (Last Month)',
-      type: 'line',
-      data: averageApples,
-      showSymbol: false,
-      lineStyle: {
-        normal: {
-          type: 'dashed',
-        },
-      },
-    },
+    // {
+    //   name: 'Average Spend (Last Month)',
+    //   type: 'line',
+    //   data: averageApples,
+    //   showSymbol: false,
+    //   lineStyle: {
+    //     normal: {
+    //       type: 'dashed',
+    //     },
+    //   },
+    // },
   ]
 
   const options = {

@@ -8,7 +8,35 @@
 
     <div class="account-cards">
       <AccountCard
-        v-for="account in accountStore.accounts"
+        v-for="account in accountsInBalance"
+        :key="account.id"
+        :account="account"
+        @on-edit="onAccountEdit"
+        @on-delete="onShowConfirmDialog"
+      />
+    </div>
+
+    <div class="row between items-center mt-4 mb-2">
+      <h3>{{ COMMON_COPY.otherAccounts }}</h3>
+    </div>
+
+    <div class="account-cards">
+      <AccountCard
+        v-for="account in accountsNotInBalance"
+        :key="account.id"
+        :account="account"
+        @on-edit="onAccountEdit"
+        @on-delete="onShowConfirmDialog"
+      />
+    </div>
+
+    <div class="row between items-center mt-4 mb-2">
+      <h3>{{ COMMON_COPY.goalAccounts }}</h3>
+    </div>
+
+    <div class="account-cards">
+      <AccountCard
+        v-for="account in goalAccounts"
         :key="account.id"
         :account="account"
         @on-edit="onAccountEdit"
@@ -50,6 +78,30 @@ const activeAccount = ref({})
 const showAccountModal = ref(false)
 const showConfirmDialog = ref(false)
 const toDeleteId = ref('')
+
+const accountsInBalance = computed(() => {
+  const NotGoalAccounts = accountStore.accounts.filter(
+    ({ name }) => !name.includes('Goal')
+  )
+
+  return NotGoalAccounts.filter(
+    ({ includeInBalance }) => includeInBalance === true
+  )
+})
+
+const accountsNotInBalance = computed(() => {
+  const NotGoalAccounts = accountStore.accounts.filter(
+    ({ name }) => !name.includes('Goal')
+  )
+
+  return NotGoalAccounts.filter(
+    ({ includeInBalance }) => includeInBalance === false
+  )
+})
+
+const goalAccounts = computed(() => {
+  return accountStore.accounts.filter(({ name }) => name.includes('Goal'))
+})
 
 const onShowConfirmDialog = (accountId: string) => {
   showConfirmDialog.value = true

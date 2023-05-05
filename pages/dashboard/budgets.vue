@@ -6,7 +6,7 @@
       @on-click="() => (showModal = true)"
     />
 
-    <div class="flex flex-col md:grid-3-col">
+    <div class="flex flex-col md:grid md:grid-cols-3 gap-4">
       <BudgetCard
         v-for="budget in budgetStore.budgets"
         :key="budget.id"

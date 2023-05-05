@@ -1,6 +1,6 @@
 <template>
   <main class="h-full">
-    <Navigation />
+    <DefaultNavigation />
 
     <section class="layout-section pt-[5.625rem]">
       <slot />
@@ -8,4 +8,6 @@
   </main>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DefaultNavigation from '~~/components/navigation/DefaultNavigation/index.vue'
+</script>

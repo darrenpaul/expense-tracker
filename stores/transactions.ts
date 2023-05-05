@@ -137,46 +137,6 @@ export const useTransactions = defineStore({
     balance() {
       return () => this.balanceIncome() - this.balanceExpense()
     },
-    previousMonthAverage(state) {
-      return () => {
-        const userMonthStart = useUserSettings().monthStart
-        const pastMonthStartDate = setDate(
-          subMonths(new Date(), 2),
-          userMonthStart
-        )
-        const pastMonthEndDate = setDate(
-          subMonths(new Date(), 1),
-          userMonthStart
-        )
-
-        const transactionsForPeriod = state.transactions.filter(
-          ({ date }) =>
-            isSameDay(new Date(date), pastMonthStartDate) ||
-            isSameDay(new Date(date), pastMonthEndDate) ||
-            (isAfter(new Date(date), pastMonthStartDate) &&
-              isBefore(new Date(date), pastMonthEndDate))
-        )
-
-        const daysBetween = differenceInCalendarDays(
-          pastMonthEndDate,
-          pastMonthStartDate
-        )
-
-        const transactionAmounts = transactionsForPeriod.map(
-          ({ amount }) => amount
-        )
-
-        const filledAmounts = new Array(
-          daysBetween - transactionAmounts.length
-        ).fill(0)
-
-        const averageValue = average({
-          values: [...transactionAmounts, ...filledAmounts],
-        })
-
-        return parseFloat(averageValue.toFixed(2))
-      }
-    },
   },
 
   actions: {

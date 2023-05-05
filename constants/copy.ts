@@ -68,7 +68,9 @@ export const COMMON_COPY = {
   budgetNamePlaceholder: 'Takeout',
   startDate: 'Start Date',
   endDate: 'End Date',
-  accounts: 'Accounts',
+  accounts: 'Balance Accounts',
+  otherAccounts: 'Other Accounts',
+  goalAccounts: 'Goal Accounts',
 }
 
 export const TRANSACTION_COPY = {

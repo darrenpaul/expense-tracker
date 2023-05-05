@@ -66,7 +66,7 @@
       </template>
 
       <!-- INCLUDE IN BALANCE -->
-      <div class="input-group">
+      <div class="input-group-checkbox">
         <label class="label" for="includeInBalance">{{
           COMMON_COPY.includeInBalance
         }}</label>

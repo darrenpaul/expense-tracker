@@ -8,6 +8,8 @@ export default {
   endDate: 'End Date',
   spendPerDay: 'Spend Per Day',
   spendPerWeek: 'Spend Per Week',
+  spentPerDay: 'Spent Per Day',
+  spentPerWeek: 'Spent Per Week',
   budgetName: 'Budget Name',
   budgetNamePlaceholder: 'Takeout',
   category: 'Category',
@@ -15,4 +17,9 @@ export default {
   amountPlaceholder: '100',
   note: 'Note',
   notePlaceholder: 'Budget for takeout',
+  complete: '(Complete)',
+  period: 'Period',
+  daysLeft: 'Days Left',
+  spent: 'Current Amount',
+  spend: 'Spend Limit',
 }

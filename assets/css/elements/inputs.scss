@@ -53,6 +53,19 @@ form {
     /* ANIMATION AND EFFECTS */
 }
 
+.input-group-checkbox {
+    @extend .input-group;
+    /* SIZE */
+    @apply w-fit;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex flex-row-reverse items-center justify-center gap-1;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
 .input-groups {
     /* SIZE */
     /* MARGINS AND PADDING */

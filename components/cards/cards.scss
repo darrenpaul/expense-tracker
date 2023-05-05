@@ -14,7 +14,7 @@
         /* SIZE */
         /* MARGINS AND PADDING */
         /* LAYOUT */
-        @apply flex items-center justify-between;
+        @apply flex flex-col md:flex-row items-center justify-between;
         /* BORDERS */
         /* COLORS */
         /* TEXT */
@@ -37,7 +37,7 @@
         /* SIZE */
         /* MARGINS AND PADDING */
         /* LAYOUT */
-        @apply flex items-center justify-between gap-4;
+        @apply flex flex-col md:flex-row items-center justify-between gap-4;
         /* BORDERS */
         /* COLORS */
         /* TEXT */
@@ -73,7 +73,7 @@
         @apply w-full;
         /* MARGINS AND PADDING */
         /* LAYOUT */
-        @apply flex items-center justify-between;
+        @apply flex flex-col md:flex-row items-center justify-between;
         /* BORDERS */
         /* COLORS */
         /* TEXT */

@@ -18,6 +18,7 @@ import { TRANSACTIONS_ROUTE } from '~~/constants/routes/transactions'
 import { useProfile } from '~~/stores/profile'
 import { CATEGORIES_ROUTE } from '~~/constants/routes/categories'
 import { BUDGETS_ROUTE } from '~~/constants/routes/budgets'
+import { TODO_ROUTE } from '~~/constants/routes/todo'
 
 const LINKS = [
   DASHBOARD_ROUTE,
@@ -27,6 +28,7 @@ const LINKS = [
   BUDGETS_ROUTE,
   GOALS_ROUTE,
   PROFILE_SETTINGS_ROUTE,
+  TODO_ROUTE,
 ]
 
 const router = useRouter()

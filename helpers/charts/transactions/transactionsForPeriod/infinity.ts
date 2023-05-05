@@ -57,10 +57,6 @@ export default ({ transactions, currency }: IInfinityPeriodChart) => {
     days,
   }).map((income) => income?.amount)
 
-  const averageApples = new Array(days.length).fill(
-    useTransactions().previousMonthAverage()
-  )
-
   const seriesData = [
     createBarSeriesObject({
       data: incomeSeriesData,
@@ -70,17 +66,17 @@ export default ({ transactions, currency }: IInfinityPeriodChart) => {
       data: expenseSeriesData,
       name: TRANSACTION_TYPE_EXPENSE.displayName,
     }),
-    {
-      name: 'Average Spend (Last Month)',
-      type: 'line',
-      showSymbol: false,
-      data: averageApples,
-      lineStyle: {
-        normal: {
-          type: 'dashed',
-        },
-      },
-    },
+    // {
+    //   name: 'Average Spend (Last Month)',
+    //   type: 'line',
+    //   showSymbol: false,
+    //   data: averageApples,
+    //   lineStyle: {
+    //     normal: {
+    //       type: 'dashed',
+    //     },
+    //   },
+    // },
   ]
 
   const options = {

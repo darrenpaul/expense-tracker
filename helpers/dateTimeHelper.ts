@@ -9,6 +9,7 @@ import {
 export const DATE_TIME_FORMAT = 'yyyy-MM-dd HH:mm:ss'
 export const DATE_FORMAT = 'yyyy-MM-dd'
 export const DATE_FORMAT_SHORT = 'dd MMM'
+export const DISPLAY_DATE_FORMAT = 'dd MMM, yyyy'
 export const TIME_FORMAT = 'HH:mm:ss'
 
 export const INTERVAL_15_MINUTES = [0, 15, 30, 45]
@@ -90,6 +91,10 @@ export const formatDateTime = (dateTimeValue: Date) => {
 
 export const formatDate = (date: Date, dateFormat = DATE_FORMAT) => {
   return format(date, dateFormat)
+}
+
+export const formatDateToDisplay = (date: Date) => {
+  return format(date, DISPLAY_DATE_FORMAT)
 }
 
 export const parseTime = (time: string) => {

@@ -80,14 +80,6 @@ const categoryTotal = computed(() => {
   return transactionAmounts.reduce((a, b) => a + b, 0)
 })
 
-const percentage = computed(() => {
-  const percentageAmount = parseFloat(
-    ((categoryTotal.value / props.totalAmount) * 100).toFixed(0)
-  )
-
-  return `${percentageAmount}%`
-})
-
 const onEdit = () => {
   emit('onEdit', props.category.id)
 }

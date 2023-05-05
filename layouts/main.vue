@@ -1,6 +1,6 @@
 <template>
   <main class="main-layout-container">
-    <MainNavigation />
+    <DashboardNavigation />
 
     <section class="main-layout-content">
       <slot />
@@ -11,6 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import MainNavigation from '~~/components/MainNavigation/index.vue'
+import DashboardNavigation from '~~/components/navigation/DashboardNavigation/index.vue'
 import ActionButtons from '~~/components/ActionButtons/index.vue'
 </script>
