@@ -42,6 +42,7 @@
 </template>
 
 <script setup lang="ts">
+import { isWithinInterval } from 'date-fns'
 import { ICategory } from '~~/types/category'
 import PencilIcon from '~~/components/icons/PencilIcon.vue'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
@@ -50,13 +51,18 @@ import MissingCategoryIcon from '~~/components/icons/categories/MissingCategoryI
 import { currencyFormat } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
+import { sumArrayNumbers } from '~~/helpers/maths'
+import { ITransaction } from '~~/types/transaction'
 
 const emit = defineEmits(['onEdit', 'onDelete'])
 
-const props = defineProps<{ category: ICategory; totalAmount: number }>()
+const props = defineProps<{
+  category: ICategory
+  totalAmount: number
+  transactions: Array<ITransaction>
+}>()
 
 const userSettingStore = useUserSettings()
-const transactionStore = useTransactions()
 
 const iconForCategory = computed(() => {
   const matchedComponent = CATEGORY_ICONS.find(
@@ -69,15 +75,15 @@ const iconForCategory = computed(() => {
 })
 
 const categoryTotal = computed(() => {
-  const matchedTransactions = transactionStore.transactions.filter(
+  const transactionsForCategory = props.transactions.filter(
     (transaction) => transaction.category.id === props.category.id
   )
 
-  const transactionAmounts = matchedTransactions.map(
+  const transactionAmounts = transactionsForCategory.map(
     (transaction) => transaction.amount
   )
 
-  return transactionAmounts.reduce((a, b) => a + b, 0)
+  return sumArrayNumbers(transactionAmounts)
 })
 
 const onEdit = () => {

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { endOfDay, setDate, subMonths } from 'date-fns'
 import { useProfile } from './profile'
 import { viewUserSettings } from '~~/endpoints/userSettings'
 import { SIDE_PANEL_EXPANDED_COOKIE } from '~~/constants/settings'
@@ -22,6 +23,9 @@ export const useUserSettings = defineStore({
 
   getters: {
     settingsId: (state) => state.id,
+    monthStartDate: (state) =>
+      subMonths(setDate(endOfDay(new Date()), state.monthStart), 1),
+    monthEndDate: (state) => setDate(endOfDay(new Date()), state.monthStart),
   },
 
   actions: {

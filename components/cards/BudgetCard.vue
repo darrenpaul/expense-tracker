@@ -1,35 +1,48 @@
 <template>
   <div class="card card-stretch">
-    <div class="row centered between mb-2">
+    <!-- HEADING -->
+    <div
+      class="flex items-center justify-between mb-2"
+      @click="expanded = !expanded"
+    >
       <h3>
         {{ budget.name }}
       </h3>
 
       <h4 v-if="budgetComplete">{{ COPY.complete }}</h4>
 
-      <button
-        class="button-icon-transparent z-50"
-        @click="expanded = !expanded"
-      >
-        <ArrowDownIcon v-if="expanded" />
-        <ArrowUpIcon v-else />
-      </button>
+      <ArrowDownIcon v-if="expanded" size="14" />
+      <ArrowUpIcon v-else size="14" />
     </div>
 
+    <!-- DETAILS -->
     <template v-if="expanded">
+      <div v-if="budgetComplete === true" class="flex gap-4">
+        <button class="button-warn" @click="onDeleteBudget">
+          {{ COPY.delete }}
+        </button>
+
+        <button
+          v-if="budgetComplete === true"
+          class="button"
+          @click="onRecreateBudget"
+        >
+          {{ COPY.recreate }}
+        </button>
+      </div>
+
+      <!-- EDIT BUDGET BUTTON -->
       <button
-        v-if="budgetComplete === false"
+        v-else
         class="button-secondary"
         @click="emit('onEdit', budget.id)"
       >
         {{ COPY.edit }}
       </button>
 
-      <!-- SPEND & SPENT -->
       <div>
-        <!-- SPENT -->
         <div class="grid grid-cols-2">
-          <p>{{ COPY.spent }}</p>
+          <p>{{ COPY.balance }}</p>
           <div>
             <p class="text-right">
               {{
@@ -42,9 +55,8 @@
           </div>
         </div>
 
-        <!-- SPEND -->
         <div class="grid grid-cols-2">
-          <p>{{ COPY.spend }}</p>
+          <p>{{ COPY.spendLimit }}</p>
           <div>
             <p class="text-right">
               {{
@@ -62,7 +74,7 @@
 
       <!-- PERIOD -->
       <div class="grid grid-cols-2">
-        <p>{{ COPY.period }}</p>
+        <p>{{ COPY.spendingPeriod }}</p>
         <div>
           <p class="text-right">
             {{ formatDateToDisplay(new Date(budget.startDate)) }}
@@ -75,17 +87,17 @@
 
       <!-- DAYS LEFT -->
       <div class="grid grid-cols-2">
-        <p>{{ COPY.daysLeft }}</p>
+        <p>{{ COPY.daysRemaining }}</p>
         <p class="text-right">
-          {{ daysLeft }}
+          {{ daysRemaining }}
         </p>
       </div>
 
       <div class="divider" />
 
-      <div>
+      <div v-if="budgetComplete" class="mb-2">
         <div class="grid grid-cols-2">
-          <p>{{ COPY.spentPerDay }}</p>
+          <p>{{ COPY.dailySpendAmount }}</p>
           <p class="text-right">
             {{
               currencyFormat({
@@ -97,7 +109,7 @@
         </div>
 
         <div class="grid grid-cols-2">
-          <p>{{ COPY.spentPerWeek }}</p>
+          <p>{{ COPY.weeklySpendAmount }}</p>
           <p class="text-right">
             {{
               currencyFormat({
@@ -109,16 +121,14 @@
         </div>
       </div>
 
-      <div class="divider" />
-
-      <div class="mb-2">
+      <div v-if="budgetComplete === false" class="mb-2">
         <div class="grid grid-cols-2">
-          <p>{{ COPY.spendPerDay }}</p>
+          <p>{{ COPY.dailySpendLimit }}</p>
           <p class="text-right">{{ dailySpend }}</p>
         </div>
 
         <div class="grid grid-cols-2">
-          <p>{{ COPY.spendPerWeek }}</p>
+          <p>{{ COPY.weeklySpendLimit }}</p>
           <p class="text-right">{{ weeklySpend }}</p>
         </div>
       </div>
@@ -129,6 +139,7 @@
       :max-amount="budget.amount"
       :hide-inner-text="false"
       :show-percentage="false"
+      :progress-bar-color="progressBarBackgroundColor"
     />
   </div>
 </template>
@@ -139,12 +150,19 @@ import {
   differenceInDays,
   isWithinInterval,
   differenceInWeeks,
+  addDays,
+  format,
+  startOfDay,
+  endOfDay,
 } from 'date-fns'
 import COPY from '~~/constants/copy/budget'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
 import ProgressBar from '~~/components/ProgressBar/index.vue'
-import { formatDateToDisplay } from '~~/helpers/dateTimeHelper'
+import {
+  DATE_TIME_FORMAT,
+  formatDateToDisplay,
+} from '~~/helpers/dateTimeHelper'
 import {
   mergeTransactionsByDate,
   spendPerDay,
@@ -157,6 +175,7 @@ import ArrowDownIcon from '~~/components/icons/ArrowDownIcon.vue'
 import { IBudget } from '~~/types/budget'
 import { average } from '~~/helpers/maths'
 import { ITransaction } from '~~/types/transaction'
+import { useBudgets } from '~~/stores/budgets'
 
 const emit = defineEmits(['onEdit'])
 
@@ -169,6 +188,7 @@ const props = defineProps<{ budget: IBudget }>()
 
 const userSettingStore = useUserSettings()
 const transactionStore = useTransactions()
+const budgetStore = useBudgets()
 
 const expanded = ref(false)
 
@@ -257,7 +277,7 @@ const budgetComplete = computed(() => {
   return false
 })
 
-const daysLeft = computed(() => {
+const daysRemaining = computed(() => {
   const { endDate } = props.budget
   const current = new Date()
   const end = new Date(endDate)
@@ -281,4 +301,57 @@ const amountOfWeeks = computed(() => {
   const end = new Date(endDate)
   return differenceInWeeks(end, start)
 })
+
+const budgetOverLimit = computed(() => {
+  const { amount } = props.budget
+  if (balance.value > amount) return true
+  return false
+})
+
+const progressBarBackgroundColor = computed(() => {
+  if (budgetOverLimit.value === true) return 'bg-red-500'
+  return 'bg-primary'
+})
+
+const onDeleteBudget = () => {
+  const { id } = props.budget
+  budgetStore.handleDeleteBudget(id)
+}
+
+const onRecreateBudget = () => {
+  const {
+    id,
+    categoryIds,
+    name,
+    amount,
+    startDate,
+    endDate,
+    note,
+    adjustBalance,
+  } = props.budget
+
+  const startDateObj = new Date(startDate)
+  const endDateObj = new Date(endDate)
+
+  const budgetLength = differenceInDays(endDateObj, startDateObj) as number
+
+  const newStartDate = format(startOfDay(endDateObj), DATE_TIME_FORMAT)
+  const newEndDate = format(
+    addDays(endOfDay(endDateObj), budgetLength),
+    DATE_TIME_FORMAT
+  )
+
+  const newBudgetData = {
+    id,
+    categoryIds,
+    name,
+    amount,
+    startDate: newStartDate,
+    endDate: newEndDate,
+    note,
+    adjustBalance,
+  } as IBudget
+
+  budgetStore.handleUpdateBudget(newBudgetData)
+}
 </script>

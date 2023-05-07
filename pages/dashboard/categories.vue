@@ -18,6 +18,7 @@
             :key="item.id"
             :category="item"
             :total-amount="expenseTotal"
+            :transactions="expenseTransactionsForMonth"
             @on-edit="onCategoryEdit"
             @on-delete="onShowConfirmDialog"
           />
@@ -45,6 +46,7 @@
             :key="item.id"
             :category="item"
             :total-amount="incomeTotal"
+            :transactions="incomeTransactionsForMonth"
             @on-edit="onCategoryEdit"
             @on-delete="onShowConfirmDialog"
           />
@@ -76,6 +78,7 @@
 </template>
 
 <script setup lang="ts">
+import { isWithinInterval } from 'date-fns'
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import COPY from '~~/constants/copy/category'
 import { useCategories } from '~~/stores/categories'
@@ -90,6 +93,7 @@ import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
+import { useUserSettings } from '~~/stores/userSettings'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -98,6 +102,7 @@ definePageMeta({
 
 const categoryStore = useCategories()
 const transactionStore = useTransactions()
+const userSettingStore = useUserSettings()
 
 const showCategoryModal = ref(false)
 const category = ref({})
@@ -105,12 +110,21 @@ const showConfirmDialog = ref(false)
 const transactionType = ref(TRANSACTION_TYPE_EXPENSE.displayName)
 const toDeleteId = ref('')
 
+const expenseTransactionsForMonth = computed(() => {
+  return transactionStore.expenseTransactionsForMonth()
+})
+
+const incomeTransactionsForMonth = computed(() => {
+  return transactionStore.incomeTransactionsForMonth()
+})
+
 const expenseUsageOptions = computed(() => {
   if (transactionStore.list === null || categoryStore.categories === null) {
     return {}
   }
+
   return categoryUsage(
-    transactionStore.expenses as Array<ITransaction>,
+    expenseTransactionsForMonth.value as Array<ITransaction>,
     COPY.expenseUsage
   )
 })

@@ -1,14 +1,10 @@
 import {
   isSameDay,
   format,
-  getDaysInMonth,
-  getWeeksInMonth,
   eachMonthOfInterval,
   isThisMonth,
   differenceInCalendarDays,
   differenceInWeeks,
-  isAfter,
-  isBefore,
 } from 'date-fns'
 import { DATE_FORMAT } from './dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'
@@ -172,23 +168,9 @@ export const spendPerMonth = ({ balance, endDate }: ISpendPerPeriod) => {
 
 export const balance = (accountId = 'All', excluded = true) => {
   const transactionStore = useTransactions()
-  // const budgets = useBudgets().budgets
-
-  // const budgetAmounts = budgets.map((budget) => {
-  //   const transactionsForBudget = transactionStore.expenses.filter(
-  //     ({ category, date }) =>
-  //       budget.categoryIds.includes(category.id) &&
-  //       isAfter(new Date(date), new Date(budget.startDate)) &&
-  //       isBefore(new Date(date), new Date(budget.endDate))
-  //   )
-  //   const transactionAmounts = transactionsForBudget.map(({ amount }) => amount)
-  //   const transactionAmountsSum = transactionAmounts.reduce((a, b) => a + b, 0)
-  //   return budget.amount - transactionAmountsSum
-  // })
-
-  // const budgetAmountRemaining = budgetAmounts.reduce((a, b) => a + b, 0)
+  const budgets = useBudgets().balanceAmountFromBudgets
 
   const income = transactionStore.income(accountId, excluded)
   const expense = transactionStore.expense(accountId, excluded)
-  return income - expense
+  return income - expense - budgets
 }

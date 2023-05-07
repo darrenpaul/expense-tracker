@@ -90,6 +90,18 @@
         />
       </div>
 
+      <div class="input-group-checkbox">
+        <label class="label" for="adjustBalance">{{
+          BUDGET_COPY.adjustBalance
+        }}</label>
+        <input
+          id="adjustBalance"
+          v-model="adjustBalance"
+          class="checkbox"
+          type="checkbox"
+        />
+      </div>
+
       <!-- BUTTONS -->
       <div>
         <button
@@ -148,6 +160,8 @@ const endDate = ref(
   props.budget?.endDate || format(new Date(), DATE_TIME_FORMAT)
 )
 const note = ref(props.budget?.note || '')
+const adjustBalance = ref(props.budget.adjustBalance || false)
+
 const showConfirmDialog = ref(false)
 
 const headingCopy = computed(() => {
@@ -205,6 +219,7 @@ const onAddUpdateBudget = () => {
       startDate: startDate.value,
       endDate: endDate.value,
       note: note.value,
+      adjustBalance: adjustBalance.value,
     }
 
     budgetStore.handleUpdateBudget(data)
@@ -220,6 +235,7 @@ const onAddUpdateBudget = () => {
       startDate: startDate.value,
       endDate: endDate.value,
       note: note.value,
+      adjustBalance: adjustBalance.value,
     }
     budgetStore.handleCreateBudget(data)
   }

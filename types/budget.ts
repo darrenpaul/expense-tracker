@@ -6,6 +6,7 @@ export interface INewBudget {
   startDate: string
   endDate: string
   note: string
+  adjustBalance: boolean
 }
 
 export interface IBudget {
@@ -16,4 +17,5 @@ export interface IBudget {
   startDate: string
   endDate: string
   note: string
+  adjustBalance: boolean
 }

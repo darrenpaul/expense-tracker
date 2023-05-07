@@ -5,8 +5,16 @@ const TABLE = 'budgets'
 // ---------- CREATE
 export const createBudget = async (data: INewBudget) => {
   const pocketBaseClient = await usePocketBase()
-  const { id, categoryIds, name, amount, startDate, endDate, note } =
-    await pocketBaseClient.collection(TABLE).create(data)
+  const {
+    id,
+    categoryIds,
+    name,
+    amount,
+    startDate,
+    endDate,
+    note,
+    adjustBalance,
+  } = await pocketBaseClient.collection(TABLE).create(data)
 
   return {
     id,
@@ -16,6 +24,7 @@ export const createBudget = async (data: INewBudget) => {
     startDate,
     endDate,
     note,
+    adjustBalance,
   } as IBudget
 }
 
@@ -27,7 +36,16 @@ export const viewBudgets = async () => {
   })
 
   return records.map(
-    ({ id, categoryIds, name, amount, startDate, endDate, note }) => {
+    ({
+      id,
+      categoryIds,
+      name,
+      amount,
+      startDate,
+      endDate,
+      note,
+      adjustBalance,
+    }) => {
       return {
         id,
         categoryIds,
@@ -36,6 +54,7 @@ export const viewBudgets = async () => {
         startDate,
         endDate,
         note,
+        adjustBalance,
       } as IBudget
     }
   )
@@ -46,7 +65,7 @@ export const updateBudget = async (budget: IBudget) => {
   const pocketBaseClient = usePocketBase()
   const { id } = budget
 
-  const { categoryIds, name, amount, startDate, endDate, note } =
+  const { categoryIds, name, amount, startDate, endDate, note, adjustBalance } =
     await pocketBaseClient.collection(TABLE).update(id, budget)
 
   return {
@@ -57,6 +76,7 @@ export const updateBudget = async (budget: IBudget) => {
     startDate,
     endDate,
     note,
+    adjustBalance,
   } as IBudget
 }
 // ---------- DELETE

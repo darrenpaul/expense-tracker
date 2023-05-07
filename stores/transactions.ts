@@ -5,12 +5,14 @@ import {
   isBefore,
   isSameDay,
   isToday,
+  isWithinInterval,
   setDate,
   subMonths,
 } from 'date-fns'
 import { useNotification } from './notification'
 import { useAccounts } from './accounts'
 import { useUserSettings } from './userSettings'
+import { useBudgets } from './budgets'
 import {
   TRANSACTION_TYPE_EXPENSE,
   TRANSACTION_TYPE_INCOME,
@@ -135,7 +137,32 @@ export const useTransactions = defineStore({
       return () => this.expenseV2(useAccounts().accountsInBalance)
     },
     balance() {
-      return () => this.balanceIncome() - this.balanceExpense()
+      const budgetTotals = useBudgets().balanceAmountFromBudgets
+      return () => this.balanceIncome() - this.balanceExpense() - budgetTotals
+    },
+    expenseTransactionsForMonth() {
+      return () => {
+        const todayDate = new Date()
+        const monthStartDate = useUserSettings().monthStartDate
+        return this.expenses.filter((transaction) =>
+          isWithinInterval(new Date(transaction.date), {
+            start: monthStartDate,
+            end: todayDate,
+          })
+        )
+      }
+    },
+    incomeTransactionsForMonth() {
+      return () => {
+        const todayDate = new Date()
+        const monthStartDate = useUserSettings().monthStartDate
+        return this.incomes.filter((transaction) =>
+          isWithinInterval(new Date(transaction.date), {
+            start: monthStartDate,
+            end: todayDate,
+          })
+        )
+      }
     },
   },
 

@@ -6,12 +6,26 @@
         :class="['progress-bar', props.progressBarColor]"
         :style="{ width: `${percentage}%` }"
       />
-      <div v-if="hideInnerText === false" class="progress-bar-text-container">
-        {{ current }} / {{ total }}
-      </div>
+      <div class="progress-bar-text-container">
+        <p
+          v-if="hideInnerText === false"
+          :class="[
+            'text-secondary py-1 px-2 rounded-full',
+            props.progressBarColor,
+          ]"
+        >
+          {{ current }} / {{ total }}
+        </p>
 
-      <div v-if="showPercentage === true" class="progress-bar-text-container">
-        {{ percentage }}%
+        <p
+          v-if="showPercentage === true"
+          :class="[
+            'text-secondary py-1 px-2 rounded-full',
+            props.progressBarColor,
+          ]"
+        >
+          {{ percentage }}%
+        </p>
       </div>
     </div>
 
