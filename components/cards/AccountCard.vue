@@ -41,15 +41,20 @@
 </template>
 
 <script setup lang="ts">
+import { min } from 'date-fns'
 import ProgressBar from '~~/components/ProgressBar/index.vue'
 import { currencyFormat } from '~~/helpers/formatting'
 import PencilIcon from '~~/components/icons/PencilIcon.vue'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
 import { IAccount } from '~~/types/account'
-import { balance } from '~~/helpers/transactions'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
 import COPY from '~~/constants/copy/account'
+import {
+  TRANSACTION_TYPE_EXPENSE,
+  TRANSACTION_TYPE_INCOME,
+} from '~~/constants/transactions'
+import { sumArrayNumbers } from '~~/helpers/maths'
 
 const emit = defineEmits(['onEdit', 'onDelete'])
 
@@ -59,7 +64,7 @@ const userSettingStore = useUserSettings()
 const transactionStore = useTransactions()
 
 const currentBalance = computed(() => {
-  return balance(props.account.id, props.account.includeInBalance)
+  return totalIncome.value - totalExpense.value
 })
 
 const totalExpense = computed(() => {
