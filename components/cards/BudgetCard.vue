@@ -70,7 +70,7 @@
         </div>
       </div>
 
-      <div class="divider" />
+      <div class="divider-h" />
 
       <!-- PERIOD -->
       <div class="grid grid-cols-2">
@@ -93,7 +93,7 @@
         </p>
       </div>
 
-      <div class="divider" />
+      <div class="divider-h" />
 
       <div v-if="budgetComplete" class="mb-2">
         <div class="grid grid-cols-2">

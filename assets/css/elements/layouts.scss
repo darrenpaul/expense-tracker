@@ -84,7 +84,20 @@ section {
   /* ANIMATION AND EFFECTS */
 }
 
-.divider {
+.divider-v {
+  /* SIZE */
+  @apply h-full;
+  /* MARGINS AND PADDING */
+  @apply py-2 m-0;
+  /* LAYOUT */
+  /* BORDERS */
+  @apply border border-primary;
+  /* COLORS */
+  /* TEXT */
+  /* ANIMATION AND EFFECTS */
+}
+
+.divider-h {
   /* SIZE */
   @apply w-full;
   /* MARGINS AND PADDING */

@@ -107,7 +107,6 @@
       <!-- DATE PICKER -->
       <div class="input-group">
         <label class="label" for="datePicker">{{ COPY.date }}</label>
-
         <DatePicker id="datePicker" :date="date" @on-change="date = $event" />
       </div>
 
@@ -152,7 +151,7 @@
 </template>
 
 <script setup lang="ts">
-import { format } from 'date-fns'
+import { format, isDate } from 'date-fns'
 import { isEmpty } from 'lodash-es'
 import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
@@ -233,6 +232,10 @@ const fieldsValid = () => {
 
   // TRANSACTION AMOUNT
   if (!validateAmount(amount.value)) {
+    return false
+  }
+
+  if (!isDate(new Date(date.value))) {
     return false
   }
 
@@ -347,7 +350,7 @@ const onCreateTransactionTransfer = async () => {
   emit('closeModal', true)
 }
 
-const onUpdateTransaction = async () => {
+const onUpdateTransaction = () => {
   const data: ITransaction = {
     id: props.transaction.id,
     type: transactionType.value,
@@ -358,7 +361,6 @@ const onUpdateTransaction = async () => {
     amount: amount.value,
     date: date.value,
   }
-
   transactionStore.handleUpdateTransaction(data)
 
   emit('closeModal', true)

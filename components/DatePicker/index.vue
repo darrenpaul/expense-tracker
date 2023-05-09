@@ -86,6 +86,7 @@ import {
   formatDate,
   DATE_FORMAT_SHORT,
   TIME_FORMAT,
+  DATE_TIME_FORMAT,
 } from '~~/helpers/dateTimeHelper'
 import { COMMON_COPY } from '~~/constants/copy'
 import ArrowLeftIcon from '~~/components/icons/ArrowLeftIcon.vue'
@@ -159,8 +160,7 @@ const dayStyle = (day: Date) => {
 const onSetDate = (event: Event) => {
   event.preventDefault()
   showModal.value = false
-  const currentTime = format(getTime(new Date()), TIME_FORMAT)
-  const dateTime = `${selectedDay.value} ${currentTime}`
+  const dateTime = format(getTime(new Date()), DATE_TIME_FORMAT)
   emit('onChange', dateTime)
 }
 

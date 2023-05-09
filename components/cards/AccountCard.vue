@@ -13,21 +13,22 @@
       </h3>
     </div>
 
-    <div class="account-card-progress-bar-actions-group">
-      <ProgressBar
-        :current-amount="totalExpense"
-        :max-amount="totalIncome"
-        :labels="[
-          COPY.moneyOut,
-          COPY.moneyIn,
-          totalExpenseCurrency,
-          totalIncomeCurrency,
-        ]"
-        :background-color="'bg-green-500'"
-        :progress-bar-color="'bg-red-500'"
-        :hide-inner-text="true"
-        :show-percentage="true"
-      />
+    <div class="account-card-expense-income-actions-group">
+      <div class="account-card-expense-income-group">
+        <div class="pr-4">
+          <p class="text-app-green">{{ COPY.totalIncome }}</p>
+          <p class="text-app-green">
+            <b>{{ totalIncomeCurrency }}</b>
+          </p>
+        </div>
+
+        <div class="pl-4">
+          <p class="text-app-red">{{ COPY.totalExpense }}</p>
+          <p class="text-app-red">
+            <b>{{ totalExpenseCurrency }}</b>
+          </p>
+        </div>
+      </div>
 
       <div class="account-card-button-group">
         <button class="button-icon-secondary" @click="onDelete">
@@ -41,8 +42,6 @@
 </template>
 
 <script setup lang="ts">
-import { min } from 'date-fns'
-import ProgressBar from '~~/components/ProgressBar/index.vue'
 import { currencyFormat } from '~~/helpers/formatting'
 import PencilIcon from '~~/components/icons/PencilIcon.vue'
 import TrashIcon from '~~/components/icons/TrashIcon.vue'
@@ -50,11 +49,6 @@ import { IAccount } from '~~/types/account'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
 import COPY from '~~/constants/copy/account'
-import {
-  TRANSACTION_TYPE_EXPENSE,
-  TRANSACTION_TYPE_INCOME,
-} from '~~/constants/transactions'
-import { sumArrayNumbers } from '~~/helpers/maths'
 
 const emit = defineEmits(['onEdit', 'onDelete'])
 
@@ -63,15 +57,16 @@ const props = defineProps<{ account: IAccount }>()
 const userSettingStore = useUserSettings()
 const transactionStore = useTransactions()
 
-const currentBalance = computed(() => {
-  return totalIncome.value - totalExpense.value
+const totalExpense = computed(() => {
+  return transactionStore.expenseV2([props.account.id])
 })
 
-const totalExpense = computed(() => {
-  return transactionStore.expense(
-    props.account.id,
-    props.account.includeInBalance
-  )
+const totalIncome = computed(() => {
+  return transactionStore.incomeV2([props.account.id])
+})
+
+const currentBalance = computed(() => {
+  return totalIncome.value - totalExpense.value
 })
 
 const totalExpenseCurrency = computed(() => {
@@ -79,13 +74,6 @@ const totalExpenseCurrency = computed(() => {
     value: totalExpense.value,
     currency: userSettingStore.currency,
   })
-})
-
-const totalIncome = computed(() => {
-  return transactionStore.income(
-    props.account.id,
-    props.account.includeInBalance
-  )
 })
 
 const totalIncomeCurrency = computed(() => {

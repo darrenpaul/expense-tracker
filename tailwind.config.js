@@ -23,6 +23,9 @@ module.exports = {
         'theme-table-head': 'var(--table-head)',
         'theme-table-body': 'var(--table-body)',
         'theme-navigation': 'var(--navigation)',
+        'app-red': 'var(--red)',
+        'app-green': 'var(--green)',
+        'app-blue': 'var(--blue)',
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],

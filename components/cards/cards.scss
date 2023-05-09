@@ -80,12 +80,23 @@
         /* ANIMATION AND EFFECTS */
     }
 
-    .account-card-progress-bar-actions-group {
+    .account-card-expense-income-actions-group {
         /* SIZE */
         @apply w-full;
         /* MARGINS AND PADDING */
         /* LAYOUT */
         @apply flex flex-col sm:flex-row items-center justify-between gap-4;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .account-card-expense-income-group {
+        /* SIZE */
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply grid grid-cols-2 divide-x;
         /* BORDERS */
         /* COLORS */
         /* TEXT */

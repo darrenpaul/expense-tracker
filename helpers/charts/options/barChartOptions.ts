@@ -63,6 +63,7 @@ export const barChartBaseOptions: IBarChartOptions = {
 interface ICreateBarSeriesObject {
   name: string
   data: Array<any>
+  color: string | undefined
 }
 export const createBarSeriesObject = ({
   data,

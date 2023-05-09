@@ -3,6 +3,7 @@
 h1,
 h2,
 h3,
+h4,
 p,
 label {
     /* SIZE */
@@ -45,6 +46,16 @@ h3 {
     /* COLORS */
     /* TEXT */
     @apply text-xl font-semibold;
+    /* ANIMATION AND EFFECTS */
+}
+h4 {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    @apply text-lg font-semibold;
     /* ANIMATION AND EFFECTS */
 }
 
