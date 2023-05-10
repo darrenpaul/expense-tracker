@@ -88,8 +88,9 @@ section {
   /* SIZE */
   @apply h-full;
   /* MARGINS AND PADDING */
-  @apply py-2 m-0;
+  @apply p-0 m-0;
   /* LAYOUT */
+  @apply block;
   /* BORDERS */
   @apply border border-primary;
   /* COLORS */

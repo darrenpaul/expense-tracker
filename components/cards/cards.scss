@@ -94,9 +94,10 @@
 
     .account-card-expense-income-group {
         /* SIZE */
+        @apply w-full;
         /* MARGINS AND PADDING */
         /* LAYOUT */
-        @apply grid grid-cols-2 divide-x;
+        @apply flex items-center justify-between;
         /* BORDERS */
         /* COLORS */
         /* TEXT */
@@ -105,6 +106,7 @@
 
     .account-card-button-group {
         /* SIZE */
+        @apply w-full;
         /* MARGINS AND PADDING */
         @apply m-0 p-0;
         /* LAYOUT */

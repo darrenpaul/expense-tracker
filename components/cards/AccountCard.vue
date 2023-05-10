@@ -4,39 +4,45 @@
       <h3 class="truncate">{{ account.name }}</h3>
 
       <h3>
-        {{
-          currencyFormat({
-            value: currentBalance,
-            currency: userSettingStore.currency,
-          })
-        }}
+        <b>
+          {{
+            currencyFormat({
+              value: currentBalance,
+              currency: userSettingStore.currency,
+            })
+          }}
+        </b>
       </h3>
     </div>
 
-    <div class="account-card-expense-income-actions-group">
-      <div class="account-card-expense-income-group">
-        <div class="pr-4">
-          <p class="text-app-green">{{ COPY.totalIncome }}</p>
-          <p class="text-app-green">
-            <b>{{ totalIncomeCurrency }}</b>
-          </p>
-        </div>
-
-        <div class="pl-4">
-          <p class="text-app-red">{{ COPY.totalExpense }}</p>
-          <p class="text-app-red">
-            <b>{{ totalExpenseCurrency }}</b>
-          </p>
-        </div>
+    <div class="account-card-expense-income-group">
+      <div class="pr-4 text-left">
+        <p class="text-app-green">{{ COPY.totalIncome }}</p>
+        <p class="text-app-green">
+          <b>{{ totalIncomeCurrency }}</b>
+        </p>
       </div>
 
-      <div class="account-card-button-group">
-        <button class="button-icon-secondary" @click="onDelete">
-          <TrashIcon :fill="'var(--primary)'" />
-        </button>
-
-        <button class="button-icon" @click="onEdit"><PencilIcon /></button>
+      <div class="pl-4 text-right">
+        <p class="text-app-red">{{ COPY.totalExpense }}</p>
+        <p class="text-app-red">
+          <b>{{ totalExpenseCurrency }}</b>
+        </p>
       </div>
+    </div>
+
+    <div class="account-card-button-group">
+      <button class="button-secondary" @click="onDelete">
+        <TrashIcon fill="var(--primary)" :size="'14'" />
+        {{ COPY.delete }}
+        <span />
+      </button>
+
+      <button class="button" @click="onEdit">
+        <PencilIcon :size="'14'" />
+        {{ COPY.edit }}
+        <span />
+      </button>
     </div>
   </div>
 </template>
@@ -49,6 +55,8 @@ import { IAccount } from '~~/types/account'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
 import COPY from '~~/constants/copy/account'
+import { addQuery } from '~~/helpers/routerQuery'
+import { ACCOUNT_FORM_ROUTE } from '~~/constants/routes/accounts'
 
 const emit = defineEmits(['onEdit', 'onDelete'])
 
@@ -84,7 +92,8 @@ const totalIncomeCurrency = computed(() => {
 })
 
 const onEdit = () => {
-  emit('onEdit', props.account.id)
+  const accountQuery = { [ACCOUNT_FORM_ROUTE.queryKey]: props.account.id }
+  addQuery(accountQuery)
 }
 
 const onDelete = () => {

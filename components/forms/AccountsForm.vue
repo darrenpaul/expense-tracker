@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="w-full md:w-fit">
     <div class="flex between mb-2">
       <h3>{{ headingCopy }}</h3>
     </div>
 
-    <form>
+    <form class="form">
       <!-- NAME -->
       <div class="input-group">
         <label class="label" for="name">{{ COMMON_COPY.accountName }}</label>
@@ -17,9 +17,9 @@
         />
       </div>
 
-      <template v-if="!props.account?.id">
-        <!-- ADD INITIAL AMOUNT -->
-        <div class="input-group">
+      <!-- ADD INITIAL AMOUNT -->
+      <template v-if="!account?.id">
+        <div class="input-group-checkbox">
           <label class="label" for="addInitialAmount">{{
             COMMON_COPY.addInitialAmount
           }}</label>
@@ -67,9 +67,9 @@
 
       <!-- INCLUDE IN BALANCE -->
       <div class="input-group-checkbox">
-        <label class="label" for="includeInBalance">{{
-          COMMON_COPY.includeInBalance
-        }}</label>
+        <label class="label" for="includeInBalance">
+          {{ COMMON_COPY.includeInBalance }}
+        </label>
         <input
           id="includeInBalance"
           v-model="includeInBalance"
@@ -79,16 +79,16 @@
       </div>
 
       <!-- BUTTONS -->
-
       <div>
         <button
-          v-if="!isEmpty(props.account)"
+          v-if="!isEmpty(account)"
           class="button-warn"
           type="button"
           @click="onShowConfirmDialog"
         >
           {{ COPY.delete }}
         </button>
+
         <CancelSaveButtons
           @on-cancel="onCancel"
           @on-save="onAddUpdateAccount"
@@ -108,37 +108,25 @@
 import { format } from 'date-fns'
 import { isEmpty } from 'lodash-es'
 import CancelSaveButtons from '~~/components/CancelSaveButtons.vue'
-// COMPONENTS
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
-// CONSTANTS
 import { TRANSACTION_TYPE_INCOME } from '~~/constants/transactions'
 import { COMMON_COPY, TRANSACTION_COPY } from '~~/constants/copy'
 import COPY from '~~/constants/copy/account'
-// HELPERS
 import { validateName, validateAmount } from '~~/helpers/validators'
 import { DATE_TIME_FORMAT } from '~~/helpers/dateTimeHelper'
-// TYPES
 import { IAccount, INewAccount } from '~~/types/account'
 import { INewTransaction } from '~~/types/transaction'
-// ENDPOINTS
-import {
-  createAccount,
-  deleteAccount,
-  updateAccount,
-} from '~~/endpoints/accounts'
+import { deleteAccount, updateAccount } from '~~/endpoints/accounts'
 import { createTransaction } from '~~/endpoints/transaction'
-// STORES
 import { useProfile } from '~~/stores/profile'
 import { useNotification } from '~~/stores/notification'
 import { useAccounts } from '~~/stores/accounts'
 import { useCategories } from '~~/stores/categories'
 import { useTransactions } from '~~/stores/transactions'
+import { ACCOUNT_FORM_ROUTE } from '~~/constants/routes/accounts'
+import { removeQuery, getQuery } from '~~/helpers/routerQuery'
 
 const emit = defineEmits(['closeModal'])
-
-const props = defineProps({
-  account: { type: Object, default: () => {} },
-})
 
 const notification = useNotification()
 const profile = useProfile()
@@ -146,15 +134,29 @@ const accountStore = useAccounts()
 const categoryStore = useCategories()
 const transactionStore = useTransactions()
 
-const name = ref(props.account?.name || '')
-const amount = ref(props.account?.amount)
-const category = ref((props.account?.category?.id as string) || '')
-const includeInBalance = ref(props.account?.includeInBalance)
+const account = ref()
+const name = ref()
+const amount = ref()
+const category = ref()
+const includeInBalance = ref()
 const showConfirmDialog = ref(false)
 const addInitialAmount = ref(false)
 
+onMounted(() => {
+  window.scrollTo({ top: 0, behavior: 'auto' })
+
+  const accountId = getQuery(ACCOUNT_FORM_ROUTE.queryKey)
+  if (accountId !== 'new') {
+    account.value = accountStore.accounts.find(({ id }) => id === accountId)
+    name.value = account.value.name
+    amount.value = account.value.amount
+    category.value = account.value.category?.id
+    includeInBalance.value = account.value.includeInBalance
+  }
+})
+
 const headingCopy = computed(() => {
-  if (isEmpty(props.account)) {
+  if (isEmpty(account.value)) {
     return COMMON_COPY.addAccount
   }
   return COMMON_COPY.editAccount
@@ -197,7 +199,7 @@ const onConfirmConfirmDialog = () => {
 }
 
 const onCancel = () => {
-  emit('closeModal')
+  removeQuery(ACCOUNT_FORM_ROUTE.queryKey)
 }
 
 interface IAddInitialTransaction {
@@ -245,8 +247,7 @@ const onAddAccount = async () => {
 
 const onUpdateAccount = async () => {
   const data: IAccount = {
-    id: props.account.id,
-    userId: profile.userId,
+    id: account.value.id,
     name: name.value,
     includeInBalance: includeInBalance.value,
   }
@@ -263,23 +264,23 @@ const onAddUpdateAccount = async () => {
   if (fieldsValid() === false) return false
 
   // UPDATE ACCOUNT
-  if (props.account?.name) {
+  if (account.value?.name) {
     await onUpdateAccount()
   }
 
   // ADD ACCOUNT
-  if (!props.account?.name) {
+  if (!account.value?.name) {
     await onAddAccount()
   }
 
   transactionStore.fetch()
   accountStore.fetch()
 
-  emit('closeModal')
+  removeQuery(ACCOUNT_FORM_ROUTE.queryKey)
 }
 
 const onDeleteAccount = async () => {
-  const accountId = props.account.id
+  const accountId = account.value.id
   await deleteAccount(accountId)
   accountStore.fetch()
 
@@ -288,6 +289,6 @@ const onDeleteAccount = async () => {
     type: 'warn',
   })
 
-  emit('closeModal')
+  removeQuery(ACCOUNT_FORM_ROUTE.queryKey)
 }
 </script>

@@ -4,7 +4,7 @@
     /* MARGINS AND PADDING */
     @apply px-5 py-2 mb-2;
     /* LAYOUT */
-    @apply flex justify-center items-center;
+    @apply flex justify-between items-center gap-4;
     /* BORDERS */
     @apply rounded-lg focus:ring-4 focus:ring-blue-300 border;
     /* COLORS */
@@ -14,6 +14,19 @@
     @apply font-medium;
     /* ANIMATION AND EFFECTS */
     @apply transition-all;
+
+    svg {
+        path {
+            @apply fill-secondary transition-all;
+        }
+    }
+    &:hover {
+        svg {
+            path {
+                @apply fill-primary transition-all;
+            }
+        }
+    }
 }
 
 .button-small {
@@ -69,6 +82,19 @@
     @apply text-primary border-primary bg-secondary;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
+
+    svg {
+        path {
+            @apply fill-primary transition-all;
+        }
+    }
+    &:hover {
+        svg {
+            path {
+                @apply fill-primary transition-all;
+            }
+        }
+    }
 }
 
 .button-icon {

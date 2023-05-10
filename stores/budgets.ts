@@ -38,7 +38,7 @@ export const useBudgets = defineStore({
         )
 
         const transactionsForBudget = transactionsInPeriod.filter(
-          (transactions) => budgetCategories.includes(transactions.category.id)
+          (transactions) => budgetCategories.includes(transactions.category?.id)
         )
 
         const amounts = transactionsForBudget.map(({ amount }) => amount)

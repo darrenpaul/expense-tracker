@@ -7,3 +7,10 @@ export const ACCOUNTS_ROUTE = {
   auth: true,
   icon: AccountIcon,
 }
+
+export const ACCOUNT_FORM_ROUTE = {
+  name: 'accountForm',
+  displayName: 'Account Form',
+  path: '/dashboard/accounts',
+  queryKey: 'account',
+}

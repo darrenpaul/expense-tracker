@@ -160,7 +160,15 @@ const dayStyle = (day: Date) => {
 const onSetDate = (event: Event) => {
   event.preventDefault()
   showModal.value = false
-  const dateTime = format(getTime(new Date()), DATE_TIME_FORMAT)
+  const dateTimeNow = new Date()
+  const selectedDateObj = new Date(selectedDay.value)
+  const dateString = format(selectedDateObj, DATE_FORMAT)
+  const timeString = format(dateTimeNow, TIME_FORMAT)
+
+  const dateTime = format(
+    new Date(`${dateString} ${timeString}`),
+    DATE_TIME_FORMAT
+  )
   emit('onChange', dateTime)
 }
 

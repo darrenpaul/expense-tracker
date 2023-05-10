@@ -11,6 +11,19 @@ form {
     /* ANIMATION AND EFFECTS */
 }
 
+.form {
+    /* SIZE */
+    @apply w-full md:w-[34rem];
+    /* MARGINS AND PADDING */
+    @apply mx-auto;
+    /* LAYOUT */
+    @apply flex flex-col gap-4;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
 .input,
 .select {
     /* SIZE */

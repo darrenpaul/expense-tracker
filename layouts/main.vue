@@ -6,11 +6,11 @@
       <slot />
     </section>
 
-    <ActionButtons />
+    <!-- <ActionButtons /> -->
   </main>
 </template>
 
 <script setup lang="ts">
 import DashboardNavigation from '~~/components/navigation/DashboardNavigation/index.vue'
-import ActionButtons from '~~/components/ActionButtons/index.vue'
+// import ActionButtons from '~~/components/ActionButtons/index.vue'
 </script>
