@@ -16,7 +16,7 @@
           <AccountCardSkeleton />
         </template>
 
-        <TransitionGroup name="list" tag="ul">
+        <TransitionGroup name="list">
           <AccountCard
             v-for="account in accountsInBalance"
             :key="account.id"
