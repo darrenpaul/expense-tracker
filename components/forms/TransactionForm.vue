@@ -3,7 +3,7 @@
     <div class="flex between mb-2">
       <h3>{{ headingCopy }}</h3>
     </div>
-    {{ date }}
+
     <form>
       <!-- TRANSACTION TYPE -->
       <TransactionTypeSelect
