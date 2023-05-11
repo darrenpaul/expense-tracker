@@ -52,7 +52,7 @@
     <HeadingWithButton
       :heading="TRANSACTION_COPY.transactions"
       :button-text="TRANSACTION_COPY.addTransaction"
-      @on-click="() => (showTransactionModal = true)"
+      @on-click="onAddTransaction"
     >
       <AccountSelect :account="account" @on-account-change="account = $event" />
 
@@ -105,6 +105,8 @@ import { spendPerDay, spendPerWeek, balance } from '~~/helpers/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
+import { addQuery } from '~~/helpers/routerQuery'
+import { TRANSACTION_FORM_ROUTE } from '~~/constants/routes/transactions'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -185,6 +187,11 @@ const filteredTransactions = computed(() => {
   }
   return transactionsByCategory
 })
+
+const onAddTransaction = () => {
+  const accountQuery = { [TRANSACTION_FORM_ROUTE.queryKey]: 'new' }
+  addQuery(accountQuery)
+}
 
 const onCloseTransactionModal = (refresh = false) => {
   showTransactionModal.value = false

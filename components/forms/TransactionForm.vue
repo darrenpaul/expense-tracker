@@ -126,7 +126,7 @@
 
       <div>
         <button
-          v-if="!isEmpty(props.transaction)"
+          v-if="!isEmpty(transaction)"
           class="button-warn"
           type="button"
           @click="onShowConfirmDialog"
@@ -170,6 +170,8 @@ import { useAccounts } from '~~/stores/accounts'
 import { useTransactions } from '~~/stores/transactions'
 import { validateAmount, validateName } from '~~/helpers/validators'
 import TransactionTypeSelect from '~~/components/TransactionTypeSelect/index.vue'
+import { TRANSACTION_FORM_ROUTE } from '~~/constants/routes/transactions'
+import { removeQuery, getQuery } from '~~/helpers/routerQuery'
 
 const emit = defineEmits(['refresh', 'closeModal'])
 
@@ -182,19 +184,37 @@ const accountStore = useAccounts()
 const categoryStore = useCategories()
 const transactionStore = useTransactions()
 
-const transactionType = ref(
-  props.transaction?.type || TRANSACTION_TYPES[0].displayName
-)
-const name = ref(props.transaction?.name || '')
-const account = ref((props.transaction?.account?.id as string) || '')
-const accountTransfer = ref((props.transaction?.account?.id as string) || '')
-const category = ref((props.transaction?.category?.id as string) || '')
-const amount = ref(props.transaction?.amount)
-const date = ref(
-  props.transaction?.date || format(new Date(), DATE_TIME_FORMAT)
-)
+const transaction = ref()
+const transactionType = ref(TRANSACTION_TYPES[0].displayName)
+const name = ref()
+const account = ref()
+const accountTransfer = ref()
+const category = ref()
+const amount = ref()
+const date = ref(format(new Date(), DATE_TIME_FORMAT))
 const note = ref(props.transaction?.note || '')
 const showConfirmDialog = ref(false)
+
+onBeforeMount(() => {
+  const transactionId = getQuery(TRANSACTION_FORM_ROUTE.queryKey)
+  if (transactionId !== 'new') {
+    transaction.value = transactionStore.transactions.find(
+      ({ id }) => id === transactionId
+    )
+
+    transactionType.value = transaction.value.type
+    name.value = transaction.value.name
+    account.value = transaction.value.account?.id
+    category.value = transaction.value.category?.id
+    amount.value = transaction.value.amount
+    date.value = transaction.value.date
+    note.value = transaction.value.note
+  }
+})
+
+onMounted(() => {
+  window.scrollTo({ top: 0, behavior: 'auto' })
+})
 
 const headingCopy = computed(() => {
   if (isEmpty(props.transaction)) {
@@ -264,7 +284,7 @@ const onConfirmConfirmDialog = () => {
 }
 
 const onCancel = () => {
-  emit('closeModal')
+  removeQuery(TRANSACTION_FORM_ROUTE.queryKey)
 }
 
 const onCreateUpdateTransaction = async () => {
@@ -294,7 +314,7 @@ const onDelete = () => {
 
   clearFields()
   emit('refresh')
-  emit('closeModal')
+  removeQuery(TRANSACTION_FORM_ROUTE.queryKey)
 }
 
 const onCreateTransaction = () => {
@@ -310,7 +330,7 @@ const onCreateTransaction = () => {
   }
 
   transactionStore.handleCreateTransaction(data)
-  emit('closeModal', true)
+  removeQuery(TRANSACTION_FORM_ROUTE.queryKey)
 }
 
 const onCreateTransactionTransfer = async () => {
@@ -347,7 +367,7 @@ const onCreateTransactionTransfer = async () => {
 
   transactionStore.handleCreateTransaction(fromData)
   transactionStore.handleCreateTransaction(toDate)
-  emit('closeModal', true)
+  removeQuery(TRANSACTION_FORM_ROUTE.queryKey)
 }
 
 const onUpdateTransaction = () => {
@@ -363,6 +383,6 @@ const onUpdateTransaction = () => {
   }
   transactionStore.handleUpdateTransaction(data)
 
-  emit('closeModal', true)
+  removeQuery(TRANSACTION_FORM_ROUTE.queryKey)
 }
 </script>

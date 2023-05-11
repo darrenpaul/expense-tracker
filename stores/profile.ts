@@ -57,6 +57,7 @@ export const useProfile = defineStore({
     },
     async refreshToken() {
       const { record, token } = await authRefreshToken()
+
       this.user = {
         id: record.id,
         username: record.username,

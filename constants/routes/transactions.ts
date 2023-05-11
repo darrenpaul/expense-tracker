@@ -7,3 +7,10 @@ export const TRANSACTIONS_ROUTE = {
   auth: true,
   icon: TransactionIcon,
 }
+
+export const TRANSACTION_FORM_ROUTE = {
+  name: 'transactionForm',
+  displayName: 'Transaction Form',
+  path: '/dashboard/transactions',
+  queryKey: 'transaction',
+}

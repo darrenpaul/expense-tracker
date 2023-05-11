@@ -73,7 +73,6 @@ import { HOME_ROUTE } from '~~/constants/routes/home'
 import { COMMON_COPY, NAVIGATION_COPY } from '~~/constants/copy'
 import BrandIcon from '~~/components/icons/BrandIcon.vue'
 import CollapseIcon from '~~/components/icons/mainNavigation/CollapseIcon.vue'
-import { useProfile } from '~~/stores/profile'
 import { useUserSettings } from '~~/stores/userSettings'
 import { ILink } from '~~/types/link'
 
@@ -82,7 +81,6 @@ const emit = defineEmits(['onLogout'])
 const props = defineProps<{ links: Array<ILink> }>()
 
 const route = useRoute()
-const profile = useProfile()
 const userSettingStore = useUserSettings()
 
 const expanded = ref(userSettingStore.sidePanelExpanded)

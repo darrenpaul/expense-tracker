@@ -1,10 +1,10 @@
 <template>
-  <div class="w-full md:w-fit">
+  <div>
     <div class="flex between mb-2">
       <h3>{{ headingCopy }}</h3>
     </div>
 
-    <form class="form">
+    <form>
       <!-- NAME -->
       <div class="input-group">
         <label class="label" for="name">{{ COMMON_COPY.accountName }}</label>
@@ -126,8 +126,6 @@ import { useTransactions } from '~~/stores/transactions'
 import { ACCOUNT_FORM_ROUTE } from '~~/constants/routes/accounts'
 import { removeQuery, getQuery } from '~~/helpers/routerQuery'
 
-const emit = defineEmits(['closeModal'])
-
 const notification = useNotification()
 const profile = useProfile()
 const accountStore = useAccounts()
@@ -142,9 +140,7 @@ const includeInBalance = ref()
 const showConfirmDialog = ref(false)
 const addInitialAmount = ref(false)
 
-onMounted(() => {
-  window.scrollTo({ top: 0, behavior: 'auto' })
-
+onBeforeMount(() => {
   const accountId = getQuery(ACCOUNT_FORM_ROUTE.queryKey)
   if (accountId !== 'new') {
     account.value = accountStore.accounts.find(({ id }) => id === accountId)
@@ -153,6 +149,10 @@ onMounted(() => {
     category.value = account.value.category?.id
     includeInBalance.value = account.value.includeInBalance
   }
+})
+
+onMounted(() => {
+  window.scrollTo({ top: 0, behavior: 'auto' })
 })
 
 const headingCopy = computed(() => {

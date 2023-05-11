@@ -1,8 +1,6 @@
 <template>
   <div>
-    <AccountsForm v-if="showAccountForm === true" />
-
-    <div v-else class="accounts-container">
+    <div class="accounts-container">
       <HeadingWithButton
         :heading="COMMON_COPY.accounts"
         :button-text="COMMON_COPY.addAccount"
@@ -85,11 +83,10 @@ import AccountCard from '~~/components/cards/AccountCard.vue'
 import AccountCardSkeleton from '~~/components/cards/AccountCardSkeleton.vue'
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import { COMMON_COPY } from '~~/constants/copy'
-import AccountsForm from '~~/components/forms/AccountsForm.vue'
 import { useAccounts } from '~~/stores/accounts'
 import ConfirmDialog from '~~/components/dialogs/ConfirmDialog.vue'
 import { ACCOUNT_FORM_ROUTE } from '~~/constants/routes/accounts'
-import { addQuery, clearQuery, hasQuery } from '~~/helpers/routerQuery'
+import { addQuery } from '~~/helpers/routerQuery'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -97,28 +94,11 @@ definePageMeta({
 })
 
 const accountStore = useAccounts()
-const route = useRoute()
 
 const activeAccount = ref({})
 const showAccountModal = ref(false)
 const showConfirmDialog = ref(false)
 const toDeleteId = ref('')
-const showAccountForm = ref(false)
-
-onMounted(() => {
-  clearQuery()
-})
-
-watch(
-  () => route.query,
-  () => {
-    if (hasQuery(ACCOUNT_FORM_ROUTE.queryKey)) {
-      showAccountForm.value = true
-    } else {
-      showAccountForm.value = false
-    }
-  }
-)
 
 const accountsLoading = computed(() => accountStore.accounts.length === 0)
 
@@ -154,11 +134,6 @@ const onAddAccount = () => {
 const onShowConfirmDialog = (accountId: string) => {
   showConfirmDialog.value = true
   toDeleteId.value = accountId
-}
-
-const onCloseAccountsModal = () => {
-  showAccountModal.value = false
-  activeAccount.value = {}
 }
 
 const onAccountEdit = (accountId: string) => {

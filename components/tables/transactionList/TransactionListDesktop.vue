@@ -106,6 +106,8 @@ import { ITransaction } from '~~/types/transaction'
 import { currencyFormat, addChangeSymbol } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
 import { CATEGORY_ICONS } from '~~/constants/category'
+import { TRANSACTION_FORM_ROUTE } from '~~/constants/routes/transactions'
+import { addQuery } from '~~/helpers/routerQuery'
 
 const emit = defineEmits(['onEdit'])
 
@@ -125,7 +127,8 @@ const canShowRow = (rowName: string) => {
 }
 
 const onEdit = (transactionId: string) => {
-  emit('onEdit', transactionId)
+  const transactionQuery = { [TRANSACTION_FORM_ROUTE.queryKey]: transactionId }
+  addQuery(transactionQuery)
 }
 </script>
 
