@@ -1,13 +1,15 @@
 <template>
-  <main class="main-layout-container">
-    <DashboardNavigation />
+  <ClientOnly>
+    <main class="main-layout-container">
+      <DashboardNavigation />
 
-    <section class="main-layout-content">
-      <slot />
-    </section>
+      <section class="main-layout-content">
+        <slot />
+      </section>
 
-    <!-- <ActionButtons /> -->
-  </main>
+      <!-- <ActionButtons /> -->
+    </main>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">

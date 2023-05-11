@@ -1,11 +1,13 @@
 <template>
-  <main class="h-full">
-    <DefaultNavigation />
+  <ClientOnly>
+    <main class="h-full">
+      <DefaultNavigation />
 
-    <section class="layout-section pt-[5.625rem]">
-      <slot />
-    </section>
-  </main>
+      <section class="layout-section pt-[5.625rem]">
+        <slot />
+      </section>
+    </main>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">

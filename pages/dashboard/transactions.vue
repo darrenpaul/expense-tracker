@@ -1,86 +1,81 @@
 <template>
-  <ClientOnly>
-    <div>
-      <div class="transactions-container">
-        <div class="transactions-card-container">
-          <div class="card-stretch">
-            <Chart :options="transactionsForPeriodChartOptions" />
-          </div>
-        </div>
-
-        <div class="column">
-          <GlanceCard
-            v-if="transactionStore.transactions"
-            :title="TRANSACTION_COPY.balance"
-            :amount="
-              currencyFormat({
-                value: transactionStore.balance(),
-                currency: userSettingStore.currency,
-              })
-            "
-          />
-
-          <GlanceCard
-            v-if="transactionStore.transactions"
-            :title="TRANSACTION_COPY.spendPerDay"
-            :amount="
-              currencyFormat({
-                value: spendPerDay({
-                  balance: balance(),
-                  endDate: monthEndDate,
-                }),
-                currency: userSettingStore.currency,
-              })
-            "
-          />
-
-          <GlanceCard
-            v-if="transactionStore.transactions"
-            :title="TRANSACTION_COPY.spendPerWeek"
-            :amount="
-              currencyFormat({
-                value: spendPerWeek({
-                  balance: balance(),
-                  endDate: monthEndDate,
-                }),
-                currency: userSettingStore.currency,
-              })
-            "
-          />
+  <div>
+    <div class="transactions-container">
+      <div class="transactions-card-container">
+        <div class="card-stretch">
+          <Chart :options="transactionsForPeriodChartOptions" />
         </div>
       </div>
 
-      <HeadingWithButton
-        :heading="TRANSACTION_COPY.transactions"
-        :button-text="TRANSACTION_COPY.addTransaction"
-        @on-click="() => (showTransactionModal = true)"
-      >
-        <AccountSelect
-          :account="account"
-          @on-account-change="account = $event"
+      <div class="column">
+        <GlanceCard
+          v-if="transactionStore.transactions"
+          :title="TRANSACTION_COPY.balance"
+          :amount="
+            currencyFormat({
+              value: transactionStore.balance(),
+              currency: userSettingStore.currency,
+            })
+          "
         />
 
-        <CategorySelect :category="category" @on-change="category = $event" />
-
-        <PeriodSelect :period="period" @on-period-change="period = $event" />
-      </HeadingWithButton>
-
-      <TransactionList
-        v-if="transactionStore.transactions"
-        :transactions="filteredTransactions"
-        @on-edit="onEditTransaction"
-        @change="refreshData"
-      />
-
-      <!-- TRANSACTION FORM -->
-      <Modal :is-open="showTransactionModal" @close="onCloseTransactionModal">
-        <TransactionForm
-          :transaction="transaction"
-          @close-modal="onCloseTransactionModal"
+        <GlanceCard
+          v-if="transactionStore.transactions"
+          :title="TRANSACTION_COPY.spendPerDay"
+          :amount="
+            currencyFormat({
+              value: spendPerDay({
+                balance: balance(),
+                endDate: monthEndDate,
+              }),
+              currency: userSettingStore.currency,
+            })
+          "
         />
-      </Modal>
+
+        <GlanceCard
+          v-if="transactionStore.transactions"
+          :title="TRANSACTION_COPY.spendPerWeek"
+          :amount="
+            currencyFormat({
+              value: spendPerWeek({
+                balance: balance(),
+                endDate: monthEndDate,
+              }),
+              currency: userSettingStore.currency,
+            })
+          "
+        />
+      </div>
     </div>
-  </ClientOnly>
+
+    <HeadingWithButton
+      :heading="TRANSACTION_COPY.transactions"
+      :button-text="TRANSACTION_COPY.addTransaction"
+      @on-click="() => (showTransactionModal = true)"
+    >
+      <AccountSelect :account="account" @on-account-change="account = $event" />
+
+      <CategorySelect :category="category" @on-change="category = $event" />
+
+      <PeriodSelect :period="period" @on-period-change="period = $event" />
+    </HeadingWithButton>
+
+    <TransactionList
+      v-if="transactionStore.transactions"
+      :transactions="filteredTransactions"
+      @on-edit="onEditTransaction"
+      @change="refreshData"
+    />
+
+    <!-- TRANSACTION FORM -->
+    <Modal :is-open="showTransactionModal" @close="onCloseTransactionModal">
+      <TransactionForm
+        :transaction="transaction"
+        @close-modal="onCloseTransactionModal"
+      />
+    </Modal>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -71,11 +71,6 @@ import ArrowDownIcon from '~~/components/icons/ArrowDownIcon.vue'
 
 const emit = defineEmits(['onEdit'])
 
-definePageMeta({
-  middleware: process.client ? 'auth' : undefined,
-  layout: 'main',
-})
-
 const props = defineProps({
   goalId: { type: String, required: true },
   accountId: { type: String, required: true },

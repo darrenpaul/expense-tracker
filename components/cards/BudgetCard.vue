@@ -179,11 +179,6 @@ import { useBudgets } from '~~/stores/budgets'
 
 const emit = defineEmits(['onEdit'])
 
-definePageMeta({
-  middleware: process.client ? 'auth' : undefined,
-  layout: 'main',
-})
-
 const props = defineProps<{ budget: IBudget }>()
 
 const userSettingStore = useUserSettings()
