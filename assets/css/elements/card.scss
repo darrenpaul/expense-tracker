@@ -7,7 +7,7 @@
     /* BORDERS */
     @apply rounded-3xl;
     /* COLORS */
-    @apply bg-secondary-a;
+    @apply bg-secondary;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
     @apply drop-shadow-sm shadow-sm;
@@ -46,18 +46,6 @@
     /* LAYOUT */
     /* BORDERS */
     /* COLORS */
-    /* TEXT */
-    /* ANIMATION AND EFFECTS */
-}
-
-.card-dark {
-    @extend .card;
-    /* SIZE */
-    /* MARGINS AND PADDING */
-    /* LAYOUT */
-    /* BORDERS */
-    /* COLORS */
-    @apply bg-secondary-a;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
 }

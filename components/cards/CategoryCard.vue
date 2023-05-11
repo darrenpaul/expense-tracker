@@ -1,5 +1,5 @@
 <template>
-  <div class="card-slim card-dark card-stretch category-card">
+  <div class="card-slim card card-stretch category-card">
     <div class="category-card-title-amount-group">
       <div class="category-card-title-icon-group">
         <component

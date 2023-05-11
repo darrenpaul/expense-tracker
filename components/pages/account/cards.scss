@@ -1,0 +1,60 @@
+.account-card {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex flex-col gap-4 justify-between items-center;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    @apply whitespace-nowrap;
+    /* ANIMATION AND EFFECTS */
+
+    .account-card-title-amount-group {
+        /* SIZE */
+        @apply w-full;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex flex-col md:flex-row items-center justify-between;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .account-card-expense-income-actions-group {
+        /* SIZE */
+        @apply w-full;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex flex-col sm:flex-row items-center justify-between gap-4;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .account-card-expense-income-group {
+        /* SIZE */
+        @apply w-full;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex items-center justify-between;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+
+    .account-card-button-group {
+        /* SIZE */
+        @apply w-full;
+        /* MARGINS AND PADDING */
+        @apply m-0 p-0;
+        /* LAYOUT */
+        @apply flex gap-4;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}

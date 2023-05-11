@@ -79,8 +79,8 @@
 </template>
 
 <script setup lang="ts">
-import AccountCard from '~~/components/cards/AccountCard.vue'
-import AccountCardSkeleton from '~~/components/cards/AccountCardSkeleton.vue'
+import AccountCard from '~~/components/pages/account/AccountCard.vue'
+import AccountCardSkeleton from '~~/components/pages/account/AccountCardSkeleton.vue'
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
 import { COMMON_COPY } from '~~/constants/copy'
 import { useAccounts } from '~~/stores/accounts'

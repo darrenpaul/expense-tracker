@@ -1,5 +1,5 @@
 <template>
-  <div class="card-dark card-stretch account-card">
+  <div class="card card-stretch account-card">
     <div class="account-card-title-amount-group">
       <div
         class="w-40 h-7 bg-neutral-200 rounded-full animate-pulse mb-2 md:mb-0"

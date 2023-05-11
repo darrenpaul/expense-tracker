@@ -1,5 +1,5 @@
 <template>
-  <div class="card-dark card-stretch account-card">
+  <div class="card card-stretch account-card">
     <div class="account-card-title-amount-group">
       <h3 class="truncate">{{ account.name }}</h3>
 
