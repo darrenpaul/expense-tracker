@@ -64,8 +64,8 @@
 </template>
 
 <script setup lang="ts">
-import MenuIcon from '~~/components/icons/mainNavigation/MenuIcon.vue'
-import LogoutIcon from '~~/components/icons/mainNavigation/LogoutIcon.vue'
+import MenuIcon from '~~/components/icons/dashboardNavigation/MenuIcon.vue'
+import LogoutIcon from '~~/components/icons/dashboardNavigation/LogoutIcon.vue'
 import { HOME_ROUTE } from '~~/constants/routes/home'
 import { COMMON_COPY, NAVIGATION_COPY } from '~~/constants/copy'
 import BrandIcon from '~~/components/icons/BrandIcon.vue'

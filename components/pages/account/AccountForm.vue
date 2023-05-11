@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div class="flex between mb-2">
-      <h3>{{ headingCopy }}</h3>
-    </div>
+  <div class="form-container">
+    <h2>{{ headingCopy }}</h2>
 
-    <form>
+    <form class="form">
       <!-- NAME -->
       <div class="input-group">
         <label class="label" for="name">{{ COMMON_COPY.accountName }}</label>

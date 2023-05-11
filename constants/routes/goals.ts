@@ -1,4 +1,4 @@
-import GoalIcon from '~~/components/icons/mainNavigation/GoalIcon.vue'
+import GoalIcon from '~~/components/icons/dashboardNavigation/GoalIcon.vue'
 
 export const GOALS_ROUTE = {
   name: 'goals',

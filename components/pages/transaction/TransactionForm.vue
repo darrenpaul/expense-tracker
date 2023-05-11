@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div class="flex between mb-2">
-      <h3>{{ headingCopy }}</h3>
-    </div>
+  <div class="form-container">
+    <h2>{{ headingCopy }}</h2>
 
-    <form>
+    <form class="form">
       <!-- TRANSACTION TYPE -->
       <TransactionTypeSelect
         :selected="transactionType"
@@ -173,7 +171,7 @@ import TransactionTypeSelect from '~~/components/TransactionTypeSelect/index.vue
 import { TRANSACTION_FORM_ROUTE } from '~~/constants/routes/transactions'
 import { removeQuery, getQuery } from '~~/helpers/routerQuery'
 
-const emit = defineEmits(['refresh', 'closeModal'])
+const emit = defineEmits(['refresh'])
 
 const props = defineProps({
   transaction: { type: Object, default: () => {} },
@@ -309,11 +307,10 @@ const onCreateUpdateTransaction = async () => {
 }
 
 const onDelete = () => {
-  const transactionId = props.transaction.id
+  const transactionId = transaction.value.id
   transactionStore.handleDeleteTransaction(transactionId)
 
   clearFields()
-  emit('refresh')
   removeQuery(TRANSACTION_FORM_ROUTE.queryKey)
 }
 

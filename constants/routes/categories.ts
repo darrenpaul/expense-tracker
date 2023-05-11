@@ -1,4 +1,4 @@
-import CategoryIcon from '~~/components/icons/mainNavigation/CategoryIcon.vue'
+import CategoryIcon from '~~/components/icons/dashboardNavigation/CategoryIcon.vue'
 
 export const CATEGORIES_ROUTE = {
   name: 'categories',

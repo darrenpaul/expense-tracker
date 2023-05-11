@@ -34,7 +34,7 @@ import GoalCard from '~~/components/cards/GoalCard.vue'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
-  layout: 'main',
+  layout: 'dashboard',
 })
 
 const goalStore = useGoals()

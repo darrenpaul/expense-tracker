@@ -11,18 +11,13 @@
         <CrossIcon :fill="'var(--secondary)'" />
       </button>
     </div>
-
-    <!-- TRANSACTION -->
-    <Modal :is-open="showModal" @close="onModalClose">
-      <TransactionForm v-if="showTransaction" @close-modal="onModalClose" />
-    </Modal>
   </div>
 </template>
 
 <script setup lang="ts">
+// TODO: add query to display the form
 import TRANSACTION_COPY from '~~/constants/copy/transactions'
 import CrossIcon from '~~/components/icons/CrossIcon.vue'
-import TransactionForm from '~~/components/forms/TransactionForm.vue'
 
 const isOpen = ref(false)
 const showModal = ref(false)

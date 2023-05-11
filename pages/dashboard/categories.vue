@@ -97,7 +97,7 @@ import { useUserSettings } from '~~/stores/userSettings'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
-  layout: 'main',
+  layout: 'dashboard',
 })
 
 const categoryStore = useCategories()

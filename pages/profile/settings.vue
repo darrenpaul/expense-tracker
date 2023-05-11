@@ -18,7 +18,7 @@ import { useProfile } from '~~/stores/profile'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
-  layout: 'main',
+  layout: 'dashboard',
 })
 
 const profileStore = useProfile()

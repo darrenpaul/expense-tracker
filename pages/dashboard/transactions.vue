@@ -67,14 +67,6 @@
       @on-edit="onEditTransaction"
       @change="refreshData"
     />
-
-    <!-- TRANSACTION FORM -->
-    <Modal :is-open="showTransactionModal" @close="onCloseTransactionModal">
-      <TransactionForm
-        :transaction="transaction"
-        @close-modal="onCloseTransactionModal"
-      />
-    </Modal>
   </div>
 </template>
 
@@ -93,7 +85,6 @@ import PeriodSelect from '~~/components/buttons/PeriodSelect.vue'
 import AccountSelect from '~~/components/buttons/AccountSelect.vue'
 import CategorySelect from '~~/components/buttons/CategorySelect.vue'
 import HeadingWithButton from '~~/components/HeadingWithButton.vue'
-import TransactionForm from '~~/components/forms/TransactionForm.vue'
 import TransactionList from '~~/components/tables/transactionList/index.vue'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
@@ -110,7 +101,7 @@ import { TRANSACTION_FORM_ROUTE } from '~~/constants/routes/transactions'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
-  layout: 'main',
+  layout: 'dashboard',
 })
 
 const userSettingStore = useUserSettings()

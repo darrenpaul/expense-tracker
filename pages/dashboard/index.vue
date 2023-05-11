@@ -28,19 +28,10 @@
         @on-edit="onEditTransaction"
       />
     </div>
-
-    <!-- TRANSACTION FORM -->
-    <Modal :is-open="showTransactionModal" @close="onCloseTransactionModal">
-      <TransactionForm
-        :transaction="transaction"
-        @close-modal="onCloseTransactionModal"
-      />
-    </Modal>
   </div>
 </template>
 
 <script setup lang="ts">
-import TransactionForm from '~~/components/forms/TransactionForm.vue'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
 import expensesVsIncomes from '~~/helpers/charts/transactions/expensesVsIncomes'
@@ -54,7 +45,7 @@ import ExpenseIncomeBalanceCard from '~~/components/cards/ExpenseIncomeBalanceCa
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
-  layout: 'main',
+  layout: 'dashboard',
 })
 
 const transactionStore = useTransactions()

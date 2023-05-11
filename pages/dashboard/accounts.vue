@@ -90,7 +90,7 @@ import { addQuery } from '~~/helpers/routerQuery'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
-  layout: 'main',
+  layout: 'dashboard',
 })
 
 const accountStore = useAccounts()

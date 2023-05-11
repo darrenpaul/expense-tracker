@@ -30,7 +30,7 @@ import { useBudgets } from '~~/stores/budgets'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
-  layout: 'main',
+  layout: 'dashboard',
 })
 
 const budgetStore = useBudgets()

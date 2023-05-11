@@ -1,6 +1,8 @@
 <template>
   <div class="main-navigation-desktop">
-    <div :class="['main-navigation-desktop-container']">
+    <div
+      :class="['main-navigation-desktop-container', expanded ? 'w-64' : 'w-20']"
+    >
       <div
         :class="[
           'main-navigation-desktop-content',
@@ -14,7 +16,7 @@
           class="main-navigation-desktop-brand-container"
           :to="HOME_ROUTE.path"
         >
-          <BrandIcon :size="expanded ? '1' : '4'" :fill="'var(--secondary)'" />
+          <BrandIcon :size="expanded ? '3' : '4'" :fill="'var(--secondary)'" />
 
           <h1 v-if="expanded" class="main-navigation-desktop-brand-text">
             {{ COMMON_COPY.brand }}
@@ -68,11 +70,11 @@
 </template>
 
 <script setup lang="ts">
-import LogoutIcon from '~~/components/icons/mainNavigation/LogoutIcon.vue'
+import LogoutIcon from '~~/components/icons/dashboardNavigation/LogoutIcon.vue'
 import { HOME_ROUTE } from '~~/constants/routes/home'
 import { COMMON_COPY, NAVIGATION_COPY } from '~~/constants/copy'
 import BrandIcon from '~~/components/icons/BrandIcon.vue'
-import CollapseIcon from '~~/components/icons/mainNavigation/CollapseIcon.vue'
+import CollapseIcon from '~~/components/icons/dashboardNavigation/CollapseIcon.vue'
 import { useUserSettings } from '~~/stores/userSettings'
 import { ILink } from '~~/types/link'
 
