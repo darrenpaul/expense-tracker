@@ -44,7 +44,7 @@ const props = defineProps({
   currentAmount: { type: Number, default: 0 },
   maxAmount: { type: Number, default: 1 },
   labels: { type: Array, default: () => [] },
-  backgroundColor: { type: String, default: 'bg-secondary' },
+  backgroundColor: { type: String, default: 'bg-secondary-a' },
   progressBarColor: { type: String, default: 'bg-blue-500' },
   hideInnerText: { type: Boolean, default: false },
   showPercentage: { type: Boolean, default: false },
@@ -76,5 +76,5 @@ const total = computed(() => {
 </script>
 
 <style lang="scss">
-@import './progressBar.scss';
+@import './styles.scss';
 </style>

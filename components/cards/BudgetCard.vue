@@ -158,7 +158,7 @@ import {
 import COPY from '~~/constants/copy/budget'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useTransactions } from '~~/stores/transactions'
-import ProgressBar from '~~/components/ProgressBar/index.vue'
+import ProgressBar from '~~/components/progressBars/ProgressBar.vue'
 import {
   DATE_TIME_FORMAT,
   formatDateToDisplay,

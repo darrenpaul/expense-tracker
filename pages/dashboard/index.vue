@@ -1,6 +1,16 @@
 <template>
   <div class="dashboard-container">
     <div class="row">
+      <!-- ACCOUNTS -->
+      <AccountList />
+
+      <!-- BUDGETS -->
+      <BudgetList />
+
+      <ExpenseIncomeBalanceCard />
+    </div>
+
+    <div class="row">
       <div class="dashboard-card-container">
         <div class="card-stretch">
           <Chart :options="categoryUsageOptions" />
@@ -13,25 +23,12 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <ExpenseIncomeBalanceCard />
-
-      <TransactionList
-        v-if="transactionStore.transactions"
-        :transactions="transactionStore.transactionsForToday"
-        :rows="[
-          TRANSACTION_COPY.date,
-          TRANSACTION_COPY.name,
-          TRANSACTION_COPY.amount,
-        ]"
-        @on-edit="onEditTransaction"
-      />
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import BudgetList from '~~/components/pages/dashboard/BudgetList.vue'
+import AccountList from '~~/components/pages/dashboard/AccountList.vue'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
 import expensesVsIncomes from '~~/helpers/charts/transactions/expensesVsIncomes'
@@ -42,6 +39,7 @@ import { useUserSettings } from '~~/stores/userSettings'
 import { useCategories } from '~~/stores/categories'
 import categoryUsage from '~~/helpers/charts/categories/categoriesUsage'
 import ExpenseIncomeBalanceCard from '~~/components/cards/ExpenseIncomeBalanceCard.vue'
+import { useBudgets } from '~~/stores/budgets'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -51,6 +49,7 @@ definePageMeta({
 const transactionStore = useTransactions()
 const categoryStore = useCategories()
 const userSettingStore = useUserSettings()
+
 const showTransactionModal = ref(false)
 const transaction = ref({})
 

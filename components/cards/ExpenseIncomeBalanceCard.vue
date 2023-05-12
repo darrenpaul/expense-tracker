@@ -1,31 +1,31 @@
 <template>
-  <ClientOnly>
-    <div class="card flex flex-col gap-3 w-full md:w-1/2">
-      <!-- MONEY IN -->
-      <div class="border-b pb-3 text-center">
-        <h4>{{ COPY.moneyIn }}</h4>
-        <h3>
-          {{ moneyIn }}
-        </h3>
-      </div>
-
-      <!-- MONEY OUT -->
-      <div class="border-b pb-3 text-center">
-        <h4>{{ COPY.moneyOut }}</h4>
-        <h3>
-          {{ moneyOut }}
-        </h3>
-      </div>
-
-      <!-- BALANCE -->
-      <div class="text-center">
-        <h4>{{ COPY.balance }}</h4>
-        <h3>
+  <div class="card flex flex-col gap-3 w-full md:w-1/2">
+    <!-- BALANCE -->
+    <div class="border-b pb-3 text-center">
+      <h4>{{ COPY.balance }}</h4>
+      <h3>
+        <b>
           {{ balance }}
-        </h3>
-      </div>
+        </b>
+      </h3>
     </div>
-  </ClientOnly>
+
+    <!-- INCOME -->
+    <div class="border-b pb-3 text-center">
+      <h4>{{ COPY.income }}</h4>
+      <h3>
+        {{ income }}
+      </h3>
+    </div>
+
+    <!-- EXPENSE -->
+    <div class="text-center">
+      <h4>{{ COPY.expense }}</h4>
+      <h3>
+        {{ expense }}
+      </h3>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -55,14 +55,14 @@ const balance = computed(() => {
   })
 })
 
-const moneyIn = computed(() => {
+const income = computed(() => {
   return currencyFormat({
     value: incomeAmount.value,
     currency: userSettingStore.currency,
   })
 })
 
-const moneyOut = computed(() => {
+const expense = computed(() => {
   return currencyFormat({
     value: expenseAmount.value,
     currency: userSettingStore.currency,
