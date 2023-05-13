@@ -1,13 +1,24 @@
 <template>
   <div class="dashboard-container">
+    <div>
+      <h3>{{ COPY.dashboard }}</h3>
+      <small>{{ welcomeText }}</small>
+    </div>
+
     <div class="row">
       <!-- ACCOUNTS -->
-      <AccountList />
+      <DashboardAccountList />
 
-      <!-- BUDGETS -->
-      <BudgetList />
+      <div class="flex flex-col w-full gap-4">
+        <DashboardBalanceCard />
 
-      <ExpenseIncomeBalanceCard />
+        <!-- BUDGETS -->
+        <DashboardBudgetList />
+      </div>
+
+      <div class="card w-full">
+        <Chart height="340px" :options="expensesVsIncomesOptions" />
+      </div>
     </div>
 
     <div class="row">
@@ -27,19 +38,18 @@
 </template>
 
 <script setup lang="ts">
-import BudgetList from '~~/components/pages/dashboard/BudgetList.vue'
-import AccountList from '~~/components/pages/dashboard/AccountList.vue'
+import DashboardBudgetList from '~~/components/pages/dashboard/DashboardBudgetList.vue'
+import DashboardAccountList from '~~/components/pages/dashboard/DashboardAccountList.vue'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
 import expensesVsIncomes from '~~/helpers/charts/transactions/expensesVsIncomes'
-import TransactionList from '~~/components/tables/transactionList/index.vue'
-import { TRANSACTION_COPY } from '~~/constants/copy'
+import COPY from '~~/constants/copy/dashboard'
 import { useTransactions } from '~~/stores/transactions'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useCategories } from '~~/stores/categories'
 import categoryUsage from '~~/helpers/charts/categories/categoriesUsage'
-import ExpenseIncomeBalanceCard from '~~/components/cards/ExpenseIncomeBalanceCard.vue'
-import { useBudgets } from '~~/stores/budgets'
+import DashboardBalanceCard from '~~/components/pages/dashboard/DashboardBalanceCard.vue'
+import { useProfile } from '~~/stores/profile'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -49,9 +59,14 @@ definePageMeta({
 const transactionStore = useTransactions()
 const categoryStore = useCategories()
 const userSettingStore = useUserSettings()
+const profileStore = useProfile()
 
 const showTransactionModal = ref(false)
 const transaction = ref({})
+
+const welcomeText = computed(() => {
+  return `${COPY.welcomeBack} ${profileStore.user.firstName}`
+})
 
 const categoryUsageOptions = computed(() => {
   if (transactionStore.list === null || categoryStore.categories === null) {
@@ -59,7 +74,8 @@ const categoryUsageOptions = computed(() => {
   }
   return categoryUsage(
     transactionStore.transactions as Array<ITransaction>,
-    TRANSACTION_COPY.categoryUsage
+    // TRANSACTION_COPY.categoryUsage'aaaa
+    'aaaaa'
   )
 })
 

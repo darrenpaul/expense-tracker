@@ -4,13 +4,13 @@
       <DashboardCardHeader :title="COPY.accounts" :url="ACCOUNTS_ROUTE.path" />
 
       <template v-if="dashboardAccounts.length === 0">
-        <AccountCardSkeleton />
-        <AccountCardSkeleton />
-        <AccountCardSkeleton />
+        <DashboardAccountCardSkeleton />
+        <DashboardAccountCardSkeleton />
+        <DashboardAccountCardSkeleton />
       </template>
 
       <TransitionGroup name="list">
-        <AccountCard
+        <DashboardAccountCard
           v-for="account in dashboardAccounts"
           :key="account.id"
           :account="account"
@@ -24,8 +24,8 @@
 import DashboardCardHeader from '~~/components/pages/dashboard/DashboardCardHeader.vue'
 import COPY from '~~/constants/copy/account'
 import { ACCOUNTS_ROUTE } from '~~/constants/routes/accounts'
-import AccountCard from '~~/components/pages/dashboard/AccountCard.vue'
-import AccountCardSkeleton from '~~/components/pages/dashboard/AccountCardSkeleton.vue'
+import DashboardAccountCard from '~~/components/pages/dashboard/DashboardAccountCard.vue'
+import DashboardAccountCardSkeleton from '~~/components/pages/dashboard/DashboardAccountCardSkeleton.vue'
 import { useAccounts } from '~~/stores/accounts'
 
 const dashboardAccounts = computed(() => {

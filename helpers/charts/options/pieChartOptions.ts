@@ -31,17 +31,17 @@ export const pieChartBaseOptions: IPieChartOptions = {
   legend: {
     type: 'scroll',
     left: 'center',
-    bottom: '5%',
+    bottom: '3%',
   },
 }
 
 export const createPieSeriesObject = (data: any) => {
   return {
     type: 'pie',
-    radius: ['40%', '70%'],
+    radius: ['50%', '70%'],
     avoidLabelOverlap: false,
     itemStyle: {
-      borderRadius: 5,
+      borderRadius: 2,
       borderColor: '#fff',
       borderWidth: 1,
     },

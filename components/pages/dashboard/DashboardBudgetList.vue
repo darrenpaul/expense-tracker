@@ -4,20 +4,29 @@
     <div class="card flex flex-col gap-4 w-full">
       <DashboardCardHeader :title="COPY.budgets" :url="BUDGETS_ROUTE.path" />
 
-      <BudgetCard
-        v-for="budget in dashboardBudgets"
-        :key="budget.id"
-        :budget="budget"
-      />
+      <TransitionGroup name="list">
+        <DashboardBudgetCard
+          v-for="budget in dashboardBudgets"
+          :key="budget.id"
+          :budget="budget"
+        />
+      </TransitionGroup>
+
+      <template v-if="budgetStore.budgets.length === 0">
+        <DashboardBudgetCardSkeleton />
+        <DashboardBudgetCardSkeleton />
+        <DashboardBudgetCardSkeleton />
+      </template>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import DashboardCardHeader from '~~/components/pages/dashboard/DashboardCardHeader.vue'
+import DashboardBudgetCard from '~~/components/pages/dashboard/DashboardBudgetCard.vue'
+import DashboardBudgetCardSkeleton from '~~/components/pages/dashboard/DashboardBudgetCardSkeleton.vue'
 import COPY from '~~/constants/copy/budget'
 import { BUDGETS_ROUTE } from '~~/constants/routes/budgets'
-import BudgetCard from '~~/components/pages/dashboard/BudgetCard.vue'
 import { useBudgets } from '~~/stores/budgets'
 
 const budgetStore = useBudgets()
