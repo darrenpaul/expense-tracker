@@ -9,15 +9,15 @@
         <DashboardAccountCardSkeleton />
       </template>
 
-      <TransitionGroup name="list">
-        <div class="h-full grid grid-rows-3 gap-4">
+      <div class="h-full grid grid-rows-3 gap-4">
+        <TransitionGroup name="list">
           <DashboardAccountCard
             v-for="account in dashboardAccounts"
             :key="account.id"
             :account="account"
           />
-        </div>
-      </TransitionGroup>
+        </TransitionGroup>
+      </div>
     </div>
   </div>
 </template>

@@ -1,16 +1,18 @@
 <template>
   <div class="dashboard-container">
-    <div class="col-span-3 flex flex-col gap-4">
-      <div class="dashboardHeaderCard">
-        <h3>{{ COPY.dashboard }}</h3>
-        <small>{{ welcomeText }}</small>
+    <div class="col-span-6 flex flex-col gap-4">
+      <div class="flex flex-col md:grid grid-cols-6">
+        <div class="col-span-3 flex flex-col gap-4">
+          <div class="dashboardHeaderCard">
+            <h3>{{ COPY.dashboard }}</h3>
+            <small>{{ welcomeText }}</small>
+          </div>
+        </div>
+        <div class="col-span-3 flex flex-col gap-4">
+          <DashboardBalanceCard />
+        </div>
       </div>
 
-      <DashboardGoalList />
-    </div>
-
-    <div class="col-span-3 flex flex-col gap-4">
-      <DashboardBalanceCard />
       <DashboardBudgetList />
     </div>
 
@@ -24,10 +26,14 @@
       <DashboardAccountList />
     </div>
 
-    <div class="col-span-6">
+    <div class="col-span-7">
       <div class="card !p-0">
         <Chart :options="spendingTrendOptions" height="323px" />
       </div>
+    </div>
+
+    <div class="col-span-5">
+      <DashboardGoalList />
     </div>
     <!--
 

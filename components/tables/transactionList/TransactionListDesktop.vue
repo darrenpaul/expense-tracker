@@ -47,7 +47,7 @@
           @click="() => onEdit(id)"
         >
           <td v-if="canShowRow(TRANSACTION_COPY.date)">
-            {{ formatDate(new Date(date)) }}
+            {{ format(new Date(date), 'MMM dd, YYY (EEE)') }}
           </td>
           <td
             v-if="canShowRow(TRANSACTION_COPY.name)"
@@ -100,6 +100,7 @@
 </template>
 
 <script setup lang="ts">
+import { format } from 'date-fns'
 import { TRANSACTION_COPY } from '~~/constants/copy'
 import { formatDate } from '~~/helpers/dateTimeHelper'
 import { ITransaction } from '~~/types/transaction'

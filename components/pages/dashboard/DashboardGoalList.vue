@@ -29,6 +29,6 @@ import { useGoals } from '~~/stores/goals'
 const goalStore = useGoals()
 
 const dashboardGoals = computed(() => {
-  return goalStore.goals.slice(0, 3)
+  return goalStore.goals.slice(0, 5)
 })
 </script>

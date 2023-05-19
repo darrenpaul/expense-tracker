@@ -21,6 +21,12 @@ export interface ILineChartOptions {
     left: string
     bottom: string
   }
+  grid: {
+    left: string
+    right: string
+    bottom: string
+    containLabel: boolean
+  }
   series?: Array<Object>
 }
 
@@ -41,11 +47,18 @@ export const lineChartBaseOptions: ILineChartOptions = {
   tooltip: {
     trigger: 'axis',
     valueFormatter: (value: number) => value,
+    position: { left: 'center', top: 'center' },
   },
   legend: {
     type: 'scroll',
     left: 'center',
     bottom: '2%',
+  },
+  grid: {
+    left: '2%',
+    right: '8%',
+    bottom: '12%',
+    containLabel: true,
   },
 }
 

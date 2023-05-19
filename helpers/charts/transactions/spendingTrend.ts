@@ -28,16 +28,16 @@ import {
   TRANSACTION_TYPE_INCOME,
 } from '~~/constants/transactions'
 import { currencyFormat } from '~~/helpers/formatting'
+import { DAYS_OF_WEEK } from '~~/helpers/dateTimeHelper'
 
 export default (transactions: Array<ITransaction>, currency: string) => {
   const expenses = mergeTransactionsByDate(transactions)
-  console.log('expenses:', expenses)
 
-  const weekStart = startOfWeek(new Date(), { weekStartsOn: 1 })
-  const weekEnd = endOfWeek(new Date(), { weekStartsOn: 1 })
+  const weekStart = startOfWeek(new Date())
+  const weekEnd = endOfWeek(new Date())
 
-  const previousWeekStart = previousMonday(weekStart)
-  const previousWeekEnd = previousSunday(weekStart)
+  const previousWeekStart = previousSunday(weekStart)
+  const previousWeekEnd = previousSunday(new Date())
 
   const previousWeek = expenses.filter(
     (transaction) =>
@@ -84,15 +84,7 @@ export default (transactions: Array<ITransaction>, currency: string) => {
     days: past7Dates,
   })
 
-  const xAxisData = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ]
+  const xAxisData = DAYS_OF_WEEK.map((day) => day.long)
 
   const previousSeriesData = previousWeekExpenses.map(({ amount }) => amount)
   const seriesData = past7Days.map(({ amount }) => amount)
@@ -127,8 +119,8 @@ export default (transactions: Array<ITransaction>, currency: string) => {
     ],
     title: {
       text: 'Spending Trend (Week)',
-      top: '3%',
-      left: 'center',
+      top: '16px',
+      left: '1%',
     },
   }
 
