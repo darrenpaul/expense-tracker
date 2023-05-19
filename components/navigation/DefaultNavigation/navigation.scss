@@ -12,9 +12,9 @@
 
 .navigation-desktop {
     /* SIZE */
-    @apply w-full h-fit;
+    @apply w-full h-24;
     /* MARGINS AND PADDING */
-    @apply p-2;
+    @apply p-2 px-8;
     /* LAYOUT */
     @apply hidden relative md:grid grid-cols-3 items-center justify-between;
     /* BORDERS */
@@ -28,7 +28,7 @@
     /* MARGINS AND PADDING */
     // @apply p-4 my-6;
     /* LAYOUT */
-    @apply flex flex-row;
+    @apply flex;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
@@ -43,7 +43,7 @@
         /* COLORS */
         @apply text-secondary md:text-primary;
         /* TEXT */
-        @apply text-lg font-normal;
+        @apply text-sm font-medium;
         /* ANIMATION AND EFFECTS */
     }
 }
@@ -64,9 +64,9 @@
         /* LAYOUT */
         /* BORDERS */
         /* COLORS */
-        @apply text-primary;
+        @apply text-[#05386B];
         /* TEXT */
-        @apply text-base;
+        @apply text-base font-medium;
         /* ANIMATION AND EFFECTS */
     }
     .active {
@@ -77,6 +77,7 @@
         @apply border-b border-primary;
         /* COLORS */
         /* TEXT */
+        @apply font-bold;
         /* ANIMATION AND EFFECTS */
     }
 }
