@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card flex flex-col items-start !bg-secondary-a">
+    <div class="card !py-2 flex flex-col items-start !bg-secondary-a">
       <h4>{{ props.account.name }}</h4>
       <h4 :class="textColor">
         <b>

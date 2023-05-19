@@ -19,11 +19,11 @@ export interface IPieChartOptions {
 }
 
 export const pieChartBaseOptions: IPieChartOptions = {
-  chartType: 'pie',
   title: {
     text: '',
     left: 'center',
   },
+  chartType: 'pie',
   tooltip: {
     trigger: 'item',
     valueFormatter: (value: number) => value,
@@ -31,14 +31,14 @@ export const pieChartBaseOptions: IPieChartOptions = {
   legend: {
     type: 'scroll',
     left: 'center',
-    bottom: '3%',
+    bottom: '2%',
   },
 }
 
 export const createPieSeriesObject = (data: any) => {
   return {
     type: 'pie',
-    radius: ['50%', '70%'],
+    radius: ['65%', '80%'],
     avoidLabelOverlap: false,
     itemStyle: {
       borderRadius: 2,
@@ -49,6 +49,7 @@ export const createPieSeriesObject = (data: any) => {
     label: {
       show: false,
     },
+    center: ['50%', '45%'],
     data,
   }
 }

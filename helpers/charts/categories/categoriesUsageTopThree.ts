@@ -8,7 +8,7 @@ import { UNCATEGORISED_CATEGORY } from '~~/constants/category'
 import { currencyFormat } from '~~/helpers/formatting'
 import { useUserSettings } from '~~/stores/userSettings'
 
-export default (transactions: Array<ITransaction>, title: string) => {
+export default (transactions: Array<ITransaction>) => {
   const categories = [...new Set(transactions.map(({ category }) => category))]
 
   const groupedById = {}
@@ -42,12 +42,15 @@ export default (transactions: Array<ITransaction>, title: string) => {
   // Get the top three elements
   const topThree = dataArray.slice(0, 3)
 
-  const seriesData = Object.values(groupedById)
+  const seriesData = Object.values(topThree)
   const options = {
     ...pieChartBaseOptions,
     series: [createPieSeriesObject(seriesData)],
     title: {
-      text: 'Category Usage',
+      text: 'Top Expense\nCategories',
+      subtext: 'For the current month',
+      top: '36%',
+      left: 'center',
     },
   }
 

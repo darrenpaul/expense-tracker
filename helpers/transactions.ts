@@ -100,13 +100,34 @@ export const fillPeriodDays = ({
   days: Array<Date>
 }) => {
   const merged: IMerged = {}
-
   days.forEach((day) => {
     const transactionsForDay = transactions.find(({ date, amount }) => {
       if (isSameDay(new Date(date), day)) {
         return { date, amount }
       }
     })
+    merged[format(day, DATE_FORMAT)] = transactionsForDay as IAmountDate
+  })
+  return Object.values(merged)
+}
+
+export const fillPeriodDaysV2 = ({
+  transactions,
+  days,
+}: {
+  transactions: Array<IAmountDate>
+  days: Array<Date>
+}) => {
+  const merged: IMerged = {}
+  days.forEach((day) => {
+    let transactionsForDay = transactions.find(({ date, amount }) => {
+      if (isSameDay(new Date(date), day)) {
+        return { date, amount }
+      }
+    })
+    if (!transactionsForDay) {
+      transactionsForDay = { date: format(day, DATE_FORMAT), amount: 0 }
+    }
     merged[format(day, DATE_FORMAT)] = transactionsForDay as IAmountDate
   })
   return Object.values(merged)

@@ -1,17 +1,18 @@
 <template>
-  <div class="card !h-full flex flex-row justify-between gap-2 w-full">
+  <div class="dashboardBalanceCard">
     <!-- BALANCE -->
     <div>
       <h3>{{ COPY.balance }}</h3>
-      <h2>
+      <h3>
         <b>
           {{ balance }}
         </b>
-      </h2>
+      </h3>
+      <!-- <small>{{ COPY.actualBalance }}</small> -->
     </div>
     <button
       type="button"
-      class="button !w-fit !h-fit !p-2"
+      class="button !w-fit !h-fit !p-2 !m-0"
       @click="onAddTransaction"
     >
       <CrossIcon size="18" />

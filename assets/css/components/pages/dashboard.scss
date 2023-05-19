@@ -1,0 +1,41 @@
+@import "@/assets/css/elements/card.scss";
+
+.dashboardProgressList {
+    @extend .card;
+    /* SIZE */
+    @apply w-full h-full;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex flex-col gap-3;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.dashboardBalanceCard {
+    @extend .card;
+    /* SIZE */
+    @apply w-full min-h-[88px];
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex flex-row items-center justify-between;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
+
+.dashboardHeaderCard {
+    @extend .dashboardBalanceCard;
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex-col items-center justify-center;
+    /* BORDERS */
+    /* COLORS */
+    @apply bg-transparent;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply shadow-none drop-shadow-none;
+}

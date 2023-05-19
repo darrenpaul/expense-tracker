@@ -7,6 +7,7 @@ import {
   isToday,
   isWithinInterval,
   setDate,
+  subDays,
   subMonths,
 } from 'date-fns'
 import { useNotification } from './notification'
@@ -144,11 +145,12 @@ export const useTransactions = defineStore({
       return () => {
         const todayDate = new Date()
         const monthStartDate = useUserSettings().monthStartDate
-        return this.expenses.filter((transaction) =>
-          isWithinInterval(new Date(transaction.date), {
-            start: monthStartDate,
-            end: todayDate,
-          })
+        return this.expenses.filter(
+          (transaction) =>
+            isWithinInterval(new Date(transaction.date), {
+              start: monthStartDate,
+              end: todayDate,
+            }) || isSameDay(monthStartDate, new Date(transaction.date))
         )
       }
     },
@@ -161,6 +163,19 @@ export const useTransactions = defineStore({
             start: monthStartDate,
             end: todayDate,
           })
+        )
+      }
+    },
+    expensesForLast7Days() {
+      return () => {
+        const todayDate = new Date()
+        const last7Days = subDays(todayDate, 14)
+        return this.expenses.filter(
+          (transaction) =>
+            isWithinInterval(new Date(transaction.date), {
+              start: last7Days,
+              end: todayDate,
+            }) || isToday(new Date(transaction.date))
         )
       }
     },

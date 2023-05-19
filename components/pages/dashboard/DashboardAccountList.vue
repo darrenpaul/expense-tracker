@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full md:w-1/2">
-    <div class="card flex flex-col gap-4 w-full">
+  <div class="w-full h-full">
+    <div class="card flex flex-col gap-3 w-full !h-full">
       <DashboardCardHeader :title="COPY.accounts" :url="ACCOUNTS_ROUTE.path" />
 
       <template v-if="dashboardAccounts.length === 0">
@@ -10,11 +10,13 @@
       </template>
 
       <TransitionGroup name="list">
-        <DashboardAccountCard
-          v-for="account in dashboardAccounts"
-          :key="account.id"
-          :account="account"
-        />
+        <div class="h-full grid grid-rows-3 gap-4">
+          <DashboardAccountCard
+            v-for="account in dashboardAccounts"
+            :key="account.id"
+            :account="account"
+          />
+        </div>
       </TransitionGroup>
     </div>
   </div>

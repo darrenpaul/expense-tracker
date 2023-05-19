@@ -26,4 +26,5 @@ export default {
   accountNameError: 'Transaction Name Required',
   accountError: 'Account Required',
   accountTransferMatchError: 'Cannot Transfer to the same account',
+  actualBalance: 'Actual Balance',
 }

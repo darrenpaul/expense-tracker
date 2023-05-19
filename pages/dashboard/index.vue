@@ -1,27 +1,48 @@
 <template>
   <div class="dashboard-container">
-    <div>
-      <h3>{{ COPY.dashboard }}</h3>
-      <small>{{ welcomeText }}</small>
+    <div class="col-span-3 flex flex-col gap-4">
+      <div class="dashboardHeaderCard">
+        <h3>{{ COPY.dashboard }}</h3>
+        <small>{{ welcomeText }}</small>
+      </div>
+
+      <DashboardGoalList />
     </div>
 
-    <div class="row">
-      <!-- ACCOUNTS -->
+    <div class="col-span-3 flex flex-col gap-4">
+      <DashboardBalanceCard />
+      <DashboardBudgetList />
+    </div>
+
+    <div class="col-span-3">
+      <div class="card !p-0">
+        <Chart :options="categoryUsageOptions" height="323px" />
+      </div>
+    </div>
+
+    <div class="col-span-3 max-h-[323px]">
       <DashboardAccountList />
-
-      <div class="flex flex-col w-full gap-4">
-        <DashboardBalanceCard />
-
-        <!-- BUDGETS -->
-        <DashboardBudgetList />
-      </div>
-
-      <div class="card w-full">
-        <Chart height="340px" :options="expensesVsIncomesOptions" />
-      </div>
     </div>
 
-    <div class="row">
+    <div class="col-span-6">
+      <div class="card !p-0">
+        <Chart :options="spendingTrendOptions" height="323px" />
+      </div>
+    </div>
+    <!--
+
+
+
+
+
+
+
+  -->
+    <!--
+
+   -->
+
+    <!-- <div class="row">
       <div class="dashboard-card-container">
         <div class="card-stretch">
           <Chart :options="categoryUsageOptions" />
@@ -33,12 +54,13 @@
           <Chart :options="expensesVsIncomesOptions" />
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import DashboardBudgetList from '~~/components/pages/dashboard/DashboardBudgetList.vue'
+import DashboardGoalList from '~~/components/pages/dashboard/DashboardGoalList.vue'
 import DashboardAccountList from '~~/components/pages/dashboard/DashboardAccountList.vue'
 import Chart from '~~/components/Chart.vue'
 import { ITransaction } from '~~/types/transaction'
@@ -47,7 +69,8 @@ import COPY from '~~/constants/copy/dashboard'
 import { useTransactions } from '~~/stores/transactions'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useCategories } from '~~/stores/categories'
-import categoryUsage from '~~/helpers/charts/categories/categoriesUsage'
+import categoriesUsageTopThree from '~~/helpers/charts/categories/categoriesUsageTopThree'
+import spendingTrend from '~~/helpers/charts/transactions/spendingTrend'
 import DashboardBalanceCard from '~~/components/pages/dashboard/DashboardBalanceCard.vue'
 import { useProfile } from '~~/stores/profile'
 
@@ -72,10 +95,18 @@ const categoryUsageOptions = computed(() => {
   if (transactionStore.list === null || categoryStore.categories === null) {
     return {}
   }
-  return categoryUsage(
-    transactionStore.transactions as Array<ITransaction>,
-    // TRANSACTION_COPY.categoryUsage'aaaa
-    'aaaaa'
+  return categoriesUsageTopThree(
+    transactionStore.expenseTransactionsForMonth() as Array<ITransaction>
+  )
+})
+
+const spendingTrendOptions = computed(() => {
+  if (transactionStore.list === null || categoryStore.categories === null) {
+    return {}
+  }
+  return spendingTrend(
+    transactionStore.expensesForLast7Days() as Array<ITransaction>,
+    userSettingStore.currency
   )
 })
 
