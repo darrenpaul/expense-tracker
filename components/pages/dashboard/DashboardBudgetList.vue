@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboardProgressList">
+  <div class="dashboard-progress-list">
     <DashboardCardHeader :title="COPY.budgets" :url="BUDGETS_ROUTE.path" />
 
     <TransitionGroup name="list">

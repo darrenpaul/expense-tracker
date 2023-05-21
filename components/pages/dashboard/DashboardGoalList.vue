@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboardProgressList">
+  <div class="dashboard-progress-list">
     <DashboardCardHeader :title="COPY.goals" :url="GOALS_ROUTE.path" />
 
     <TransitionGroup name="list">
@@ -29,6 +29,6 @@ import { useGoals } from '~~/stores/goals'
 const goalStore = useGoals()
 
 const dashboardGoals = computed(() => {
-  return goalStore.goals.slice(0, 5)
+  return goalStore.goals.slice(0, 3)
 })
 </script>

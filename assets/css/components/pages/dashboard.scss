@@ -1,6 +1,6 @@
 @import "@/assets/css/elements/card.scss";
 
-.dashboardProgressList {
+.dashboard-progress-list {
     @extend .card;
     /* SIZE */
     @apply w-full h-full;
@@ -13,21 +13,22 @@
     /* ANIMATION AND EFFECTS */
 }
 
-.dashboardBalanceCard {
+.dashboard-balance-card {
     @extend .card;
     /* SIZE */
     @apply w-full min-h-[88px];
     /* MARGINS AND PADDING */
     /* LAYOUT */
-    @apply flex flex-row items-center justify-between;
+    @apply flex flex-row items-center justify-center;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
+    @apply text-center;
     /* ANIMATION AND EFFECTS */
 }
 
-.dashboardHeaderCard {
-    @extend .dashboardBalanceCard;
+.dashboard-header-card {
+    @extend .dashboard-balance-card;
     /* SIZE */
     /* MARGINS AND PADDING */
     /* LAYOUT */

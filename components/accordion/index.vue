@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import ArrowUpIcon from '~~/components/icons/ArrowUpIcon.vue'
 import ArrowDownIcon from '~~/components/icons/ArrowDownIcon.vue'
+
 const props = defineProps({
   title: { type: String, default: '' },
 })

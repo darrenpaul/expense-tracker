@@ -1,22 +1,20 @@
 <template>
-  <div class="dashboardBalanceCard">
+  <div class="dashboard-balance-card">
     <!-- BALANCE -->
     <div>
-      <h3>{{ COPY.balance }}</h3>
-      <h3>
-        <b>
-          {{ balance }}
-        </b>
+      <h4 class="font-normal">{{ COPY.balance }}</h4>
+      <h3 class="font-black">
+        {{ balance }}
       </h3>
       <!-- <small>{{ COPY.actualBalance }}</small> -->
     </div>
-    <button
+    <!-- <button
       type="button"
       class="button !w-fit !h-fit !p-2 !m-0"
       @click="onAddTransaction"
     >
       <CrossIcon size="18" />
-    </button>
+    </button> -->
   </div>
 </template>
 

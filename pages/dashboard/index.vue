@@ -1,83 +1,29 @@
 <template>
-  <div class="dashboard-container">
-    <div class="col-span-6 flex flex-col gap-4">
-      <div class="flex flex-col md:grid grid-cols-6">
-        <div class="col-span-3 flex flex-col gap-4">
-          <div class="dashboardHeaderCard">
-            <h3>{{ COPY.dashboard }}</h3>
-            <small>{{ welcomeText }}</small>
-          </div>
-        </div>
-        <div class="col-span-3 flex flex-col gap-4">
-          <DashboardBalanceCard />
-        </div>
-      </div>
+  <div class="dashboard-page">
+    <DashboardDesktopLayout
+      :title="welcomeText"
+      :category-usage-options="categoryUsageOptions"
+      :spending-trend-options="spendingTrendOptions"
+    />
 
-      <DashboardBudgetList />
-    </div>
-
-    <div class="col-span-3">
-      <div class="card !p-0">
-        <Chart :options="categoryUsageOptions" height="323px" />
-      </div>
-    </div>
-
-    <div class="col-span-3 max-h-[323px]">
-      <DashboardAccountList />
-    </div>
-
-    <div class="col-span-7">
-      <div class="card !p-0">
-        <Chart :options="spendingTrendOptions" height="323px" />
-      </div>
-    </div>
-
-    <div class="col-span-5">
-      <DashboardGoalList />
-    </div>
-    <!--
-
-
-
-
-
-
-
-  -->
-    <!--
-
-   -->
-
-    <!-- <div class="row">
-      <div class="dashboard-card-container">
-        <div class="card-stretch">
-          <Chart :options="categoryUsageOptions" />
-        </div>
-      </div>
-
-      <div class="dashboard-card-container">
-        <div class="card-stretch">
-          <Chart :options="expensesVsIncomesOptions" />
-        </div>
-      </div>
-    </div> -->
+    <DashboardMobileLayout
+      :title="welcomeText"
+      :category-usage-options="categoryUsageOptions"
+      :spending-trend-options="spendingTrendOptions"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import DashboardBudgetList from '~~/components/pages/dashboard/DashboardBudgetList.vue'
-import DashboardGoalList from '~~/components/pages/dashboard/DashboardGoalList.vue'
-import DashboardAccountList from '~~/components/pages/dashboard/DashboardAccountList.vue'
-import Chart from '~~/components/Chart.vue'
+import DashboardDesktopLayout from '~~/components/pages/dashboard/pageLayout/DashboardDesktopLayout.vue'
+import DashboardMobileLayout from '~~/components/pages/dashboard/pageLayout/DashboardMobileLayout.vue'
 import { ITransaction } from '~~/types/transaction'
-import expensesVsIncomes from '~~/helpers/charts/transactions/expensesVsIncomes'
 import COPY from '~~/constants/copy/dashboard'
 import { useTransactions } from '~~/stores/transactions'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useCategories } from '~~/stores/categories'
 import categoriesUsageTopThree from '~~/helpers/charts/categories/categoriesUsageTopThree'
 import spendingTrend from '~~/helpers/charts/transactions/spendingTrend'
-import DashboardBalanceCard from '~~/components/pages/dashboard/DashboardBalanceCard.vue'
 import { useProfile } from '~~/stores/profile'
 
 definePageMeta({
@@ -89,9 +35,6 @@ const transactionStore = useTransactions()
 const categoryStore = useCategories()
 const userSettingStore = useUserSettings()
 const profileStore = useProfile()
-
-const showTransactionModal = ref(false)
-const transaction = ref({})
 
 const welcomeText = computed(() => {
   return `${COPY.welcomeBack} ${profileStore.user.firstName}`
@@ -115,32 +58,6 @@ const spendingTrendOptions = computed(() => {
     userSettingStore.currency
   )
 })
-
-const expensesVsIncomesOptions = computed(() => {
-  if (transactionStore.list === null) {
-    return {}
-  }
-  const currency = userSettingStore.currency
-  return expensesVsIncomes(
-    transactionStore.list as Array<ITransaction>,
-    currency
-  )
-})
-
-const onCloseTransactionModal = (refresh = false) => {
-  showTransactionModal.value = false
-  transaction.value = {}
-}
-
-const onEditTransaction = (transactionId: string) => {
-  const matchedTransaction = transactionStore.list?.find(
-    ({ id }) => id === transactionId
-  )
-  if (matchedTransaction) {
-    transaction.value = matchedTransaction
-    showTransactionModal.value = true
-  }
-}
 </script>
 
 <style lang="scss">

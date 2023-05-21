@@ -1,33 +1,32 @@
-.dashboard-container {
+.dashboard-page {
     /* SIZE */
-    @apply h-full;
     /* MARGINS AND PADDING */
     /* LAYOUT */
-    @apply flex flex-col md:grid grid-cols-12 grid-rows-2 gap-4;
+    @apply flex flex-col;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
     /* ANIMATION AND EFFECTS */
+}
 
-    .dashboard-card-container {
-        /* SIZE */
-        @apply w-full max-w-screen-sm;
-        /* MARGINS AND PADDING */
-        /* LAYOUT */
-        /* BORDERS */
-        /* COLORS */
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
-    }
+.dashboard-desktop-layout {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply hidden md:grid grid-cols-12 grid-rows-2 gap-4;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+}
 
-    .dashboard-glance-cards {
-        /* SIZE */
-        /* MARGINS AND PADDING */
-        /* LAYOUT */
-        @apply flex flex-col gap-4;
-        /* BORDERS */
-        /* COLORS */
-        /* TEXT */
-        /* ANIMATION AND EFFECTS */
-    }
+.dashboard-mobile-layout {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex flex-col md:hidden gap-4;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
 }
