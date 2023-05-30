@@ -196,17 +196,17 @@ const showConfirmDialog = ref(false)
 onBeforeMount(() => {
   const transactionId = getQuery(TRANSACTION_FORM_ROUTE.queryKey)
   if (transactionId !== 'new') {
-    transaction.value = transactionStore.transactions.find(
+    transaction.value = transactionStore?.transactions.find(
       ({ id }) => id === transactionId
     )
 
-    transactionType.value = transaction.value.type
-    name.value = transaction.value.name
-    account.value = transaction.value.account?.id
-    category.value = transaction.value.category?.id
-    amount.value = transaction.value.amount
-    date.value = transaction.value.date
-    note.value = transaction.value.note
+    transactionType.value = transaction.value?.type
+    name.value = transaction.value?.name
+    account.value = transaction.value?.account?.id
+    category.value = transaction.value?.category?.id
+    amount.value = transaction.value?.amount
+    date.value = transaction.value?.date
+    note.value = transaction.value?.note
   }
 })
 
@@ -287,9 +287,8 @@ const onCancel = () => {
 
 const onCreateUpdateTransaction = async () => {
   if (fieldsValid() === false) return false
-
   // CREATE
-  if (!props?.transaction?.id) {
+  if (transaction.value === undefined) {
     if (transactionType.value === TRANSACTION_TYPE_TRANSFER.displayName) {
       await onCreateTransactionTransfer()
     } else {
@@ -298,7 +297,7 @@ const onCreateUpdateTransaction = async () => {
   }
 
   // UPDATE
-  if (props?.transaction?.id) {
+  if (transaction.value.id !== undefined) {
     await onUpdateTransaction()
   }
 
@@ -369,7 +368,7 @@ const onCreateTransactionTransfer = async () => {
 
 const onUpdateTransaction = () => {
   const data: ITransaction = {
-    id: props.transaction.id,
+    id: transaction.value.id,
     type: transactionType.value,
     accountId: account.value,
     name: name.value,
