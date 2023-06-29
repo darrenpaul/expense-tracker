@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full">
-    <div class="card flex flex-col gap-3 w-full !h-full">
+    <div class="card flex flex-col gap-3 w-full">
       <DashboardCardHeader
         :title="COPY.transactions"
         :url="TRANSACTIONS_ROUTE.path"

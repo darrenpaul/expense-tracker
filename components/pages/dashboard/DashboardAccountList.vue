@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full">
-    <div class="card flex flex-col gap-3 w-full !h-full">
+    <div class="card flex flex-col gap-3 w-full">
       <DashboardCardHeader :title="COPY.accounts" :url="ACCOUNTS_ROUTE.path" />
 
       <template v-if="dashboardAccounts.length === 0">

@@ -1,5 +1,6 @@
 .dashboard-page {
     /* SIZE */
+    @apply h-full;
     /* MARGINS AND PADDING */
     /* LAYOUT */
     @apply flex flex-col;
@@ -11,6 +12,7 @@
 
 .dashboard-desktop-layout {
     /* SIZE */
+    @apply h-full;
     /* MARGINS AND PADDING */
     /* LAYOUT */
     @apply hidden md:grid grid-cols-12 grid-rows-2 gap-4;
