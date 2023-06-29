@@ -45,7 +45,7 @@ const transactionsForPeriod = computed(() => {
       })
   )
   const transactionsWithCategory = transactionsInPeriod.filter((transaction) =>
-    props.budget.categoryIds.includes(transaction.category.id)
+    props.budget.categoryIds.includes(transaction.category?.id)
   )
 
   return transactionsWithCategory as Array<ITransaction>

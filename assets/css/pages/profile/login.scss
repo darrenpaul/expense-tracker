@@ -1,9 +1,9 @@
 .login-page-container {
     /* SIZE */
-    @apply w-screen h-full md:h-screen;
+    @apply w-full h-full md:h-screen;
     /* MARGINS AND PADDING */
     /* LAYOUT */
-    @apply relative md:absolute top-0 left-0 flex flex-col md:grid md:grid-cols-2 items-center;
+    @apply relative flex-col items-center md:absolute md:top-0 md:left-0 flex md:grid md:grid-cols-2;
     /* BORDERS */
     /* COLORS */
     /* TEXT */

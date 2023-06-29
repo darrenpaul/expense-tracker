@@ -55,6 +55,8 @@ import {
   TRANSACTION_TYPE_INCOME,
   TRANSACTION_TYPE_TRANSFER,
 } from '~~/constants/transactions'
+import { TRANSACTION_FORM_ROUTE } from '~~/constants/routes/transactions'
+import { addQuery } from '~~/helpers/routerQuery'
 
 const emit = defineEmits(['onEdit'])
 
@@ -71,7 +73,8 @@ const groupedTransactions = computed(() => {
 })
 
 const onEdit = (transactionId: string) => {
-  emit('onEdit', transactionId)
+  const transactionQuery = { [TRANSACTION_FORM_ROUTE.queryKey]: transactionId }
+  addQuery(transactionQuery)
 }
 </script>
 
