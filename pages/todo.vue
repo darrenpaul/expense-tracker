@@ -49,55 +49,57 @@
       <button type="button" class="button" @click="onCreateTodo">Add</button>
     </form>
 
-    <ul v-for="assignee in assignees" :key="assignee.value" class="mb-6">
-      <h3>{{ assignee.label }}</h3>
-      <li v-for="todo in todos" :key="todo.id">
-        <div
-          v-if="todo.assignedTo === assignee.value"
-          class="card w-full md:w-1/2 mb-3"
-        >
-          <div class="flex items-center justify-between">
-            <h3 :class="[todo.status === 'complete' && 'line-through']">
-              {{ todo.title }}
-            </h3>
-            <div class="flex items-center gap-4">
-              <p>
-                <b>{{ todo.assignedTo }}</b>
-              </p>
+    <div class="grid grid-cols-2 w-full gap-4">
+      <ul v-for="assignee in assignees" :key="assignee.value" class="mb-6">
+        <h3>{{ assignee.label }}</h3>
+        <li v-for="todo in todos" :key="todo.id">
+          <div
+            v-if="todo.assignedTo === assignee.value"
+            class="card w-full mb-3"
+          >
+            <div class="flex items-center justify-between">
+              <h3 :class="[todo.status === 'complete' && 'line-through']">
+                {{ todo.title }}
+              </h3>
+              <div class="flex items-center gap-4">
+                <p>
+                  <b>{{ todo.assignedTo }}</b>
+                </p>
 
-              <p
-                :class="[
-                  labelColor(todo.label),
-                  'w-24 text-center p-2 rounded-xl',
-                ]"
-              >
-                {{ todo.label }}
-              </p>
+                <p
+                  :class="[
+                    labelColor(todo.label),
+                    'w-24 text-center p-2 rounded-xl',
+                  ]"
+                >
+                  {{ todo.label }}
+                </p>
+              </div>
             </div>
-          </div>
-          <p :class="[todo.status === 'complete' && 'line-through']">
-            {{ todo.description }}
-          </p>
+            <p :class="[todo.status === 'complete' && 'line-through']">
+              {{ todo.description }}
+            </p>
 
-          <button
-            v-if="todo.status !== 'complete'"
-            type="button"
-            class="button"
-            @click="() => onMarkTicketAsComplete(todo.id)"
-          >
-            Mark as Done
-          </button>
-          <button
-            v-else
-            type="button"
-            class="button-secondary"
-            @click="() => onMarkTicketAsIncomplete(todo.id)"
-          >
-            Mark as Incomplete
-          </button>
-        </div>
-      </li>
-    </ul>
+            <button
+              v-if="todo.status !== 'complete'"
+              type="button"
+              class="button"
+              @click="() => onMarkTicketAsComplete(todo.id)"
+            >
+              Mark as Done
+            </button>
+            <button
+              v-else
+              type="button"
+              class="button-secondary"
+              @click="() => onMarkTicketAsIncomplete(todo.id)"
+            >
+              Mark as Incomplete
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 

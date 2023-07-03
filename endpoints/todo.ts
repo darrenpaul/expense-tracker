@@ -26,8 +26,8 @@ export const viewTodos = async () => {
     sort: '+created',
   })
 
-  return records.map(
-    ({ id, title, description, label, assignedTo, status }) => {
+  return records
+    .map(({ id, title, description, label, assignedTo, status }) => {
       return {
         id,
         title,
@@ -36,8 +36,8 @@ export const viewTodos = async () => {
         assignedTo,
         status,
       } as ITodo
-    }
-  )
+    })
+    .filter((todo) => todo.status !== 'complete')
 }
 
 // ---------- UPDATE
