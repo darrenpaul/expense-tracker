@@ -1,6 +1,7 @@
+@import "@/assets/css/elements/card.scss";
+
 .dashboard-page {
     /* SIZE */
-    @apply h-full;
     /* MARGINS AND PADDING */
     /* LAYOUT */
     @apply flex flex-col;
@@ -12,23 +13,77 @@
 
 .dashboard-desktop-layout {
     /* SIZE */
-    @apply h-full;
+    @apply w-full h-[900px];
     /* MARGINS AND PADDING */
     /* LAYOUT */
-    @apply hidden md:grid grid-cols-12 grid-rows-2 gap-4;
+    @apply hidden laptop-lg:flex flex-wrap items-stretch;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .--row-group {
+        /* SIZE */
+        @apply w-full;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex gap-4;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
+}
+
+.dashboard-mobile-layout {
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    @apply mb-4;
+    /* LAYOUT */
+    @apply flex flex-col laptop-lg:hidden gap-4;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
     /* ANIMATION AND EFFECTS */
 }
 
-.dashboard-mobile-layout {
+.dashboard-progress-list {
+    @extend .card;
     /* SIZE */
+    @apply w-full h-full;
     /* MARGINS AND PADDING */
     /* LAYOUT */
-    @apply flex flex-col md:hidden gap-4;
+    @apply flex flex-col gap-3;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
     /* ANIMATION AND EFFECTS */
+}
+
+.dashboard-balance-card {
+    @extend .card;
+    /* SIZE */
+    @apply w-full min-w-[256px] min-h-[88px];
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex flex-row items-center justify-center;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    @apply text-center;
+    /* ANIMATION AND EFFECTS */
+}
+
+.dashboard-header-card {
+    @extend .dashboard-balance-card;
+    /* SIZE */
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex-col;
+    /* BORDERS */
+    /* COLORS */
+    @apply bg-transparent;
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+    @apply shadow-none drop-shadow-none;
 }

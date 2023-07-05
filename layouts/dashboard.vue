@@ -1,17 +1,13 @@
 <template>
-  <ClientOnly>
-    <main class="dashboard-layout-container">
-      <DashboardNavigation />
+  <main class="dashboard-layout-container">
+    <DashboardNavigation />
 
-      <section class="dashboard-layout-content">
-        <TransactionForm v-if="$route.query[TRANSACTION_FORM_ROUTE.queryKey]" />
-        <AccountForm v-else-if="$route.query[ACCOUNT_FORM_ROUTE.queryKey]" />
-        <slot v-else />
-      </section>
-
-      <!-- <ActionButtons /> -->
-    </main>
-  </ClientOnly>
+    <section class="dashboard-layout-content">
+      <TransactionForm v-if="$route.query[TRANSACTION_FORM_ROUTE.queryKey]" />
+      <AccountForm v-else-if="$route.query[ACCOUNT_FORM_ROUTE.queryKey]" />
+      <slot v-else />
+    </section>
+  </main>
 </template>
 
 <script setup lang="ts">

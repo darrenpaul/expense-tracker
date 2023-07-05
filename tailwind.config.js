@@ -37,6 +37,12 @@ module.exports = {
         modal: '999',
         notification: '9999',
       },
+      screens: {
+        tablet: '640px',
+        laptop: '1024px',
+        'laptop-lg': '1440px',
+        desktop: '1280px',
+      },
     },
   },
   plugins: [],

@@ -1,45 +1,32 @@
 <template>
   <div class="dashboard-desktop-layout">
-    <div class="col-span-9 flex flex-col gap-4">
-      <div class="grid grid-cols-6 w-full gap-4">
-        <div class="dashboard-header-card col-span-2">
+    <div class="w-full h-full flex flex-col gap-4 py-4">
+      <div class="--row-group">
+        <div class="dashboard-header-card">
           <h3>{{ COPY.dashboard }}</h3>
           <small>{{ props.title }}</small>
         </div>
 
-        <div class="col-span-2">
-          <DashboardBalanceCard />
-        </div>
-
-        <div class="col-span-2">
-          <DashboardDailySpendBalanceCard />
-        </div>
+        <DashboardBalanceCard />
+        <DashboardDailySpendBalanceCard />
       </div>
 
-      <div class="flex gap-4">
-        <DashboardBudgetList />
+      <div class="--row-group">
+        <DashboardTransactionList />
+        <DashboardAccountList />
 
+        <DashboardBudgetList />
         <DashboardGoalList />
       </div>
-    </div>
 
-    <div class="col-span-3">
-      <DashboardAccountList />
-    </div>
+      <div class="grid grid-cols-2 h-full gap-4">
+        <div class="card !p-0 !h-full pb-4">
+          <Chart :options="props.spendingTrendOptions" height="100%" />
+        </div>
 
-    <div class="col-span-3">
-      <div class="card !p-0">
-        <Chart :options="props.categoryUsageOptions" height="323px" />
-      </div>
-    </div>
-
-    <div class="col-span-3">
-      <DashboardTransactionList />
-    </div>
-
-    <div class="col-span-6">
-      <div class="card !p-0">
-        <Chart :options="props.spendingTrendOptions" height="323px" />
+        <div class="card !p-0 !h-full">
+          <Chart :options="props.categoryUsageOptions" height="100%" />
+        </div>
       </div>
     </div>
   </div>

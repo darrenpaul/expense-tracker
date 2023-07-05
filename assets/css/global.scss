@@ -10,7 +10,7 @@
 @import "./animation/vueTransitions.scss";
 @import "./animation/transforms.scss";
 // PAGES
-@import "./components/pages/dashboard.scss";
+@import "./pages/dashboard.scss";
 
 * {
     /* SIZE */
@@ -23,13 +23,15 @@
     /* ANIMATION AND EFFECTS */
 }
 
+html,
 body {
     /* SIZE */
+    @apply w-full h-full;
     /* MARGINS AND PADDING */
     /* LAYOUT */
     /* BORDERS */
     /* COLORS */
-    @apply bg-theme-background;
+    // @apply bg-theme-background;
     /* TEXT */
     /* ANIMATION AND EFFECTS */
 }
