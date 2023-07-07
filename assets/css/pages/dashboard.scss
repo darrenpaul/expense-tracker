@@ -13,7 +13,7 @@
 
 .dashboard-desktop-layout {
     /* SIZE */
-    @apply w-full h-[900px];
+    @apply w-full h-screen;
     /* MARGINS AND PADDING */
     /* LAYOUT */
     @apply hidden laptop-lg:flex flex-wrap items-stretch;

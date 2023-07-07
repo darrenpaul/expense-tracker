@@ -19,12 +19,12 @@
         <DashboardGoalList />
       </div>
 
-      <div class="grid grid-cols-2 h-full gap-4">
-        <div class="card !p-0 !h-full pb-4">
+      <div class="flex w-full h-full gap-4">
+        <div class="card !p-0 !w-full !h-auto">
           <Chart :options="props.spendingTrendOptions" height="100%" />
         </div>
 
-        <div class="card !p-0 !h-full">
+        <div class="card !w-full !h-auto !p-0">
           <Chart :options="props.categoryUsageOptions" height="100%" />
         </div>
       </div>
