@@ -1,12 +1,12 @@
 <template>
   <div class="dashboard-page">
-    <DashboardDesktopLayout
+    <DashboardLayoutDesktop
       :title="welcomeText"
       :category-usage-options="categoryUsageOptions"
       :spending-trend-options="spendingTrendOptions"
     />
 
-    <DashboardMobileLayout
+    <DashboardLayoutMobile
       :title="welcomeText"
       :category-usage-options="categoryUsageOptions"
       :spending-trend-options="spendingTrendOptions"
@@ -15,16 +15,16 @@
 </template>
 
 <script setup lang="ts">
-import DashboardDesktopLayout from '~~/components/pages/dashboard/pageLayout/DashboardDesktopLayout.vue'
-import DashboardMobileLayout from '~~/components/pages/dashboard/pageLayout/DashboardMobileLayout.vue'
 import { ITransaction } from '~~/types/transaction'
 import COPY from '~~/constants/copy/dashboard'
 import { useTransactions } from '~~/stores/transactions'
 import { useUserSettings } from '~~/stores/userSettings'
 import { useCategories } from '~~/stores/categories'
-import categoriesUsageTopThree from '~~/helpers/charts/categories/categoriesUsageTopThree'
-import spendingTrend from '~~/helpers/charts/transactions/spendingTrend'
 import { useProfile } from '~~/stores/profile'
+import spendingTrend from '~~/helpers/charts/transactions/spendingTrend'
+import DashboardLayoutDesktop from '~~/modules/dashboard/components/DashboardLayoutDesktop.vue'
+import DashboardLayoutMobile from '~~/modules/dashboard/components/DashboardLayoutMobile.vue'
+import categoriesUsageTopThree from '~~/helpers/charts/categories/categoriesUsageTopThree'
 
 definePageMeta({
   middleware: process.client ? 'auth' : undefined,
@@ -61,5 +61,5 @@ const spendingTrendOptions = computed(() => {
 </script>
 
 <style lang="scss">
-@import '~~/assets/css/pages/dashboard.scss';
+@import '~~/modules/dashboard/styles/dashboard.scss';
 </style>

@@ -3,7 +3,7 @@ import CategoryIcon from '~~/components/icons/dashboardNavigation/CategoryIcon.v
 export const CATEGORIES_ROUTE = {
   name: 'categories',
   displayName: 'Categories',
-  path: '/dashboard/categories',
+  path: '/categories',
   auth: true,
   icon: CategoryIcon,
 }

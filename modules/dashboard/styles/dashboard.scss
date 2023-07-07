@@ -15,12 +15,25 @@
     /* SIZE */
     @apply w-full h-screen;
     /* MARGINS AND PADDING */
+    @apply py-4;
     /* LAYOUT */
     @apply hidden laptop-lg:flex flex-wrap items-stretch;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
     /* ANIMATION AND EFFECTS */
+
+    .--main-wrapper {
+        /* SIZE */
+        @apply w-full;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply flex flex-col gap-4;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
 
     .--row-group {
         /* SIZE */
@@ -60,13 +73,13 @@
     /* ANIMATION AND EFFECTS */
 }
 
-.dashboard-balance-card {
+.dashboard-glance-card {
     @extend .card;
     /* SIZE */
     @apply w-full min-w-[256px] min-h-[88px];
     /* MARGINS AND PADDING */
     /* LAYOUT */
-    @apply flex flex-row items-center justify-center;
+    @apply flex flex-col items-center justify-center;
     /* BORDERS */
     /* COLORS */
     /* TEXT */
@@ -75,7 +88,7 @@
 }
 
 .dashboard-header-card {
-    @extend .dashboard-balance-card;
+    @extend .dashboard-glance-card;
     /* SIZE */
     /* MARGINS AND PADDING */
     /* LAYOUT */
@@ -86,4 +99,29 @@
     /* TEXT */
     /* ANIMATION AND EFFECTS */
     @apply shadow-none drop-shadow-none;
+}
+
+.dashboard-card-list {
+    @extend .card;
+    /* SIZE */
+    @apply w-full;
+    /* MARGINS AND PADDING */
+    /* LAYOUT */
+    @apply flex flex-col gap-3;
+    /* BORDERS */
+    /* COLORS */
+    /* TEXT */
+    /* ANIMATION AND EFFECTS */
+
+    .--list-wrapper {
+        /* SIZE */
+        @apply h-full;
+        /* MARGINS AND PADDING */
+        /* LAYOUT */
+        @apply grid grid-rows-3 gap-4;
+        /* BORDERS */
+        /* COLORS */
+        /* TEXT */
+        /* ANIMATION AND EFFECTS */
+    }
 }

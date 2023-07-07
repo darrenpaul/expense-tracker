@@ -3,7 +3,7 @@ import TransactionIcon from '~~/components/icons/TransactionIcon.vue'
 export const TRANSACTIONS_ROUTE = {
   name: 'transactions',
   displayName: 'Transactions',
-  path: '/dashboard/transactions',
+  path: 'transactions',
   auth: true,
   icon: TransactionIcon,
 }
@@ -11,6 +11,6 @@ export const TRANSACTIONS_ROUTE = {
 export const TRANSACTION_FORM_ROUTE = {
   name: 'transactionForm',
   displayName: 'Transaction Form',
-  path: '/dashboard/transactions',
+  path: 'transactions',
   queryKey: 'transaction',
 }

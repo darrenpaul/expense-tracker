@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import DashboardCardHeader from '~~/components/pages/dashboard/DashboardCardHeader.vue'
-import DashboardGoalCard from '~~/components/pages/dashboard/DashboardGoalCard.vue'
-import DashboardBudgetGoalCardSkeleton from '~~/components/pages/dashboard/DashboardBudgetGoalCardSkeleton.vue'
+import DashboardCardHeader from '~~/modules/dashboard/components/DashboardCardHeader.vue'
+import DashboardGoalCard from '~~/modules/dashboard/components/DashboardGoalCard.vue'
+import DashboardBudgetGoalCardSkeleton from '~~/modules/dashboard/components/DashboardBudgetGoalCardSkeleton.vue'
 import COPY from '~~/constants/copy/goals'
 import { GOALS_ROUTE } from '~~/constants/routes/goals'
 import { useGoals } from '~~/stores/goals'
